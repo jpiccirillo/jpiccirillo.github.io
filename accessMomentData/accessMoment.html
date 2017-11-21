@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Drive API Quickstart</title>
+    <meta charset='utf-8' />
+</head>
+
+<body>
+    <p>Drive API Quickstart</p>
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" style="display: none;">Authorize</button>
+    <button id="signout-button" style="display: none;">Sign Out</button>
+
+    <pre id="content"></pre>
+
+    <script type="text/javascript">
+        var fileId = '1MkvLGC0g9xYtmTOz8JNUSU5ITzuvn9XJHslwbPFWZzQ';
+        var dest = fs.createWriteStream('/tmp/photo.json');
+        drive.files.get({
+                fileId: fileId,
+                alt: 'media'
+            })
+            .on('end', function () {
+                console.log('Done');
+            })
+            .on('error', function (err) {
+                console.log('Error during download', err);
+            })
+            .pipe(dest);
+
+
+
+
+        // Client ID and API key from the Developer Console
+        var CLIENT_ID = '597343349429-focmi3b2lihpie8vf64e0gc2ovndp1jh.apps.googleusercontent.com';
+        var API_KEY = 'AIzaSyA4LEPknjS-AAPEeMjqDwYRWfwQJAVxJCk';
+
+        // Array of API discovery doc URLs for APIs used by the quickstart
+        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+
+        // Authorization scopes required by the API; multiple scopes can be
+        // included, separated by spaces.
+        var SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+
+        var authorizeButton = document.getElementById('authorize-button');
+        var signoutButton = document.getElementById('signout-button');
+
+        /**
+         *  On load, called to load the auth2 library and API client library.
+         */
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        /**
+         *  Initializes the API client library and sets up sign-in state
+         *  listeners.
+         */
+        function initClient() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
+            }).then(function () {
+                // Listen for sign-in state changes.
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+                //                    downloadFile(printFile('1MkvLGC0g9xYtmTOz8JNUSU5ITzuvn9XJHslwbPFWZzQ');
+                get_doc('1MkvLGC0g9xYtmTOz8JNUSU5ITzuvn9XJHslwbPFWZzQ');
+                // Handle the initial sign-in state.
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                authorizeButton.onclick = handleAuthClick;
+                signoutButton.onclick = handleSignoutClick;
+            });
+        }
+
+        /**
+         *  Called when the signed in status changes, to update the UI
+         *  appropriately. After a sign-in, the API is called.
+         */
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedIn) {
+                authorizeButton.style.display = 'none';
+                signoutButton.style.display = 'block';
+                listFiles();
+            } else {
+                authorizeButton.style.display = 'block';
+                signoutButton.style.display = 'none';
+            }
+        }
+
+        /**
+         *  Sign in the user upon button click.
+         */
+        function handleAuthClick(event) {
+            gapi.auth2.getAuthInstance().signIn();
+        }
+
+        /**
+         *  Sign out the user upon button click.
+         */
+        function handleSignoutClick(event) {
+            gapi.auth2.getAuthInstance().signOut();
+        }
+
+        /**
+         * Append a pre element to the body containing the given message
+         * as its text node. Used to display the results of the API call.
+         *
+         * @param {string} message Text to be placed in pre element.
+         */
+        function appendPre(message) {
+            var pre = document.getElementById('content');
+            var textContent = document.createTextNode(message + '\n');
+            pre.appendChild(textContent);
+        }
+
+        /**
+         * Print files.
+         */
+        function listFiles() {
+            gapi.client.drive.files.list({
+                'pageSize': 10,
+                'fields': "nextPageToken, files(id, name)"
+            }).then(function (response) {
+                appendPre('Files:');
+                var files = response.result.files;
+                if (files && files.length > 0) {
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        appendPre(file.name + ' (' + file.id + ')');
+                    }
+                } else {
+                    appendPre('No files found.');
+                }
+            });
+        }
+        //        printFile('1MkvLGC0g9xYtmTOz8JNUSU5ITzuvn9XJHslwbPFWZzQ');
+        /**
+         * Print a file's metadata.
+         *
+         * @param {String} fileId ID of the file to print metadata for.
+         */
+        //            function printFile(fileId) {
+        //                var request = gapi.client.drive.files.get({
+        //                    'fileId': fileId
+        //                });
+        //                request.execute(function (resp) {
+        //                    console.log('Title: ' + resp.title);
+        //                    console.log('Description: ' + resp.description);
+        //                    console.log('MIME type: ' + resp.mimeType);
+        //                });
+        //            }
+        //
+        //            /**
+        //             * Download a file's content.
+        //             *
+        //             * @param {File} file Drive File instance.
+        //             * @param {Function} callback Function to call when the request is complete.
+        //             */
+        //            function downloadFile(file, callback) {
+        //                if (file.downloadUrl) {
+        //                    var accessToken = gapi.auth.getToken().access_token;
+        //                    var xhr = new XMLHttpRequest();
+        //                    xhr.open('GET', 'https://www.googleapis.com/drive/v2/files/1MkvLGC0g9xYtmTOz8JNUSU5ITzuvn9XJHslwbPFWZzQ');
+        //                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        //                    xhr.onload = function () {
+        //                        callback(xhr.responseText);
+        //                    };
+        //                    xhr.onerror = function () {
+        //                        callback(null);
+        //                    };
+        //                    xhr.send();
+        //                } else {
+        //                    callback(null);
+        //                }
+        //            }
+
+        function get_doc(id) {
+            const url = 'https://www.googleapis.com/drive/v3/files/' + id + '?alt=media'
+            if (self.fetch) {
+                var setHeaders = new Headers();
+                setHeaders.append('Authorization', 'Bearer ' + authToken.access_token);
+                setHeaders.append('Content-Type', mime);
+
+                var setOptions = {
+                    method: 'GET',
+                    headers: setHeaders
+                };
+                fetch(url, setOptions)
+                    .then(response => {
+                        if (response.ok) {
+                            var reader = response.body.getReader();
+                            var decoder = new TextDecoder();
+                            reader.read().then(function (result) {
+                                var data = {}
+                                data = decoder.decode(result.value, {
+                                    stream: !result.done
+                                });
+                                console.log(data);
+                            });
+                        } else {
+                            console.log("Response wast not ok");
+                        }
+                    }).catch(error => {
+                        console.log("There is an error " + error.message);
+                    });
+            }
+        }
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+</body>
+
+</html>

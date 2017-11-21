@@ -1,0 +1,202 @@
+var applications = [],
+    modData = [],
+    groups = [],
+    dates = ['x'],
+    minuteCount = ['Screentime'],
+    pickupCount = ['Pickups'],
+    labels = ['Appstore', 'Bumble', 'Camera', 'Google Drive', 'Facebook', 'Fitbit', 'Gmail', 'Google Maps', 'Grindr', 'Hornet', 'Instagram', 'Maps', 'Messages', 'Messenger', 'Mint', 'Moment', 'Music', 'Notes', 'OK Cupid', 'Outlook', 'Phone', 'Reversee', 'Safari', 'Scruff', 'Settings', 'Snapchat'],
+    ramps = [
+        ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
+        ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
+        ['#006837', '#31a354', '#78c679', '#c2e699', '#ffffcc'], ];
+
+d3.queue()
+    .defer(d3.json, "moment_before.json")
+    .defer(d3.json, "moment.json")
+    .await(processJSONs);
+
+function processJSONs(error, data2, data1) {
+    data = function (array) {
+        var o = {};
+        array.forEach(function (a) {
+            Object.keys(a).forEach(function (k) {
+                o[k] = a[k];
+            });
+        });
+        return o;
+    }([data1, data2]);
+
+    for (var i = 0; i < labels.length; i++) {
+        applications.push([labels[i]]);
+    }
+
+    readData(data);
+    changeLabels();
+    makeGroups();
+    makeChart();
+}
+
+function compare(a, b) {
+    var a_avg = 0,
+        b_avg = 0;
+
+    for (var i = 1; i < a.length; i++) {
+        a_avg = a_avg + a[i]
+        b_avg = b_avg + b[i]
+
+    }
+    //        console.log(applications[0], (a_avg / (a.length - 1)));
+    if ((a_avg / a.length) < (b_avg / a.length)) {
+        return 1;
+    }
+    if ((a_avg / a.length) > (b_avg / a.length)) {
+        return -1;
+    } else return 0;
+}
+
+function readData(obj) {
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            var val = obj[key];
+        }
+        for (var i = 0; i < val.length; i++) {
+
+            //If appUsages subarray has length of 0 for a day, it means that battery screenshot failed 4 that day.  
+            //For these cases I manually paste data into moment_before.json.  Therefore, wrap code that generates 
+            //the arrays in an if loop to make sure that we're only writing days into the array for which there is
+            //data.
+            if (val[i].appUsages.length != 0) {
+
+                dates.push(val[i].date);
+                pickupCount.push(val[i].pickupCount);
+                minuteCount.push(val[i].minuteCount);
+                for (var k = 0; k < applications.length; k++) {
+                    var written = 0;
+                    for (var j = 0; j < val[i]["appUsages"].length; j++) {
+                        var app_name = val[i]["appUsages"][j]['appName']
+                        if (app_name == "Sc ruff") {
+                            app_name = "Scruff"
+                        }
+                        if (applications[k][0] == app_name) {
+                            var new_value = Math.floor(val[i]["appUsages"][j]['onScreen'])
+                                //                        var random_low_value = Math.floor((Math.random() * (5 - 0) + 0))
+
+                            //                        if (new_value < 2) {
+                            //                            new_value = random_low_value
+                            //                        }
+
+                            applications[k].push(new_value);
+                            var written = 1;
+                        }
+                    }
+
+                    if (written == 0) {
+                        applications[k].push(0);
+                        //                    applications[k].push(Math.floor((Math.random() * (5 - 0) + 0)));
+                    }
+                }
+            }
+
+        }
+    }
+    applications.sort(compare);
+    console.log(dates.length);
+    console.log(applications[0].length);
+    console.log(dates);
+    console.log(applications);
+}
+
+function makeGroups() {
+    for (var i = 0; i < 6; i++) {
+        groups.push(applications[i][0])
+    }
+}
+
+function changeLabels() {
+    for (var i = 0; i < applications.length; i++) {
+        if (applications[i][0] == "Grindr") {
+            applications[i][0] = "Tinder"
+        }
+        if (applications[i][0] == "Messages") {
+            applications[i][0] = "iMessage"
+        }
+    }
+}
+
+function makeChart() {
+    var chart = c3.generate({
+        data: {
+            x: 'x',
+            xFormat: '%Y-%m-%dT%H:%M:%S-%L:%S',
+            columns: [
+                dates,
+                applications[0],
+                applications[1],
+                applications[2],
+                applications[3],
+                applications[4],
+            ],
+            type: 'area-spline',
+            groups: [groups]
+        },
+        bar: {
+            width: {
+                ratio: 1 // this makes bar width 50% of length between ticks
+            }
+        },
+        point: {
+            show: false
+        },
+        legend: {
+            position: 'inset',
+            reverse: true
+        },
+        subchart: {
+            show: true
+        },
+        zoom: {
+            rescale: true
+        },
+        tooltip: {
+            format: {
+                value: function (value) {
+                    return value + " min"
+                },
+            }
+            //            value: d3.format(',') // apply this format to both y and y2
+        },
+        axis: {
+            x: {
+                extent: [dates[16], dates[1]],
+                type: 'timeseries',
+                tick: {
+                    //                    fit: false,
+                    format: '%m/%d',
+                    //                    rotate: -45,
+                    //                    multiline: false,
+                    culling: {
+                        max: window.innerWidth > 830 ? 36 : window.innerWidth >= 600 ? 14 : window.innerWidth < 500 ? 7 : 5
+                    }
+                },
+                padding: 0
+            },
+            y: {
+                padding: {
+                    bottom: 0
+                }
+            }
+        },
+        onresized: function () {
+            window.innerWidth > 830 ?
+                chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
+                    chart.internal.config.axis_x_tick_culling_max = 5)));
+        },
+        color: {
+            pattern: ramps[Math.floor((Math.random() * (3 - 0) + 0))]
+        },
+        padding: {
+            left: 25,
+            right: 15
+        }
+    });
+}

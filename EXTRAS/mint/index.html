@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>App Usage Over Time</title>
+    <!-- Load d3.js and c3.js -->
+    <link rel="stylesheet" href="c3.css">
+    <script src="c3.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.5/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+</head>
+
+<body>
+    <div>Summarize by:
+        <select id="bin">
+            <option value="Week">Week</option>
+            <option value="Date">Date</option>
+            <option value="Month">Month</option>
+        </select>
+        Initial Category:
+        <select id="menu_choice">
+            <option value="Restaurants">Restaurants</option>
+            <!--            <option value="Credit Card Payment">Credit Card Payment</option>-->
+            <option value="Income">Income</option>
+            <option value="Coffee Shops">Coffee Shops</option>
+            <option value="Alcohol & Bars">Alcohol/Bars</option>
+            <!--            <option value="Investing">Investing</option>-->
+            <option value="Utilities">Utilities</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Electronics & Software">Electronics and Software</option>
+            <option value="Gas & Fuel">Gas/Fuel</option>
+            <option value="Interest Income">Interest Income</option>
+            <option value="Mobile Phone">Mobile Phone</option>
+            <option value="Mortgage & Rent">Mortgage/Rent </option>
+            <option value="Epic Meal">Epic Food</option>
+            <option value="Fast Food">Fast Food</option>
+            <option value="Reimbursement">Reimbursement</option>
+        </select>
+        Compare with:
+        <select id="comparison_choice">
+            <option value="Restaurants">Restaurants</option>
+            <option value="Income">Income</option>
+            <option value="Coffee Shops">Coffee Shops</option>
+            <option value="Alcohol & Bars">Alcohol/Bars</option>
+            <!--            <option value="Investing">Investing</option>-->
+            <option value="Utilities">Utilities</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Electronics & Software">Electronics and Software</option>
+            <option value="Gas & Fuel">Gas/Fuel</option>
+            <option value="Interest Income">Interest Income</option>
+            <option value="Mobile Phone">Mobile Phone</option>
+            <option value="Mortgage & Rent">Mortgage/Rent </option>
+        </select>
+        Zoom to last:
+        <select id="change_zoom">
+            <option value="20736000000">8 months</option>
+            <option value="31104000000">12 months</option>
+            <option value="15552000000">6 months</option>
+            <option value="10368000000">4 months</option>
+            <option value="5184000000">2 months</option>
+        </select>
+        <button type="button" onclick="ClearPlot()">Clear Plot</button>
+    </div>
+    <!--
+    <div id="PieChart">
+        Piechart goes here
+    </div>
+-->
+    <div id="chart"></div>
+    <script src="mint.js"></script>
+</body>
+
+</html>

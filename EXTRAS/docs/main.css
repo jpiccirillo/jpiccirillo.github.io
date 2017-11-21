@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+body {
+    font-family: "Lato";
+    line-height: 1.5;
+    font-weight: 400;
+    /*    height: 500px;*/
+}
+
+.day {
+    fill: #fff;
+    stroke: slategrey;
+    stroke-width: .5px;
+}
+
+.month {
+    fill: none;
+    stroke: white;
+    stroke-width: 1px;
+}
+
+.year-title {
+    font-size: 18px;
+    letter-spacing: 10px;
+    fill: slategrey;
+}
+
+#info {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    font-size: 13px;
+}
+
+header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 33px;
+    width: 100%;
+    background: #ffff00;
+    opacity: 0.9;
+    z-index: 22;
+    background: darkgrey;
+    color: white;
+}
+
+#heatmap {
+    padding-top: 30px;
+    padding-left: 5px;
+    /*    height: 500px;*/
+}
+
+svg text {
+    font-size: 11px;
+    text-transform: uppercase;
+    fill: slategrey;
+}1
+
+section#heatmap {
+    height: 600px;
+}
