@@ -1,45 +1,20 @@
 <!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 
 <head>
-    <title>Editorial by HTML5 UP</title>
+    <title>Places / Jeffrey Piccirillo</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="assets/css/main.css" />
-    <script src="https://d3js.org/d3.v3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" charset="utf-8"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-    <script src="EXTRAS/d3websitefiles/highlight.min.js"></script>
-    <script type="text/javascript" src="js/iframeResizer.min.js"></script>
-    <style>
-        #wrap {
-            width: 600px;
-            height: 390px;
-            padding: 0;
-            overflow: hidden;
-        }
-        
-        #frame {
-            width: 800px;
-            height: 520px;
-            border: 1px solid black;
-        }
-        
-        #frame {
-            -ms-zoom: 0.75;
-            -moz-transform: scale(0.75);
-            -moz-transform-origin: 0 0;
-            -o-transform: scale(0.75);
-            -o-transform-origin: 0 0;
-            -webkit-transform: scale(0.75);
-            -webkit-transform-origin: 0 0;
-        }
-    </style>
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 </head>
-
-<style>
-    @import url("assets/css/style.css");
-</style>
 
 <body>
 
@@ -49,94 +24,229 @@
         <!-- Main -->
         <div id="main">
             <div class="inner">
-                <section>
 
-                    <!--                    <h2>Automatically resizing iFrame</h2>-->
-                    <div style="">
-                        <style>
-                            iframe {
-                                width: 1px;
-                                min-width: 100%;
-                            }
-                        </style>
-                        <h3 style="max-width: 95%; margin: auto; margin-top:-1em; margin-bottom: 1em">Main Landing Page</h3>
-                        <iframe id="hostingsite" src="assets/moment/index.html" scrolling="no" style="overflow: hidden;height: 400px;"></iframe>
-                        <script>
-                            iFrameResize({
-                                log: true
-                            }, '#hostingsite')
-                        </script>
+                <!-- Header -->
+                <!--
+                <header id="header">
+                                        <a href="index.html" class="logo"><strong>SideBar</strong> test</a>
+                    <ul class="icons">
+                        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+                        <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="icon fa-medium"><span class="label">Medium</span></a></li>
+                    </ul>
+                </header>
+-->
 
+                <!-- Banner -->
+                <!--
+                <section id="banner">
+                    <div class="content">
+                        <header>
+                            <h1>SideBar Test</h1>
+                            <p>A free and fully responsive site template</p>
+                        </header>
+                        <p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
+                        <ul class="actions">
+                            <li><a href="#" class="button big">Learn More</a></li>
+                        </ul>
                     </div>
-                    <p class="caption" style="font-weight: 500; max-width=100%, margin: auto"><i>To expose different areas of the dataset, drag/resize the grey area in the bottom plot.  Hover over top plot for detail about time on each app (actual data is randomized).</i>
-                    </p>
-
-                    <p id="callback">
-                    </p>
-                    <script type="text/javascript">
-                        //       
-                        iFrameResize({
-                            heightCalculationMethod: 'documentElementScroll'
-                        });
-                    </script>
-
-                    <section>
-                        <div class="features" style="margin-top:1em">
-                            <article>
-                                <div class="content">
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                            </article>
-                            <article>
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                            </article>
-                            <article>
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                            </article>
-                            <article>
-
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-                                <div class="content">
-
-                                    <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-                                </div>
-
-                            </article>
-                        </div>
-
-
-                        <!-- Section -->
-
-
-                    </section>
+                    <span class="image object">
+										<img src="images/pic10.jpg" alt="" />
+									</span>
                 </section>
+-->
+
+                <!-- Section -->
+                <section>
+                    <span class="image main"><img src="images/Places/Places-01.jpg" alt="" />
+                <p class="caption"><i>Sardis, Southwestern Turkey</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Dubai-06.JPG" alt="" />
+                <p class="caption"><i>Dubai, UAE</i></p></span>
+
+                    <span class="image main"><img src="images/Places/moab-06.JPG" alt="" />
+                <p class="caption"><i>Arches National Park, Utah</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-02.jpg" alt="" />
+                <p class="caption"><i>Islands of Vestmannaeyjar, Iceland</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-03.jpg" alt="" />
+                <p class="caption"><i>Jökulsárlón, Iceland</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-04.jpg" alt="" />
+                <p class="caption"><i>Eastfjords, Iceland</i></p></span>
+
+                    <span class="image main"><img src="images/Places/jeffrey-078.jpg" alt="" />
+                <p class="caption"><i>Milas, Turkey</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-07.jpg" alt="" />
+                <p class="caption"><i>Wadi Mujib, Southern Jordan</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-05.5.jpg" alt="" />
+                <p class="caption"><i>Aya Sofya, Istanbul</i></p></span>
+
+                    <span class="image mainvertical"><img src="images/Places/waterfall-1.jpg" alt="" />
+                <p class="caption"><i>Punch Bowl Falls, Oregon</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-06.jpg" alt="" />
+                <p class="caption"><i>Columbia River, Western Oregon</i></p></span>
+
+
+                    <span class="image main"><img src="images/Places/Places-08.jpg" alt="" />
+                <p class="caption"><i>Vik, Iceland</i></p></span>
+
+                    <span class="image main"><img src="images/Places/moab-12.JPG" alt="" />
+                <p class="caption"><i>Arches National Park</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-11.jpg" alt="" />
+                <p class="caption"><i>Southern California</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-09.jpg" alt="" />
+                <p class="caption"><i>Southern California</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-10.jpg" alt="" />
+                <p class="caption"><i>Canon Beach, Oregon</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-12.jpg" alt="" />
+                <p class="caption"><i>Wadi Rum, Southern Jordan</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-13.jpg" alt="" />
+                <p class="caption"><i>Houston, Texas</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-14.jpg" alt="" />
+                <p class="caption"><i>Coso Volcanic Field, California</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-15.jpg" alt="" />
+                <p class="caption"><i>Portland, Oregon</i></p></span>
+
+                    <span class="image mainvertical"><img src="images/Places/Places-16.jpg" alt="" />
+                <p class="caption"><i>Lava Tube, Southern California</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-17.jpg" alt="" />
+                <p class="caption"><i>Petra, Jordan</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-18.jpg" alt="" />
+                <p class="caption"><i>Las Cruces, New Mexico</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-19.jpg" alt="" />
+                <p class="caption"><i>Mount St Helens, Washington</i></p></span>
+
+                    <span class="image main"><img src="images/Places/Places-20.jpg" alt="" />
+                <p class="caption"><i>Amman, Jordan</i></p></span>
+
+                    <!--
+                    <header class="major">
+                        <h2>Erat lacinia</h2>
+                    </header>
+-->
+                    <!--<div class="features">
+    <article>
+        <span class="icon fa-diamond"></span>
+        <div class="content">
+            <h3>Portitor ullamcorper</h3>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+        </div>
+    </article>
+    <article>
+        <span class="icon fa-paper-plane"></span>
+        <div class="content">
+            <h3>Sapien veroeros</h3>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+        </div>
+    </article>
+    <article>
+        <span class="icon fa-rocket"></span>
+        <div class="content">
+            <h3>Quam lorem ipsum</h3>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+        </div>
+    </article>
+    <article>
+        <span class="icon fa-signal"></span>
+        <div class="content">
+            <h3>Sed magna finibus</h3>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+        </div>
+    </article>
+</div>-->
+                </section>
+                <!-- Section -->
+
+                <!--
+                <section>
+                    <header class="major">
+                        <h2>Ipsum sed dolor</h2>
+                    </header>
+                    <div class="posts">
+                        <article>
+                            <a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+                            <h3>Interdum aenean</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+                            <h3>Nulla amet dolore</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+                            <h3>Tempus ullamcorper</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+                            <h3>Sed etiam facilis</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
+                            <h3>Feugiat lorem aenean</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
+                            <h3>Amet varius aliquam</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+-->
+
             </div>
         </div>
 
         <!-- Sidebar -->
         <div id="sidebar">
             <div class="inner">
+
+                <!-- Search -->
+                <!--
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Search" />
+                    </form>
+                </section>
+-->
 
                 <!-- Menu -->
                 <nav id="menu">
@@ -159,14 +269,14 @@
                         </li>
                         <li>
                             <span class="opener">Programming</span>
-
                             <ul>
                                 <li><a href="#">Fitbit Sleep Visualization</a></li>
-                                <li><a href="mint.html">Mint Financial Data</a></li>
+                                <li><a href="#">Mint Financial Data</a></li>
                                 <li><a href="#">Computer Productivity</a></li>
                                 <li><a href="moment.html">App Usage</a></li>
                                 <li><a href="#">Physics Simulations</a></li>
                                 <li><a href="#">Weather Visualizations</a></li>
+
                             </ul>
                         </li>
                         <li style="color: grey;border-top: 0; margin-top: 2em"><a href="about.html">About</a></li>
@@ -174,50 +284,64 @@
                     </ul>
                 </nav>
 
+                <!-- Section -->
+                <!--
+                <section>
+    <header class="major">
+        <h2>Ante interdum</h2>
+    </header>
+    <div class="mini-posts">
+        <article>
+            <a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+        </article>
+        <article>
+            <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+        </article>
+        <article>
+            <a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+        </article>
+    </div>
+    <ul class="actions">
+        <li><a href="#" class="button">More</a></li>
+    </ul>
+</section>
+
+Section
+<section>
+    <header class="major">
+        <h2>Get in touch</h2>
+    </header>
+    <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+    <ul class="contact">
+        <li class="fa-envelope-o"><a href="#">information@untitled.tld</a></li>
+        <li class="fa-phone">(000) 000-0000</li>
+        <li class="fa-home">1234 Somewhere Road #8254
+            <br /> Nashville, TN 00000-0000</li>
+    </ul>
+</section>
+-->
+
+                <!-- Footer -->
+                <!--
+                <footer id="footer">
+                    <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                </footer>
+-->
 
             </div>
         </div>
+
     </div>
 
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
-    <!--[if lte IE 8]>
-                    <script src="assets/js/ie/respond.min.js"></script>
-                    <![endif]-->
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
-
-    <script>
-        var gist = {
-            "public": true,
-            "protocol": "http",
-            "sha": "61e82b46d962ed4e6acc215cd9c16a33f798eb9c",
-            "files": {
-                "d3_code_heatmap_cal.js": {
-                    "language": "JavaScript",
-                    "type": "application/javascript",
-                    "filename": "d3websitefiles/d3_code_heatmap_cal.js",
-                    "size": 7333,
-                    "sha": "485098654dc9f4f9a459b9b43704caff032711c6"
-                },
-                "heatmap_data.json": {
-                    "language": "JSON",
-                    "type": "application/json",
-                    "filename": "d3websitefiles/heatmap_data.json",
-                    "size": 97496,
-                    "sha": "3281cc711c68c9c2fe64c831f8b540f4fc363dee"
-                },
-                "main.css": {
-                    "language": "CSS",
-                    "type": "text/css",
-                    "filename": "d3websitefiles/main.css",
-                    "size": 760,
-                    "sha": "0ee2e940a3a85babba2962a655fa1d71ae80cabd"
-                },
-            },
-        };
-    </script>
 
 </body>
 
