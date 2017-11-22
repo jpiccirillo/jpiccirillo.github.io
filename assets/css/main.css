@@ -3526,7 +3526,7 @@
         text-indent: 7.5em;
         top: 0;
         width: 6em;
-        z-index: 10000;
+/*        z-index: 10000;*/
     }
     
     #sidebar .toggle:before {
@@ -3589,7 +3589,7 @@
             left: 0;
             position: fixed;
             top: 0;
-            z-index: 10000;
+/*            z-index: 10000;*/
         }
         #sidebar.inactive {
             box-shadow: none;
@@ -3636,13 +3636,13 @@
         }
         #sidebar .toggle:after {
             background: rgba(222, 225, 226, 0.75);
-            border-radius: 0.375em;
+            border-radius: 0.1875em;
             content: '';
-            height: 3.5em;
-            left: 1em;
+            height: 2.5em;
+            left: 1.5em;
             position: absolute;
-            top: 1em;
-            width: 5em;
+            top: 1.5em;
+            width: 4em;
         }
     }
     /* Header */
