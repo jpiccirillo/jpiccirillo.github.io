@@ -40,18 +40,15 @@ function compare(a, b) {
     var a_avg = 0,
         b_avg = 0;
 
-    for (var i = 1; i < a.length; i++) {
+    for (var i = a.length-8; i < a.length; i++) {
         a_avg = a_avg + a[i]
         b_avg = b_avg + b[i]
+    }
 
-    }
-    //        console.log(applications[0], (a_avg / (a.length - 1)));
-    if ((a_avg / a.length) < (b_avg / a.length)) {
-        return 1;
-    }
-    if ((a_avg / a.length) > (b_avg / a.length)) {
-        return -1;
-    } else return 0;
+    //Sort over last 8 days
+    if ((a_avg / 8) < (b_avg / 8)) { return 1; }
+    if ((a_avg / 8) > (b_avg / 8)) { return -1; }
+    else return 0;
 }
 
 function readData(obj) {
@@ -61,8 +58,8 @@ function readData(obj) {
         }
         for (var i = 0; i < val.length; i++) {
 
-            //If appUsages subarray has length of 0 for a day, it means that battery screenshot failed 4 that day.  
-            //For these cases I manually paste data into moment_before.json.  Therefore, wrap code that generates 
+            //If appUsages subarray has length of 0 for a day, it means that battery screenshot failed 4 that day.
+            //For these cases I manually paste data into moment_before.json.  Therefore, wrap code that generates
             //the arrays in an if loop to make sure that we're only writing days into the array for which there is
             //data.
             if (val[i].appUsages.length != 0) {
@@ -100,10 +97,10 @@ function readData(obj) {
         }
     }
     applications.sort(compare);
-    console.log(dates.length);
-    console.log(applications[0].length);
-    console.log(dates);
-    console.log(applications);
+    // console.log(dates.length);
+    // console.log(applications[0].length);
+    // console.log(dates);
+    // console.log(applications);
 }
 
 function makeGroups() {
