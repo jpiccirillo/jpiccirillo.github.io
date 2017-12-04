@@ -97,10 +97,10 @@ function readData(obj) {
         }
     }
     applications.sort(compare);
-    // console.log(dates.length);
-    // console.log(applications[0].length);
-    // console.log(dates);
-    // console.log(applications);
+    console.log(dates.length);
+    console.log(applications[0].length);
+    console.log(dates);
+    console.log(applications);
 }
 
 function makeGroups() {
