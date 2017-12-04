@@ -37,17 +37,18 @@ function processJSONs(error, data2, data1) {
 }
 
 function compare(a, b) {
-    var a_avg = 0,
-        b_avg = 0;
+    var a_total = 0,
+        b_total = 0;
+        len = a.length
 
-    for (var i = a.length-8; i < a.length; i++) {
-        a_avg = a_avg + a[i]
-        b_avg = b_avg + b[i]
+    for (var i = 1; i < a.length; i++) {
+        a_total += a[i]
+        b_total += b[i]
     }
 
-    //Sort over last 8 days
-    if ((a_avg / 8) < (b_avg / 8)) { return 1; }
-    if ((a_avg / 8) > (b_avg / 8)) { return -1; }
+    //Sort over entire length
+    if ((a_total / len) < (b_total / len)) {return 1;}
+    if ((a_total / len) > (b_total / len)) {return -1;}
     else return 0;
 }
 
@@ -93,29 +94,32 @@ function readData(obj) {
                     }
                 }
             }
-
         }
     }
-    applications.sort(compare);
-    console.log(dates.length);
-    console.log(applications[0].length);
-    console.log(dates);
+
+    applications = applications.sort(compare);
+    //    console.log(dates.length);
+    //    console.log(applications[0].length);
+    //    console.log(dates);
+    console.log(applications[0],
+                    applications[1],
+                    applications[2],
+                    applications[3],
+                    applications[4]);
     console.log(applications);
 }
 
 function makeGroups() {
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 5; i++) {
         groups.push(applications[i][0])
     }
+    console.log(groups)
 }
 
 function changeLabels() {
     for (var i = 0; i < applications.length; i++) {
-        if (applications[i][0] == "Grindr") {
-            applications[i][0] = "Tinder"
-        }
-        if (applications[i][0] == "Messages") {
-            applications[i][0] = "iMessage"
+        if (applications[i][0] == "Grindr") { applications[i][0] = "Tinder" }
+        if (applications[i][0] == "Messages") { applications[i][0] = "iMessage"
         }
     }
 }
@@ -131,7 +135,7 @@ function makeChart() {
                 applications[1],
                 applications[2],
                 applications[3],
-                applications[4],
+                applications[4]
             ],
             type: 'area-spline',
             groups: [groups]
