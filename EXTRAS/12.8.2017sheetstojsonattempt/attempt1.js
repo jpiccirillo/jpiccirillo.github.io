@@ -1,5 +1,5 @@
 var dates = ['x'],
-    distance = ['Distance walked'],
+    distance = ['Distance'],
     rows = new Array();
 
 bin_menu = d3.select("#bin").on("change", change_bin),
@@ -89,24 +89,38 @@ function makePlot(bucket) {
             }
         },
         axis: {
-            x: {
-                type: 'timeseries',
-                extent: bucket == "Week" ? [dates[24], dates[1]] : [dates[180], dates[1]],
-                tick: {
-                    fit: false,
-                    format: '%m/%d/%y',
-                    culling: {
-                        max: window.innerWidth > 830 ? 36 : window.innerWidth >= 600 ? 14 : window.innerWidth < 500 ? 7 : 5
-                    }
-                    // count:10
-                }
+        x: {
+            type: 'timeseries',
+            extent: bucket == "Week" ? [dates[24], dates[1]] : [dates[180], dates[1]],
+            tick: {
+                fit: false,
+                // culling: false,
+                format: '%m/%d/%y',
+                // culling: {
+                //     max: window.innerWidth > 830 ? 30 : window.innerWidth >= 600 ? 14 : window.innerWidth < 500 ? 7 : 5
+                // }
+                // count: bucket=="Week"?dates.length:Math.floor(dates.length/15)
             }
         },
-        onresized: function () {
-            window.innerWidth > 830 ?
-                chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
-                    chart.internal.config.axis_x_tick_culling_max = 5)));
+        y: {
+            tick: {
+                format: function(x) {
+                    return x + "mi"
+                }
+
+            },
         },
+    },
+    bar: {
+        width: {
+            // ratio: bucket=="Week" ? 1 : .4,
+        }
+    },
+    // onresized: function() {
+    //     window.innerWidth > 830 ?
+    //         chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
+    //             chart.internal.config.axis_x_tick_culling_max = 5)));
+    // },
         subchart: { show: true },
         point: { show: false },
         legend: { position: 'inset' },
@@ -131,7 +145,7 @@ function change_bin(bucket) {
 function makeArrays(nestedData2, bucket) {
     // console.log(columns);
     dates=['x']
-    distance=['Distance walked']
+    distance=['Distance']
     console.log(nestedData2);
     for (var i = 0, len = nestedData2.length; i < len; i++) {
         // console.log(new Date(nestedData2[i].key))
