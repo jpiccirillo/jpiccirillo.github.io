@@ -11,53 +11,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
     <script src="https://d3js.org/d3-queue.v3.min.js"></script>
-
-    <style type="text/css">
-        input.selector_left {
-            cursor: pointer;
-            border: 1px solid #E0E0E0;
-            border-top-left-radius: 7px;
-            border-bottom-left-radius: 7px;
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-
-        }
-
-        input.selector_center {
-            /*padding: 0px;*/
-            cursor: pointer;
-            border: 1px solid #E0E0E0;
-            border-radius: 0px;
-        }
-
-        input.selector_right {
-            margin-left: 0px;
-            cursor: pointer;
-            border: 1px solid #E0E0E0;
-            border-top-left-radius: 0px;
-            border-bottom-left-radius: 0px;
-            border-top-right-radius: 7px;
-            border-bottom-right-radius: 7px;
-        }
-
-        input.MyButton:hover {
-            color: #ffff00;
-            background: #000;
-            border: 1px solid #fff;
-        }
-        form {
-            display: inline;
-        }
-    </style>
 </head>
 
 <body>
-    <div>
-        <form id="bin">
-            <input class="selector_left" type="button" value="Day" onclick="window.location.href='http://www.hyperlinkcode.com/button-links.php'" />
-            <input class="selector_center" type="button" value="Week" onclick="window.change_bin()" />
-            <input class="selector_right" type="button" value="Month" />
-        </form>
+    <div>Summarize by:
+        <select id="bin">
+            <option value="Week">Week</option>
+            <option value="Date">Date</option>
+            <option value="Month">Month</option>
+        </select>
         Category:
         <select id="menu_choice">
             <option value="Coffee Shops">Coffee Shops</option>
@@ -77,7 +39,8 @@
             <option value="Epic Meal">Epic Food</option>
             <option value="Fast Food">Fast Food</option>
             <option value="Reimbursement">Reimbursement</option>
-        </select> Last:
+        </select>
+        Zoom to last:
         <select id="change_zoom">
             <option value="20736000000">8 months</option>
             <option value="31104000000">12 months</option>

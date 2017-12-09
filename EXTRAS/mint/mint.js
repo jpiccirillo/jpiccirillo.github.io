@@ -21,18 +21,7 @@ function getDateOfISOWeek(w, y) {
 function convertDate(d) {
     var parts = d.toString().split(" ");
     var months = {
-        Jan: "01",
-        Feb: "02",
-        Mar: "03",
-        Apr: "04",
-        May: "05",
-        Jun: "06",
-        Jul: "07",
-        Aug: "08",
-        Sep: "09",
-        Oct: "10",
-        Nov: "11",
-        Dec: "12"
+        Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06", Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12"
     };
     return months[parts[1]] + "/" + parts[2] + "/" + parts[3].slice(-2);
 };
@@ -210,13 +199,13 @@ function change_zoom() {
 
 var altKey;
 
-//            The general idea is, when a new category is chosen from the selector (generates a new choice, runs selectCatagory again, then runs replot), selectCatagory needs to create a new combined_unbinned which is specific to the choice (give it a dynamic name based on the choice selected), then feed that to nestedData and create a new nestedData array with a name that is specific to the most recent choice selected. This will then be fed into replot, which will create one new array (Plot_Amount), with the choice appended, do the unshift/slice stuff to prepare it for c3 to plot, then load it into the plot.  The big problem here is creating dynamic names for all the elements of the parsing/plotting process 
-//            
-////       Arrays that will need dynamic names so far that I can see: 
+//            The general idea is, when a new category is chosen from the selector (generates a new choice, runs selectCatagory again, then runs replot), selectCatagory needs to create a new combined_unbinned which is specific to the choice (give it a dynamic name based on the choice selected), then feed that to nestedData and create a new nestedData array with a name that is specific to the most recent choice selected. This will then be fed into replot, which will create one new array (Plot_Amount), with the choice appended, do the unshift/slice stuff to prepare it for c3 to plot, then load it into the plot.  The big problem here is creating dynamic names for all the elements of the parsing/plotting process
+//
+////       Arrays that will need dynamic names so far that I can see:
 //            combined_unbinned_(whatever was chosen)
 //            nestedData_(whatever was chosen)
 //            Plot_Amount_(whatever was chosen)
-// Process: 
+// Process:
 //      User selects new choice from dropdown menu
 //       - triggers "change" FUNCTION
 //           - change FUNCTION starts selectCatagory FUNCTION
@@ -224,11 +213,11 @@ var altKey;
 //              - creates array named "combined_unbinned_(whatever was chosen)", has all tx's with category = choice + all days for range of dataset
 //              - triggers "nestedData" FUNCTION
 //                          - nestedData FUNCTION sums by whatever time range user wants
-//                          - generates "nestedData_(whatever was chosen)", has category = choice data binned data by bin 
-//                          - nestedData calls drawplot FUNCTION if first time plotting, calls replot FUNCTION if 2nd or later time plotting 
-//               - change FUNCTION then calls replot FUNCTION, feeds off array named nestedData_(whatever was chosen) and variable choice 
+//                          - generates "nestedData_(whatever was chosen)", has category = choice data binned data by bin
+//                          - nestedData calls drawplot FUNCTION if first time plotting, calls replot FUNCTION if 2nd or later time plotting
+//               - change FUNCTION then calls replot FUNCTION, feeds off array named nestedData_(whatever was chosen) and variable choice
 //                   - Plot_Amount_(whatever was chosen) is created from nestedData_(whatever was chosen) using push method
-//                   - Plot_Amount_(whatever was chosen) is modified to have first element be variable choice 
+//                   - Plot_Amount_(whatever was chosen) is modified to have first element be variable choice
 //                   - chart.load with Plot_Amount
 
 var choicesarray = [];
@@ -267,7 +256,7 @@ function selectComparisonCatagory() {
 
 function selectCatagory() {
     //    var choicesarray = [];
-    var t = 2 //set t = 2 if overwrite plot 
+    var t = 2 //set t = 2 if overwrite plot
     filled_days = [];
     //CONSTRUCT ARRAY OF DATE AND AMOUNT OBJECT
     var choice = menu.property("value");
