@@ -10,9 +10,53 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
     <script src="https://d3js.org/d3-queue.v3.min.js"></script>
     <!-- <script src="jquery-3.2.1.min.js"></script> -->
+
+    <style type="text/css">
+        input.selector_left {
+            cursor: pointer;
+            border: 1px solid #E0E0E0;
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            /*float: right;*/
+
+        }
+        input.selector_right {
+            margin-left: 0px;
+            cursor: pointer;
+            border: 1px solid #E0E0E0;
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+            /*float:right;*/
+        }
+
+        input.MyButton:hover {
+            color: #ffff00;
+            background: #000;
+            border: 1px solid #fff;
+        }
+        form {
+
+            /*display: inline;*/
+            float: right;
+            clear: both;
+        }
+    </style>
+
 </head>
 
 <body>
+    <!-- <select id="bin">
+        <option value="Week">Week</option>
+        <option value="Day">Day</option>
+    </select> -->
+
+    <input class="selector_left" type="button" value="Day" onclick="change_bin('Day')" />
+    <input class="selector_right" type="button" value="Week" onclick="change_bin('Week')" />
+
     <div id="chart"></div>
     <script src="attempt1.js"></script>
 </body>

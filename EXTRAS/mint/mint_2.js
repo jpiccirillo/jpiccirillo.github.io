@@ -104,8 +104,7 @@ function process_csvs(error, csv_data, early_csv_data) {
 //  1) - detect which category and time series are selected currently, store in local variable
 //  2) - bucket time series first to generate a time-array of summed days (or weeks / months)
 //  3) - go through csv_data array and cherry pick values and put them in an intermediary array maybe?
-//  4)
-//  5)
+
 //  The purpose of this function is to take the current user selection (category and time-division),
 //  bucket the correct data from csv_data, and then add that bucketed data to finalDataDays[],
 //  finalDataWeeks[], or finalDataMonths[].
@@ -114,7 +113,7 @@ function bucketData(category, replot) {
     var bucket = bin_menu.property("value");
     if (replot == 0) {category = menu.property("value")}
 
-    //If switching bucket and categories already exist in other bucket, don't reparse everything.
+    //If switching bucket and categories already exist in other bucket, don't reparse everything
     if ((replot == 1) && checkDuplicates(category, bucket)) {return;}
 
     filled_days = [];
@@ -137,6 +136,7 @@ function bucketData(category, replot) {
 }
 
 function bin_data2(combined_unbinned, bucket, category) {
+
     nestedData2 = d3.nest()
         .key(function (d) {
             return d[bucket];
@@ -147,6 +147,8 @@ function bin_data2(combined_unbinned, bucket, category) {
             });
         })
         .entries(combined_unbinned);
+
+    console.log(combined_unbinned);
 
     for (i in finalDatesTotal) {
         // if the correct date array has only one entry (the initial label)
@@ -291,6 +293,11 @@ function modernDrawPlot(bucket,rezoom) {
                                     rotate: 75,
                 multiline: false,
             },
+        },
+        onresized: function () {
+            window.innerWidth > 830 ?
+                chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
+                    chart.internal.config.axis_x_tick_culling_max = 5)));
         },
         subchart: {
             show: true,
