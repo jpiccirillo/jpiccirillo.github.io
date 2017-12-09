@@ -19,7 +19,7 @@ function loadCSV() {
             rows = jsonData.rows;
         })
         .done(function() {
-            makePlot("Month");
+            makePlot("Day");
         });
 }
 
