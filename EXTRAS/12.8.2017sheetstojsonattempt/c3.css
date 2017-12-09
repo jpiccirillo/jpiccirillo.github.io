@@ -46,14 +46,22 @@
 /*-- Axis --*/
 
 
+
 /*-- Grid --*/
+.c3-ygrid-line.grid800 line {
+    stroke: #1d3618;
+}
+.c3-ygrid-line.grid800 text {
+    fill: #1d3618;
+}
 
 .c3-grid line {
-    stroke: #aaa;
+    stroke: #808080;
 }
 
 .c3-grid text {
-    fill: #aaa;
+    fill: black;
+    font-size: 1.15em;
 }
 
 .c3-xgrid,
@@ -73,7 +81,7 @@
 /*-- Line --*/
 
 .c3-line {
-    stroke-width: 2px;
+    stroke-width: 1.5px;
 }
 
 

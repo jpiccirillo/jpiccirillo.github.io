@@ -141,11 +141,14 @@ function makePlot(bucket) {
                 },
             },
         },
-        // onresized: function() {
-        //     window.innerWidth > 830 ?
-        //         chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
-        //             chart.internal.config.axis_x_tick_culling_max = 5)));
-        // },
+        grid: {
+        y: {
+            lines: [
+                {value: 5, text: '5mi goal', class: 'grid800'},
+            ]
+        }
+    },
+
         subchart: {
             show: true
         },
@@ -158,6 +161,9 @@ function makePlot(bucket) {
         zoom: {
             rescale: true
         },
+        color: {
+            pattern: ['#18540b'],
+        }
     });
 
 }
