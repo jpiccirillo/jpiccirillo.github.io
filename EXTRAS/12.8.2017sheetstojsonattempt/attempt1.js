@@ -80,7 +80,7 @@ function bin(bucket) {
     var nestedData2 = d3.nest()
         .key(function(d) {
             if (bucket == "Day") {
-                return d.date;
+                return d.date.replace(/-/g, '\/').replace(/T.+/, '');
             } else if (bucket == "Week") {
                 return getDateOfISOWeek(new Date(d.date).getWeek(), new Date(d.date).getYear() + 1900);
             } else {
@@ -199,7 +199,7 @@ function makeArrays(nestedData2, bucket) {
         oldDate = new Date(nestedData2[i].key),
             today = new Date();
         if ((oldDate <= today) && (nestedData2[i].values != 0)) {
-            dates.push(nestedData2[i].key);
+            dates.push(new Date(nestedData2[i].key));
             if (bucket == "Day") {
                 distance.push(nestedData2[i].values);
             } else if (bucket == "Week") {
@@ -211,7 +211,6 @@ function makeArrays(nestedData2, bucket) {
 
     }
     console.log(dates, distance);
-
 }
 
 // makeURL();
