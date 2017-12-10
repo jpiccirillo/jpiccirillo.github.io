@@ -11,7 +11,24 @@
     <script src="https://d3js.org/d3-queue.v3.min.js"></script>
     <!-- <script src="jquery-3.2.1.min.js"></script> -->
 
+
     <style type="text/css">
+        /*input.selector_center:active {
+            font-size: 18px;
+            border: 2px solid green;
+            border-radius: 100px;
+            width: 100px;
+            height: 100px;
+        }*/
+
+        /*input.selector_center:target {
+      font-size: 18px;
+      border: 2px solid red;
+      border-radius: 100px;
+      width: 100px;
+      height: 100px;
+    }*/
+
         input.selector_left {
             cursor: pointer;
             border: 1px solid #E0E0E0;
@@ -20,7 +37,6 @@
             border-top-right-radius: 0px;
             border-bottom-right-radius: 0px;
             /*float: right;*/
-
         }
 
         input.selector_center {
@@ -46,6 +62,7 @@
             background: #000;
             border: 1px solid #fff;
         }
+
         form {
 
             /*display: inline;*/
@@ -63,11 +80,20 @@
     </select> -->
 
     <input class="selector_left" type="button" value="Day" onclick="change_bin('Day')" />
-        <input class="selector_center" type="button" value="Week" onclick="change_bin('Week')"/>
+    <input class="selector_center" type="button" value="Week" onclick="change_bin('Week')" />
     <input class="selector_right" type="button" value="Month" onclick="change_bin('Month')" />
 
     <div id="chart"></div>
     <script src="attempt1.js"></script>
+<script>
+    $(document).ready(function() {
+        $('input.selector_left').css("background-color", "lightgrey");
+    });
+    $('input').click(function() {
+        $(this).css('background', 'lightgrey');
+        $(this).siblings().css('background', 'none');
+    })
+</script>
 </body>
 
 </html>
