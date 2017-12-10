@@ -2,7 +2,8 @@ var dates = ['x'],
     distance = ['Distance'],
     rows = new Array(),
     ramps = ['#FF5733', '#C70039', '#900C3F', '#581845'],
-    chosenramp =[ramps[Math.floor((Math.random() * (3 - 0) + 0))]]
+    chosenramp =[ramps[Math.floor((Math.random() * (3 - 0) + 0))]],
+    monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 function makeURL() {
     var base = 'http://gsx2json.com/api?id=',
@@ -105,7 +106,7 @@ function makePlot(bucket) {
     // console.log(dates, distance);
     var chart = c3.generate({
         data: {
-            type: (bucket == "Day" || bucket == "Week") ? 'area' : 'area-spline',
+            type: 'area',
             x: 'x',
             columns: [
                 distance,
@@ -114,6 +115,11 @@ function makePlot(bucket) {
         },
         tooltip: {
             format: {
+                title: function(x) {
+                    if (bucket=='Month') {return monthNames[x.getMonth()] + " " + x.getFullYear()}
+                    if (bucket=='Week') {return "Week of " + monthNames[x.getMonth()] + " " + convertDate(x).split('/')[1]}
+                    else {return (monthNames[x.getMonth()] + " " + convertDate(x).split('/')[1] + ", " + x.getFullYear())};
+                },
                 value: function(value) {
                     var format = d3.format(",.2f");
                     return format(value) + ' mi';
