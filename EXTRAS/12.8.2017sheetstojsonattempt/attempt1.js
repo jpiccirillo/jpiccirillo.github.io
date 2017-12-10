@@ -124,7 +124,7 @@ function makePlot(bucket) {
             x: {
                 type: 'timeseries',
                 extent: bucket == "Week" ? [dates[24], dates[1]] :
-                    (bucket == "Day" ? [dates[180], dates[1]] : [dates[6], dates[1]]),
+                    (bucket == "Day" ? [dates[180], dates[2]] : [dates[6], dates[1]]),
                 tick: {
                     fit: false,
                     // culling: false,
@@ -136,14 +136,14 @@ function makePlot(bucket) {
                 }
             },
             y: {
-                tick: {
-                    format: function(x) {
-                        return x + "mi"
-                    }
+                    tick: {
+                        format: function(x) {
+                            return x + "mi"
+                        }
 
+                    },
                 },
             },
-        },
         grid: {
             y: {
                 lines: [{
@@ -198,7 +198,7 @@ function makeArrays(nestedData2, bucket) {
         // console.log(new Date(nestedData2[i].key) < new Date())
         oldDate = new Date(nestedData2[i].key),
             today = new Date();
-        if ((oldDate <= today) && (nestedData2[i].values != 0)) {
+        if ((oldDate < today) && (nestedData2[i].values != 0)) {
             dates.push(new Date(nestedData2[i].key));
             if (bucket == "Day") {
                 distance.push(nestedData2[i].values);
