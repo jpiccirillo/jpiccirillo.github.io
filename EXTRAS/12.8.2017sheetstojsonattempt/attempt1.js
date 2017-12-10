@@ -1,22 +1,24 @@
 var dates = ['x'],
     distance = ['Distance'],
     rows = new Array(),
-    ramps = ['#FF5733', '#C70039', '#900C3F', '#581845']
+    ramps = ['#FF5733', '#C70039', '#900C3F', '#581845'],
+    chosenramp =[ramps[Math.floor((Math.random() * (3 - 0) + 0))]]
 
-    function makeURL() {
-        var base = 'http://gsx2json.com/api?id=',
-            key = '1flnZoRPq17SryqYN3xWC4AI4402DbO11_XHAF0c7Soo',
-            integers = 'false',
-            query = '2017-12-08',
-            rows = 'false'
+function makeURL() {
+    var base = 'http://gsx2json.com/api?id=',
+        key = '1flnZoRPq17SryqYN3xWC4AI4402DbO11_XHAF0c7Soo',
+        integers = 'false',
+        query = '2017-12-08',
+        rows = 'false'
 
-        url = base.concat(key, "&integers=", integers, "&rows=", rows);
-        console.log("Loading from: ", url)
-    }
+    url = base.concat(key, "&integers=", integers, "&columns=", rows);
+    console.log("Loading from: ", url)
+    return url;
+}
 
 function loadCSV() {
     //replace with 'url' when you're ready to call the data using a url again
-    $.getJSON('fitbit.json', function(jsonData) {
+    $.getJSON(makeURL(), function(jsonData) {
             rows = jsonData.rows;
         })
         .done(function() {
@@ -79,10 +81,10 @@ function bin(bucket) {
         .key(function(d) {
             if (bucket == "Day") {
                 return d.date;
-            } else if (bucket == "Month") {
-                return JFP_GetMonth(d.date);
+            } else if (bucket == "Week") {
+                return getDateOfISOWeek(new Date(d.date).getWeek(), new Date(d.date).getYear() + 1900);
             } else {
-                return getDateOfISOWeek(new Date(d.date).getWeek(), new Date(d.date).getYear() + 1900)
+                return JFP_GetMonth(d.date)
             }
         })
         .rollup(function(d) {
@@ -90,6 +92,7 @@ function bin(bucket) {
                 return g.distance * 0.621371;
             });
         }).entries(rows);
+
     // console.log(nestedData2)
     return nestedData2;
 }
@@ -102,7 +105,7 @@ function makePlot(bucket) {
     // console.log(dates, distance);
     var chart = c3.generate({
         data: {
-            type: (bucket == "Day"||bucket=="Week") ? 'area' : 'area-spline',
+            type: (bucket == "Day" || bucket == "Week") ? 'area' : 'area-spline',
             x: 'x',
             columns: [
                 distance,
@@ -121,8 +124,7 @@ function makePlot(bucket) {
             x: {
                 type: 'timeseries',
                 extent: bucket == "Week" ? [dates[24], dates[1]] :
-                (bucket == "Day" ? [dates[180], dates[1]] :
-                [dates[6], dates[1]]),
+                    (bucket == "Day" ? [dates[180], dates[1]] : [dates[6], dates[1]]),
                 tick: {
                     fit: false,
                     // culling: false,
@@ -143,12 +145,14 @@ function makePlot(bucket) {
             },
         },
         grid: {
-        y: {
-            lines: [
-                {value: 5, text: '5mi goal', class: 'grid800'},
-            ]
-        }
-    },
+            y: {
+                lines: [{
+                    value: 5,
+                    text: '5mi goal',
+                    class: 'grid800'
+                }, ]
+            }
+        },
 
         subchart: {
             show: true
@@ -163,7 +167,7 @@ function makePlot(bucket) {
             rescale: true
         },
         color: {
-            pattern: [ramps[Math.floor((Math.random() * (3 - 0) + 0))]],
+            pattern: chosenramp,
         }
     });
 
@@ -184,18 +188,18 @@ function change_bin(bucket) {
 
 
 function makeArrays(nestedData2, bucket) {
-    // console.log(columns);
+    console.log(nestedData2);
     dates = ['x']
     distance = ['Distance']
-    console.log(nestedData2);
+    // console.log(nestedData2);
     for (var i = 0, len = nestedData2.length; i < len; i++) {
         // console.log(new Date(nestedData2[i].key))
         // console.log(new Date())
         // console.log(new Date(nestedData2[i].key) < new Date())
         oldDate = new Date(nestedData2[i].key),
             today = new Date();
-        if ((oldDate < today) && (nestedData2[i].values != 0)) {
-            dates.push(oldDate);
+        if ((oldDate <= today) && (nestedData2[i].values != 0)) {
+            dates.push(nestedData2[i].key);
             if (bucket == "Day") {
                 distance.push(nestedData2[i].values);
             } else if (bucket == "Week") {
