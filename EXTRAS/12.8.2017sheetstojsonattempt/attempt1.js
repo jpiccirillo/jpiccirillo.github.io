@@ -1,6 +1,7 @@
 var dates = ['x'],
     distance = ['Distance'],
-    rows = new Array();
+    rows = new Array(),
+    ramps = ['#FF5733', '#C70039', '#900C3F', '#581845']
 
     function makeURL() {
         var base = 'http://gsx2json.com/api?id=',
@@ -162,7 +163,7 @@ function makePlot(bucket) {
             rescale: true
         },
         color: {
-            pattern: ['#18540b'],
+            pattern: [ramps[Math.floor((Math.random() * (3 - 0) + 0))]],
         }
     });
 
