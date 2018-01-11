@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Normal Plot</title>
+    <style type="text/css">
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        /*svg {
+            max-width: 100%;
+            max-height;
+            display: block;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }*/
+
+        svg path {
+            fill: steelblue;
+            stroke: black;
+            stroke-width: .5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 50">
+    <g id="wave">
+
+    </g>
+    </svg>
+</body>
+
+<script type="text/javascript">
+    var wave = document.getElementById('wave');
+
+    function makePath(points) {
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M 0,50 ' + points.join(' ') + ' 100,50 z');
+        path.setAttribute('transform', 'translate(0,0)');
+        wave.appendChild(path);
+    }
+
+    function plotOnBell(x, scale) {
+        console.log(x, scale)
+        //This is the real workhorse of this algorithm. It returns values along a bell curve from 0 - 1 - 0 with an input of 0 - 1.
+        var stdD = .05, mean = .5
+
+        if (scale) {
+            return 1 / ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2))));
+        } else {
+            return ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2)))) * plotOnBell(.5, true);
+        }
+    }
+
+    var step = 1;
+    var limit = 100;
+    var shapeAPoints = [];
+
+    for (i = step; i < limit; i += step) {
+        var plot = plotOnBell(i / limit);
+        shapeAPoints.push([i, 50 - (50 * plot)]);
+    }
+
+    console.log(shapeAPoints)
+    makePath(shapeAPoints);
+
+</script>
+</html>

@@ -4,7 +4,7 @@ var applications = [],
     dates = ['x'],
     minuteCount = ['Screentime'],
     pickupCount = ['Pickups'],
-    labels = ['Appstore', 'Bumble', 'Camera', 'Google Drive', 'Facebook', 'Fitbit', 'Gmail', 'Google Maps', 'Grindr', 'Hornet', 'Instagram', 'Maps', 'Messages', 'Messenger', 'Mint', 'Moment', 'Music', 'Notes', 'OK Cupid', 'Outlook', 'Phone', 'Reversee', 'Safari', 'Scruff', 'Settings', 'Snapchat'],
+    labels = ['Appstore', 'Bumble', 'Camera', 'Google Drive', 'Google Photos', 'Facebook', 'Fitbit', 'Gmail', 'Google Maps', 'Grindr', 'Hornet', 'Instagram', 'Maps', 'Messages', 'Messenger', 'Mint', 'Moment', 'Music', 'Notes', 'OK Cupid', 'Outlook', 'Phone', 'Photos', 'Reversee', 'Safari', 'Scruff', 'Settings', 'Snapchat', 'Uber', 'Lyft', 'Weather'],
     ramps = [
         ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
         ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
@@ -54,22 +54,32 @@ function compare(a, b) {
 
 function readData(obj) {
     for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
+        // if (obj.hasOwnProperty(key)) {
             var val = obj[key];
-        }
+        // }
         for (var i = 0; i < val.length; i++) {
 
             //If appUsages subarray has length of 0 for a day, it means that battery screenshot failed 4 that day.
             //For these cases I manually paste data into moment_before.json.  Therefore, wrap code that generates
             //the arrays in an if loop to make sure that we're only writing days into the array for which there is
-            //data.
-            if (val[i].appUsages.length != 0) {
+            //data. Since there is no day where I do not open up the messages app, I'll use the Message app being
+            //zero to indicate battery screenshot failure.
+            var hasData = false;
+            for (var j = 0; j < val[i]["appUsages"].length; j++) {
+                var app_name = val[i]["appUsages"][j]['appName']
+                if (app_name == "Messages") {
+                    hasData = true;
+                    break
+                }
+            }
 
+            if (hasData) {
                 dates.push(val[i].date);
                 pickupCount.push(val[i].pickupCount);
                 minuteCount.push(val[i].minuteCount);
                 for (var k = 0; k < applications.length; k++) {
                     var written = 0;
+
                     for (var j = 0; j < val[i]["appUsages"].length; j++) {
                         var app_name = val[i]["appUsages"][j]['appName']
                         if (app_name == "Sc ruff") {
@@ -93,6 +103,9 @@ function readData(obj) {
                         //                    applications[k].push(Math.floor((Math.random() * (5 - 0) + 0)));
                     }
                 }
+            }
+            else {
+                console.log("No application data found for: " + val[i].date)
             }
         }
     }

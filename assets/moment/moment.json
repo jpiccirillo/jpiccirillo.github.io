@@ -4,6 +4,1207 @@
       "sessions" : [
 
       ],
+      "minuteCount" : 20,
+      "pickupCount" : 85,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+
+      ],
+      "date" : "2018-01-10T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 182,
+      "pickupCount" : 339,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 108
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 48
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 32
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 26
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 21
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 15
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 11
+        },
+        {
+          "appName" : "Uber",
+          "onScreen" : 11
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 9
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 7
+        },
+        {
+          "appName" : "Fitbit",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Settings",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "App Store",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Lyft",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Music",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Notes",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Recently Deleted Apps",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Weather",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-09T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 80,
+      "pickupCount" : 180,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+
+      ],
+      "date" : "2018-01-08T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 188,
+      "pickupCount" : 362,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 90
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 40
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 20
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 18
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 18
+        },
+        {
+          "appName" : "Settings",
+          "onScreen" : 17
+        },
+        {
+          "appName" : "Uber",
+          "onScreen" : 12
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 11
+        },
+        {
+          "appName" : "Recently Deleted Apps",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "My Data Mgr",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Fitbit",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Yelp",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Outlook",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-07T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 148,
+      "pickupCount" : 213,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Grindr",
+          "onScreen" : 60
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 60
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 33
+        },
+        {
+          "appName" : "Phone",
+          "onScreen" : 27
+        },
+        {
+          "appName" : "My Data Mgr",
+          "onScreen" : 19
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 15
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 13
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 10
+        },
+        {
+          "appName" : "Uber",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 7
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Settings",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Facebook",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Translate",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-06T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 69,
+      "pickupCount" : 139,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 84
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 34
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 30
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 25
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 16
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 9
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 7
+        },
+        {
+          "appName" : "Uber",
+          "onScreen" : 7
+        },
+        {
+          "appName" : "Facebook",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Phone",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Settings",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Calendar",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Google Maps",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Lyft",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Messenger",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Sc ruff",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-05T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 141,
+      "pickupCount" : 284,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Grindr",
+          "onScreen" : 96
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 78
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 32
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 22
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Yelp",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-04T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 151,
+      "pickupCount" : 312,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Grindr",
+          "onScreen" : 78
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 29
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 27
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Messenger",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Music",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-03T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 171,
+      "pickupCount" : 286,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 84
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 72
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 41
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 35
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 10
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-02T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 163,
+      "pickupCount" : 345,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Grindr",
+          "onScreen" : 78
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 66
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 28
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 13
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Uber",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Venmo",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Lyft",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Zillow",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Messenger",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2018-01-01T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 149,
+      "pickupCount" : 215,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 102
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 27
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 26
+        },
+        {
+          "appName" : "Uber",
+          "onScreen" : 17
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 15
+        },
+        {
+          "appName" : "Fitbit",
+          "onScreen" : 12
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 9
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Uber Eats",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 7
+        },
+        {
+          "appName" : "Lyft",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "App Store",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Discover",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Google Maps",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Yelp",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-31T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 106,
+      "pickupCount" : 252,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Camera",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Notes",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Weather",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-30T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 66,
+      "pickupCount" : 181,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 55
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 28
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 21
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 15
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 14
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Lyft",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Fitbit",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Messenger",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Weather",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-29T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 111,
+      "pickupCount" : 332,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Messages",
+          "onScreen" : 138
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 53
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 31
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 30
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 5
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Weather",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Music",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-28T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 89,
+      "pickupCount" : 151,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Instagram",
+          "onScreen" : 32
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 28
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 18
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 15
+        },
+        {
+          "appName" : "Tumblr",
+          "onScreen" : 14
+        },
+        {
+          "appName" : "Phone",
+          "onScreen" : 11
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-27T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 125,
+      "pickupCount" : 220,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Fitbit",
+          "onScreen" : 35
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 34
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 34
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 28
+        },
+        {
+          "appName" : "Mint",
+          "onScreen" : 19
+        },
+        {
+          "appName" : "Instagram",
+          "onScreen" : 17
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 9
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 6
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Settings",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Wallet",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Weather",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "App Store",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Messenger",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Music",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-26T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 144,
+      "pickupCount" : 218,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+        {
+          "appName" : "Instagram",
+          "onScreen" : 58
+        },
+        {
+          "appName" : "Home & Lock Screen",
+          "onScreen" : 37
+        },
+        {
+          "appName" : "Google Photos",
+          "onScreen" : 26
+        },
+        {
+          "appName" : "Messages",
+          "onScreen" : 15
+        },
+        {
+          "appName" : "Safari",
+          "onScreen" : 13
+        },
+        {
+          "appName" : "Grindr",
+          "onScreen" : 9
+        },
+        {
+          "appName" : "Maps",
+          "onScreen" : 9
+        },
+        {
+          "appName" : "Messenger",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Tinder",
+          "onScreen" : 8
+        },
+        {
+          "appName" : "Camera",
+          "onScreen" : 4
+        },
+        {
+          "appName" : "Snapchat",
+          "onScreen" : 3
+        },
+        {
+          "appName" : "Fitbit",
+          "onScreen" : 2
+        },
+        {
+          "appName" : "Gmail",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Moment",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Music",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Photos",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Play Music",
+          "onScreen" : 1
+        },
+        {
+          "appName" : "Settings",
+          "onScreen" : 1
+        }
+      ],
+      "date" : "2017-12-25T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 36,
+      "pickupCount" : 48,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+
+      ],
+      "date" : "2017-12-24T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 0,
+      "pickupCount" : 2,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+
+      ],
+      "date" : "2017-12-23T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
+      "minuteCount" : 7,
+      "pickupCount" : 13,
+      "pickups" : [
+
+      ],
+      "appUsages" : [
+
+      ],
+      "date" : "2017-12-22T00:00:00-06:00"
+    },
+    {
+      "sessions" : [
+
+      ],
       "minuteCount" : 16,
       "pickupCount" : 79,
       "pickups" : [

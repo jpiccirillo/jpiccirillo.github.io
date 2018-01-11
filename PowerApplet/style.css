@@ -1,0 +1,13 @@
+svg {
+    border: solid 1px #aaa;
+}
+g {
+    isolation: isolate;
+}
+#rect_locked {
+    fill: #143d8d;
+    /*mix-blend-mode: screen;*/
+}
+#rect_free {
+    fill: #c70039;
+    mix-blend-mode: screen;
