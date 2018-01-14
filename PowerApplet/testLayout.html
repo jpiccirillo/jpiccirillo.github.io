@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <style>
+        .container {
+            width: 800px;
+            padding: 0px;
+            height: 300px;
+            font-family: OpenSans;
+            font-size: 14px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .graph {
+            width: 550px;
+            height: 100%;
+            display: block;
+        }
+
+        .minigraph {
+            height: 20%;
+            display: block;
+            background-color: lightgreen;
+        }
+
+        .maingraph {
+            height: 80%;
+            background-color: grey;
+        }
+
+        .controls {
+            background-color: #f1f1f1;
+            height: 100%;
+            width: 250px;
+            float: right;
+        }
+
+        .shell {
+            height: 198px;
+            width: 30px;
+            float: right;
+            background-color: red;
+            border-color: grey;
+            border-width: 1px;
+            border-style: solid;
+            margin: 10px;
+            text-align: center;
+            line-height: 120%;
+        }
+
+        .shell.left {
+            background-color: grey;
+        }
+
+        .shell.right {
+            background-color: pink;
+        }
+
+        #powercontrol {
+            background-color: #f1f1f1;
+            width: 100%;
+            height: 20%;
+            float: right;
+        }
+
+        #n-control {
+            background-color: #f1f1f1;
+            float: right;
+            width: 100%;
+            height: 60%;
+        }
+
+        .shell:hover {
+            cursor: row-resize;
+        }
+
+        .console {
+            margin: 10px;
+            width: 225px;
+            height: 67px;
+            font-family: courier;
+            font-size: 11px;
+            border-color: grey;
+            background-color: white;
+            border-width: 1px;
+            border-style: solid;
+            overflow: hidden;
+            padding-left: 5px;
+            padding-top: 3px;
+        }
+
+        .samplebutton {
+            text-align: center;
+            background-color: lightgrey;
+            width: 130px;
+            height: 29px;
+            margin: 10px;
+            line-height: 200%
+        }
+
+        .samplebutton:hover{
+            cursor: pointer;
+        }
+
+        #label {
+            width: 60px;
+        }
+
+        table {
+            table-layout: fixed;
+            max-width: 50%;
+            margin: 10px;
+            border-spacing: 0px;
+        }
+
+        td {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        input {
+            width: 100%;
+            margin: 0px;
+        }
+
+        input:focus {
+            outline: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="shell right">
+                <div id="powercontrol"><b><br><br><br><br>P<br>o<br>w<br>e<br>r</b></div>
+            </div>
+            <div class="shell left">
+                <div id="n-control"><b><br><br><br><br><br><br>n</b></div>
+            </div>
+            <table>
+                <tr>
+                    <td id="label">μ<sub>0</sub> = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                <tr>
+                    <td id="label">μ<sub>1</sub> = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                <!-- <tr>
+                    <td><br></td>
+                </tr> -->
+                <tr>
+                    <td id="label">σ = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                <tr>
+                    <td id="label">d = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                </tr>
+                <tr>
+                    <td id="label">α = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                </tr>
+                <tr>
+                    <td id="label">β = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                <tr>
+                    <td id="label">n = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+                <tr>
+                    <td id="label">Power = </td>
+                    <td><input type="text" name="mu0"></td>
+                </tr>
+            </table>
+            <div class="samplebutton">Sample</div>
+            <div class="console">Critical Mean Value = 102.60<br>Sample Mean = 114.30<br>p(z>9.05) = 0.00<br><br>Reject H<sub>0<sub></div>
+            <!-- <div class="console">Power must be a number between 0.00 and 1.00.</div> -->
+        </div>
+
+
+
+        <div class="graph">
+            <div class="minigraph">Top Bar</div>
+            <div class="maingraph">Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <br><br>
+        </div>
+    </div>
+</body>
+
+</html>
