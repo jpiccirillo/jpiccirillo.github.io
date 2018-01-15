@@ -21,22 +21,13 @@ $(function() {
 
 function setSliderTicks(el) {
     var $slider = $(el);
-    var max = $slider.slider("option", "max");
-    var min = $slider.slider("option", "min");
-    var spacing = 100 / (max - min);
-
     $slider.find('.ui-slider-tick-mark').remove();
-    for (var i = 1; i < 100; i += 5) {
-        if (i != 96) { //create all ticks but the last one
-            if ((i == 21) || (i==46) || (i==71)) {
-                $('<span class="ui-slider-tick-mark_large"></span>').css('bottom', (i + 1) + '%').appendTo(".shell");
-            } else {
-                $('<span class="ui-slider-tick-mark"></span>').css('bottom', (i + 2) + '%').appendTo(".shell");
-            }
+    for (var i = 1; i < 20; i++) {
+        if (i * 5 % 25 == 0) { //major ticks at 25,50,75 (% to find integrs divisible by 25)
+            $('<span class="ui-slider-tick-mark_large"></span>').css('bottom', (i * 5 - 2) + '%').appendTo(".shell");
+        } else {
+            $('<span class="ui-slider-tick-mark"></span>').css('bottom', (i * 5 - 1) + '%').appendTo(".shell");
         }
-        // for (var i = 0; i < 100; i++) {
-        //     $('<span class="ui-slider-tick-mark_large"></span>').css('top', (i) + '%').appendTo(".shell");
-        // }
     }
 }
 
@@ -83,21 +74,21 @@ function validate(e) {
     } else {
         $(".console").text("Valid values")
     }
+    if (power < 1) {
+        $("#power").val(parseFloat(power).toFixed(3))
+    } else {
+        num = 1;
+        $("#power").val(num.toFixed(3))
+        $(".console").text("Power cannot be greater than 1.0.")
+    }
+
     if (!$.isNumeric(samplesize)) {
         $("#samplesize").val("100")
         $(".console").text("Sample size must be numeric.")
     }
     if (!$.isNumeric(power)) {
-        num = 1;
+        num = .25;
         $("#power").val(num.toFixed(3))
         $(".console").text("Power must be numeric.")
     }
-    if (power > 1) {
-        num = 1;
-        $("#power").val(num.toFixed(3))
-        $(".console").text("Power cannot be greater than 1.0.")
-    }
-    // else {
-    //     $(".console").text("No values to display")
-    // }
 }
