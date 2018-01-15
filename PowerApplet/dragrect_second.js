@@ -21,11 +21,11 @@ $(function() {
         range: "min",
         min: 0,
         max: 1,
-        value: .6,
-        step: .1,
+        value: .600,
+        step: .001,
         slide: function(event, ui) {
             console.log("slider 2: " + ui.value)
-            $("#power").val(ui.value);
+            $("#power").val(ui.value.toFixed(3));
             $(ui.value).val($('#power').val());
             $(".console").text("Erasing console")
         }
@@ -63,11 +63,13 @@ function validate(e) {
         $(".console").text("Sample size must be numeric.")
     }
     if (!$.isNumeric(power)) {
-        $("#power").val("1.0")
+        num=1;
+        $("#power").val(num.toFixed(3))
         $(".console").text("Power must be numeric.")
     }
     if (power > 1) {
-        $("#power").val("1.0")
+        num=1;
+        $("#power").val(num.toFixed(3))
         $(".console").text("Power cannot be greater than 1.0.")
     }
     // else {
