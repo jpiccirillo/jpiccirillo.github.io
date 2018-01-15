@@ -5,29 +5,13 @@ $(function() {
         min: 0,
         max: 100,
         value: 10,
-        step: 5,
-
         slide: function(event, ui) {
-            console.log(ui.value)
+            console.log("slider 1: " + ui.value)
+            $("#power").val(ui.value);
+            $(ui.value).val($('#power').val());
         }
     });
-    $(".ui-slider-range-min").css("background-color", "lightblue");
-});
-
-$(function() {
-    $("#slider-vertical1_shadow").slider({
-        orientation: "vertical",
-        range: "min",
-        min: 0,
-        max: 100,
-        value: 10,
-        step: 5,
-
-        slide: function(event, ui) {
-            console.log(ui.value)
-        }
-    });
-    $(".ui-slider-range-min").css("background-color", "lightblue");
+    $(".ui-slider-range-min").css("background-color", "pink");
 });
 
 $(function() {
@@ -37,9 +21,26 @@ $(function() {
         min: 0,
         max: 100,
         value: 20,
-        step: 5,
         slide: function(event, ui) {
-            console.log(ui.value)
+            console.log("slider 2: " + ui.value)
+            $("#samplesize").val(ui.value);
+            $(ui.value).val($('#samplesize').val());
         }
     });
 });
+
+$("#samplesize").change(function() {
+    $("#slider-vertical1").slider("value", $(this).val())
+});
+
+$("#power").change(function() {
+    $("#slider-vertical2").slider("value", $(this).val())
+});
+
+function sample() {
+    console.log("Code to sample goes here:")
+    var random = Math.floor(Math.random() * (30 - 10 + 1) + 10);
+    var random2 = Math.floor(Math.random() * (30 - 10 + 1) + 10);
+    $("#mu0").val(random)
+    $("#mu1").val(random2)
+}

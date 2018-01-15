@@ -127,6 +127,9 @@
         input {
             width: 100%;
             margin: 0px;
+            text-align:right;
+            font-family:courier;
+            font-size:12px;
         }
 
         input:focus {
@@ -145,7 +148,7 @@
 
         .ui-slider-range-min {
             border-radius: 0px;
-            background-color: pink;
+            background-color: lightblue;
             width: 100%;
         }
 
@@ -175,19 +178,19 @@
     <div class="container">
         <div class="controls">
             <div class="shell left">
-                <div id="slider-vertical1"></div>
+                <div id="slider-vertical2"></div>
             </div>
             <div class="shell right">
-                <div id="slider-vertical2"></div>
+                <div id="slider-vertical1"></div>
             </div>
             <table>
                 <tr>
                     <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="mu0"></td>
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="mu1"></td>
                 </tr>
 
                 <tr>
@@ -210,14 +213,14 @@
                 </tr>
                 <tr>
                     <td id="label">n = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="samplesize" value="10"></td>
                 </tr>
                 <tr>
                     <td id="label">Power = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="power" value="30"></td>
                 </tr>
             </table>
-            <div class="samplebutton">Sample</div>
+            <div class="samplebutton" onclick="sample()">Sample</div>
             <div class="console">Critical Mean Value = 102.60<br>Sample Mean = 114.30<br>p(z>9.05) = 0.00<br><br>Reject H<sub>0<sub></div>
             <!-- <div class="console">Power must be a number between 0.00 and 1.00.</div> -->
         </div>
