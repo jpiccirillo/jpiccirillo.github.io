@@ -59,10 +59,11 @@
             border-style: solid;
             margin: 10px;
             text-align: center;
-            position:relative;
+            position: relative;
             /*line-height: 120%;*/
         }
-        .shell.right{
+
+        .shell.right {
             width:
         }
 
@@ -128,9 +129,9 @@
         input {
             width: 100%;
             margin: 0px;
-            text-align:right;
-            font-family:courier;
-            font-size:12px;
+            text-align: right;
+            font-family: courier;
+            font-size: 12px;
         }
 
         input:focus {
@@ -163,6 +164,7 @@
             height: 100%;
             text-align: center;
             cursor: row-resize;
+            overflow: hidden;
         }
 
         #slider-vertical2 {
@@ -170,8 +172,36 @@
             height: 100%;
             text-align: center;
             cursor: row-resize;
+            overflow:hidden;
         }
 
+        .ui-slider-tick-mark {
+            margin-left: -14px;
+            display: inline-block;
+            width: 1px;
+            background: grey;
+            height: 4px;
+            position: absolute;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .ui-slider-tick-mark_large {
+            margin-left: -12px;
+            display: inline-block;
+            width: 1px;
+            background: grey;
+            height: 8px;
+            position: absolute;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 
@@ -181,7 +211,7 @@
             <div class="shell left">
                 <div id="slider-vertical2"></div>
             </div>
-            <div class="shell right">
+            <div class="shell right" style="width:30px">
                 <div id="slider-vertical1"></div>
             </div>
             <table>
