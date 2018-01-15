@@ -19,12 +19,14 @@ $(function() {
         orientation: "vertical",
         range: "min",
         min: 0,
-        max: 100,
-        value: 20,
+        max: 1,
+        value: .6,
+        step: .1,
         slide: function(event, ui) {
             console.log("slider 2: " + ui.value)
             $("#power").val(ui.value);
             $(ui.value).val($('#power').val());
+            $(".console").text("")
         }
     });
 });
@@ -43,4 +45,19 @@ function sample() {
     var random2 = Math.floor(Math.random() * (30 - 10 + 1) + 10);
     $("#mu0").val(random)
     $("#mu1").val(random2)
+}
+
+function validate(e) {
+    // console.log(e.target.id)
+    var samplesize = $("#samplesize").val(),
+        power = $("#power").val()
+
+    if (samplesize > 100) {
+        $("#samplesize").val("100")
+        $(".console").text("Sample size cannot be greater than 100.")
+    }
+    if (power > 1) {
+        $("#power").val("1.0")
+        $(".console").text("Power cannot be greater than 1.0.")
+    }
 }

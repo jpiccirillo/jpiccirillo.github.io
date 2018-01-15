@@ -214,11 +214,11 @@
                 </tr>
                 <tr>
                     <td id="label">n = </td>
-                    <td><input type="text" id="samplesize" value="10"></td>
+                    <td><input type="text" id="samplesize" value="10" onchange="validate(event);"></td>
                 </tr>
                 <tr>
                     <td id="label">Power = </td>
-                    <td><input type="text" id="power" value="30"></td>
+                    <td><input type="text" id="power" value="0.6" onchange="validate(event);"></td>
                 </tr>
             </table>
             <div class="samplebutton" onclick="sample()">Sample</div>
