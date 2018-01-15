@@ -9,6 +9,7 @@ $(function() {
             console.log("slider 1: " + ui.value)
             $("#samplesize").val(ui.value);
             $(ui.value).val($('#samplesize').val());
+            $(".console").text("Erasing console")
         }
     });
     $(".ui-slider-range-min").css("background-color", "pink");
@@ -26,7 +27,7 @@ $(function() {
             console.log("slider 2: " + ui.value)
             $("#power").val(ui.value);
             $(ui.value).val($('#power').val());
-            $(".console").text("")
+            $(".console").text("Erasing console")
         }
     });
 });
@@ -48,16 +49,28 @@ function sample() {
 }
 
 function validate(e) {
-    // console.log(e.target.id)
     var samplesize = $("#samplesize").val(),
         power = $("#power").val()
 
     if (samplesize > 100) {
         $("#samplesize").val("100")
         $(".console").text("Sample size cannot be greater than 100.")
+    } else {
+        $(".console").text("Valid values")
+    }
+    if (!$.isNumeric(samplesize)) {
+        $("#samplesize").val("100")
+        $(".console").text("Sample size must be numeric.")
+    }
+    if (!$.isNumeric(power)) {
+        $("#power").val("1.0")
+        $(".console").text("Power must be numeric.")
     }
     if (power > 1) {
         $("#power").val("1.0")
         $(".console").text("Power cannot be greater than 1.0.")
     }
+    // else {
+    //     $(".console").text("No values to display")
+    // }
 }
