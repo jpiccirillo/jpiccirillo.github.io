@@ -6,13 +6,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <script type="text/javascript" src="bootstrap-slider.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     <style>
         .container {
             width: 800px;
             padding: 0px;
-            height: 300px;
-            font-family: OpenSans;
+            height: 310px;
+            font-family: Helvetica;
             font-size: 14px;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -21,7 +25,7 @@
         }
 
         .graph {
-            width: 550px;
+            width: 69%;
             height: 100%;
             display: block;
         }
@@ -40,53 +44,32 @@
         .controls {
             background-color: #f1f1f1;
             height: 100%;
-            width: 250px;
+            width: 31%;
             float: right;
+            position: relative;
         }
 
         .shell {
-            height: 198px;
-            width: 30px;
+            height: 207px;
+            width: 12%;
             float: right;
-            background-color: red;
+            /*background-color: red;*/
             border-color: grey;
             border-width: 1px;
             border-style: solid;
             margin: 10px;
             text-align: center;
-            line-height: 120%;
+            position:relative;
+            /*line-height: 120%;*/
         }
-
-        .shell.left {
-            background-color: grey;
-        }
-
-        .shell.right {
-            background-color: pink;
-        }
-
-        #powercontrol {
-            background-color: #f1f1f1;
-            width: 100%;
-            height: 20%;
-            float: right;
-        }
-
-        #n-control {
-            background-color: #f1f1f1;
-            float: right;
-            width: 100%;
-            height: 60%;
-        }
-
-        .shell:hover {
-            cursor: row-resize;
+        .shell.right{
+            width:
         }
 
         .console {
             margin: 10px;
-            width: 225px;
-            height: 67px;
+            width: 90%;
+            height: 66px;
             font-family: courier;
             font-size: 11px;
             border-color: grey;
@@ -96,28 +79,42 @@
             overflow: hidden;
             padding-left: 5px;
             padding-top: 3px;
+            bottom: 0%;
+            position: absolute;
         }
 
         .samplebutton {
             text-align: center;
             background-color: lightgrey;
-            width: 130px;
-            height: 29px;
+            width: 53%;
+            height: 24px;
             margin: 10px;
-            line-height: 200%
+            line-height: 180%;
+            vertical-align: middle;
+            bottom: 81px;
+            position: absolute;
         }
 
-        .samplebutton:hover{
+        .samplebutton:hover {
             cursor: pointer;
+        }
+
+        .samplebutton:active {
+            border-width: 1px;
+            border-style: solid;
+            border-color: grey;
+            background-color: #bdbdbd;
         }
 
         #label {
             width: 60px;
+            /*text-align: center;*/
         }
 
         table {
             table-layout: fixed;
             max-width: 50%;
+            height: calc(100% - 40px - 66px + 3px - 34px);
             margin: 10px;
             border-spacing: 0px;
         }
@@ -135,17 +132,53 @@
         input:focus {
             outline: 0;
         }
+
+        .inner {
+            position: absolute;
+            text-align: center;
+            font-family: helvetica;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .ui-slider-range-min {
+            border-radius: 0px;
+            background-color: pink;
+            width: 100%;
+        }
+
+        .ui-slider-vertical .ui-slider-range-min {
+            bottom: 0;
+            position: absolute;
+        }
+
+        #slider-vertical1 {
+            border-radius: 0px;
+            height: 100%;
+            text-align: center;
+            cursor: row-resize;
+        }
+
+        #slider-vertical2 {
+            border-radius: 0px;
+            height: 100%;
+            text-align: center;
+            cursor: row-resize;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="controls">
-            <div class="shell right">
-                <div id="powercontrol"><b><br><br><br><br>P<br>o<br>w<br>e<br>r</b></div>
-            </div>
             <div class="shell left">
-                <div id="n-control"><b><br><br><br><br><br><br>n</b></div>
+                <div id="slider-vertical1"></div>
+            </div>
+            <div class="shell right">
+                <div id="slider-vertical2"></div>
             </div>
             <table>
                 <tr>
@@ -156,9 +189,7 @@
                     <td id="label">μ<sub>1</sub> = </td>
                     <td><input type="text" name="mu0"></td>
                 </tr>
-                <!-- <tr>
-                    <td><br></td>
-                </tr> -->
+
                 <tr>
                     <td id="label">σ = </td>
                     <td><input type="text" name="mu0"></td>
@@ -191,8 +222,6 @@
             <!-- <div class="console">Power must be a number between 0.00 and 1.00.</div> -->
         </div>
 
-
-
         <div class="graph">
             <div class="minigraph">Top Bar</div>
             <div class="maingraph">Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -201,6 +230,7 @@
             <br><br>
         </div>
     </div>
+    <script type="text/javascript" src="dragrect_second.js"></script>
 </body>
 
 </html>

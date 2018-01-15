@@ -1,213 +1,84 @@
-var w = 750,
-    h = 450,
-    r = 120;
+d3.select("#addTo").remove();
 
-var isXChecked = true,
-    isYChecked = true;
+var width = d3.select('.shell').node().getBoundingClientRect().width - 2,
+    samplesizeheight = d3.select('.shell').node().getBoundingClientRect().height - 2,
+    powerheight = d3.select('.shell').node().getBoundingClientRect().height - 2,
+    dragbarw = 10;
 
-var width = 300,
-    height = 200,
-    dragbarw = 20;
-
-var drag = d3.behavior.drag()
+var dragsamplesize = d3.behavior.drag()
     .origin(Object)
-    .on("drag", dragmove);
+    .on("drag", tresizesamplesize);
 
-var dragright = d3.behavior.drag()
+var dragpower = d3.behavior.drag()
     .origin(Object)
-    .on("drag", rdragresize);
+    .on("drag", tresizepower);
 
-var dragleft = d3.behavior.drag()
-    .origin(Object)
-    .on("drag", ldragresize);
+var samplesize = d3.select(".shell.left").append("svg")
+    .attr("width", width)
+    .attr("height", samplesizeheight)
 
-var dragtop = d3.behavior.drag()
-    .origin(Object)
-    .on("drag", tdragresize);
+var power = d3.select(".shell.right").append("svg")
+    .attr("width", width)
+    .attr("height", powerheight)
 
-var dragbottom = d3.behavior.drag()
-    .origin(Object)
-    .on("drag", bdragresize);
+var samplesizeG = samplesize.append("g")
+    .data([{
+        x: 0,
+        y: 0
+    }]);
 
-var svg = d3.select("body").append("svg")
-    .attr("width", w)
-    .attr("height", h)
+var powerG = power.append("g")
+    .data([{
+        x: 0,
+        y: 0
+    }]);
 
-var newg = svg.append("g")
-      .data([{x: width / 2, y: height / 2}]);
+var rectSampleSize = samplesizeG.append("rect")
+    // .attr("id", "active")
+    .attr("y", function(d) {
+        return d.y;
+    })
+    .attr("height", samplesizeheight)
+    .attr("width", width)
+    .attr("fill", 'pink')
+    .attr("cursor", "row-resize")
+    .call(dragsamplesize);
 
-var dragrect = newg.append("rect")
-      .attr("id", "active")
-      .attr("x", function(d) { return d.x; })
-      .attr("y", function(d) { return d.y; })
-      .attr("height", height)
-      .attr("width", width)
-      .attr("fill-opacity", .5)
-      .attr("cursor", "move")
-      .call(drag);
+var rectPower = powerG.append("rect")
+    // .attr("id", "active")
+    .attr("y", function(d) {
+        return d.y;
+    })
+    .attr("height", powerheight)
+    .attr("width", width)
+    .attr("fill", 'grey')
+    .attr("cursor", "row-resize")
+    .call(dragpower);
 
-var dragbarleft = newg.append("rect")
-      .attr("x", function(d) { return d.x - (dragbarw/2); })
-      .attr("y", function(d) { return d.y + (dragbarw/2); })
-      .attr("height", height - dragbarw)
-      .attr("id", "dragleft")
-      .attr("width", dragbarw)
-      .attr("fill", "lightblue")
-      .attr("fill-opacity", .5)
-      .attr("cursor", "ew-resize")
-      .call(dragleft);
+function tresizesamplesize(d) {
 
-var dragbarright = newg.append("rect")
-      .attr("x", function(d) { return d.x + width - (dragbarw/2); })
-      .attr("y", function(d) { return d.y + (dragbarw/2); })
-      .attr("id", "dragright")
-      .attr("height", height - dragbarw)
-      .attr("width", dragbarw)
-      .attr("fill", "lightblue")
-      .attr("fill-opacity", .5)
-      .attr("cursor", "ew-resize")
-      .call(dragright);
+    var oldy = d.y;
+    console.log(d.y)
+    d.y = Math.max(0, Math.min(d.y + samplesizeheight - (dragbarw / 2), d3.event.y));
+    samplesizeheight = samplesizeheight + (oldy - d.y);
 
-var dragbartop = newg.append("rect")
-      .attr("x", function(d) { return d.x + (dragbarw/2); })
-      .attr("y", function(d) { return d.y - (dragbarw/2); })
-      .attr("height", dragbarw)
-      .attr("id", "dragleft")
-      .attr("width", width - dragbarw)
-      .attr("fill", "lightgreen")
-      .attr("fill-opacity", .5)
-      .attr("cursor", "ns-resize")
-      .call(dragtop);
-
-var dragbarbottom = newg.append("rect")
-      .attr("x", function(d) { return d.x + (dragbarw/2); })
-      .attr("y", function(d) { return d.y + height - (dragbarw/2); })
-      .attr("id", "dragright")
-      .attr("height", dragbarw)
-      .attr("width", width - dragbarw)
-      .attr("fill", "lightgreen")
-      .attr("fill-opacity", .5)
-      .attr("cursor", "ns-resize")
-      .call(dragbottom);
-
-function dragmove(d) {
-  if (isXChecked) {
-      dragrect
-          .attr("x", d.x = Math.max(0, Math.min(w - width, d3.event.x)))
-      dragbarleft
-          .attr("x", function(d) { return d.x - (dragbarw/2); })
-      dragbarright
-          .attr("x", function(d) { return d.x + width - (dragbarw/2); })
-      dragbartop
-          .attr("x", function(d) { return d.x + (dragbarw/2); })
-      dragbarbottom
-          .attr("x", function(d) { return d.x + (dragbarw/2); })
-  }
-  if (isYChecked) {
-      dragrect
-          .attr("y", d.y = Math.max(0, Math.min(h - height, d3.event.y)));
-      dragbarleft
-          .attr("y", function(d) { return d.y + (dragbarw/2); });
-      dragbarright
-          .attr("y", function(d) { return d.y + (dragbarw/2); });
-      dragbartop
-          .attr("y", function(d) { return d.y - (dragbarw/2); });
-      dragbarbottom
-          .attr("y", function(d) { return d.y + height - (dragbarw/2); });
-  }
+    rectSampleSize
+        .attr("y", function(d) {
+            return d.y;
+        })
+        .attr("height", samplesizeheight);
 }
 
-function ldragresize(d) {
-   if (isXChecked) {
-      var oldx = d.x;
-     //Max x on the right is x + width - dragbarw
-     //Max x on the left is 0 - (dragbarw/2)
-      d.x = Math.max(0, Math.min(d.x + width - (dragbarw / 2), d3.event.x));
-      width = width + (oldx - d.x);
-      dragbarleft
-        .attr("x", function(d) { return d.x - (dragbarw / 2); });
+function tresizepower(d) {
+    var oldy = d.y;
+    console.log(d.y)
+    // console.log(height)
+    d.y = Math.max(0, Math.min(d.y + powerheight - (dragbarw / 2), d3.event.y));
+    powerheight = powerheight + (oldy - d.y);
 
-      dragrect
-        .attr("x", function(d) { return d.x; })
-        .attr("width", width);
-
-     dragbartop
-        .attr("x", function(d) { return d.x + (dragbarw/2); })
-        .attr("width", width - dragbarw)
-     dragbarbottom
-        .attr("x", function(d) { return d.x + (dragbarw/2); })
-        .attr("width", width - dragbarw)
-  }
-}
-
-function rdragresize(d) {
-   if (isXChecked) {
-     //Max x on the left is x - width
-     //Max x on the right is width of screen + (dragbarw/2)
-     var dragx = Math.max(d.x + (dragbarw/2), Math.min(w, d.x + width + d3.event.dx));
-
-     //recalculate width
-     width = dragx - d.x;
-
-     //move the right drag handle
-     dragbarright
-        .attr("x", function(d) { return dragx - (dragbarw/2) });
-
-     //resize the drag rectangle
-     //as we are only resizing from the right, the x coordinate does not need to change
-     dragrect
-        .attr("width", width);
-     dragbartop
-        .attr("width", width - dragbarw)
-     dragbarbottom
-        .attr("width", width - dragbarw)
-  }
-}
-
-function tdragresize(d) {
-
-   if (isYChecked) {
-      var oldy = d.y;
-     //Max x on the right is x + width - dragbarw
-     //Max x on the left is 0 - (dragbarw/2)
-      d.y = Math.max(0, Math.min(d.y + height - (dragbarw / 2), d3.event.y));
-      height = height + (oldy - d.y);
-      dragbartop
-        .attr("y", function(d) { return d.y - (dragbarw / 2); });
-
-      dragrect
-        .attr("y", function(d) { return d.y; })
-        .attr("height", height);
-
-      dragbarleft
-        .attr("y", function(d) { return d.y + (dragbarw/2); })
-        .attr("height", height - dragbarw);
-      dragbarright
-        .attr("y", function(d) { return d.y + (dragbarw/2); })
-        .attr("height", height - dragbarw);
-  }
-}
-
-function bdragresize(d) {
-   if (isYChecked) {
-     //Max x on the left is x - width
-     //Max x on the right is width of screen + (dragbarw/2)
-     var dragy = Math.max(d.y + (dragbarw/2), Math.min(h, d.y + height + d3.event.dy));
-
-     //recalculate width
-     height = dragy - d.y;
-
-     //move the right drag handle
-     dragbarbottom
-        .attr("y", function(d) { return dragy - (dragbarw/2) });
-
-     //resize the drag rectangle
-     //as we are only resizing from the right, the x coordinate does not need to change
-     dragrect
-        .attr("height", height);
-     dragbarleft
-        .attr("height", height - dragbarw);
-     dragbarright
-        .attr("height", height - dragbarw);
-  }
+    rectPower
+        .attr("y", function(d) {
+            return d.y;
+        })
+        .attr("height", samplesizeheight);
 }
