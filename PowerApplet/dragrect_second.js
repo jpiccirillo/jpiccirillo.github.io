@@ -7,8 +7,8 @@ $(function() {
         value: 10,
         slide: function(event, ui) {
             console.log("slider 1: " + ui.value)
-            $("#power").val(ui.value);
-            $(ui.value).val($('#power').val());
+            $("#samplesize").val(ui.value);
+            $(ui.value).val($('#samplesize').val());
         }
     });
     $(".ui-slider-range-min").css("background-color", "pink");
@@ -23,8 +23,8 @@ $(function() {
         value: 20,
         slide: function(event, ui) {
             console.log("slider 2: " + ui.value)
-            $("#samplesize").val(ui.value);
-            $(ui.value).val($('#samplesize').val());
+            $("#power").val(ui.value);
+            $(ui.value).val($('#power').val());
         }
     });
 });
