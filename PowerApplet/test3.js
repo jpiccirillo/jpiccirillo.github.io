@@ -10,7 +10,7 @@ function makePath(points) {
 function plotOnBell(x, scale) {
     //This is the real workhorse of this algorithm. It returns values along a bell curve from 0 - 1 - 0 with an input of 0 - 1.
     scale = scale || false;
-    var stdD = .125
+    var stdD = .5
     var mean = .5
     if (scale) {
         return 1 / ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2))));

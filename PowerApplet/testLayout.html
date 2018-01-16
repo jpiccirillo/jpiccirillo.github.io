@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-    <script type="text/javascript" src="bootstrap-slider.js"></script>
+    <!-- <script type="text/javascript" src="bootstrap-slider.js"></script> -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
@@ -142,6 +142,8 @@
             position: absolute;
             text-align: center;
             font-family: helvetica;
+            color:grey;
+            width:100%;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -165,14 +167,21 @@
             text-align: center;
             cursor: row-resize;
             overflow: hidden;
+            display:flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #slider-vertical2 {
             border-radius: 0px;
             height: 100%;
+            /*position:relative;*/
             text-align: center;
             cursor: row-resize;
-            overflow:hidden;
+            overflow: hidden;
+            display:flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .ui-slider-tick-mark {
@@ -202,6 +211,9 @@
             -ms-transform: rotate(90deg);
             transform: rotate(90deg);
         }
+        .shell.right {
+            width: 30px;
+        }
     </style>
 </head>
 
@@ -209,10 +221,14 @@
     <div class="container">
         <div class="controls">
             <div class="shell left">
-                <div id="slider-vertical2"></div>
+                <div id="slider-vertical2">
+                    <div class="inner" id "label" style="z-index:100">P<br>o<br>w<br>e<br>r</div>
+                </div>
             </div>
-            <div class="shell right" style="width:30px">
-                <div id="slider-vertical1"></div>
+            <div class="shell right">
+                <div id="slider-vertical1">
+                    <div class="inner" id "label" style="z-index:100">n</div>
+                </div>
             </div>
             <table>
                 <tr>
@@ -240,7 +256,7 @@
                 </tr>
                 <tr>
                     <td id="label">β = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" value="0.400" id="effectsize"></td>
                 </tr>
                 <tr>
                     <td id="label">n = </td>

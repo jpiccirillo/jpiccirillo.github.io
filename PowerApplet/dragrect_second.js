@@ -5,6 +5,7 @@ $(function() {
         min: 0,
         max: 100,
         value: 10,
+        step:5,
         create: function(event, ui) {
             setSliderTicks(event.target);
         },
@@ -32,6 +33,7 @@ function setSliderTicks(el) {
 }
 
 $(function() {
+    power = $("#power").val();
     $("#slider-vertical2").slider({
         orientation: "vertical",
         range: "min",
@@ -43,6 +45,7 @@ $(function() {
             console.log("slider 2: " + ui.value)
             $("#power").val(ui.value.toFixed(3));
             $(ui.value).val($('#power').val());
+            $("#effectsize").val((1-$("#power").val()).toFixed(3))
             $(".console").text("Erasing console")
         }
     });
@@ -67,6 +70,7 @@ function sample() {
 function validate(e) {
     var samplesize = $("#samplesize").val(),
         power = $("#power").val()
+        zero = 0;
 
     if (samplesize > 100) {
         $("#samplesize").val("100")
@@ -76,9 +80,11 @@ function validate(e) {
     }
     if (power < 1) {
         $("#power").val(parseFloat(power).toFixed(3))
+        $("#effectsize").val((1-power).toFixed(3))
     } else {
-        num = 1;
-        $("#power").val(num.toFixed(3))
+        one = 1;
+        $("#power").val(one.toFixed(3))
+        $("#effectsize").val(zero.toFixed(3))
         $(".console").text("Power cannot be greater than 1.0.")
     }
 

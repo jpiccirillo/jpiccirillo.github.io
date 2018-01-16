@@ -8,32 +8,34 @@
         html {
             width: 100%;
             height: 100%;
-            padding: 0;
+            /*padding: 10px;*/
             margin: 0;
         }
-        /*svg {
+        svg {
             max-width: 100%;
-            max-height;
+            /*max-height;*/
             display: block;
             margin: auto;
             position: absolute;
             top: 0;
-            bottom: 0;
+            /*bottom: 100px;*/
             left: 0;
             right: 0;
-        }*/
-
-        svg path {
-            fill: steelblue;
-            stroke: black;
-            stroke-width: .5px;
         }
 
+        svg path {
+            /*bottom:100px;*/
+            padding:10px;
+            fill: lightblue;
+            stroke: grey;
+            stroke-width: .15px;
+            position:absolute;
+        }
     </style>
 </head>
 
 <body>
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 50">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
     <g id="wave">
 
     </g>
@@ -45,34 +47,41 @@
 
     function makePath(points) {
         var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M 0,50 ' + points.join(' ') + ' 100,50 z');
-        path.setAttribute('transform', 'translate(0,0)');
+        path.setAttribute('d', 'M ' + points.join(' ') + ' z');
+        path.setAttribute('transform', 'translate(0,20)');
         wave.appendChild(path);
     }
 
     function plotOnBell(x, scale) {
-        console.log(x, scale)
-        //This is the real workhorse of this algorithm. It returns values along a bell curve from 0 - 1 - 0 with an input of 0 - 1.
-        var stdD = .05, mean = .5
 
+        //This is the real workhorse of this algorithm. It returns values along a bell curve from 0 - 1 - 0 with an input of 0 - 1.
+        var stdD = 0.16,
+            mean = .5
+        var y = 0;
         if (scale) {
-            return 1 / ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2))));
+            y = 1 / ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2))));
+            // console.log(x, y.toFixed(4))
+            return y;
         } else {
-            return ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2)))) * plotOnBell(.5, true);
+            y = ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2)))) * plotOnBell(.5, true);
+            console.log(x.toFixed(2) + "\t" + (parseFloat(y)*100).toFixed(4))
+            return y;
         }
+
     }
 
-    var step = 1;
+    var step = .1;
     var limit = 100;
     var shapeAPoints = [];
 
     for (i = step; i < limit; i += step) {
         var plot = plotOnBell(i / limit);
+        // console.log(plot)
         shapeAPoints.push([i, 50 - (50 * plot)]);
     }
 
-    console.log(shapeAPoints)
+    // console.log(shapeAPoints)
     makePath(shapeAPoints);
-
 </script>
+
 </html>
