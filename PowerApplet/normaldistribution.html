@@ -1,0 +1,135 @@
+<HTML>
+
+<HEAD>
+    <title>JavaScript - Normal Distribution Function</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style type="text/css">
+        body,
+        html {
+            width: 50%;
+            height: 50%;
+            /*padding: 10px;*/
+            margin: 0;
+        }
+
+        svg {
+            max-width: 50%;
+            /*max-height;*/
+            display: block;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            /*bottom: 100px;*/
+            left: 300;
+            right: 0;
+        }
+
+        svg path {
+            /*bottom:100px;*/
+            padding: 10px;
+            fill: lightblue;
+            stroke: grey;
+            stroke-width: .15px;
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript">
+        function normalpdf(x, mu0, std) { //HASTINGS.  MAX ERROR = .000001
+            return Math.exp(-0.5 * Math.log(2 * Math.PI) - Math.log(std) - Math.pow(x - mu0, 2) / (2 * std * std));
+        }
+
+        function maxHeight(std) {
+            //Take std and calculate max height of page (std / sqrt(99)), save to var = maxHeight;
+            std_n = std / (Math.sqrt(99))
+            return normalpdf(mu0, mu0, std_n)
+        }
+
+        function makePath(points) {
+            $("path").remove()
+
+            var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+            // path.remove
+            //
+            // svg.removeChild("wave")
+            var wave = document.getElementById('wave');
+            path.setAttribute('d', 'M ' + points.join(' ') + ' z');
+            path.setAttribute('transform', 'translate(-20,0)');
+            wave.appendChild(path);
+
+        }
+
+        function remap(inputArray, newMin, newMax) {
+            oldMin = inputArray[0][0]
+            oldMax = inputArray[inputArray.length - 1][0]
+
+            for (i = 0; i < inputArray.length; i++) {
+                inputArray[i][0] = remapValue(inputArray[i][0], oldMin, oldMax, newMin, newMax)
+            }
+            console.log(inputArray)
+        }
+
+        function remapValue(value, low1, high1, low2, high2) {
+            return low2 + (value - low1) * (high2 - low2) / (high1 - low1)
+        }
+
+        function prepare(form) {
+            var wave = document.getElementById('wave');
+            mu0 = eval(form.mean.value)
+            std = eval(form.stdev.value)
+            n = eval(form.ssize.value)
+            std_n = std/Math.sqrt(n)
+            X = mu0 - 4 * std;
+            step = 8 * std / 200
+            windowHeight = maxHeight(std);
+            console.log(windowHeight)
+
+            firsthalf = [];
+            while (X < (mu0 + 4 * std)) {
+                pair = [];
+                pair.push(X)
+                pair.push(windowHeight - normalpdf(X, mu0, std_n));
+                firsthalf.push(pair)
+                X += step;
+            }
+            newMin = 0;
+            newMax = 200;
+            remap(firsthalf,newMin, newMax)
+            makePath(firsthalf);
+        }
+    </script>
+</HEAD>
+
+<body>
+    <!--//WORKFLOW (probably should be at least own function() in the .js file):
+    //Check to make sure that mu0 and mu1 and std are all valid values (call validate and only if validate returns //     true call calculate())
+    //
+    // Whenever std is changed and on page load:
+    // -> Take std and calculate max height of page (std / sqrt(99)), save to var = maxHeight;
+    //
+    // At this point, will probably write fine if all the values are positive, but we want to map
+    // the values to the graph window (or in more simple cases, to a blank page)
+    // ==> Can use d3.map? or is there a jquery function for this
+    //
+    // Implement Drag functionality, add style -->
+
+    <FORM><pre>
+              Mean: <INPUT TYPE="text" NAME="mean" Value="0"></INPUT>
+Standard Deviation: <INPUT TYPE="text" NAME="stdev" Value="1"></INPUT>
+        SampleSize: <INPUT TYPE="text" NAME="ssize" Value="50"></INPUT>
+
+<BR>
+Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
+                    <INPUT TYPE="button" VALUE="Calculate" ONCLICK="prepare(this.form)"></INPUT>
+                    </pre>
+    </FORM>
+    <div>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+        <g id="wave">
+
+        </g>
+        </svg>
+    </div>
+</body>
+
+</HTML>

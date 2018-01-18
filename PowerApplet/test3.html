@@ -3,85 +3,203 @@
 
 <head>
     <title>Normal Plot</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
     <style type="text/css">
         body,
         html {
-            width: 100%;
-            height: 100%;
+            width: 1000px;
+            height: 1000px;
             /*padding: 10px;*/
             margin: 0;
         }
+
         svg {
-            max-width: 100%;
+            max-width: 2000px;
             /*max-height;*/
-            display: block;
+            /*display: block;*/
             margin: auto;
             position: absolute;
             top: 0;
             /*bottom: 100px;*/
-            left: 0;
+            left: 300px;
             right: 0;
         }
 
         svg path {
             /*bottom:100px;*/
-            padding:10px;
-            fill: lightblue;
+            /*padding: 0px;*/
+            /*fill: lightblue;*/
             stroke: grey;
-            stroke-width: .15px;
-            position:absolute;
+            cursor: move;
+            /*stroke-width: 2px;*/
+            /*position: absolute;*/
         }
     </style>
 </head>
 
 <body>
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
-    <g id="wave">
+    <FORM><pre>
+              Mean0: <INPUT TYPE="text" NAME="mean0" id="mean0" Value="0"></INPUT>
+              Mean1: <INPUT TYPE="text" NAME="mean1" id="mean1" Value="10"></INPUT>
+Standard Deviation: <INPUT TYPE="text" NAME="stdev" Value="6"></INPUT>
+        SampleSize: <INPUT TYPE="text" NAME="ssize" Value="5"></INPUT>
 
-    </g>
-    </svg>
+<BR>
+Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
+                    <INPUT TYPE="button" VALUE="Calculate" ONCLICK="prepare(this.form)"></INPUT>
+                    </pre>
+    </FORM>
+    <!-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" id="svg"> -->
+    <!-- </svg> -->
 </body>
 
 <script type="text/javascript">
-    var wave = document.getElementById('wave');
+    var wave = document.getElementById('svg');
 
-    function makePath(points) {
+    function makePath(points, name) {
+        name = "\"".concat(name).concat("\"");
+        $("path").remove()
         var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', 'M ' + points.join(' ') + ' z');
-        path.setAttribute('transform', 'translate(0,20)');
+        path.setAttribute('transform', 'translate(20,0)');
         wave.appendChild(path);
     }
 
-    function plotOnBell(x, scale) {
+    function remap(inputArray, newMin, newMax, orientation) {
+        if (orientation == "x") {
+            oldMin = inputArray[0][0]
+            oldMax = inputArray[inputArray.length - 1][0]
 
-        //This is the real workhorse of this algorithm. It returns values along a bell curve from 0 - 1 - 0 with an input of 0 - 1.
-        var stdD = 0.16,
-            mean = .5
-        var y = 0;
-        if (scale) {
-            y = 1 / ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2))));
-            // console.log(x, y.toFixed(4))
-            return y;
-        } else {
-            y = ((1 / (stdD * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -1 * Math.pow(x - mean, 2) / (2 * Math.pow(stdD, 2)))) * plotOnBell(.5, true);
-            console.log(x.toFixed(2) + "\t" + (parseFloat(y)*100).toFixed(4))
-            return y;
+            for (i = 0; i < inputArray.length; i++) {
+                inputArray[i][0] = remapValue(inputArray[i][0], oldMin, oldMax, newMin, newMax)
+            }
+            // console.log(inputArray)
         }
-
+        // else {
+        //     oldMin = inputArray[0][1]
+        //     oldMax = inputArray[inputArray.length - 1][1]
+        //
+        //     for (i = 0; i < inputArray.length; i++) {
+        //         inputArray[i][1] = remapValue(inputArray[i][1], oldMin, oldMax, newMin, newMax)
+        //     }
+        //     // console.log(inputArray)
+        // }
     }
 
-    var step = .1;
-    var limit = 100;
-    var shapeAPoints = [];
-
-    for (i = step; i < limit; i += step) {
-        var plot = plotOnBell(i / limit);
-        // console.log(plot)
-        shapeAPoints.push([i, 50 - (50 * plot)]);
+    function remapValue(value, low1, high1, low2, high2) {
+        return low2 + (value - low1) * (high2 - low2) / (high1 - low1)
     }
 
-    // console.log(shapeAPoints)
-    makePath(shapeAPoints);
+    function normalpdf(x, mu0, std) { //HASTINGS.  MAX ERROR = .000001
+        return (Math.exp(-0.5 * Math.log(2 * Math.PI) - Math.log(std) - Math.pow(x - mu0, 2) / (2 * std * std))).toFixed(7);
+    }
+
+    function maxHeight(std, mu0) {
+        //Take std and calculate max height of page (std / sqrt(99)), save to var = maxHeight;
+        std_n = std / (Math.sqrt(100))
+        return normalpdf(mu0, mu0, std_n) * 1.2
+    }
+
+    function prepare(form) {
+        var wave = document.getElementById('wave');
+        mu0 = eval(form.mean0.value)
+        mu1 = eval(form.mean1.value)
+        std = eval(form.stdev.value)
+        n = eval(form.ssize.value);
+        std_n = std / Math.sqrt(n)
+        // console.log("standarddev/(sqrt(n)", std_n)
+        step = 8 * std / 100
+        windowHeight = maxHeight(std, mu0);
+        console.log(windowHeight)
+
+        firsthalf = [];
+        i = 0;
+        for (var x = mu0 - 4 * std; x < mu0 + 4 * std; x += step) {
+            firsthalf[i] = {
+                x: x * 20,
+                y: normalpdf(x, mu0, std / (Math.sqrt(n))) * 400
+            };
+            i++;
+        }
+        console.log(firsthalf)
+        secondhalf = [];
+        i = 0;
+        for (var x = mu1 - 4 * std; x < mu1 + 4 * std; x += step) {
+            // if ((i == 0) || (i == 99)) {
+            //     secondhalf[i] = {
+            //         x: (x - step) * 20,
+            //         y: 0
+            //     };
+            // } else
+            {
+                secondhalf[i] = {
+                    x: x * 20,
+                    y: normalpdf(x, mu1, std / (Math.sqrt(n))) * 400
+                };
+            }
+            i++;
+        }
+        console.log(secondhalf)
+
+        //This is the accessor function we talked about above
+        var dist1 = d3.svg.line()
+            .x(function(d) {
+                return d.x;
+            })
+            .y(function(d) {
+                return d.y;
+            })
+            .interpolate("cardinal");
+
+        var dist2 = d3.svg.line()
+            .x(function(d) {
+                return d.x;
+            })
+            .y(function(d) {
+                return d.y;
+            })
+            .interpolate("cardinal");
+
+        var drag = d3.behavior.drag()
+            .on("drag", function(d, i) {
+                d.x += d3.event.dx
+                d3.select(this).attr("transform", function(d, i) {
+                    return "translate(" + [d.x, 0] + ")"
+                })
+                if (d3.select(this).attr("fill") == "pink") {
+                    $("#mean1").val(d.x)
+                } else {
+                    $("#mean0").val(d.x)
+                }
+            });
+        //The SVG Container
+        var svgContainer = d3.select("body").append("svg")
+            .attr("width", 600)
+            .attr("height", 400);
+
+        $("path").remove()
+        var plot1 = svgContainer.append("path")
+            .data([{
+                "x": 10,
+                "y": 30
+            }])
+            .attr("fill", "lightblue")
+            .attr("stroke-width", 2)
+            .attr("d", dist1(firsthalf))
+            .call(drag);
+
+        var plot2 = svgContainer.append("path")
+            .data([{
+                "x": 10,
+                "y": 30
+            }])
+            .attr("fill", "pink")
+            .attr("stroke-width", 2)
+            .attr("d", dist2(secondhalf))
+            .call(drag);
+
+    }
 </script>
 
 </html>

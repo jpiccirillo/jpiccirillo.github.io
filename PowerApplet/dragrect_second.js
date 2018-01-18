@@ -17,7 +17,7 @@ $(function() {
             $(".console").text("Erasing console")
         }
     });
-    $(".ui-slider-range-min").css("background-color", "pink");
+    $(".ui-slider-range-min").css("background-color", "lightgrey");
 });
 
 function setSliderTicks(el) {
