@@ -55,16 +55,6 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
 </body>
 
 <script type="text/javascript">
-    var wave = document.getElementById('svg');
-
-    function makePath(points, name) {
-        name = "\"".concat(name).concat("\"");
-        $("path").remove()
-        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', 'M ' + points.join(' ') + ' z');
-        path.setAttribute('transform', 'translate(20,0)');
-        wave.appendChild(path);
-    }
 
     function remap(inputArray, newMin, newMax, orientation) {
         if (orientation == "x") {
@@ -74,17 +64,7 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
             for (i = 0; i < inputArray.length; i++) {
                 inputArray[i][0] = remapValue(inputArray[i][0], oldMin, oldMax, newMin, newMax)
             }
-            // console.log(inputArray)
         }
-        // else {
-        //     oldMin = inputArray[0][1]
-        //     oldMax = inputArray[inputArray.length - 1][1]
-        //
-        //     for (i = 0; i < inputArray.length; i++) {
-        //         inputArray[i][1] = remapValue(inputArray[i][1], oldMin, oldMax, newMin, newMax)
-        //     }
-        //     // console.log(inputArray)
-        // }
     }
 
     function remapValue(value, low1, high1, low2, high2) {
@@ -102,12 +82,12 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
     }
 
     function prepare(form) {
-        var wave = document.getElementById('wave');
         mu0 = eval(form.mean0.value)
         mu1 = eval(form.mean1.value)
         std = eval(form.stdev.value)
         n = eval(form.ssize.value);
         std_n = std / Math.sqrt(n)
+
         // console.log("standarddev/(sqrt(n)", std_n)
         step = 8 * std / 100
         windowHeight = maxHeight(std, mu0);
@@ -122,27 +102,19 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
             };
             i++;
         }
-        console.log(firsthalf)
+        console.log("calculation completed")
+
         secondhalf = [];
         i = 0;
         for (var x = mu1 - 4 * std; x < mu1 + 4 * std; x += step) {
-            // if ((i == 0) || (i == 99)) {
-            //     secondhalf[i] = {
-            //         x: (x - step) * 20,
-            //         y: 0
-            //     };
-            // } else
-            {
-                secondhalf[i] = {
-                    x: x * 20,
-                    y: normalpdf(x, mu1, std / (Math.sqrt(n))) * 400
-                };
-            }
+            secondhalf[i] = {
+                x: x * 20,
+                y: normalpdf(x, mu1, std / (Math.sqrt(n))) * 400
+            };
             i++;
         }
-        console.log(secondhalf)
+        console.log("calculation completed")
 
-        //This is the accessor function we talked about above
         var dist1 = d3.svg.line()
             .x(function(d) {
                 return d.x;
@@ -173,6 +145,7 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
                     $("#mean0").val(d.x)
                 }
             });
+
         //The SVG Container
         var svgContainer = d3.select("body").append("svg")
             .attr("width", 600)
@@ -181,8 +154,8 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
         $("path").remove()
         var plot1 = svgContainer.append("path")
             .data([{
-                "x": 10,
-                "y": 30
+                "x": 0,
+                "y": 0
             }])
             .attr("fill", "lightblue")
             .attr("stroke-width", 2)
@@ -198,7 +171,6 @@ Normal Probability: <INPUT TYPE="text" NAME="result" SIZE=20></INPUT>
             .attr("stroke-width", 2)
             .attr("d", dist2(secondhalf))
             .call(drag);
-
     }
 </script>
 
