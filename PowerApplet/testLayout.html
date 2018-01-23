@@ -37,8 +37,14 @@
         }
 
         .maingraph {
-            height: 80%;
-            background-color: grey;
+            height: calc(80% - 2px);
+            /*background-color: grey;*/
+            border-width: 0px;
+            border-top-width: 2px;
+
+            background-color: #f1f1f1;
+            border-color: grey;
+            border-style: solid;
         }
 
         .controls {
@@ -173,7 +179,6 @@
             height: 100%;
             /*position:relative;*/
             text-align: center;
-            cursor: row-resize;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -208,7 +213,24 @@
         }
 
         .shell.left {
-            margin-left:5px;
+            margin-left: 5px;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+            /*stroke-width: 1px;*/
+        }
+
+        svg path {
+            stroke: grey;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -229,20 +251,20 @@
             <table>
                 <tr>
                     <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0"></td>
+                    <td><input type="text" id="mu0" value="0"></td>
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1"></td>
+                    <td><input type="text" id="mu1" value="10"></td>
                 </tr>
 
                 <tr>
                     <td id="label">σ = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="stdev" value="10" onchange="prepare();"></td>
                 </tr>
                 <tr>
                     <td id="label">d = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="mu0"></td>
                 </tr>
                 </tr>
                 <tr>
@@ -267,20 +289,19 @@
                     <td></td>
                 </tr>
             </table>
-            <div class="samplebutton" onclick="sample()">Sample</div>
+            <div class="samplebutton" onclick="prepare()">Sample</div>
             <div class="console">Critical Mean Value = 102.60<br>Sample Mean = 114.30<br>p(z>9.05) = 0.00<br><br>Reject H<sub>0<sub></div>
             <!-- <div class="console">Power must be a number between 0.00 and 1.00.</div> -->
         </div>
 
         <div class="graph">
             <div class="minigraph">Top Bar</div>
-            <div class="maingraph">Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="maingraph"></div>
             <br><br>
         </div>
     </div>
     <script type="text/javascript" src="dragrect_second.js"></script>
+    <script type="text/javascript" src="curves.js"></script>
 </body>
 
 </html>

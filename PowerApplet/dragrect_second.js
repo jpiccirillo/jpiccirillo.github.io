@@ -2,19 +2,25 @@ $(function() {
     $("#slider-vertical1").slider({
         orientation: "vertical",
         range: "min",
-        min: 0,
-        max: 100,
-        value: 10,
-        step:5,
+        min: 1,
+        max: 101,
+        value: parseInt($("#samplesize").val())+1,
+        step: 1,
         create: function(event, ui) {
             setSliderTicks(event.target);
         },
 
         slide: function(event, ui) {
             console.log("slider 1: " + ui.value)
-            $("#samplesize").val(ui.value);
-            $(ui.value).val($('#samplesize').val());
-            $(".console").text("Erasing console")
+            console.log($("#slider-vertical1").slider("value"))
+            if ($("#slider-vertical1").slider("value") < 3) {
+                $("#samplesize").val(1);
+            } else {
+                $("#samplesize").val(ui.value-1);
+                $(ui.value).val($('#samplesize').val());
+                prepare()
+                $(".console").text("Erasing console")
+            }
         }
     });
     $(".ui-slider-range-min").css("background-color", "lightgrey");
@@ -40,19 +46,22 @@ $(function() {
         min: 0,
         max: 1,
         value: .600,
-        step: .001,
-        slide: function(event, ui) {
-            console.log("slider 2: " + ui.value)
-            $("#power").val(ui.value.toFixed(3));
-            $(ui.value).val($('#power').val());
-            $("#effectsize").val((1-$("#power").val()).toFixed(3))
-            $(".console").text("Erasing console")
-        }
+        step: .001
+        // slide: function(event, ui) {
+        //
+        //     console.log("slider 2: " + ui.value)
+        //     $("#power").val(ui.value.toFixed(3));
+        //     $(ui.value).val($('#power').val());
+        //     $("#effectsize").val((1 - $("#power").val()).toFixed(3))
+        //     $(".console").text("Erasing console")
+        // }
     });
+    $("#slider-vertical2").slider("disable");
 });
 
 $("#samplesize").change(function() {
-    $("#slider-vertical1").slider("value", $(this).val())
+    value = parseInt($("#samplesize").val())+1;
+    $("#slider-vertical1").slider("value", value)
 });
 
 $("#power").change(function() {
@@ -69,9 +78,8 @@ function sample() {
 
 function validate(e) {
     var samplesize = $("#samplesize").val(),
-        power = $("#power").val()
+        power = $("#power").val(),
         zero = 0;
-
     if (samplesize > 100) {
         $("#samplesize").val("100")
         $(".console").text("Sample size cannot be greater than 100.")
@@ -80,7 +88,7 @@ function validate(e) {
     }
     if (power < 1) {
         $("#power").val(parseFloat(power).toFixed(3))
-        $("#effectsize").val((1-power).toFixed(3))
+        $("#effectsize").val((1 - power).toFixed(3))
     } else {
         one = 1;
         $("#power").val(one.toFixed(3))
@@ -97,4 +105,5 @@ function validate(e) {
         $("#power").val(num.toFixed(3))
         $(".console").text("Power must be numeric.")
     }
+    prepare()
 }
