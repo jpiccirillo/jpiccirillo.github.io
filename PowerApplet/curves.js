@@ -39,7 +39,7 @@ function prepare() {
     std_n = std / Math.sqrt(n)
 
     // console.log("standarddev/(sqrt(n)", std_n)
-    step = 8 * std / 100
+    step = 8 * std / 85
     windowHeight = maxHeight(std, mu0);
     console.log(windowHeight)
 
@@ -94,7 +94,7 @@ function prepare() {
                 return "translate(" + [d.x, screen_h - 20] + ") scale(1,-1)"
             })
             newmu1 = parseInt((d.x / (screen_w) * 8 * std) + mu1)
-            $("#mu1").val(parseInt((mu1 + d.x) / (screen_w) * 8 * std));
+            $("#mu1").val((mu1 + d.x) / (screen_w) * 8 * std);
         });
 
     //The SVG Container
@@ -105,10 +105,6 @@ function prepare() {
 
 
     var plot1 = svgContainer.append("path")
-        .data([{
-            "x": 0,
-            "y": 0
-        }])
         .attr("fill", "lightblue")
         .attr("stroke-width", 2)
         .attr("d", dist1(firsthalf))
@@ -117,8 +113,8 @@ function prepare() {
 
     var plot2 = svgContainer.append("path")
         .data([{
-            "x": 10,
-            "y": 30
+            "x": 0,
+            "y": 0
         }])
         .attr("fill", "pink")
         .attr("stroke-width", 2)
