@@ -14,23 +14,17 @@ $(function() {
         range: "min",
         min: 1,
         max: 101,
-        value: parseInt($("#samplesize").val())+1,
+        value: parseInt($("#samplesize").val()),
         step: 1,
         create: function(event, ui) {
             setSliderTicks(event.target);
         },
 
         slide: function(event, ui) {
-            // console.log("slider 1: " + ui.value)
-            // console.log($("#slider-vertical1").slider("value"))
-            if ($("#slider-vertical1").slider("value") < 3) {
-                $("#samplesize").val(1);
-            } else {
-                $("#samplesize").val(ui.value-1);
-                $(ui.value).val($('#samplesize').val());
-                prepare()
-                $(".console").text("Erasing console")
-            }
+            $("#samplesize").val(ui.value-1);
+            $(ui.value).val($('#samplesize').val());
+            prepare()
+            $(".console").text("Erasing console")
         }
     });
     $(".ui-slider-range-min").css("background-color", "lightgrey");
@@ -57,14 +51,6 @@ $(function() {
         max: 1,
         value: .600,
         step: .001
-        // slide: function(event, ui) {
-        //
-        //     console.log("slider 2: " + ui.value)
-        //     $("#power").val(ui.value.toFixed(3));
-        //     $(ui.value).val($('#power').val());
-        //     $("#effectsize").val((1 - $("#power").val()).toFixed(3))
-        //     $(".console").text("Erasing console")
-        // }
     });
     $("#slider-vertical2").slider("disable");
 });

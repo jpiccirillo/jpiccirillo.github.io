@@ -13,6 +13,10 @@
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
     <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden; 
+        }
         .container {
             width: 880px;
             padding: 0px;
@@ -34,13 +38,10 @@
 
         .minigraph {
             height: 18%;
-            display: block;
-
         }
 
         .maingraph {
             height: calc(82% - 2px);
-            /*background-color: grey;*/
             border-width: 0px;
             border-top-width: 2px;
             border-color: grey;
@@ -144,7 +145,7 @@
             position: absolute;
             text-align: center;
             font-family: helvetica;
-            color: grey;
+            color: #273746;
             width: 100%;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -154,7 +155,7 @@
 
         .ui-slider-range-min {
             border-radius: 0px;
-            background-color: pink;
+            background-color: Indianred;
             width: 99%;
 
         }
@@ -188,7 +189,7 @@
             margin-left: -47.5%;
             display: inline-block;
             width: 1px;
-            background: grey;
+            background: #273746;
             height: 4px;
             position: absolute;
             -webkit-transform: rotate(90deg);
@@ -202,7 +203,7 @@
             margin-left: -42%;
             display: inline-block;
             width: 1px;
-            background: grey;
+            background: #273746;
             height: 8px;
             position: absolute;
             -webkit-transform: rotate(90deg);
@@ -219,15 +220,17 @@
         .axis path,
         .axis line {
             fill: none;
-            stroke: black;
+            stroke: #4d5057;
             shape-rendering: crispEdges;
-            stroke-width: 1px;
+            stroke-width: 2px;
         }
 
         #smallpink,
         #smallblue,
         #mainpink,
-        #mainblue {
+        #mainblue,
+        #alphaErrorBlue,
+        #alphaErrorRed {
             stroke-width: 2;
         }
 
@@ -239,14 +242,14 @@
         #smallpink,
         #mainpink {
             cursor: move;
-            fill: Crimson;
+            fill: Indianred;
             stroke: DarkRed;
         }
 
         #smallblue,
         #mainblue {
-            fill: SteelBlue;
-            stroke: Navy;
+            fill: #2980B9;
+            stroke: #154360;
         }
 
         #smallpinktext {
@@ -254,7 +257,7 @@
         }
 
         #smallbluetext {
-            fill: Navy;
+            fill: #154360;
         }
 
         #smallbluetext,
@@ -269,6 +272,22 @@
             font-family: Courier;
             fill: grey;
             mix-blend-mode: multiply
+        }
+
+        #dashedLine {
+             fill: none;
+             stroke: #283747;
+             stroke-width: 2.5;
+             stroke-dasharray: 4, 4;
+        }
+        #alphaErrorBlue{
+            stroke: #1F618D;
+            fill: #1F618D;
+        }
+
+        #alphaErrorRed{
+            /*stroke: DarkRed;*/
+            fill: DarkRed;
         }
 
         .axis text {
@@ -312,7 +331,7 @@
                 </tr>
                 <tr>
                     <td id="label">α = </td>
-                    <td><input type="text" id="alpha" value=".05" onchange="alphaErrorPrep()"></td>
+                    <td><input type="text" id="alpha" value=".5" onchange="alphaErrorPrep()"></td>
                 </tr>
                 </tr>
                 <tr>

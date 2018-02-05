@@ -1,9 +1,30 @@
 screen_w = $(".maingraph").innerWidth()
 screen_h = $(".maingraph").innerHeight()
 topscreen_h = $(".minigraph").innerHeight()
+var mu0, mu1, std, n, step;
+
+var smoothInterp = d3.svg.line()
+    .x(function(d) {
+        return d.x;
+    })
+    .y(function(d) {
+        return d.y;
+    })
+    .interpolate("basis");
+
+var sharpInterp = d3.svg.line()
+    .x(function(d) {
+        return d.x;
+    })
+    .y(function(d) {
+        return d.y;
+    })
+    .interpolate("basis");
+
 prepare();
 
 function axisPrep() {
+    $(".axis").remove()
     var ticks = [];
     for (var i = 0; i < 9; i++) {
         ticks.push(i * screen_w / 8)
@@ -41,26 +62,29 @@ function horizontalScale(x) {
     return result(x);
 }
 
-function generateCurve(mu, n, std) {
-    var step = 8 * std / 60,
-        i = 0,
-        array = [],
-        verticalScale = d3.scale.linear()
+function verticalScale(y) {
+    var result = d3.scale.linear()
         //Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
         .domain([0, pdf(mu0, mu0, std / (Math.sqrt(100)))])
         .range([0, screen_h])
+    return result(y);
+}
 
-    for (var x = mu - 4 * std; x < mu + 4 * std; x += step) {
-        array[i] = {
+function generateCurve(mu, n, step, std, l_bound, u_bound) {
+    var array = []
+
+    for (var x = l_bound; x < u_bound; x += step) {
+        // years.push({operator : i})
+        array.push({
             x: horizontalScale(x),
             y: verticalScale(pdf(x, mu, std / Math.sqrt(n)))
-        };
-        i++;
+        });
     }
     return array;
 }
 
 function textPrep() {
+    setValues();
     /* Create the text for each block */
     node.append("text")
         .attr("id", "smallpinktext")
@@ -89,37 +113,88 @@ function textPrep() {
 
 function alphaErrorPrep(){
     $("line").remove()
+    $("#alphaErrorBlue").remove()
+
+    setValues();
     xValue = normalcdf()
-    xValue = horizontalScale(parseInt($("#mu0").val())-xValue);
+    console.log("xValue for Blue:", xValue);
+    scaledXValue = horizontalScale(mu0-xValue);
+
+    partialShadeArray = generateCurve(mu0, n, step, std, mu0-xValue, mu0 + 3 * std)
+    partialShadeArray.unshift({
+                x: scaledXValue,
+                y: 0
+            });
+    mainContainer.append("path")
+        .attr("id", "alphaErrorBlue")
+        .attr("d", sharpInterp(partialShadeArray))
+        .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+
+    mainContainer.append("path")
+        .attr("id", "mainblue")
+        .attr("d", sharpInterp(firsthalf_main))
+        .style("fill", "none")
+        .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+
     mainContainer.append("line")
-            .attr("x1", xValue)
+            .attr("id", "dashedLine")
+            .attr("x1", scaledXValue)
             .attr("y1", screen_h-20)
-            .attr("x2", xValue)
+            .attr("x2", scaledXValue)
             .attr("y2", screen_h*.1)
-            .style("fill", "none")
-            .style("stroke", "Navy")
-            .style("stroke-width", 2)
-            .style("stroke-dasharray", ("4, 4"))
+
+    console.log($("#mu1").val());
+    checkOverlap($("#mu1").val())
+    axisPrep();
+}
+
+function checkOverlap(mu1){
+    // var mu0 = $("#mu0").val();
+    // xValue = normalcdf()
+    // console.log("xValue for Red:", xValue);
+    // scaledXValue = horizontalScale(mu0-xValue);
+    //
+    // std = parseInt($("#stdev").val())
+    // n = parseInt($("#samplesize").val())
+    // lowerBound = horizontalScale(mu1 - 3*std)
+    // step = 8 * std / 60
+    // if (lowerBound < scaledXValue){
+    //     console.log("overlap occured")
+    //     $("#alphaErrorRed").remove()
+    //
+    //     redShadeArray = generateCurve(mu1, n, step, std, mu1 - 3*std, mu0-xValue)
+    //     redShadeArray.push({
+    //                 x: scaledXValue-1.25,
+    //                 y: verticalScale(pdf(mu0-xValue, mu1, std / Math.sqrt(n)))
+    //             });
+    //     redShadeArray.push({
+    //                 x: scaledXValue-1.25,
+    //                 y: 0
+    //             });
+    //     console.log(redShadeArray)
+    //
+    //     mainContainer.append("path")
+    //         .attr("id", "alphaErrorRed")
+    //         .attr("d", sharpInterp(redShadeArray))
+    //         .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+    // }
+}
+
+function setValues(){
+    mu0 = parseInt($("#mu0").val())
+    mu1 = parseInt($("#mu1").val())
+    std = parseInt($("#stdev").val())
+    n = parseInt($("#samplesize").val())
+    step = 8 * std/60
 }
 
 function prepare() {
-    std = parseInt($("#stdev").val())
-    n = parseInt($("#samplesize").val()) == 0 ? 1 : parseInt($("#samplesize").val())
-    mu0 = parseInt($("#mu0").val())
-    mu1 = parseInt($("#mu1").val())
-    firsthalf_main = generateCurve(mu0, n, std); //Generate large blue curve
-    firsthalf_top = generateCurve(mu0, 1.25, std); //Generate small top blue curve
-    secondhalf_main = generateCurve(mu1, n, std); //Generate large red curve
-    secondhalf_top = generateCurve(mu1, 1.25, std); //Generate small top pink curve
-
-    var dist = d3.svg.line()
-        .x(function(d) {
-            return d.x;
-        })
-        .y(function(d) {
-            return d.y;
-        })
-        .interpolate("basis");
+    setValues();
+    if (n<1){ n=1, $("#samplesize").val(1)} // Correction for if n is too low (slider corner case?)
+    firsthalf_main = generateCurve(mu0, n, step, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
+    firsthalf_top = generateCurve(mu0, 1.25, step, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
+    secondhalf_main = generateCurve(mu1, n, step, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve
+    secondhalf_top = generateCurve(mu1, 1.25, step, std, mu1 - 4 * std, mu1 + 4 * std); //Generate small top pink curve
 
     var drag = d3.behavior.drag()
         .on("drag", function(d) {
@@ -129,6 +204,8 @@ function prepare() {
             })
             d3.select("#smallpink").attr("transform", function(d) {
                 d.x += d3.event.dx
+                $("#mu1").val(mu1 + d.x * 8 * std / screen_w);
+                checkOverlap($("#mu1").val());
                 return "translate(" + [d.x, topscreen_h] + ") scale(1,-1)"
             })
             d3.select("#smallpinktext").attr("transform",
@@ -147,7 +224,7 @@ function prepare() {
 
     var plot1 = mainContainer.append("path")
         .attr("id", "mainblue")
-        .attr("d", dist(firsthalf_main))
+        .attr("d", smoothInterp(firsthalf_main))
         .attr("transform", "translate(0," + (screen_h - 20) + ") scale(1,-1)")
 
     var plot2 = mainContainer.append("path")
@@ -155,7 +232,7 @@ function prepare() {
             "x": 0,
         }])
         .attr("id", "mainpink")
-        .attr("d", dist(secondhalf_main))
+        .attr("d", smoothInterp(secondhalf_main))
         .attr("transform", "translate(0," + (screen_h - 20) + ") scale(1,-1)")
         .call(drag);
 
@@ -168,19 +245,20 @@ function prepare() {
 
     node.append("path")
         .attr("id", "smallblue")
-        .attr("d", dist(firsthalf_top))
+        .attr("d", smoothInterp(firsthalf_top))
         .attr("transform", "translate(0," + topscreen_h + ") scale(1,-1)")
 
     var smallpink = node.append("path")
         .attr("id", "smallpink")
-        .attr("d", dist(secondhalf_top))
+        .attr("d", smoothInterp(secondhalf_top))
         .attr("transform", "translate(0," + topscreen_h + ") scale(1,-1)")
         .data([{
             "x": 0,
         }])
         .call(drag)
 
-    axisPrep();
     textPrep();
     alphaErrorPrep();
+    // checkOverlap(mu1);
+    axisPrep();
 }
