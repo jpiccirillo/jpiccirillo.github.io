@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
     <style>
         .container {
             width: 880px;
@@ -223,34 +224,41 @@
             stroke-width: 1px;
         }
 
-        #smallpink, #smallblue, #mainpink, #mainblue {
+        #smallpink,
+        #smallblue,
+        #mainpink,
+        #mainblue {
             stroke-width: 2;
         }
 
-        #smallpink, #smallblue {
+        #smallpink,
+        #smallblue {
             fill-opacity: 0;
         }
 
-        #smallpink, #mainpink {
+        #smallpink,
+        #mainpink {
             cursor: move;
             fill: Crimson;
             stroke: DarkRed;
         }
 
-        #smallblue, #mainblue {
+        #smallblue,
+        #mainblue {
             fill: SteelBlue;
             stroke: Navy;
         }
 
-        #smallpinktext{
+        #smallpinktext {
             fill: DarkRed;
         }
 
-        #smallbluetext{
+        #smallbluetext {
             fill: Navy;
         }
 
-        #smallbluetext, #smallpinktext {
+        #smallbluetext,
+        #smallpinktext {
             font-size: 12px;
             font-family: Courier;
             text-anchor: middle;
@@ -304,9 +312,9 @@
                 </tr>
                 <tr>
                     <td id="label">α = </td>
-                    <td><input type="text" name="mu0"></td>
+                    <td><input type="text" id="alpha" onchange="normalcdf()"></td>
                 </tr>
-            </tr>
+                </tr>
                 <tr>
                     <td id="label">β = </td>
                     <td><input type="text" value="0.400" id="effectsize"></td>
@@ -336,6 +344,7 @@
         </div>
     </div>
     <script type="text/javascript" src="dragrect_second.js"></script>
+    <script type="text/javascript" src="calculations.js"></script>
     <script type="text/javascript" src="curves.js"></script>
 </body>
 
