@@ -11,8 +11,8 @@ $(function() {
         },
 
         slide: function(event, ui) {
-            console.log("slider 1: " + ui.value)
-            console.log($("#slider-vertical1").slider("value"))
+            // console.log("slider 1: " + ui.value)
+            // console.log($("#slider-vertical1").slider("value"))
             if ($("#slider-vertical1").slider("value") < 3) {
                 $("#samplesize").val(1);
             } else {

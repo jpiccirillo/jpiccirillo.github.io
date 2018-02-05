@@ -13,7 +13,7 @@
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     <style>
         .container {
-            width: 800px;
+            width: 880px;
             padding: 0px;
             height: 300px;
             font-family: Helvetica;
@@ -28,21 +28,20 @@
             width: 69%;
             height: 100%;
             display: block;
+            background-color: #f1f1f1;
         }
 
         .minigraph {
-            height: 20%;
+            height: 18%;
             display: block;
-            background-color: lightgreen;
+
         }
 
         .maingraph {
-            height: calc(80% - 2px);
+            height: calc(82% - 2px);
             /*background-color: grey;*/
             border-width: 0px;
             border-top-width: 2px;
-
-            background-color: #f1f1f1;
             border-color: grey;
             border-style: solid;
         }
@@ -224,8 +223,44 @@
             stroke-width: 1px;
         }
 
-        svg path {
-            stroke: grey;
+        #smallpink, #smallblue, #mainpink, #mainblue {
+            stroke-width: 2;
+        }
+
+        #smallpink, #smallblue {
+            fill-opacity: 0;
+        }
+
+        #smallpink, #mainpink {
+            cursor: move;
+            fill: Crimson;
+            stroke: DarkRed;
+        }
+
+        #smallblue, #mainblue {
+            fill: SteelBlue;
+            stroke: Navy;
+        }
+
+        #smallpinktext{
+            fill: DarkRed;
+        }
+
+        #smallbluetext{
+            fill: Navy;
+        }
+
+        #smallbluetext, #smallpinktext {
+            font-size: 12px;
+            font-family: Courier;
+            text-anchor: middle;
+        }
+
+        #smallgreytext {
+            font-size: 12px;
+            font-family: Courier;
+            fill: grey;
+            mix-blend-mode: multiply
         }
 
         .axis text {
@@ -271,7 +306,7 @@
                     <td id="label">α = </td>
                     <td><input type="text" name="mu0"></td>
                 </tr>
-                </tr>
+            </tr>
                 <tr>
                     <td id="label">β = </td>
                     <td><input type="text" value="0.400" id="effectsize"></td>
@@ -295,7 +330,7 @@
         </div>
 
         <div class="graph">
-            <div class="minigraph">Top Bar</div>
+            <div class="minigraph"></div>
             <div class="maingraph"></div>
             <br><br>
         </div>
