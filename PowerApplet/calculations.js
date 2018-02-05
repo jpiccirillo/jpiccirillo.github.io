@@ -3,12 +3,12 @@ function normalcdf() {
     mu = parseInt(($("#mu0").val()))
     sigma = parseInt(($("#stdev").val()))
     n=$("#samplesize").val();
-    result = inv(p, 0, sigma/Math.sqrt(n));
+    return result = inv(p, 0, sigma/Math.sqrt(n));
     $(".console").text(result.toFixed(3))
  }
 
 function inv(p, mean, std) {
-   return -1.41421356237309505 * std * jStat.erfcinv(2 * p) + mean;
+   return -1.41421356237309505 * std * erfcinv(2 * p) + mean;
 }
 
  // Returns the inverse of the complementary error function

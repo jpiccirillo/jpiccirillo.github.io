@@ -294,11 +294,11 @@
             <table>
                 <tr>
                     <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0" value="0"></td>
+                    <td><input type="text" id="mu0" value="0" onchange="prepare();"></td>
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1" value="10"></td>
+                    <td><input type="text" id="mu1" value="10" onchange="prepare();"></td>
                 </tr>
 
                 <tr>
@@ -312,7 +312,7 @@
                 </tr>
                 <tr>
                     <td id="label">α = </td>
-                    <td><input type="text" id="alpha" onchange="normalcdf()"></td>
+                    <td><input type="text" id="alpha" value=".05" onchange="alphaErrorPrep()"></td>
                 </tr>
                 </tr>
                 <tr>

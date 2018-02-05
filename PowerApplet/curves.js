@@ -1,3 +1,6 @@
+screen_w = $(".maingraph").innerWidth()
+screen_h = $(".maingraph").innerHeight()
+topscreen_h = $(".minigraph").innerHeight()
 prepare();
 
 function axisPrep() {
@@ -84,14 +87,26 @@ function textPrep() {
         .text("Distributions")
 }
 
+function alphaErrorPrep(){
+    $("line").remove()
+    xValue = normalcdf()
+    xValue = horizontalScale(parseInt($("#mu0").val())-xValue);
+    mainContainer.append("line")
+            .attr("x1", xValue)
+            .attr("y1", screen_h-20)
+            .attr("x2", xValue)
+            .attr("y2", screen_h*.1)
+            .style("fill", "none")
+            .style("stroke", "Navy")
+            .style("stroke-width", 2)
+            .style("stroke-dasharray", ("4, 4"))
+}
+
 function prepare() {
-    screen_w = $(".maingraph").innerWidth()
-    screen_h = $(".maingraph").innerHeight()
-    topscreen_h = $(".minigraph").innerHeight()
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val()) == 0 ? 1 : parseInt($("#samplesize").val())
     mu0 = parseInt($("#mu0").val())
-    mu1 = parseInt(($("#mu1").val()))
+    mu1 = parseInt($("#mu1").val())
     firsthalf_main = generateCurve(mu0, n, std); //Generate large blue curve
     firsthalf_top = generateCurve(mu0, 1.25, std); //Generate small top blue curve
     secondhalf_main = generateCurve(mu1, n, std); //Generate large red curve
@@ -125,6 +140,7 @@ function prepare() {
     $("svg").remove()
     $("path").remove()
     $("g").remove()
+
     mainContainer = d3.select(".maingraph").append("svg")
         .attr("width", screen_w)
         .attr("height", screen_h);
@@ -166,4 +182,5 @@ function prepare() {
 
     axisPrep();
     textPrep();
+    alphaErrorPrep();
 }
