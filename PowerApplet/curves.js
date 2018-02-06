@@ -1,18 +1,9 @@
 screen_w = $(".maingraph").innerWidth()
 screen_h = $(".maingraph").innerHeight()
 topscreen_h = $(".minigraph").innerHeight()
-var mu0, mu1, std, n, step;
+var mu0, mu1, internalmu1, std, n, step;
 
-var smoothInterp = d3.svg.line()
-    .x(function(d) {
-        return d.x;
-    })
-    .y(function(d) {
-        return d.y;
-    })
-    .interpolate("basis");
-
-var sharpInterp = d3.svg.line()
+var interp = d3.svg.line()
     .x(function(d) {
         return d.x;
     })
@@ -91,6 +82,9 @@ function textPrep() {
         .attr("x", horizontalScale(mu1))
         .attr("y", topscreen_h / 10 * 3.5)
         .text("Alternative Population")
+        .data([{
+            "x": 0,
+        }])
 
     mainContainer.append("text")
         .attr("id", "smallbluetext")
@@ -114,27 +108,27 @@ function textPrep() {
 function alphaErrorPrep(){
     $("line").remove()
     $("#alphaErrorBlue").remove()
+    $("#rect-clip").remove()
 
-    setValues();
+    // setValues();
     xValue = normalcdf()
-    console.log("xValue for Blue:", xValue);
+    // console.log("xValue for Blue:", xValue);
     scaledXValue = horizontalScale(mu0-xValue);
 
-    partialShadeArray = generateCurve(mu0, n, step, std, mu0-xValue, mu0 + 3 * std)
-    partialShadeArray.unshift({
-                x: scaledXValue,
-                y: 0
-            });
-    mainContainer.append("path")
-        .attr("id", "alphaErrorBlue")
-        .attr("d", sharpInterp(partialShadeArray))
-        .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+            // define the clipPath
+    mainContainer.append("clipPath")       // define a clip path
+        .attr("id", "rect-clip") // give the clipPath an ID
+      .append("rect")          // shape it as an ellipse
+        .attr("x", scaledXValue)         // position the x-centre
+        .attr("y", 0)         // position the y-centre
+        .attr("height", screen_h)         // set the x radius
+        .attr("width", screen_w-scaledXValue);         // set the y radius
 
     mainContainer.append("path")
-        .attr("id", "mainblue")
-        .attr("d", sharpInterp(firsthalf_main))
-        .style("fill", "none")
+        .attr("id", "alphaErrorBlue")
+        .attr("d", interp(firsthalf_main))
         .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+        .attr("clip-path", "url(#rect-clip)")
 
     mainContainer.append("line")
             .attr("id", "dashedLine")
@@ -143,50 +137,74 @@ function alphaErrorPrep(){
             .attr("x2", scaledXValue)
             .attr("y2", screen_h*.1)
 
-    console.log($("#mu1").val());
-    checkOverlap($("#mu1").val())
+    checkOverlap(mu1)
     axisPrep();
 }
 
 function checkOverlap(mu1){
-    // var mu0 = $("#mu0").val();
-    // xValue = normalcdf()
-    // console.log("xValue for Red:", xValue);
-    // scaledXValue = horizontalScale(mu0-xValue);
-    //
-    // std = parseInt($("#stdev").val())
-    // n = parseInt($("#samplesize").val())
-    // lowerBound = horizontalScale(mu1 - 3*std)
-    // step = 8 * std / 60
-    // if (lowerBound < scaledXValue){
-    //     console.log("overlap occured")
-    //     $("#alphaErrorRed").remove()
-    //
-    //     redShadeArray = generateCurve(mu1, n, step, std, mu1 - 3*std, mu0-xValue)
-    //     redShadeArray.push({
-    //                 x: scaledXValue-1.25,
-    //                 y: verticalScale(pdf(mu0-xValue, mu1, std / Math.sqrt(n)))
-    //             });
-    //     redShadeArray.push({
-    //                 x: scaledXValue-1.25,
-    //                 y: 0
-    //             });
-    //     console.log(redShadeArray)
-    //
-    //     mainContainer.append("path")
-    //         .attr("id", "alphaErrorRed")
-    //         .attr("d", sharpInterp(redShadeArray))
-    //         .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
-    // }
+    // setValues();
+    $("#rect-clip-left").remove()
+    $("#alphaErrorRed").remove();
+    std = parseInt($("#stdev").val())
+    n = parseInt($("#samplesize").val())
+    step = 8 * std/60
+    xValue = normalcdf()
+    scaledXValue = horizontalScale(mu0-xValue);
+    alphaError = generateCurve(mu1, n, step, std, mu1 - 4 * std, mu1 + 4 * std);
+
+    mainContainer.append("clipPath")       // define a clip path
+        .attr("id", "rect-clip-left") // give the clipPath an ID
+      .append("rect")          // shape it as an ellipse
+        .attr("x", 0)         // position the x-centre
+        .attr("y", 0)         // position the y-centre
+        .attr("height", screen_h)         // set the x radius
+        .attr("width", scaledXValue);         // set the y radius
+
+    mainContainer.append("path")
+        .attr("id", "alphaErrorRed")
+        .attr("d", interp(alphaError))
+        .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+        .attr("clip-path", "url(#rect-clip-left)")
+        .data([{
+            "x": 0,
+        }])
+
+    d3.selectAll("#mainpink, #dashedLine, #alphaErrorBlue").each(function() {
+        this.parentNode.appendChild(this);
+    });
+
+    mainContainer.append("path")
+        .attr("id", "mainbluestroke")
+        .attr("d", interp(firsthalf_main))
+        .style("fill", "none")
+        .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
 }
 
 function setValues(){
     mu0 = parseInt($("#mu0").val())
-    mu1 = parseInt($("#mu1").val())
+    mu1 = parseFloat($("#mu1").val())
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
     step = 8 * std/60
 }
+
+function dragged(d) {
+    d3.select("#mainpink").attr("transform", function(d) {
+        d.x += d3.event.dx
+        return "translate(" + [parseInt(d.x), screen_h - 20] + ") scale(1,-1)"
+    })
+    d3.select("#smallpink").attr("transform", function(d) {
+        d.x += d3.event.dx
+        return "translate(" + [parseInt(d.x), topscreen_h] + ") scale(1,-1)"
+    })
+    d3.select("#smallpinktext").attr("transform", function(d) {
+        d.x += d3.event.dx
+        return "translate(" + [parseInt(d.x), 0] + ")"})
+
+    $("#mu1").val(parseInt(mu1 + d.x * 8 * std / screen_w))
+    internalmu1=mu1 + parseInt(d.x) * 8 * std / screen_w
+    checkOverlap(internalmu1);
+};
 
 function prepare() {
     setValues();
@@ -196,27 +214,13 @@ function prepare() {
     secondhalf_main = generateCurve(mu1, n, step, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve
     secondhalf_top = generateCurve(mu1, 1.25, step, std, mu1 - 4 * std, mu1 + 4 * std); //Generate small top pink curve
 
-    var drag = d3.behavior.drag()
-        .on("drag", function(d) {
-            d3.select("#mainpink").attr("transform", function(d) {
-                d.x += d3.event.dx
-                return "translate(" + [d.x, screen_h - 20] + ") scale(1,-1)"
-            })
-            d3.select("#smallpink").attr("transform", function(d) {
-                d.x += d3.event.dx
-                $("#mu1").val(mu1 + d.x * 8 * std / screen_w);
-                checkOverlap($("#mu1").val());
-                return "translate(" + [d.x, topscreen_h] + ") scale(1,-1)"
-            })
-            d3.select("#smallpinktext").attr("transform",
-                "translate(" + [d.x, 0] + ")")
-            $("#mu1").val(parseInt(mu1 + d.x * 8 * std / screen_w));
-        });
-
     //The SVG Container
     $("svg").remove()
     $("path").remove()
     $("g").remove()
+
+    var drag = d3.behavior.drag()
+        .on("drag", function(d) { dragged(d) });
 
     mainContainer = d3.select(".maingraph").append("svg")
         .attr("width", screen_w)
@@ -224,7 +228,7 @@ function prepare() {
 
     var plot1 = mainContainer.append("path")
         .attr("id", "mainblue")
-        .attr("d", smoothInterp(firsthalf_main))
+        .attr("d", interp(firsthalf_main))
         .attr("transform", "translate(0," + (screen_h - 20) + ") scale(1,-1)")
 
     var plot2 = mainContainer.append("path")
@@ -232,7 +236,7 @@ function prepare() {
             "x": 0,
         }])
         .attr("id", "mainpink")
-        .attr("d", smoothInterp(secondhalf_main))
+        .attr("d", interp(secondhalf_main))
         .attr("transform", "translate(0," + (screen_h - 20) + ") scale(1,-1)")
         .call(drag);
 
@@ -245,12 +249,12 @@ function prepare() {
 
     node.append("path")
         .attr("id", "smallblue")
-        .attr("d", smoothInterp(firsthalf_top))
+        .attr("d", interp(firsthalf_top))
         .attr("transform", "translate(0," + topscreen_h + ") scale(1,-1)")
 
     var smallpink = node.append("path")
         .attr("id", "smallpink")
-        .attr("d", smoothInterp(secondhalf_top))
+        .attr("d", interp(secondhalf_top))
         .attr("transform", "translate(0," + topscreen_h + ") scale(1,-1)")
         .data([{
             "x": 0,
@@ -259,6 +263,6 @@ function prepare() {
 
     textPrep();
     alphaErrorPrep();
-    // checkOverlap(mu1);
+    checkOverlap(mu1);
     axisPrep();
 }

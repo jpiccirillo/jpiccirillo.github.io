@@ -15,10 +15,10 @@
     <style>
         html, body {
             max-width: 100%;
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
         .container {
-            width: 880px;
+            width: 800px;
             padding: 0px;
             height: 300px;
             font-family: Helvetica;
@@ -233,7 +233,9 @@
         #alphaErrorRed {
             stroke-width: 2;
         }
-
+        #mainpink{
+            fill-opacity:.7;
+        }
         #smallpink,
         #smallblue {
             fill-opacity: 0;
@@ -252,6 +254,10 @@
             stroke: #154360;
         }
 
+        #mainbluestroke{
+            stroke: #154360;
+            stroke-width:2px;
+        }
         #smallpinktext {
             fill: DarkRed;
         }
@@ -283,6 +289,8 @@
         #alphaErrorBlue{
             stroke: #1F618D;
             fill: #1F618D;
+            position: absolute;
+            clip-path: polygon(0px,300px,200px,0px);
         }
 
         #alphaErrorRed{
@@ -317,7 +325,7 @@
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1" value="10" onchange="prepare();"></td>
+                    <td><input type="text" id="mu1" value="3" onchange="prepare();"></td>
                 </tr>
 
                 <tr>
