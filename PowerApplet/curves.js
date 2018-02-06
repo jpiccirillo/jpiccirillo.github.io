@@ -17,7 +17,7 @@ d3.selection.prototype.moveToBack = function() {
             if (firstChild) {
                 this.parentNode.insertBefore(this, firstChild);
             }
-        });
+        })
     };
 prepare();
 
@@ -25,7 +25,7 @@ function axisPrep() {
     $(".axis").remove()
     var ticks = [];
     for (var i = 0; i < 9; i++) {
-        ticks.push(i * screen_w / 8)
+        ticks.push(i * (screen_w / 8)+1)
     }
     var ticknames = [];
     for (var i = -4; i < 5; i++) {
@@ -109,6 +109,7 @@ function textPrep() {
         .attr("id", "smallgreytext")
         .attr("x", screen_w - screen_w / 10 * 9.8)
         .attr("y", screen_h - 35)
+        .attr("z-index", "100")
         .text("Distributions")
 }
 
@@ -183,7 +184,7 @@ function checkOverlap(mu1){
             "x": 0,
         }])
 
-    d3.selectAll("#mainpink, #dashedLine, #alphaErrorBlue").each(function() {
+    d3.selectAll("#mainpink, #dashedLine, #alphaErrorBlue, #smallgreytext, .axis").each(function() {
         this.parentNode.appendChild(this);
     });
 
@@ -192,6 +193,7 @@ function checkOverlap(mu1){
         .attr("d", interp(firsthalf_main))
         .style("fill", "none")
         .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+
 }
 
 function setValues(){
@@ -201,6 +203,19 @@ function setValues(){
     n = parseInt($("#samplesize").val())
     step = 8 * std/60
 }
+
+function recenter(){
+                // console.log("ok")
+    $('#mainContainer').mousedown(function() {
+        if ((secondhalf_main[0].x > screen_w*.7) || (secondhalf_main[secondhalf_main.length - 1].x < 0+screen_w*.2)) {
+            internalmu1 = secondhalf_main[0].x > screen_w*.7 ? 4*std:-4*std;
+            $("#mu1").val(internalmu1)
+            // console.log("ok")
+            prepare();
+        }
+    })
+}
+
 
 function dragged(d) {
     d3.select("#mainpink").attr("transform", function(d) {
@@ -237,8 +252,10 @@ function prepare() {
         .on("drag", function(d) { dragged(d) });
 
     mainContainer = d3.select(".maingraph").append("svg")
+        .attr("id", "mainContainer")
         .attr("width", screen_w)
-        .attr("height", screen_h);
+        .attr("height", screen_h)
+        .attr("mousedown", recenter())
 
     var plot1 = mainContainer.append("path")
         .attr("id", "mainblue")
@@ -253,6 +270,10 @@ function prepare() {
         .attr("d", interp(secondhalf_main))
         .attr("transform", "translate(0," + (screen_h - 20) + ") scale(1,-1)")
         .call(drag);
+
+//     console.log(secondhalf_main[0].x)
+//     console.log(secondhalf_main[secondhalf_main.length - 1].x)
+// // var rating = overall_average.length > 0 ? overall_average.nodeValue : "It is empty";
 
     var topContainer = d3.select(".minigraph").append("svg")
         .attr("width", screen_w)
@@ -275,8 +296,8 @@ function prepare() {
         }])
         .call(drag)
 
-    textPrep();
     alphaErrorPrep();
     checkOverlap(mu1);
     axisPrep();
+    textPrep();
 }
