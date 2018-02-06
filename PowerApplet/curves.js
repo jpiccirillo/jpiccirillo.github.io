@@ -11,7 +11,14 @@ var interp = d3.svg.line()
         return d.y;
     })
     .interpolate("basis");
-
+d3.selection.prototype.moveToBack = function() {
+        return this.each(function() {
+            var firstChild = this.parentNode.firstChild;
+            if (firstChild) {
+                this.parentNode.insertBefore(this, firstChild);
+            }
+        });
+    };
 prepare();
 
 function axisPrep() {
@@ -112,7 +119,7 @@ function alphaErrorPrep(){
 
     // setValues();
     xValue = normalcdf()
-    // console.log("xValue for Blue:", xValue);
+    console.log("xValue for Blue:", xValue);
     scaledXValue = horizontalScale(mu0-xValue);
 
             // define the clipPath
@@ -130,6 +137,12 @@ function alphaErrorPrep(){
         .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
         .attr("clip-path", "url(#rect-clip)")
 
+    // mainContainer.append("path")
+    //     .attr("id", "mainblue")
+    //     .attr("d", interp(firsthalf_main))
+    //     .style("fill", "none")
+    //     .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
+
     mainContainer.append("line")
             .attr("id", "dashedLine")
             .attr("x1", scaledXValue)
@@ -137,7 +150,7 @@ function alphaErrorPrep(){
             .attr("x2", scaledXValue)
             .attr("y2", screen_h*.1)
 
-    checkOverlap(mu1)
+    checkOverlap(internalmu1)
     axisPrep();
 }
 
@@ -148,6 +161,7 @@ function checkOverlap(mu1){
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
     step = 8 * std/60
+    console.log(mu1)
     xValue = normalcdf()
     scaledXValue = horizontalScale(mu0-xValue);
     alphaError = generateCurve(mu1, n, step, std, mu1 - 4 * std, mu1 + 4 * std);
