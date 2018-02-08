@@ -162,8 +162,8 @@ function checkOverlap(mu){
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
     step = 8 * std/60
-    if (!mu) { mu = internalmu1 }
-    if (!internalmu1) {mu=mu1}
+    // if (!internalmu1) { var mu = mu1 }
+    if (!mu) { var mu = internalmu1 }
     //if no argument is passed in, that means
     //it's being called after the alpha error bar has been changed.
     //In these situations, take the last decimal value that mu was at
@@ -215,6 +215,7 @@ function setValues() {
 
     mu0 = parseInt($("#mu0").val())
     mu1 = parseInt($("#mu1").val())
+    internalmu1=mu1;
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
     setDelta();
