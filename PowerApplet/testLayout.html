@@ -77,6 +77,7 @@
             margin: 10px;
             text-align: center;
             position: relative;
+            cursor: row-resize;
         }
 
         .console {
@@ -179,7 +180,6 @@
             border-radius: 0px;
             height: 100%;
             text-align: center;
-            cursor: row-resize;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -347,7 +347,7 @@
                 </tr>
                 <tr>
                     <td id="label">d = </td>
-                    <td><input type="text" id="mu0"></td>
+                    <td><input type="text" id="delta" value="1.00" onchange="changeDelta();"></td>
                 </tr>
                 </tr>
                 <tr>
@@ -357,15 +357,15 @@
                 </tr>
                 <tr>
                     <td id="label">β = </td>
-                    <td><input type="text" value="0.400" id="effectsize"></td>
+                    <td><input type="text" value="0.400" id="effectsize" readonly></td>
                 </tr>
                 <tr>
                     <td id="label">n = </td>
-                    <td><input type="text" id="samplesize" value="4" onchange="validate(event);"></td>
+                    <td><input type="text" id="samplesize" value="4" onchange="prepare();"></td>
                 </tr>
                 <tr>
                     <td id="label">Power = </td>
-                    <td><input type="text" id="power" value="0.600" onchange="validate(event);"></td>
+                    <td><input type="text" id="power" value="0.600" onchange="prepare();"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -383,8 +383,8 @@
             <br><br>
         </div>
     </div>
-    <script type="text/javascript" src="dragrect_second.js"></script>
     <script type="text/javascript" src="calculations.js"></script>
+    <script type="text/javascript" src="dragrect_second.js"></script>
     <script type="text/javascript" src="curves.js"></script>
 </body>
 

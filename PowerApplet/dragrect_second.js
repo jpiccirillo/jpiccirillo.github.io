@@ -12,6 +12,7 @@ $(function() {
 
         slide: function(event, ui) {
             $("#samplesize").val(ui.value-1);
+            // $("#delta").val("#mu1").val()-;
             $(ui.value).val($('#samplesize').val());
             prepare()
             $(".console").text("Erasing console")
@@ -42,7 +43,7 @@ $(function() {
         value: .600,
         step: .001
     });
-    $("#slider-vertical2").slider("disable");
+    // $("#slider-vertical2").slider("disable");
 });
 
 $("#samplesize").change(function() {
@@ -55,41 +56,60 @@ $("#power").change(function() {
 });
 
 function sample() {
-    console.log("Code to sample goes here:")
-    var random = Math.floor(Math.random() * (30 - 10 + 1) + 10);
-    var random2 = Math.floor(Math.random() * (30 - 10 + 1) + 10);
-    $("#mu0").val(random)
-    $("#mu1").val(random2)
+    //code to sample goes here
 }
 
-function validate(e) {
-    var samplesize = $("#samplesize").val(),
-        power = $("#power").val(),
-        zero = 0;
-    if (samplesize > 100) {
-        $("#samplesize").val("100")
-        $(".console").text("Sample size cannot be greater than 100.")
-    } else {
-        $(".console").text("Valid values")
+function validate(item) {
+    if (item=="mu") {
+        //mu0/mu1 Validation
+        var mu0 = $("#mu0").val(), mu1 = $("#mu1").val();
+        if (!$.isNumeric(mu0)) {
+            mu0 = 100;
+            $("#mu0").val(mu0) }
+        if (!$.isNumeric(mu1)) {
+            mu1 = 115;
+            $("#mu1").val(mu1) }
     }
-    if (power < 1) {
+    //Sigma Validation
+    if (item=="sigma") {
+        var sigma = $("#stdev").val()
+        if ((sigma<1) || !$.isNumeric(sigma)) { sigma=1; }
+        $("#stdev").val(sigma)
+    }
+    //SampleSize Validation
+    if (item == "samplesize") {
+        var n = $("#samplesize").val()
+        if (n > 100) { n=100; }
+        else if (n < 1) { n=1 }
+        else if (!$.isNumeric(n)) { n = 25; }
+        $("#samplesize").val(n)
+    }
+    //Alpha Error Validation
+    if (item=="alpha") {
+        var p = $("#alpha").val()
+        if ((p<=0.0001)||!$.isNumeric(p)||(p>=0.9994)) {
+            if (p <= 0.0001) { p=0.001 }
+            else if (p >= 0.9994) { p=0.999 }
+            else { p=0.05 };
+        }
+        $("#alpha").val(parseFloat(p).toFixed(3))
+        normalcdf();
+    }
+    //Delta Validation
+    if (item == "delta") {
+        var delta = $("#delta").val()
+        if (!$.isNumeric(delta)) { //if delta is non-numeric, calculate it
+            delta = ($("#mu1").val()-$("#mu0").val())/$("#stdev").val() }
+        //Set and return delta in both conditions
+        $("#delta").val(parseFloat(delta).toFixed(2));
+        return delta;
+    }
+    //Power Validation
+    if (item=="power") {
+        var power = $("#power").val()
+        if ((power>1)&&(power<=100)){ power/=100 }
+        else if ((power<0.001)||(power>100)||(!$.isNumeric(power))) { power = 0.8 }
         $("#power").val(parseFloat(power).toFixed(3))
         $("#effectsize").val((1 - power).toFixed(3))
-    } else {
-        one = 1;
-        $("#power").val(one.toFixed(3))
-        $("#effectsize").val(zero.toFixed(3))
-        $(".console").text("Power cannot be greater than 1.0.")
     }
-
-    if (!$.isNumeric(samplesize)) {
-        $("#samplesize").val("100")
-        $(".console").text("Sample size must be numeric.")
-    }
-    if (!$.isNumeric(power)) {
-        num = .25;
-        $("#power").val(num.toFixed(3))
-        $(".console").text("Power must be numeric.")
-    }
-    prepare()
 }

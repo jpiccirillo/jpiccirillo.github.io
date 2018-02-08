@@ -11,15 +11,14 @@ var interp = d3.svg.line()
         return d.y;
     })
     .interpolate("basis");
-d3.selection.prototype.moveToBack = function() {
-        return this.each(function() {
-            var firstChild = this.parentNode.firstChild;
-            if (firstChild) {
-                this.parentNode.insertBefore(this, firstChild);
-            }
-        })
-    };
+
 prepare();
+
+function changeDelta() {
+    delta = validate("delta");
+    $("#mu1").val(parseInt(delta * std + mu0));
+    prepare();
+}
 
 function axisPrep() {
     $(".axis").remove()
@@ -117,11 +116,14 @@ function alphaErrorPrep(){
     $("line").remove()
     $("#alphaErrorBlue").remove()
     $("#rect-clip").remove()
-
-    // setValues();
+    validate("alpha");
     xValue = normalcdf()
-    console.log("xValue for Blue:", xValue);
+    intermediate = mu0-xValue
     scaledXValue = horizontalScale(mu0-xValue);
+    // console.log("xvalue-->", xValue)
+    // console.log("mu0-->", mu0)
+    // console.log("mu0 - xValue-->", intermediate)
+    // console.log("scaledXvalue-->", scaledXValue)
 
             // define the clipPath
     mainContainer.append("clipPath")       // define a clip path
@@ -138,12 +140,6 @@ function alphaErrorPrep(){
         .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
         .attr("clip-path", "url(#rect-clip)")
 
-    // mainContainer.append("path")
-    //     .attr("id", "mainblue")
-    //     .attr("d", interp(firsthalf_main))
-    //     .style("fill", "none")
-    //     .attr("transform", "translate(0," + (screen_h-20) + ") scale(1,-1)")
-
     mainContainer.append("line")
             .attr("id", "dashedLine")
             .attr("x1", scaledXValue)
@@ -151,21 +147,31 @@ function alphaErrorPrep(){
             .attr("x2", scaledXValue)
             .attr("y2", screen_h*.1)
 
-    checkOverlap(internalmu1)
+    checkOverlap()
     axisPrep();
 }
 
-function checkOverlap(mu1){
-    // setValues();
+function checkOverlap(mu){
+    // console.log("BEGINNING----------")
+    // console.log("mu checkoverlap thinks it should use: ", mu)
+    // console.log("true internal mu: ", internalmu1)
+
     $("#rect-clip-left").remove()
     $("#alphaErrorRed").remove();
+
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
     step = 8 * std/60
-    console.log(mu1)
+    if (!mu) {mu=internalmu1} //if no argument is passed in, that means
+    //it's being called after the alpha error bar has been changed.
+    //In these situations, take the last decimal value that mu was at
+    //(internalmu1) and use that.  Otherwise all sorts of splicing errors occur
+    //due to the mainredcurve and the darker red curve having different means
+    // and thus being in two different places
+
     xValue = normalcdf()
     scaledXValue = horizontalScale(mu0-xValue);
-    alphaError = generateCurve(mu1, n, step, std, mu1 - 4 * std, mu1 + 4 * std);
+    alphaError = generateCurve(mu, n, step, std, mu - 4 * std, mu + 4 * std);
 
     mainContainer.append("clipPath")       // define a clip path
         .attr("id", "rect-clip-left") // give the clipPath an ID
@@ -196,28 +202,42 @@ function checkOverlap(mu1){
 
 }
 
-function setValues(){
+function setValues() {
+    //Validate input before setting internal variables
+    //Delta, alpha error are validated in changeDelta() alphaErrorPrep()
+    //Beta error is not validated as it is readonly
+    validate("mu")
+    validate("sigma")
+    validate("samplesize");
+    validate("power")
+
     mu0 = parseInt($("#mu0").val())
-    mu1 = parseFloat($("#mu1").val())
+    mu1 = parseInt($("#mu1").val())
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
+    setDelta();
+    //Delta is set as a function of mu0, mu1, and standard dev
+
     step = 8 * std/60
 }
-
-function recenter(){
-                // console.log("ok")
-    $('#mainContainer').mousedown(function() {
-        if ((secondhalf_main[0].x > screen_w*.7) || (secondhalf_main[secondhalf_main.length - 1].x < 0+screen_w*.2)) {
-            internalmu1 = secondhalf_main[0].x > screen_w*.7 ? 4*std:-4*std;
-            $("#mu1").val(internalmu1)
-            // console.log("ok")
-            prepare();
-        }
-    })
+function setDelta(){
+    $("#delta").val((($("#mu1").val()-$("#mu0").val())/$("#stdev").val()).toFixed(2))
 }
+// function recenter(){
+//                 // console.log("ok")
+//     $('#mainContainer').mousedown(function() {
+//         if ((secondhalf_main[0].x > screen_w*.7) || (secondhalf_main[secondhalf_main.length - 1].x < 0+screen_w*.2)) {
+//             internalmu1 = secondhalf_main[0].x > screen_w*.7 ? 4*std:-4*std;
+//             $("#mu1").val(internalmu1)
+//             // console.log("ok")
+//             prepare();
+//         }
+//     })
+// }
 
 
 function dragged(d) {
+    setDelta();
     d3.select("#mainpink").attr("transform", function(d) {
         d.x += d3.event.dx
         return "translate(" + [parseInt(d.x), screen_h - 20] + ") scale(1,-1)"
@@ -231,13 +251,15 @@ function dragged(d) {
         return "translate(" + [parseInt(d.x), 0] + ")"})
 
     $("#mu1").val(parseInt(mu1 + d.x * 8 * std / screen_w))
-    internalmu1=mu1 + parseInt(d.x) * 8 * std / screen_w
+    internalmu1 = mu1 + d.x * 8 * std / screen_w
+    // console.log("internalmu1:-->", internalmu1)
+    // mu1=internalmu1
     checkOverlap(internalmu1);
 };
 
 function prepare() {
     setValues();
-    if (n<1){ n=1, $("#samplesize").val(1)} // Correction for if n is too low (slider corner case?)
+
     firsthalf_main = generateCurve(mu0, n, step, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
     firsthalf_top = generateCurve(mu0, 1.25, step, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
     secondhalf_main = generateCurve(mu1, n, step, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve
@@ -255,7 +277,7 @@ function prepare() {
         .attr("id", "mainContainer")
         .attr("width", screen_w)
         .attr("height", screen_h)
-        .attr("mousedown", recenter())
+        // .attr("mousedown", recenter())
 
     var plot1 = mainContainer.append("path")
         .attr("id", "mainblue")
@@ -270,10 +292,6 @@ function prepare() {
         .attr("d", interp(secondhalf_main))
         .attr("transform", "translate(0," + (screen_h - 20) + ") scale(1,-1)")
         .call(drag);
-
-//     console.log(secondhalf_main[0].x)
-//     console.log(secondhalf_main[secondhalf_main.length - 1].x)
-// // var rating = overall_average.length > 0 ? overall_average.nodeValue : "It is empty";
 
     var topContainer = d3.select(".minigraph").append("svg")
         .attr("width", screen_w)
