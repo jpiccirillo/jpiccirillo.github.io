@@ -3,7 +3,9 @@ function normalcdf() {
     mu = $("#mu0").val()
     sigma = parseInt($("#stdev").val())
     n = $("#samplesize").val();
-    return parseFloat(inv(p, mu, sigma/Math.sqrt(n)));
+    result = parseFloat(inv(p, mu, sigma/Math.sqrt(n)))
+    $(".console").text(result.toFixed(3))
+    return result;
  }
 
 function inv(p, mean, std) {

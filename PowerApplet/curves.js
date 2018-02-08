@@ -120,10 +120,10 @@ function alphaErrorPrep(){
     xValue = normalcdf()
     intermediate = mu0-xValue
     scaledXValue = horizontalScale(mu0-xValue);
-    // console.log("xvalue-->", xValue)
-    // console.log("mu0-->", mu0)
-    // console.log("mu0 - xValue-->", intermediate)
-    // console.log("scaledXvalue-->", scaledXValue)
+    console.log("xvalue-->", xValue)
+    console.log("mu0-->", mu0)
+    console.log("mu0 - xValue-->", intermediate)
+    console.log("scaledXvalue-->", scaledXValue)
 
             // define the clipPath
     mainContainer.append("clipPath")       // define a clip path
@@ -132,7 +132,7 @@ function alphaErrorPrep(){
         .attr("x", scaledXValue)         // position the x-centre
         .attr("y", 0)         // position the y-centre
         .attr("height", screen_h)         // set the x radius
-        .attr("width", screen_w-scaledXValue);         // set the y radius
+        .attr("width", Math.abs(screen_w-scaledXValue));         // set the y radius
 
     mainContainer.append("path")
         .attr("id", "alphaErrorBlue")
@@ -162,7 +162,9 @@ function checkOverlap(mu){
     std = parseInt($("#stdev").val())
     n = parseInt($("#samplesize").val())
     step = 8 * std/60
-    if (!mu) {mu=internalmu1} //if no argument is passed in, that means
+    if (!mu) { mu = internalmu1 }
+    if (!internalmu1) {mu=mu1}
+    //if no argument is passed in, that means
     //it's being called after the alpha error bar has been changed.
     //In these situations, take the last decimal value that mu was at
     //(internalmu1) and use that.  Otherwise all sorts of splicing errors occur

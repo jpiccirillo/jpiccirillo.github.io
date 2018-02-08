@@ -87,9 +87,9 @@ function validate(item) {
     //Alpha Error Validation
     if (item=="alpha") {
         var p = $("#alpha").val()
-        if ((p<=0.0001)||!$.isNumeric(p)||(p>=0.9994)) {
-            if (p <= 0.0001) { p=0.001 }
-            else if (p >= 0.9994) { p=0.999 }
+        if ((p<0.001)||!$.isNumeric(p)||(p>0.999)) {
+            if (p < 0.001) { p=0.001 }
+            else if (p > 0.999) { p=0.999 }
             else { p=0.05 };
         }
         $("#alpha").val(parseFloat(p).toFixed(3))
