@@ -127,8 +127,8 @@ function generateCurve(mu, n, std, l_bound, u_bound) {
 function textPrep() {
     setValues();
     greytextXPos = screen_w - screen_w / 10 * 9.8
-    appendText("smallpinktext", node, 1, horizontalScale(mu1), topscreen_h / 10 * 3.5, "Alternative Population")
-    appendText("smallbluetext", mainContainer, "", horizontalScale(mu0), topscreen_h / 10 * 3.5, "Null Population")
+    appendText("smallpinktext", node, 1, horizontalScale(mu1), topscreen_h / 10 * 2.5, "Alternative Population")
+    appendText("smallbluetext", mainContainer, "", horizontalScale(mu0), topscreen_h / 10 * 2.5, "Null Population")
     appendText("smallgreytext", mainContainer, "", greytextXPos, screen_h - 50, "Sampling")
     appendText("smallgreytext", mainContainer, "", greytextXPos, screen_h - 35, "Distributions")
 }
