@@ -198,7 +198,6 @@ function setValues() {
     n = parseInt($("#samplesize").val())
     //Delta is set as a function of mu0, mu1, and standard dev
     setDelta();
-    step = 8 * std / 40
 }
 
 function setDelta() {
