@@ -262,6 +262,7 @@
         }
 
         #mainbluestroke{
+            fill: none;
             stroke-width:1px;
         }
 
@@ -297,13 +298,12 @@
             stroke: #1F618D;
             fill: #1F618D;
             position: absolute;
-            clip-path: polygon(0px,300px,200px,0px);
+            clip-path: url(#rect-clip);
         }
 
         #alphaErrorRed{
-            /*stroke: DarkRed;*/
-
-            fill: DarkRed;
+            fill: maroon;
+            clip-path: url(#rect-clip-left);
         }
 
         .axis text {
