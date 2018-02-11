@@ -5,11 +5,7 @@
     <title>Power Applet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-    <!-- <script type="text/javascript" src="bootstrap-slider.js"></script> -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
     <script>
@@ -29,6 +25,7 @@
             overflow: hidden;
         }
         .container {
+            display: none;
             width: 900px;
             padding: 0px;
             height: 350px;
@@ -310,10 +307,34 @@
             font-family: sans-serif;
             font-size: 12px;
         }
+        #loader {
+              position: absolute;
+              left: 35%;
+              top: 50%;
+              z-index: 1;
+              margin: -75px 0 0 -75px;
+              border: 16px solid #f3f3f3;
+              border-radius: 50%;
+              border-top: 16px solid #2980B9;
+              width: 100px;
+              height: 100px;
+              -webkit-animation: spin 2s linear infinite;
+              animation: spin 2s linear infinite;
+        }
+        @-webkit-keyframes spin {
+              0% { -webkit-transform: rotate(0deg); }
+              100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
-<body>
+<body onLoad="startSpinningWheel()" style="margin:0;">
+    <div id="loader"></div>
     <div class="container">
         <div class="controls">
             <div class="shell left">
@@ -377,10 +398,14 @@
             <div class="maingraph"></div>
             <br><br>
         </div>
+        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+        <!-- <script type="text/javascript" src="bootstrap-slider.js"></script> -->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="calculations.js"></script>
+        <script type="text/javascript" src="dragrect_second.js"></script>
+        <script type="text/javascript" src="curves.js"></script>
     </div>
-    <script type="text/javascript" src="calculations.js"></script>
-    <script type="text/javascript" src="dragrect_second.js"></script>
-    <script type="text/javascript" src="curves.js"></script>
 </body>
 
 </html>

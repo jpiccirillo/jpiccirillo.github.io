@@ -1,7 +1,14 @@
-screen_w = $(".maingraph").innerWidth() //Establish screen space
-screen_h = $(".maingraph").innerHeight()
-topscreen_h = $(".minigraph").innerHeight()
-var mu0, mu1, internalmu1, std, n, step; //Initialize globals
+function startSpinningWheel() {
+    setTimeout(prepare, 0);
+}
+function initScreenSize(){
+    screen_w = $(".maingraph").innerWidth() //Establish screen space
+    console.log(screen_w);
+    screen_h = $(".maingraph").innerHeight()
+    console.log(screen_h)
+    topscreen_h = $(".minigraph").innerHeight()
+    var mu0, mu1, internalmu1, std, n, step; //Initialize globals
+}
 
 var interp = d3.svg.line()
     .x(function(d) {
@@ -12,8 +19,7 @@ var interp = d3.svg.line()
     })
     .interpolate("basis");
 
-prepare();
-
+// prepare();
 function changeDelta() {
     delta = validate("delta");
     $("#mu1").val(parseInt(delta * std + mu0));
@@ -237,6 +243,9 @@ function dragged(d) {
 };
 
 function prepare() {
+    $("#loader").remove();
+    $(".container").css("display", "block");
+    initScreenSize();
     setValues();
 
     firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
