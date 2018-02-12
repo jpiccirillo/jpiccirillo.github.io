@@ -248,6 +248,22 @@ function prepare() {
     initScreenSize();
     setValues();
 
+    std_n = std/Math.sqrt(n);
+    blankarray = [];
+    for (i=0; i<30; i++){
+        pair = [];
+        powerresult =  1-jStat.ztest(Math.sqrt((n*Math.pow(i,2))/(2*Math.pow(std, 2))) - Math.abs(inv(0.025, 0, 1)), 1)
+        // pair.push(i)
+        // pair.push(powerresult);
+        console.log(i + ", " + powerresult)
+    }
+    // console.log(blankarray)
+    // powerresult =  1-jStat.ztest(Math.sqrt((n*Math.pow(mu0-mu1,2))/(2*Math.pow(std_n, 2))) - Math.abs(inv(0.025, 0, 1)), 1)
+    // powerresult =powerresult, 1)
+    console.log(mu0-mu1)
+    console.log(1-powerresult)
+    $("#slider-vertical2").slider("value", 1-powerresult)
+
     firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
     firsthalf_top = generateCurve(mu0, 1.25, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
     secondhalf_main = generateCurve(mu1, n, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve

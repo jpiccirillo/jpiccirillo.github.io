@@ -153,11 +153,11 @@ function makeChart() {
             type: 'area-spline',
             groups: [groups]
         },
-        bar: {
-            width: {
-                ratio: 1 // this makes bar width 50% of length between ticks
-            }
-        },
+        // bar: {
+        //     width: {
+        //         ratio: 1 // this makes bar width 50% of length between ticks
+        //     }
+        // },
         point: {
             show: false
         },
@@ -181,16 +181,16 @@ function makeChart() {
         },
         axis: {
             x: {
-                extent: [dates[16], dates[1]],
+                extent: [dates[32], dates[1]],
                 type: 'timeseries',
                 tick: {
-                    //                    fit: false,
+                                       fit: false,
                     format: '%m/%d',
                     //                    rotate: -45,
                     //                    multiline: false,
-                    culling: {
-                        max: window.innerWidth > 830 ? 36 : window.innerWidth >= 600 ? 14 : window.innerWidth < 500 ? 7 : 5
-                    }
+                    // culling: {
+                    //     max: window.innerWidth > 830 ? 36 : window.innerWidth >= 600 ? 14 : window.innerWidth < 500 ? 7 : 5
+                    // }
                 },
                 padding: 0
             },
@@ -200,11 +200,11 @@ function makeChart() {
                 }
             }
         },
-        onresized: function () {
-            window.innerWidth > 830 ?
-                chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
-                    chart.internal.config.axis_x_tick_culling_max = 5)));
-        },
+        // onresized: function () {
+        //     window.innerWidth > 830 ?
+        //         chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
+        //             chart.internal.config.axis_x_tick_culling_max = 5)));
+        // },
         color: {
             pattern: ramps[Math.floor((Math.random() * (3 - 0) + 0))]
         },
