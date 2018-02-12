@@ -1,93 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Power Applet</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments) }
-        gtag('js', new Date());
-        gtag('config', 'UA-96097643-1');
+    window.location.replace("index.html");
     </script>
     <style src="style.css"></style>
 </head>
-
-<body onLoad="startSpinningWheel()" style="margin:0;">
-    <div id="loader"></div>
-    <div class="container">
-        <div class="controls">
-            <div class="shell left">
-                <div id="slider-vertical2">
-                    <div class="inner" id "label" style="z-index:100">P<br>o<br>w<br>e<br>r</div>
-                </div>
-            </div>
-            <div class="shell right">
-                <div id="slider-vertical1">
-                    <div class="inner" id "label" style="z-index:100">n</div>
-                </div>
-            </div>
-            <table>
-                <tr>
-                    <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0" value="100" onchange="prepare();"></td>
-                </tr>
-                <tr>
-                    <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1" value="115" onchange="prepare();"></td>
-                </tr>
-
-                <tr>
-                    <td id="label">σ = </td>
-                    <td><input type="text" id="stdev" value="15" onchange="prepare();"></td>
-                </tr>
-                <tr>
-                    <td id="label">d = </td>
-                    <td><input type="text" id="delta" value="1.00" onchange="changeDelta();"></td>
-                </tr>
-                </tr>
-                <tr>
-                    <td id="label">α = </td>
-                    <td><input type="text" id="alpha" value=".05" onchange="alphaErrorPrep()"></td>
-                </tr>
-                </tr>
-                <tr>
-                    <td id="label">β = </td>
-                    <td><input type="text" value="0.400" id="effectsize" readonly></td>
-                </tr>
-                <tr>
-                    <td id="label">n = </td>
-                    <td><input type="text" id="samplesize" value="4" onchange="prepare();"></td>
-                </tr>
-                <tr>
-                    <td id="label">Power = </td>
-                    <td><input type="text" id="power" value="0.600" onchange="prepare();"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <div class="samplebutton" onclick="prepare()">Sample</div>
-            <div class="console">Critical Mean Value = 102.60<br>Sample Mean = 114.30<br>p(z>9.05) = 0.00<br><br>Reject H<sub>0<sub></div>
-            <!-- <div class="console">Power must be a number between 0.00 and 1.00.</div> -->
-        </div>
-
-        <div class="graph">
-            <div class="minigraph"></div>
-            <div class="maingraph"></div>
-            <br><br>
-        </div>
-        <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
-        <link rel="stylesheet" href="style.css">
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script type="text/javascript" src="calculations.js"></script>
-        <script type="text/javascript" src="dragrect_second.js"></script>
-        <script type="text/javascript" src="curves.js"></script>
-    </div>
-</body>
-
 </html>
