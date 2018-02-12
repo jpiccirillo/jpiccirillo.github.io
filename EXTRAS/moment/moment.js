@@ -9,6 +9,8 @@ var applications = [],
         ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
         ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
         ['#006837', '#31a354', '#78c679', '#c2e699', '#ffffcc'], ];
+    // style = window.getComputedStyle(document.getElementById("#chart"), null);
+    // width = style.getPropertyValue("width");
 
 d3.queue()
     .defer(d3.json, "moment_before.json")
@@ -138,6 +140,7 @@ function changeLabels() {
 }
 
 function makeChart() {
+    console.log(parseInt(window.innerWidth/100))
     var chart = c3.generate({
         data: {
             x: 'x',
@@ -184,12 +187,12 @@ function makeChart() {
                 extent: [dates[32], dates[1]],
                 type: 'timeseries',
                 tick: {
-                                       fit: false,
+                    fit: false,
                     format: '%m/%d',
                     //                    rotate: -45,
                     //                    multiline: false,
                     // culling: {
-                    //     max: window.innerWidth > 830 ? 36 : window.innerWidth >= 600 ? 14 : window.innerWidth < 500 ? 7 : 5
+                    //     max: parseInt(window.innerWidth/10),
                     // }
                 },
                 padding: 0

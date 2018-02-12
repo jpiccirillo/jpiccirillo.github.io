@@ -10,6 +10,36 @@
 
           ],
           "appUsages" : [
+    {"appName" : "Messages", "onScreen":54},
+{"appName" : "Grindr", "onScreen":66},
+{"appName" : "Tinder", "onScreen":11},
+{"appName" : "Google Photos", "onScreen":3},
+{"appName" : "Home & Lock Screen", "onScreen":23},
+{"appName" : "Moment", "onScreen":1},
+{"appName" : "Snapchat", "onScreen":22},
+{"appName" : "Fitbit", "onScreen":5},
+{"appName" : "Gmail", "onScreen":2},
+{"appName" : "Weather", "onScreen":2},
+{"appName" : "Instagram", "onScreen":16},
+{"appName" : "Mint", "onScreen":12},
+{"appName" : "Outlook", "onScreen":1},
+{"appName" : "Messenger", "onScreen":2},
+{"appName" : "Transit", "onScreen":3},
+{"appName" : "Safari", "onScreen":1}
+
+          ],
+          "date" : "2018-02-01T00:00:00-06:00"
+        },
+        {
+          "sessions" : [
+
+          ],
+          "minuteCount" : 28,
+          "pickupCount" : 108,
+          "pickups" : [
+
+          ],
+          "appUsages" : [
     {"appName" : "Messages", "onScreen":66},
 {"appName" : "Grindr", "onScreen":24},
 {"appName" : "Tinder", "onScreen":28},
