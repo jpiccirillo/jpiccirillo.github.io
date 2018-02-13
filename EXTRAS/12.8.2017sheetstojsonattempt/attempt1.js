@@ -1,7 +1,3 @@
-function startSpinningWheel() {
-
-    // setTimeout(initScreenSize, 0);
-}
 function initVariables(){
     $(document).ready(function() {
         $('input.selector_left').css("background-color", "lightgrey");
@@ -104,14 +100,10 @@ function bin(bucket) {
                 return g.distance * 0.621371;
             });
         }).entries(rows);
-
-    // console.log(nestedData2)
     return nestedData2;
 }
 
 function makePlot(bucket) {
-    // console.log(rows)
-    // console.log(bin());
 
     makeArrays(bin(bucket), bucket);
     $("#loader").remove();
@@ -159,7 +151,6 @@ function makePlot(bucket) {
                         format: function(x) {
                             return x + "mi"
                         }
-
                     },
                 },
             },
@@ -189,7 +180,6 @@ function makePlot(bucket) {
             pattern: chosenramp,
         }
     });
-
 }
 
 function change_bin(bucket) {
@@ -201,20 +191,15 @@ function change_bin(bucket) {
     // }
 
     //Finally re-plot using current time bucket selection
-    console.log(bucket)
+    // console.log(bucket)
     makePlot(bucket);
-};
-
+}
 
 function makeArrays(nestedData2, bucket) {
     console.log(nestedData2);
     dates = ['x']
     distance = ['Distance']
-    // console.log(nestedData2);
     for (var i = 0, len = nestedData2.length; i < len; i++) {
-        // console.log(new Date(nestedData2[i].key))
-        // console.log(new Date())
-        // console.log(new Date(nestedData2[i].key) < new Date())
         oldDate = new Date(nestedData2[i].key),
             today = new Date();
         if ((oldDate < today) && (nestedData2[i].values != 0)) {
@@ -227,10 +212,7 @@ function makeArrays(nestedData2, bucket) {
                 distance.push(nestedData2[i].values / 30);
             }
         }
-
     }
-    console.log(dates, distance);
+    // console.log(dates, distance);
 }
-
-// makeURL();
 loadCSV();
