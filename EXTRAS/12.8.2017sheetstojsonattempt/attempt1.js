@@ -10,6 +10,7 @@ function initVariables(){
     distance = ['Distance'],
     rows = new Array(),
     monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    loadCSV();
 }
 
 function makeURL() {
@@ -215,4 +216,3 @@ function makeArrays(nestedData2, bucket) {
     }
     // console.log(dates, distance);
 }
-loadCSV();

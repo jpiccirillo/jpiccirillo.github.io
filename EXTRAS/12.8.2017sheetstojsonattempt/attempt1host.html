@@ -44,15 +44,14 @@
 
         form {
 
-            /*display: inline;*/
             float: right;
             clear: both;
         }
 
         #loader {
             position: absolute;
-            left: 500px;
-            top: 175px;
+            left: 50%;
+            top: 50%;
             z-index: 1;
             margin: -75px 0 0 -75px;
             border: 13px solid #f3f3f3;
@@ -85,6 +84,15 @@
 
 <body style="margin:0;">
     <div id="loader"></div>
+    <script>
+        // Set color ramps, use that to initialize the color on the animated loading ring (#loader), then call
+        // init variables to start the rest of the plot.  Animated ring deleted just before plot is ready to display
+        // $("#chart").append("<div id=\"loader\"></div>")
+        // $("#loader").css("display", "block");
+        ramps = ['#FF5733', '#C70039', '#900C3F', '#581845'],
+            chosenramp = [ramps[Math.floor((Math.random() * (3 - 0) + 0))]]
+        document.getElementById("loader").style.borderTop = "13px solid " + chosenramp[0];
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <input class="selector_left" type="button" value="Day" onclick="change_bin('Day')" />
     <input class="selector_center" type="button" value="Week" onclick="change_bin('Week')" />
@@ -93,11 +101,6 @@
     <script src="attempt1.js"></script>
 
     <script>
-        // Set color ramps, use that to initialize the color on the animated loading ring (#loader), then call
-        // init variables to start the rest of the plot.  Animated ring deleted just before plot is ready to display
-        ramps = ['#FF5733', '#C70039', '#900C3F', '#581845'],
-            chosenramp = [ramps[Math.floor((Math.random() * (3 - 0) + 0))]]
-        $("#loader").css("border-top", "13px solid "+chosenramp[0]);
         initVariables();
     </script>
 
