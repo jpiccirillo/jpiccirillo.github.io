@@ -3,12 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="c3.css">
-    <script src="c3.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.5/Chart.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-    <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+
     <!-- <script src="jquery-3.2.1.min.js"></script> -->
 
 
@@ -28,6 +23,10 @@
       width: 100px;
       height: 100px;
     }*/
+
+        #chart {
+            display: none;
+        }
 
         input.selector_left {
             cursor: pointer;
@@ -69,15 +68,45 @@
             float: right;
             clear: both;
         }
+
+        #loader {
+            position: absolute;
+            left: 500px;
+            top: 175px;
+            z-index: 1;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 
 </head>
 
-<body>
-    <!-- <select id="bin">
-        <option value="Week">Week</option>
-        <option value="Day">Day</option>
-    </select> -->
+<body style="margin:0;">
+    <div id="loader"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
     <input class="selector_left" type="button" value="Day" onclick="change_bin('Day')" />
     <input class="selector_center" type="button" value="Week" onclick="change_bin('Week')" />
@@ -85,15 +114,17 @@
 
     <div id="chart"></div>
     <script src="attempt1.js"></script>
-<script>
-    $(document).ready(function() {
-        $('input.selector_left').css("background-color", "lightgrey");
-    });
-    $('input').click(function() {
-        $(this).css('background', 'lightgrey');
-        $(this).siblings().css('background', 'none');
-    })
-</script>
+    <script>
+        ramps = ['#FF5733', '#C70039', '#900C3F', '#581845'],
+            chosenramp = [ramps[Math.floor((Math.random() * (3 - 0) + 0))]]
+        $("#loader").css("border-top", "16px solid "+chosenramp[0]);
+        initVariables();
+    </script>
+    <script src="c3.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.5/Chart.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="https://d3js.org/d3-queue.v3.min.js"></script>
 </body>
 
 </html>

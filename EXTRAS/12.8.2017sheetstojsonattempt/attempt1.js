@@ -1,9 +1,20 @@
-var dates = ['x'],
+function startSpinningWheel() {
+
+    // setTimeout(initScreenSize, 0);
+}
+function initVariables(){
+    $(document).ready(function() {
+        $('input.selector_left').css("background-color", "lightgrey");
+    });
+    $('input').click(function() {
+        $(this).css('background', 'lightgrey');
+        $(this).siblings().css('background', 'none');
+    })
+    dates = ['x'],
     distance = ['Distance'],
     rows = new Array(),
-    ramps = ['#FF5733', '#C70039', '#900C3F', '#581845'],
-    chosenramp =[ramps[Math.floor((Math.random() * (3 - 0) + 0))]],
     monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+}
 
 function makeURL() {
     var base = 'http://gsx2json.com/api?id=',
@@ -103,6 +114,8 @@ function makePlot(bucket) {
     // console.log(bin());
 
     makeArrays(bin(bucket), bucket);
+    $("#loader").remove();
+    $("#chart").css("display", "block");
     // console.log(dates, distance);
     var chart = c3.generate({
         data: {

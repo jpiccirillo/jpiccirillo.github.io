@@ -1,6 +1,7 @@
 function startSpinningWheel() {
     setTimeout(prepare, 0);
 }
+
 function initScreenSize(){
     screen_w = $(".maingraph").innerWidth() //Establish screen space
     console.log(screen_w);
