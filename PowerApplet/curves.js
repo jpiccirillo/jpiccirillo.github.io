@@ -242,7 +242,7 @@ function dragged(d) {
     internalmu1 = mu1 + d.x * 8 * std / screen_w
     checkOverlap(internalmu1);
 };
-
+//
 function prepare() {
     $("#loader").remove();
     $(".container").css("display", "block");

@@ -4,8 +4,38 @@
           "sessions" : [
 
           ],
-          "minuteCount" : 28,
-          "pickupCount" : 108,
+          "minuteCount" : 29,
+          "pickupCount" : 75,
+          "pickups" : [
+
+          ],
+          "appUsages" : [
+{"appName" : "Messages", "onScreen":51},
+{"appName" : "Grindr", "onScreen":22},
+{"appName" : "Tinder", "onScreen":1},
+{"appName" : "Tumblr", "onScreen":13},
+{"appName" : "Google Photos", "onScreen":5},
+{"appName" : "Home & Lock Screen", "onScreen":16},
+{"appName" : "Moment", "onScreen":1},
+{"appName" : "Snapchat", "onScreen":6},
+{"appName" : "Gmail", "onScreen":2},
+{"appName" : "Weather", "onScreen":3},
+{"appName" : "Instagram", "onScreen":16},
+{"appName" : "Safari", "onScreen":9},
+{"appName" : "Slack", "onScreen":6},
+{"appName" : "Notes", "onScreen":5},
+{"appName" : "Mail", "onScreen":5},
+{"appName" : "Reversee", "onScreen":1},
+{"appName" : "Camera", "onScreen":3}
+          ],
+          "date" : "2018-02-16T00:00:00-06:00"
+        },
+        {
+          "sessions" : [
+
+          ],
+          "minuteCount" : 96,
+          "pickupCount" : 204,
           "pickups" : [
 
           ],
