@@ -1,3 +1,7 @@
+$(window).resize(function(){
+    prepare();
+});
+
 function startSpinningWheel() {
     setTimeout(prepare, 0);
 }
