@@ -3,15 +3,15 @@ html, body {
     max-height: 100%;
     overflow: hidden;
 }
-body {
-    width:900px;
+/*body {
+    width:780px;
     height:380px;
-}
+}*/
 .container {
     display: none;
-    width: 900px;
+    width: 100vw;
     padding: 0px;
-    height: 350px;
+    height: 380px;
     font-family: Helvetica;
     font-size: 14px;
     -webkit-user-select: none;
@@ -46,7 +46,7 @@ body {
     float: right;
     position: relative;
 }
-@media only screen and (max-width: 900px) {
+/*@media only screen and (max-width: 900px) {
     .container {
         width: 96vw;
         height: 100vh;
@@ -64,7 +64,7 @@ body {
         float: right;
         position: relative;
     }
-}
+}*/
 .shell, .console,.samplebutton:active {
     border-color: grey;
     border-width: 1px;

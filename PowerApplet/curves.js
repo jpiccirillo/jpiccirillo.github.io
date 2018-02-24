@@ -160,6 +160,7 @@ function alphaErrorPrep() {
         .attr("y2", screen_h * .1)
 
     addPath("mainbluestroke", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
+    calculatePower($("#mu1").val());
     checkOverlap()
     axisPrep();
 }
@@ -222,6 +223,17 @@ function setDelta() {
 //         }
 //     })
 // }
+function calculatePower(mu1) {
+        // if (!mu) { var mu = internalmu1 }
+    zcritical1 = inv((1-$("#alpha").val()/2), 0, 1);
+    zcritical2 = inv($("#alpha").val()/2, 0, 1);
+    noncentrality = (mu1-mu0)/(sigma/(Math.sqrt(n)))
+    power = parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
+    console.log("Power: ", power)
+    $("#power").val(power);
+    $("#effectsize").val(parseFloat(1-power).toFixed(3));
+    $("#slider-vertical2").slider("value", power)
+}
 
 function dragged(d) {
     setDelta();
@@ -241,6 +253,7 @@ function dragged(d) {
     $("#mu1").val(parseInt(mu1 + d.x * 8 * std / screen_w))
     internalmu1 = mu1 + d.x * 8 * std / screen_w
     checkOverlap(internalmu1);
+    calculatePower(internalmu1);
 };
 //
 function prepare() {
@@ -250,20 +263,6 @@ function prepare() {
     setValues();
 
     std_n = std/Math.sqrt(n);
-    blankarray = [];
-    for (i=0; i<30; i++){
-        pair = [];
-        powerresult =  1-jStat.ztest(Math.sqrt((n*Math.pow(i,2))/(2*Math.pow(std, 2))) - Math.abs(inv(0.025, 0, 1)), 1)
-        // pair.push(i)
-        // pair.push(powerresult);
-        console.log(i + ", " + powerresult)
-    }
-    // console.log(blankarray)
-    // powerresult =  1-jStat.ztest(Math.sqrt((n*Math.pow(mu0-mu1,2))/(2*Math.pow(std_n, 2))) - Math.abs(inv(0.025, 0, 1)), 1)
-    // powerresult =powerresult, 1)
-    console.log(mu0-mu1)
-    console.log(1-powerresult)
-    $("#slider-vertical2").slider("value", 1-powerresult)
 
     firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
     firsthalf_top = generateCurve(mu0, 1.25, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
@@ -300,7 +299,10 @@ function prepare() {
     addPath("smallpink", "path", "", "", node, secondhalf_top, topscreen_h, 1)
 
     alphaErrorPrep();
-    checkOverlap(mu1);
+    // console.log(blankarray)
+    // powerresult =  1-jStat.ztest(Math.sqrt((n*Math.pow(mu0-mu1,2))/(2*Math.pow(std_n, 2))) - Math.abs(inv(0.025, 0, 1)), 1)
+    // powerresult =powerresult, 1)
+    // checkOverlap(mu1);
     axisPrep();
     textPrep();
 }

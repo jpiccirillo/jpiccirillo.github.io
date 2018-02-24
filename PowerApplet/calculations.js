@@ -1,3 +1,7 @@
+function cdf(x, mean, std) {
+  return 0.5 * (1 + erf((x - mean) / Math.sqrt(2 * std * std)));
+}
+
 function normalcdf() {
     p = $("#alpha").val()/2
     mu = $("#mu0").val()
