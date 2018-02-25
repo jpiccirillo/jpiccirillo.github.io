@@ -3,15 +3,19 @@ html, body {
     max-height: 100%;
     overflow: hidden;
 }
-/*body {
-    width:780px;
+body {
+    width:100vw;
+    min-width: 780px;
+    max-width: 1000px;
     height:380px;
-}*/
+}
 .container {
     display: none;
-    width: 100vw;
+    width:100vw;
+    min-width: 780px;
+    max-width: 1000px;
     padding: 0px;
-    height: 380px;
+    height: 350px;
     font-family: Helvetica;
     font-size: 14px;
     -webkit-user-select: none;

@@ -231,7 +231,7 @@ function calculatePower(mu1) {
         // if (!mu) { var mu = internalmu1 }
     zcritical1 = inv((1-$("#alpha").val()/2), 0, 1);
     zcritical2 = inv($("#alpha").val()/2, 0, 1);
-    noncentrality = (mu1-mu0)/(sigma/(Math.sqrt(n)))
+    if (mu1<mu0) {noncentrality=0;} else {noncentrality = (mu1-mu0)/(sigma/(Math.sqrt(n)))};
     power = parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
     console.log("Power: ", power)
     $("#power").val(power);
