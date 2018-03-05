@@ -1,9 +1,22 @@
 {"days_1":
     [{
-
-"sessions":[],"minuteCount":13,"pickupCount":19,"pickups":[],
-"appUsages":[],
-	"date":"2018-03-04T00:00:00-06:00"},{
+"sessions":[],"minuteCount":73,"pickupCount":125,"pickups":[],
+"appUsages":[
+	{"appName":"Messages","onScreen":45},
+	{"appName":"Instagram","onScreen":29},
+	{"appName":"Tumblr","onScreen":26},
+	{"appName":"Home & Lock Screen","onScreen":19},
+	{"appName":"Moment","onScreen":15},
+	{"appName":"Photos","onScreen":12},
+	{"appName":"Snapchat","onScreen":10},
+	{"appName":"Tinder","onScreen":9},
+	{"appName":"Safari","onScreen":7},
+	{"appName":"Google Photos","onScreen":4},
+	{"appName":"Weather","onScreen":3},
+	{"appName":"Camera","onScreen":2},
+	{"appName":"Fitbit","onScreen":1},
+	{"appName":"Outlook","onScreen":1}],
+    "date":"2018-03-04T00:00:00-06:00"},{
 
 "sessions":[],"minuteCount":29,"pickupCount":89,"pickups":[],
 "appUsages":[

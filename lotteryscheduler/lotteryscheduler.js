@@ -2,12 +2,12 @@ var chart = c3.generate({
     padding: {
         top: 30,
         right: 30,
-        bottom: 20,
-        left: 80,
+        // bottom: 20,
+    //     left: 80,
     },
     size: {
         height: 300,
-        width: 1000
+        width: (window.innerWidth > 800) ? window.innerWidth*.8 : window.innerWidth
     },
     data: {
         columns: [
@@ -70,8 +70,8 @@ var chart = c3.generate({
 }
 });
 d3.select('#chart svg').append('text')
-    .attr('x', d3.select('#chart svg').node().getBoundingClientRect().width / 2)
-    .attr('y', 40)
+    .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2)*1.1)
+    .attr('y', 20)
     .attr('text-anchor', 'middle')
     .style('font-size', '1.4em')
     .text('% Time Slices Received per Concurrent Process');

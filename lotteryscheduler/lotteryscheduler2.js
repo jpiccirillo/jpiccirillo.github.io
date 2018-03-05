@@ -3,12 +3,13 @@ var chart2 = c3.generate({
     padding: {
         top: 30,
         right: 30,
-        bottom: 20,
-        left: 80,
+        // bottom: 20,
+        // left: 80,
     },
     size: {
+        // max: window.innerWidth > 830 ? 30
         height: 500,
-        width: 1000
+        width: (window.innerWidth > 800) ? window.innerWidth*.8 : window.innerWidth
     },
     data: {
         columns: [
@@ -70,8 +71,8 @@ var chart2 = c3.generate({
 }
 });
 d3.select('#chart2 svg').append('text')
-    .attr('x', d3.select('#chart svg').node().getBoundingClientRect().width / 2)
-    .attr('y', 40)
+    .attr('x', (d3.select('#chart2 svg').node().getBoundingClientRect().width / 2)*1.1)
+    .attr('y', 20)
     .attr('text-anchor', 'middle')
     .style('font-size', '1.4em')
     .text('Cumulative Time Slices Received per Concurrent Process');
