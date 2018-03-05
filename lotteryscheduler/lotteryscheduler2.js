@@ -1,4 +1,5 @@
-var chart = c3.generate({
+var chart2 = c3.generate({
+        bindto: '#chart2',
     padding: {
         top: 30,
         right: 30,
@@ -62,7 +63,7 @@ var chart = c3.generate({
         }
     }
 });
-d3.select('#chart svg').append('text')
+d3.select('#chart2 svg').append('text')
     .attr('x', d3.select('#chart svg').node().getBoundingClientRect().width / 2)
     .attr('y', 40)
     .attr('text-anchor', 'middle')
