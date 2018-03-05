@@ -162,6 +162,7 @@ input:focus {
 
 .ui-slider-range-min {
     border-radius: 0px;
+    fill-opacity:.7;
     background-color: Indianred;
     width: 100%;
 }

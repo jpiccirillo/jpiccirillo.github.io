@@ -60,7 +60,12 @@ var chart = c3.generate({
                 bottom: 0
             }
         }
-    }
+    },
+    tooltip: {
+        format: {
+          value: function (value,) { return (value*100).toFixed(1) + "%"; }
+        }
+}
 });
 d3.select('#chart svg').append('text')
     .attr('x', d3.select('#chart svg').node().getBoundingClientRect().width / 2)

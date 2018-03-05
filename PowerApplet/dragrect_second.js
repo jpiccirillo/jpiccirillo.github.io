@@ -21,18 +21,6 @@ $(function() {
     $(".ui-slider-range-min").css("background-color", "lightgrey");
 });
 
-function setSliderTicks(el) {
-    var $slider = $(el);
-    $slider.find('.ui-slider-tick-mark').remove();
-    for (var i = 1; i < 20; i++) {
-        if (i * 5 % 25 == 0) { //major ticks at 25,50,75 (% to find integrs divisible by 25)
-            $('<span class="ui-slider-tick-mark_large"></span>').css('bottom', (i * 5 - 2) + '%').appendTo(".shell");
-        } else {
-            $('<span class="ui-slider-tick-mark"></span>').css('bottom', (i * 5 - 1) + '%').appendTo(".shell");
-        }
-    }
-}
-
 $(function() {
     power = $("#power").val();
     $("#slider-vertical2").slider({
@@ -41,9 +29,16 @@ $(function() {
         min: 0,
         max: 1,
         value: .600,
-        step: .001
-    });
-    // $("#slider-vertical2").slider("disable");
+        step: .001,
+
+        // slide: function(event, ui) {
+        //     n = Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*sigma/(mu1-mu0),2));
+        //     console.log(n)
+        //     $("#power").val(ui.value)
+        //     $("#samplesize").val(n);
+        //     $("#slider-vertical1").slider("value", n)
+        // }
+    })
 });
 
 $("#samplesize").change(function() {
@@ -55,8 +50,16 @@ $("#power").change(function() {
     $("#slider-vertical2").slider("value", $(this).val())
 });
 
-function sample() {
-    //code to sample goes here
+function setSliderTicks(el) {
+    var $slider = $(el);
+    $slider.find('.ui-slider-tick-mark').remove();
+    for (var i = 1; i < 20; i++) {
+        if (i * 5 % 25 == 0) { //major ticks at 25,50,75 (% to find integrs divisible by 25)
+            $('<span class="ui-slider-tick-mark_large"></span>').css('bottom', (i * 5 - 2) + '%').appendTo(".shell");
+        } else {
+            $('<span class="ui-slider-tick-mark"></span>').css('bottom', (i * 5 - 1) + '%').appendTo(".shell");
+        }
+    }
 }
 
 function validate(item) {

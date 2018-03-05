@@ -202,7 +202,7 @@ function setValues() {
     validate("sigma")
     validate("samplesize");
     validate("power")
-
+    // n from power: Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*sigma/(mu1-mu0),2))
     mu0 = parseInt($("#mu0").val())
     mu1 = parseInt($("#mu1").val())
     internalmu1 = mu1;
@@ -233,8 +233,10 @@ function calculatePower(mu1) {
     zcritical2 = inv($("#alpha").val()/2, 0, 1);
     if (mu1<mu0) {noncentrality=0;} else {noncentrality = (mu1-mu0)/(sigma/(Math.sqrt(n)))};
     power = parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
+
     console.log("Power: ", power)
     $("#power").val(power);
+
     $("#effectsize").val(parseFloat(1-power).toFixed(3));
     $("#slider-vertical2").slider("value", power)
 }
