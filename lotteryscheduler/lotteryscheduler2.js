@@ -61,7 +61,13 @@ var chart2 = c3.generate({
                 bottom: 0
             }
         }
-    }
+    },
+    tooltip: {
+        format: {
+          title: function (x) { return 'At time slice: ' + x; },
+          name: function (name) { return name.substring(0, 10); },
+        }
+}
 });
 d3.select('#chart2 svg').append('text')
     .attr('x', d3.select('#chart svg').node().getBoundingClientRect().width / 2)

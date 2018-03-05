@@ -63,6 +63,8 @@ var chart = c3.generate({
     },
     tooltip: {
         format: {
+          title: function (x) { return 'At time slice: ' + x; },
+          name: function (name) { return name.substring(0, 10); },
           value: function (value,) { return (value*100).toFixed(1) + "%"; }
         }
 }
