@@ -1,8 +1,3 @@
-$( window ).resize(function() {
-    $("#title").remove();
-    addTitle();
-});
-
 d3.csv("snow.csv", function(csv) {
     var count = 0;
     var allData = [],
@@ -34,9 +29,10 @@ function plot_1(allData, xaxis) {
         bindto: "#chart",
         size: {
             height: 300,
-        //     width: (window.innerWidth > 800) ? window.innerWidth : window.innerWidth
         },
-
+        title: {
+            text: 'Snowfall in Madison, Wisconsin',
+        },
         data: {
             x: 'x',
             columns: allData,
@@ -52,16 +48,15 @@ function plot_1(allData, xaxis) {
             position: 'inset',
             inset: {
                 anchor: 'top-left',
+                y: 5
             },
         },
         axis: {
             x: {
-                // label: {
-                //     text: 'Years',
-                //     position: 'outer-center'
-                // },
                 tick: {
-                    values: xaxis,
+                    // values: xaxis,
+                    fit: true,
+                    culling: true
                 },
             },
             y: {
@@ -87,15 +82,4 @@ function plot_1(allData, xaxis) {
             }
         }
     });
-    addTitle();
-}
-
-function addTitle() {
-    d3.select('#chart svg').append('text')
-        .attr("id", "title")
-        .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2))
-        .attr('y', 20)
-        .attr('text-anchor', 'middle')
-        .style('font-size', '1.4em')
-        .text('Snowfall in Madison, Wisconsin');
 }

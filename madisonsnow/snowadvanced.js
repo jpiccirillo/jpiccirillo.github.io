@@ -2,11 +2,6 @@ $(document).ready(function() {
     prepareData();
 });
 
-$( window ).resize(function() {
-    $("#title").remove();
-    addTitle();
-});
-
 function prepareData() {
     d3.csv("snowadvanced.csv", function(csv) {
         var count = 0;
@@ -54,21 +49,17 @@ function prepareData() {
 function plot_1(allData, xaxis) {
     // console.log(allData)
     monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-
-    // ramps = [
-    //     ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
-    //     ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
-    //     ['#006837', '#31a354', '#78c679', '#c2e699', '#ffffcc'], ];
     var chart = c3.generate({
         bindto: "#chart",
         padding: {
-            top: 30,
+            top: 0,
         },
         size: {
             height: 300,
-            // width: (window.innerWidth > 800) ? window.innerWidth : window.innerWidth
         },
-
+        title: {
+  text: 'Temperatures by Month in Madison, Wisconsin',
+},
         data: {
             x: 'YearMonth',
             xFormat: '%m-%Y',
@@ -85,22 +76,20 @@ function plot_1(allData, xaxis) {
             position: 'inset',
             inset: {
                 anchor: 'top-left',
+                y: 5,
             },
         },
         axis: {
             x: {
-                // label: {
-                //     text: 'Years',
-                //     position: 'outer-center'
-                // },
                 type: 'timeseries',
                 tick: {
                     format: '%Y',
-                    values: xaxis
+                    // values: xaxis,
+                    fit: true,
+                    culling: true
                 },
                 padding: {
                     left: 5,
-                    // right: 0
                 }
             },
             y: {
@@ -108,17 +97,6 @@ function plot_1(allData, xaxis) {
                     text: 'Degrees Farenheit',
                     position: 'outer-right'
                 },
-                // tick: {
-                //     format: function(x) {
-                //         return x + "°";
-                //     },
-                // },
-                // max: 1,
-                // min: 0,
-                // padding: {
-                //     top: 0,
-                //     bottom: 0
-                // }
             }
         },
         tooltip: {
@@ -126,32 +104,20 @@ function plot_1(allData, xaxis) {
                 title: function(x) {
                     return (monthNames[x.getMonth()] + ", " + x.getFullYear())
                 }
-                // value: function(value, ) {
-                //     return value + "\"";
-                // }
             }
         }
     });
-    addTitle()
-}
-
-function addTitle() {
-    d3.select('#chart svg').append('text')
-        .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2))
-        .attr('y', 20)
-        .attr("id", "title")
-        .attr('text-anchor', 'middle')
-        .style('font-size', '1.4em')
-        .text('Temperature by Month in Madison, Wisconsin');
 }
 
 function setRamps() {
     desiredMonth = $("#month").val()
     ramps = [
         ['#3182bd', '#9ecae1', '#deebf7'],
+        ['#ff8c00','#ffb568','#f5deb3'],
         ["#f03b20", "#feb24c", "#ffeda0"],
     ];
     console.log(desiredMonth)
-    if ((+desiredMonth>9)||(desiredMonth<4)) {return ramps[0];}
-    else return ramps[1];
+    if ((+desiredMonth>4)&&(desiredMonth<8)) { return ramps[2];}
+    else if ((+desiredMonth>9)||(desiredMonth<3)) { return ramps[0];}
+    else return ramps[1]
 }
