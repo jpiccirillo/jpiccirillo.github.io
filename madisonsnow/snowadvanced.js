@@ -1,38 +1,54 @@
-d3.csv("snow.csv", function(csv) {
-    var count = 0;
-    var allData = [],
-        xaxis = [];
-    for (var k in csv[0]) {
-        if (csv[0].hasOwnProperty(k)) {
-            ++count;
-        }
-    }
-    //Not attaching to window
-    for (i = 0; i < count; i++) {
-        tempArray = [Object.keys(csv[0])[i]];
-        name = Object.keys(csv[0])[i]
-        csv.map(function(d) {
-            if (name == "x") {
-                // strdate = d[name].split("/");
-                // date = new Date(strdate[1], strdate[0], 1)
-                tempArray.push(d[name])
-                // console.log(strdate[1])
-                // if ((strdate[1]%10==0)&(strdate[0]==1)) {
-                //     xaxis.push(new Date(strdate[1], strdate[0], 1))
-                // }
-            }
-            else if (name == "Avg Temp") {
-                tempArray.push(+d[name]);
-            }
-        })
-        allData.push(tempArray)
-    }
-    console.log(xaxis)
-    plot_1(allData, xaxis);
+$( document ).ready(function() {
+    prepareData();
 });
 
+function prepareData() {
+    d3.csv("snowadvanced.csv", function(csv) {
+        var count = 0;
+        var allData = [],
+            xaxis = []
+
+        for (var k in csv[0]) {
+            if (csv[0].hasOwnProperty(k)) {
+                ++count;
+            }
+        }
+        //Not attaching to window
+        var plot = 0;
+        var month;
+        for (i = 0; i < count; i++) {
+            tempArray = [Object.keys(csv[0])[i]];
+            name = Object.keys(csv[0])[i]
+            desiredMonth = parseInt($("#month").val())
+            console.log(desiredMonth)
+            csv.map(function(d) {
+                if (name == "YearMonth") {
+                    year = d[name].substring(0, 4);
+                    month = d[name].substring(4, 6);
+                    // console.log(month)
+                    date = new Date(year, month, 1)
+                    if (month == desiredMonth) {
+                        if (year % 5 == 0) {
+                            xaxis.push(date)
+                        }
+                        plot = 1
+                        tempArray.push(date)
+                    }
+                } else if (d['YearMonth'].substring(4, 6) == desiredMonth) {
+                    // console.log(month)
+                    tempArray.push(+d[name]);
+                }
+            })
+            allData.push(tempArray)
+        }
+        console.log(xaxis)
+        plot_1(allData, xaxis);
+    });
+}
+
 function plot_1(allData, xaxis) {
-    console.log(allData);
+    console.log(allData)
+    monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     var chart = c3.generate({
         bindto: "#chart",
         padding: {
@@ -45,13 +61,13 @@ function plot_1(allData, xaxis) {
         },
 
         data: {
-            x: 'x',
+            x: 'YearMonth',
             xFormat: '%m-%Y',
             columns: allData,
-            type: 'line',
+            type: 'spline',
         },
         color: {
-            pattern: ['#1f77b4', '#aec7e8']
+            // pattern: ['#1f77b4', '#aec7e8']
         },
         point: {
             show: false
@@ -70,7 +86,8 @@ function plot_1(allData, xaxis) {
                 },
                 type: 'timeseries',
                 tick: {
-                    format: '%m-%Y'
+                    format: '%Y',
+                    values: xaxis
                 },
                 padding: {
                     left: 5,
@@ -79,12 +96,12 @@ function plot_1(allData, xaxis) {
             },
             y: {
                 label: {
-                    text: 'Cumulative Snowfall',
+                    text: 'Degrees Farenheit',
                     position: 'outer-right'
                 },
                 // tick: {
                 //     format: function(x) {
-                //         return x + "\"";
+                //         return x + "°";
                 //     },
                 // },
                 // max: 1,
@@ -98,8 +115,8 @@ function plot_1(allData, xaxis) {
         tooltip: {
             format: {
                 title: function(x) {
-                    return "Winter of " + x + '-' + String(x + 1).substring(2, 4);
-                },
+                    return (monthNames[x.getMonth()] + ", " + x.getFullYear())
+                }
                 // value: function(value, ) {
                 //     return value + "\"";
                 // }
@@ -111,5 +128,5 @@ function plot_1(allData, xaxis) {
         .attr('y', 20)
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
-        .text('Historical Snowfall for Madison WI');
+        .text('Historical Temperatures for Madison, WI');
 }

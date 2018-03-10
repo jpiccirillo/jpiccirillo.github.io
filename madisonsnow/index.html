@@ -11,7 +11,10 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
         gtag('config', 'UA-96097643-1');
     </script>
@@ -19,6 +22,7 @@
         html,
         body {
             max-width: 100%;
+              font: 12px sans-serif;
             overflow-x: hidden;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -45,9 +49,24 @@
         }
     </script>
     <!-- <a href="#" onclick="return addnsandprint()"><img src="hello.jpeg" /></a> -->
-    <div id="chart"></div>
-    <div id="chart2"></div>
-        <script src="snow.js"></script>
+    <div>Select Month:
+        <select id="month" onchange="prepareData()">
+            <option value="12">January</option>
+            <option value="01">February</option>
+            <option value="02">March</option>
+            <option value="03">April</option>
+            <option value="04">May</option>
+            <option value="05">June</option>
+            <option value="06">July</option>
+            <option value="07">August</option>
+            <option value="08">September</option>
+            <option value="09">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+        </div>
+        </select>
+        <div id="chart"></div>
+        <script src="snowadvanced.js"></script>
 </body>
 
 </html>
