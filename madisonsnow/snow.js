@@ -1,6 +1,7 @@
 d3.csv("snow.csv", function(csv) {
     var count = 0;
-    var allData = [];
+    var allData = [],
+        xaxis = [];
     for (var k in csv[0]) {
         if (csv[0].hasOwnProperty(k)) {
             ++count;
@@ -11,14 +12,18 @@ d3.csv("snow.csv", function(csv) {
         tempArray = [Object.keys(csv[0])[i]];
         name = Object.keys(csv[0])[i]
         csv.map(function(d) {
+            if ((i == 0) && (+d[name] % 5 == 0)) {
+                xaxis.push(+d[name])
+            }
             tempArray.push(+d[name]);
         })
         allData.push(tempArray)
     }
-    plot_1(allData);
+    console.log(xaxis)
+    plot_1(allData, xaxis);
 });
 
-function plot_1(allData) {
+function plot_1(allData, xaxis) {
     console.log(allData);
     var chart = c3.generate({
         bindto: "#chart",
@@ -52,11 +57,11 @@ function plot_1(allData) {
             x: {
                 label: {
                     text: 'Years',
-                    position: 'outer-right'
+                    position: 'outer-center'
                 },
-                // tick: {
-                //     values: [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850],
-                // },
+                tick: {
+                    values: xaxis,
+                },
                 padding: {
                     left: 5,
                     right: 0
@@ -92,7 +97,7 @@ function plot_1(allData) {
         }
     });
     d3.select('#chart svg').append('text')
-        .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2) )
+        .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2))
         .attr('y', 20)
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
