@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
     prepareData();
 });
 
@@ -20,7 +20,7 @@ function prepareData() {
             tempArray = [Object.keys(csv[0])[i]];
             name = Object.keys(csv[0])[i]
             desiredMonth = parseInt($("#month").val())
-            console.log(desiredMonth)
+            // log(desiredMonth)
             csv.map(function(d) {
                 if (name == "YearMonth") {
                     year = d[name].substring(0, 4);
@@ -41,14 +41,19 @@ function prepareData() {
             })
             allData.push(tempArray)
         }
-        console.log(xaxis)
+        // console.log(xaxis)
         plot_1(allData, xaxis);
     });
 }
 
 function plot_1(allData, xaxis) {
-    console.log(allData)
+    // console.log(allData)
     monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    // ramps = [
+    //     ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
+    //     ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
+    //     ['#006837', '#31a354', '#78c679', '#c2e699', '#ffffcc'], ];
     var chart = c3.generate({
         bindto: "#chart",
         padding: {
@@ -67,7 +72,7 @@ function plot_1(allData, xaxis) {
             type: 'spline',
         },
         color: {
-            // pattern: ['#1f77b4', '#aec7e8']
+            pattern: setRamps()
         },
         point: {
             show: false
@@ -129,4 +134,15 @@ function plot_1(allData, xaxis) {
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
         .text('Historical Temperatures for Madison, WI');
+}
+
+function setRamps() {
+    desiredMonth = $("#month").val()
+    ramps = [
+        ['#3182bd', '#9ecae1', '#deebf7'],
+        ["#f03b20", "#feb24c", "#ffeda0"],
+    ];
+    console.log(desiredMonth)
+    if ((+desiredMonth>9)||(desiredMonth<4)) {return ramps[0];}
+    else return ramps[1];
 }
