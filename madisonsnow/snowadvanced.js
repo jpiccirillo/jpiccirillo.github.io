@@ -2,6 +2,11 @@ $(document).ready(function() {
     prepareData();
 });
 
+$( window ).resize(function() {
+    $("#title").remove();
+    addTitle();
+});
+
 function prepareData() {
     d3.csv("snowadvanced.csv", function(csv) {
         var count = 0;
@@ -127,9 +132,14 @@ function plot_1(allData, xaxis) {
             }
         }
     });
+    addTitle()
+}
+
+function addTitle() {
     d3.select('#chart svg').append('text')
         .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2))
         .attr('y', 20)
+        .attr("id", "title")
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
         .text('Monthly Temperatures in Madison, WI');

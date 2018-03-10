@@ -1,3 +1,8 @@
+$( window ).resize(function() {
+    $("#title").remove();
+    addTitle();
+});
+
 d3.csv("snow.csv", function(csv) {
     var count = 0;
     var allData = [],
@@ -82,7 +87,12 @@ function plot_1(allData, xaxis) {
             }
         }
     });
+    addTitle();
+}
+
+function addTitle() {
     d3.select('#chart svg').append('text')
+        .attr("id", "title")
         .attr('x', (d3.select('#chart svg').node().getBoundingClientRect().width / 2))
         .attr('y', 20)
         .attr('text-anchor', 'middle')
