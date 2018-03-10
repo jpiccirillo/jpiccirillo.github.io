@@ -142,7 +142,7 @@ function addTitle() {
         .attr("id", "title")
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
-        .text('Monthly Temperatures in Madison, WI');
+        .text('Temperature by Month in Madison, Wisconsin');
 }
 
 function setRamps() {
