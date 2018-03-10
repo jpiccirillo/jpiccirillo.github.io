@@ -97,5 +97,5 @@ function addTitle() {
         .attr('y', 20)
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
-        .text('Snowfall in Madison, WI (1885-2017)');
+        .text('Snowfall in Madison, Wisconsin');
 }
