@@ -58,11 +58,10 @@ function plot_1(allData, xaxis) {
         bindto: "#chart",
         padding: {
             top: 30,
-            right: 30,
         },
         size: {
             height: 300,
-            width: (window.innerWidth > 800) ? window.innerWidth : window.innerWidth
+            // width: (window.innerWidth > 800) ? window.innerWidth : window.innerWidth
         },
 
         data: {
@@ -85,10 +84,10 @@ function plot_1(allData, xaxis) {
         },
         axis: {
             x: {
-                label: {
-                    text: 'Years',
-                    position: 'outer-center'
-                },
+                // label: {
+                //     text: 'Years',
+                //     position: 'outer-center'
+                // },
                 type: 'timeseries',
                 tick: {
                     format: '%Y',
@@ -96,7 +95,7 @@ function plot_1(allData, xaxis) {
                 },
                 padding: {
                     left: 5,
-                    right: 0
+                    // right: 0
                 }
             },
             y: {
@@ -111,10 +110,10 @@ function plot_1(allData, xaxis) {
                 // },
                 // max: 1,
                 // min: 0,
-                padding: {
-                    top: 0,
-                    bottom: 0
-                }
+                // padding: {
+                //     top: 0,
+                //     bottom: 0
+                // }
             }
         },
         tooltip: {
@@ -133,7 +132,7 @@ function plot_1(allData, xaxis) {
         .attr('y', 20)
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
-        .text('Historical Temperatures for Madison, WI');
+        .text('Monthly Temperatures in Madison, WI');
 }
 
 function setRamps() {

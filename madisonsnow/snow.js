@@ -12,7 +12,7 @@ d3.csv("snow.csv", function(csv) {
         tempArray = [Object.keys(csv[0])[i]];
         name = Object.keys(csv[0])[i]
         csv.map(function(d) {
-            if ((i == 0) && (+d[name] % 5 == 0)) {
+            if ((i == 0) && (+d[name] % 10 == 0)) {
                 xaxis.push(+d[name])
             }
             tempArray.push(+d[name]);
@@ -27,13 +27,9 @@ function plot_1(allData, xaxis) {
     console.log(allData);
     var chart = c3.generate({
         bindto: "#chart",
-        padding: {
-            top: 30,
-            right: 30,
-        },
         size: {
             height: 300,
-            width: (window.innerWidth > 800) ? window.innerWidth * .9 : window.innerWidth
+        //     width: (window.innerWidth > 800) ? window.innerWidth : window.innerWidth
         },
 
         data: {
@@ -55,17 +51,13 @@ function plot_1(allData, xaxis) {
         },
         axis: {
             x: {
-                label: {
-                    text: 'Years',
-                    position: 'outer-center'
-                },
+                // label: {
+                //     text: 'Years',
+                //     position: 'outer-center'
+                // },
                 tick: {
                     values: xaxis,
                 },
-                padding: {
-                    left: 5,
-                    right: 0
-                }
             },
             y: {
                 label: {
@@ -77,12 +69,6 @@ function plot_1(allData, xaxis) {
                         return x + "\"";
                     },
                 },
-                // max: 1,
-                // min: 0,
-                padding: {
-                    top: 0,
-                    bottom: 0
-                }
             }
         },
         tooltip: {
@@ -101,5 +87,5 @@ function plot_1(allData, xaxis) {
         .attr('y', 20)
         .attr('text-anchor', 'middle')
         .style('font-size', '1.4em')
-        .text('Historical Snowfall for Madison WI');
+        .text('Snowfall in Madison, WI (1885-2017)');
 }

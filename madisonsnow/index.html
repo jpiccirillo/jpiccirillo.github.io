@@ -18,20 +18,13 @@
         gtag('js', new Date());
         gtag('config', 'UA-96097643-1');
     </script>
-    <style type="text/css">
-        html,
-        body {
-            max-width: 100%;
-              font: 12px sans-serif;
-            overflow-x: hidden;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-    </style>
-
 </head>
+<style type="text/css">
+    body {
+        font-family: sans-serif;
+        font-size: 10pt;
+    }
+</style>
 <html>
 
 <body>
@@ -49,7 +42,7 @@
         }
     </script>
     <!-- <a href="#" onclick="return addnsandprint()"><img src="hello.jpeg" /></a> -->
-    <div>Select Month:
+    <div style="margin-left:2em">Select Month:
         <select id="month" onchange="prepareData()">
             <option value="12">January</option>
             <option value="01">February</option>
@@ -63,8 +56,8 @@
             <option value="09">October</option>
             <option value="10">November</option>
             <option value="11">December</option>
+                    </select>
         </div>
-        </select>
         <div id="chart"></div>
         <script src="snowadvanced.js"></script>
 </body>
