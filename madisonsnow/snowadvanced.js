@@ -28,7 +28,7 @@ function prepareData() {
                     // console.log(month)
                     date = new Date(year, month, 1)
                     if (month == desiredMonth) {
-                        if (year % 5 == 0) {
+                        if (year % 10 == 0) {
                             xaxis.push(date)
                         }
                         plot = 1
