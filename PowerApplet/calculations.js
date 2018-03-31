@@ -2,12 +2,12 @@ function cdf(x, mean, std) {
   return 0.5 * (1 + erf((x - mean) / Math.sqrt(2 * std * std)));
 }
 
-function normalcdf() {
-    p = $("#alpha").val()/2
+function normalcdf(mu0) {
+    // p = alpha/2
     mu = $("#mu0").val()
-    sigma = parseInt($("#stdev").val())
-    n = $("#samplesize").val();
-    result = parseFloat(inv(p, mu, sigma/Math.sqrt(n)))
+    // sigma = parseInt($("#stdev").val())
+    // n = $("#samplesize").val();
+    result = parseFloat(inv(alpha/2, mu, std/Math.sqrt(n)))
     $(".console").text(result.toFixed(3))
     return result;
  }

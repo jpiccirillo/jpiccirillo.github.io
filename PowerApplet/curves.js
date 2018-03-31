@@ -1,3 +1,5 @@
+calc = 0;
+
 $(window).resize(function(){
     prepare();
 });
@@ -8,11 +10,11 @@ function startSpinningWheel() {
 
 function initScreenSize(){
     screen_w = $(".maingraph").innerWidth() //Establish screen space
-    console.log(screen_w);
+    // console.log(screen_w);
     screen_h = $(".maingraph").innerHeight()
-    console.log(screen_h)
+    // console.log(screen_h)
     topscreen_h = $(".minigraph").innerHeight()
-    var mu0, mu1, internalmu1, std, n, step; //Initialize globals
+    var mu0, mu1, internalmu1, std, n, alpha, mainContainer, topContainer, node, power; //Initialize globals
 }
 
 var interp = d3.svg.line()
@@ -24,11 +26,10 @@ var interp = d3.svg.line()
     })
     .interpolate("basis");
 
-// prepare();
 function changeDelta() {
-    delta = validate("delta");
+    validate("delta");
     $("#mu1").val(parseInt(delta * std + mu0));
-    prepare();
+    // prepare();
 }
 
 function appendText(id, anchor, movable, x, y, text) {
@@ -46,13 +47,14 @@ function appendText(id, anchor, movable, x, y, text) {
 
 function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggable) {
     if (verticiesArray.length > 0) {
-        console.log("ID: " + id + "\n" + "Array Size Created: " + verticiesArray.length)
+        // console.log("Array: " + id + ",\t\tSize: " + verticiesArray.length)
     }
 
     var drag = d3.behavior.drag()
         .on("drag", function(d) {
             dragged(d)
         });
+
     if (type == "path") {
         var path = anchor.append("path")
             .attr("id", id) //Assign the shape the ID provided in id argument
@@ -76,6 +78,7 @@ function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggabl
 }
 
 function axisPrep() {
+    console.log("mu0: ", mu0, "\nmu1: ", mu1)
     $(".axis").remove()
     var ticks = [];
     for (var i = 0; i < 9; i++) {
@@ -124,7 +127,7 @@ function verticalScale(y) {
 
 function generateCurve(mu, n, std, l_bound, u_bound) {
     var array = []
-    step = 8 * std / 30
+    var step = 8 * std / 30
 
     for (var x = l_bound; x < u_bound; x += step) {
         array.push({
@@ -136,7 +139,7 @@ function generateCurve(mu, n, std, l_bound, u_bound) {
 }
 
 function textPrep() {
-    setValues();
+    $()
     greytextXPos = screen_w - screen_w / 10 * 9.8
     appendText("smallpinktext", node, 1, horizontalScale(mu1), topscreen_h / 10 * 2.5, "Alternative Population")
     appendText("smallbluetext", mainContainer, "", horizontalScale(mu0), topscreen_h / 10 * 2.5, "Null Population")
@@ -148,9 +151,7 @@ function alphaErrorPrep() {
     $("line").remove()
     $("#alphaErrorBlue").remove()
     $("#rect-clip").remove()
-    validate("alpha");
     xValue = normalcdf()
-    intermediate = mu0 - xValue
     scaledXValue = horizontalScale(mu0 - xValue);
 
     addPath("rect-clip", "clipPath", scaledXValue, Math.abs(screen_w - scaledXValue), mainContainer, "", "", "")
@@ -164,20 +165,21 @@ function alphaErrorPrep() {
         .attr("y2", screen_h * .1)
 
     addPath("mainbluestroke", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
-    calculatePower($("#mu1").val());
+
+    if (calc>0) {calculatePower($("#mu1").val());}
     checkOverlap()
-    axisPrep();
 }
 
 function checkOverlap(mu) {
     $("#rect-clip-left").remove()
     $("#alphaErrorRed").remove();
-
-    std = parseInt($("#stdev").val())
-    n = parseInt($("#samplesize").val())
+    // std = parseInt($("#stdev").val())
+    // n = parseInt($("#samplesize").val())
     // if (!internalmu1) { var mu = mu1 }
+    // console.log("called checkoverlap")
     if (!mu) { var mu = internalmu1 }
 
+    // mu1 = parseInt($("#mu1").val())
     xValue = normalcdf()
     scaledXValue = horizontalScale(mu0 - xValue);
     alphaError = generateCurve(mu, n, std, mu - 4 * std, mu + 4 * std);
@@ -191,29 +193,27 @@ function checkOverlap(mu) {
     d3.select("#mainbluestroke").each(function() {
         this.parentNode.appendChild(this);
     });
-
 }
 
 function setValues() {
     //Validate input before setting internal variables
     //Delta, alpha error are validated in changeDelta() alphaErrorPrep()
     //Beta error is not validated as it is readonly
-    validate("mu")
-    validate("sigma")
-    validate("samplesize");
-    validate("power")
-    // n from power: Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*sigma/(mu1-mu0),2))
+    // n from power: Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*std/(mu1-mu0),2))
+
     mu0 = parseInt($("#mu0").val())
     mu1 = parseInt($("#mu1").val())
     internalmu1 = mu1;
     std = parseInt($("#stdev").val())
-    n = parseInt($("#samplesize").val())
-    //Delta is set as a function of mu0, mu1, and standard dev
     setDelta();
+    alpha = parseFloat($("#alpha").val())
+    n = parseInt($("#samplesize").val())
+    calculatePower(mu1);
+    //Delta is set as a function of mu0, mu1, and standard dev
 }
 
 function setDelta() {
-    $("#delta").val((($("#mu1").val() - $("#mu0").val()) / $("#stdev").val()).toFixed(2))
+    $("#delta").val(((mu1-mu0) / std).toFixed(2))
 }
 
 // function recenter(){
@@ -227,16 +227,24 @@ function setDelta() {
 //         }
 //     })
 // }
-function calculatePower(mu1) {
-        // if (!mu) { var mu = internalmu1 }
-    zcritical1 = inv((1-$("#alpha").val()/2), 0, 1);
-    zcritical2 = inv($("#alpha").val()/2, 0, 1);
-    if (mu1<mu0) {noncentrality=0;} else {noncentrality = (mu1-mu0)/(sigma/(Math.sqrt(n)))};
-    power = parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
 
+function calcSampleSize() {
+    n = Math.pow((inv(power-cdf(inv(alpha/2, 0, 1), 0, 1), 0, 1) + inv(1-(alpha/2), 0, 1) )*std/(mu1-mu0),2);
+    return n;
+
+}
+
+function calculatePower(mu) {
+        // if (!mu) { var mu = internalmu1 }
+    // mu1 = parseFloat($("#mu1").val())
+    // console.log(mu1)
+    zcritical1 = inv((1-alpha/2), 0, 1);
+    zcritical2 = inv(alpha/2, 0, 1);
+    // console.log(mu1)
+    if (mu<mu0) {noncentrality=0;} else {noncentrality = (mu-mu0)/(std/(Math.sqrt(n)))};
+    power = parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
     console.log("Power: ", power)
     $("#power").val(power);
-
     $("#effectsize").val(parseFloat(1-power).toFixed(3));
     $("#slider-vertical2").slider("value", power)
 }
@@ -245,15 +253,15 @@ function dragged(d) {
     setDelta();
     d3.select("#mainpink").attr("transform", function(d) {
         d.x += d3.event.dx
-        return "translate(" + [parseInt(d.x), screen_h - 20] + ") scale(1,-1)"
+        return "translate(" + [d.x, screen_h - 20] + ") scale(1,-1)"
     })
     d3.select("#smallpink").attr("transform", function(d) {
         d.x += d3.event.dx
-        return "translate(" + [parseInt(d.x), topscreen_h] + ") scale(1,-1)"
+        return "translate(" + [d.x, topscreen_h] + ") scale(1,-1)"
     })
     d3.select("#smallpinktext").attr("transform", function(d) {
         d.x += d3.event.dx
-        return "translate(" + [parseInt(d.x), 0] + ")"
+        return "translate(" + [d.x, 0] + ")"
     })
 
     $("#mu1").val(parseInt(mu1 + d.x * 8 * std / screen_w))
@@ -261,54 +269,50 @@ function dragged(d) {
     checkOverlap(internalmu1);
     calculatePower(internalmu1);
 };
-//
+
+function plot() {
+    curveFactory()
+    pathFactory()
+    alphaErrorPrep();
+    axisPrep();
+    textPrep();
+}
+
+function curveFactory() {
+    firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
+    firsthalf_top = generateCurve(mu0, 1.25, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
+    secondhalf_main = generateCurve(mu1, n, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve
+    secondhalf_top = generateCurve(mu1, 1.25, std, mu1 - 4 * std, mu1 + 4 * std); //Generate small top pink curve
+}
+
+function pathFactory() {
+    $("path").remove()
+    $("text").remove()
+    addPath("mainblue", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
+    addPath("mainpink", "path", "", "", mainContainer, secondhalf_main, screen_h - 20, 1);
+    addPath("smallblue", "path", "", "", node, firsthalf_top, topscreen_h)
+    addPath("smallpink", "path", "", "", node, secondhalf_top, topscreen_h, 1)
+}
+
 function prepare() {
     $("#loader").remove();
     $(".container").css("display", "block");
     initScreenSize();
     setValues();
-
+    console.log("PREPARE CALLED")
     std_n = std/Math.sqrt(n);
-
-    firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
-    firsthalf_top = generateCurve(mu0, 1.25, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
-    secondhalf_main = generateCurve(mu1, n, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve
-    secondhalf_top = generateCurve(mu1, 1.25, std, mu1 - 4 * std, mu1 + 4 * std); //Generate small top pink curve
-
-    //The SVG Container
-    $("svg").remove()
-    $("path").remove()
-    $("g").remove()
-
-    var drag = d3.behavior.drag()
-        .on("drag", function(d) {
-            dragged(d)
-        });
 
     mainContainer = d3.select(".maingraph").append("svg")
         .attr("id", "mainContainer")
         .attr("width", screen_w)
         .attr("height", screen_h)
-    // .attr("mousedown", recenter())
 
-    addPath("mainblue", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
-    addPath("mainpink", "path", "", "", mainContainer, secondhalf_main, screen_h - 20, 1);
-
-    var topContainer = d3.select(".minigraph").append("svg")
+    topContainer = d3.select(".minigraph").append("svg")
         .attr("width", screen_w)
         .attr("height", topscreen_h);
 
     node = d3.select("svg")
         .append('g')
 
-    addPath("smallblue", "path", "", "", node, firsthalf_top, topscreen_h)
-    addPath("smallpink", "path", "", "", node, secondhalf_top, topscreen_h, 1)
-
-    alphaErrorPrep();
-    // console.log(blankarray)
-    // powerresult =  1-jStat.ztest(Math.sqrt((n*Math.pow(mu0-mu1,2))/(2*Math.pow(std_n, 2))) - Math.abs(inv(0.025, 0, 1)), 1)
-    // powerresult =powerresult, 1)
-    // checkOverlap(mu1);
-    axisPrep();
-    textPrep();
+    plot();
 }

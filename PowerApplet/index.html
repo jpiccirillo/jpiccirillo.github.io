@@ -31,25 +31,25 @@
             <table>
                 <tr>
                     <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0" value="100" onchange="prepare();"></td>
+                    <td><input type="text" id="mu0" value="100" onchange="validate('mu0');"></td>
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1" value="115" onchange="prepare();"></td>
+                    <td><input type="text" id="mu1" value="105" onchange="validate('mu1');"></td>
                 </tr>
 
                 <tr>
                     <td id="label">σ = </td>
-                    <td><input type="text" id="stdev" value="15" onchange="prepare();"></td>
+                    <td><input type="text" id="stdev" value="5" onchange="validate('sigma');"></td>
                 </tr>
                 <tr>
                     <td id="label">d = </td>
-                    <td><input type="text" id="delta" value="1.00" onchange="changeDelta();"></td>
+                    <td><input type="text" id="delta" value="1.00" onchange="validate('delta');"></td>
                 </tr>
                 </tr>
                 <tr>
                     <td id="label">α = </td>
-                    <td><input type="text" id="alpha" value=".05" onchange="alphaErrorPrep()"></td>
+                    <td><input type="text" id="alpha" value=".05" onchange="validate('alpha')"></td>
                 </tr>
                 </tr>
                 <tr>
@@ -58,11 +58,11 @@
                 </tr>
                 <tr>
                     <td id="label">n = </td>
-                    <td><input type="text" id="samplesize" value="4" onchange="prepare();"></td>
+                    <td><input type="text" id="samplesize" value="4" onchange="validate('samplesize')"></td>
                 </tr>
                 <tr>
                     <td id="label">Power = </td>
-                    <td><input type="text" id="power" value="0.600" onchange="prepare();"></td>
+                    <td><input type="text" id="power" value="0.600" onchange="validate('power');"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -87,7 +87,7 @@
         <script type="text/javascript" src="calculations.js"></script>
         <script type="text/javascript" src="dragrect_second.js"></script>
         <script type="text/javascript" src="curves.js"></script>
-        <script type="text/javascript" src="jStat.js"></script>
+        <!-- <script type="text/javascript" src="jStat.js"></script> -->
     </div>
 </body>
 

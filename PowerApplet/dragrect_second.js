@@ -11,10 +11,13 @@ $(function() {
         },
 
         slide: function(event, ui) {
+            if (ui.value<2) {return}
+            mu1 = internalmu1
             $("#samplesize").val(ui.value-1);
-            // $("#delta").val("#mu1").val()-;
+            n = ui.value-1;
             $(ui.value).val($('#samplesize').val());
-            prepare()
+            plot();
+            calc = 1;
             $(".console").text("Erasing console")
         }
     });
@@ -26,28 +29,24 @@ $(function() {
     $("#slider-vertical2").slider({
         orientation: "vertical",
         range: "min",
-        min: 0,
+        min: 0.125,
         max: 1,
         value: .600,
         step: .001,
 
-        // slide: function(event, ui) {
-        //     n = Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*sigma/(mu1-mu0),2));
-        //     console.log(n)
-        //     $("#power").val(ui.value)
-        //     $("#samplesize").val(n);
-        //     $("#slider-vertical1").slider("value", n)
-        // }
+        slide: function(event, ui) {
+            if (ui.value<.125) {return}
+            mu1 = internalmu1
+            power = $("#power").val();
+            $("#power").val(ui.value)
+            console.log(power)
+            n = calcSampleSize();
+            calc = 0;
+            $("#samplesize").val(parseInt(n));
+            $("#slider-vertical1").slider("value", n)
+            plot();
+        }
     })
-});
-
-$("#samplesize").change(function() {
-    value = parseInt($("#samplesize").val())+1;
-    $("#slider-vertical1").slider("value", value)
-});
-
-$("#power").change(function() {
-    $("#slider-vertical2").slider("value", $(this).val())
 });
 
 function setSliderTicks(el) {
@@ -63,56 +62,54 @@ function setSliderTicks(el) {
 }
 
 function validate(item) {
-    if (item=="mu") {
-        //mu0/mu1 Validation
-        var mu0 = $("#mu0").val(), mu1 = $("#mu1").val();
-        if (!$.isNumeric(mu0)) {
-            mu0 = 100;
-            $("#mu0").val(mu0) }
-        if (!$.isNumeric(mu1)) {
-            mu1 = 115;
-            $("#mu1").val(mu1) }
+    if (item=="mu0") { mu0 = parseInt($("#mu0").val())
+        if (!$.isNumeric(mu0)) { mu0 = 100; $("#mu0").val(mu0) }
+    }
+
+    if (item=="mu1") { mu1 = parseInt($("#mu1").val());
+        if (!$.isNumeric(mu1)) { mu1 = 115; $("#mu1").val(mu1) }
+        $("#mu1").val(mu1)
+        internalmu1 = mu1;
     }
     //Sigma Validation
-    if (item=="sigma") {
-        var sigma = $("#stdev").val()
-        if ((sigma<1) || !$.isNumeric(sigma)) { sigma=1; }
-        $("#stdev").val(sigma)
+    if (item=="sigma") { std = parseInt($("#stdev").val())
+        if ((std<1) || !$.isNumeric(std)) { std=1; }
+        $("#stdev").val(std)
     }
     //SampleSize Validation
-    if (item == "samplesize") {
-        var n = $("#samplesize").val()
+    if (item=="samplesize") { n = parseInt($("#samplesize").val())
+        console.log("got into sample size")
         if (n > 100) { n=100; }
         else if (n < 1) { n=1 }
         else if (!$.isNumeric(n)) { n = 25; }
         $("#samplesize").val(n)
     }
     //Alpha Error Validation
-    if (item=="alpha") {
-        var p = $("#alpha").val()
-        if ((p<0.001)||!$.isNumeric(p)||(p>0.999)) {
-            if (p < 0.001) { p=0.001 }
-            else if (p > 0.999) { p=0.999 }
-            else { p=0.05 };
+    if (item=="alpha") { alpha = parseFloat($("#alpha").val())
+        if ((alpha<0.001)||!$.isNumeric(alpha)||(alpha>0.999)) {
+            if (alpha < 0.001) { alpha=0.001 }
+            else if (alpha > 0.999) { alpha=0.999 }
+            else { alpha=0.05 };
         }
-        $("#alpha").val(parseFloat(p).toFixed(3))
-        normalcdf();
+        $("#alpha").val(alpha.toFixed(3))
+        // return;
     }
-    //Delta Validation
-    if (item == "delta") {
-        var delta = $("#delta").val()
+
+    if (item == "delta") { delta = parseInt($("#delta").val())
         if (!$.isNumeric(delta)) { //if delta is non-numeric, calculate it
             delta = ($("#mu1").val()-$("#mu0").val())/$("#stdev").val() }
         //Set and return delta in both conditions
         $("#delta").val(parseFloat(delta).toFixed(2));
-        return delta;
     }
+
     //Power Validation
-    if (item=="power") {
-        var power = $("#power").val()
+    if (item=="power") { power = parseFloat($("#power").val())
         if ((power>1)&&(power<=100)){ power/=100 }
         else if ((power<0.001)||(power>100)||(!$.isNumeric(power))) { power = 0.8 }
         $("#power").val(parseFloat(power).toFixed(3))
         $("#effectsize").val((1 - power).toFixed(3))
     }
+
+    if (item!="mu1") { mu1 = internalmu1; }
+    plot();
 }
