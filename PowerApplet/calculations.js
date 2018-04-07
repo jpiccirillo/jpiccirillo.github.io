@@ -1,5 +1,5 @@
 function ztest(z, sides) {
-  return jStat.normal.cdf(-Math.abs(z),0,1);
+  return normalcdf(-Math.abs(z),0,1);
 }
 
 function cdf(x, mean, std) {
