@@ -1,7 +1,8 @@
-calc = 0;
-
 $(window).resize(function(){
-    prepare();
+    mu1 = internalmu1;
+    initScreenSize()
+    plot();
+    // axisPrep();
 });
 
 function startSpinningWheel() {
@@ -17,20 +18,14 @@ function initScreenSize(){
     var mu0, mu1, internalmu1, std, n, alpha, mainContainer, topContainer, node, power; //Initialize globals
 }
 
-var interp = d3.svg.line()
+var interp = d3.line()
     .x(function(d) {
         return d.x;
     })
     .y(function(d) {
         return d.y;
     })
-    .interpolate("basis");
-
-function changeDelta() {
-    validate("delta");
-    $("#mu1").val(parseInt(delta * std + mu0));
-    // prepare();
-}
+    .curve(d3.curveBasis);
 
 function appendText(id, anchor, movable, x, y, text) {
     var textObject = anchor.append("text")
@@ -50,7 +45,7 @@ function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggabl
         // console.log("Array: " + id + ",\t\tSize: " + verticiesArray.length)
     }
 
-    var drag = d3.behavior.drag()
+    var drag = d3.drag()
         .on("drag", function(d) {
             dragged(d)
         });
@@ -93,12 +88,12 @@ function axisPrep() {
         }
     }
     //Create the Scale we will use for the Axis
-    var axisScale = d3.scale.linear()
+    var axisScale = d3.scaleLinear()
         .domain([0, screen_w])
         .range([0, screen_w]);
 
     //Create the Axis
-    var xAxis = d3.svg.axis()
+    var xAxis = d3.axisBottom()
         .scale(axisScale)
         .tickValues(ticks)
         .tickFormat((d, i) => ticknames[i]);
@@ -110,15 +105,22 @@ function axisPrep() {
         .call(xAxis);
 }
 
-function horizontalScale(x) {
-    var result = d3.scale.linear()
+function screenScale(x) {
+    var result = d3.scaleLinear()
         .domain([mu0 - 4 * std, mu0 + 4 * std])
         .range([0, screen_w]);
     return result(x);
 }
 
+function displayScale(x) {
+    var result = d3.scaleLinear()
+        .domain([0, screen_w])
+        .range([mu0 - 4 * std, mu0 + 4 * std]);
+    return result(x);
+}
+
 function verticalScale(y) {
-    var result = d3.scale.linear()
+    var result = d3.scaleLinear()
         //Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
         .domain([0, pdf(mu0, mu0, std / (Math.sqrt(100)))])
         .range([0, screen_h*1.16])
@@ -131,7 +133,7 @@ function generateCurve(mu, n, std, l_bound, u_bound) {
 
     for (var x = l_bound; x < u_bound; x += step) {
         array.push({
-            x: horizontalScale(x),
+            x: screenScale(x),
             y: verticalScale(pdf(x, mu, std / Math.sqrt(n)))
         });
     }
@@ -139,10 +141,9 @@ function generateCurve(mu, n, std, l_bound, u_bound) {
 }
 
 function textPrep() {
-    $()
     greytextXPos = screen_w - screen_w / 10 * 9.8
-    appendText("smallpinktext", node, 1, horizontalScale(mu1), topscreen_h / 10 * 2.5, "Alternative Population")
-    appendText("smallbluetext", mainContainer, "", horizontalScale(mu0), topscreen_h / 10 * 2.5, "Null Population")
+    appendText("smallpinktext", topContainer, 1, screenScale(mu1), topscreen_h / 10 * 2.5, "Alternative Population")
+    appendText("smallbluetext", mainContainer, "", screenScale(mu0), topscreen_h / 10 * 2.5, "Null Population")
     appendText("smallgreytext", mainContainer, "", greytextXPos, screen_h - 50, "Sampling")
     appendText("smallgreytext", mainContainer, "", greytextXPos, screen_h - 35, "Distributions")
 }
@@ -152,7 +153,7 @@ function alphaErrorPrep() {
     $("#alphaErrorBlue").remove()
     $("#rect-clip").remove()
     xValue = normalcdf()
-    scaledXValue = horizontalScale(mu0 - xValue);
+    scaledXValue = screenScale(mu0 - xValue);
 
     addPath("rect-clip", "clipPath", scaledXValue, Math.abs(screen_w - scaledXValue), mainContainer, "", "", "")
     addPath("alphaErrorBlue", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
@@ -166,7 +167,6 @@ function alphaErrorPrep() {
 
     addPath("mainbluestroke", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
 
-    if (calc>0) {calculatePower($("#mu1").val());}
     checkOverlap()
 }
 
@@ -181,7 +181,7 @@ function checkOverlap(mu) {
 
     // mu1 = parseInt($("#mu1").val())
     xValue = normalcdf()
-    scaledXValue = horizontalScale(mu0 - xValue);
+    scaledXValue = screenScale(mu0 - xValue);
     alphaError = generateCurve(mu, n, std, mu - 4 * std, mu + 4 * std);
 
     addPath("rect-clip-left", "clipPath", 0, scaledXValue, mainContainer, "", "", "")
@@ -190,9 +190,31 @@ function checkOverlap(mu) {
     d3.selectAll("#mainpink, #dashedLine, #alphaErrorBlue, #smallgreytext, .axis").each(function() {
         this.parentNode.appendChild(this);
     });
+    // d3.selectAll(".bar").each(function() {
+    //     this.parentNode.appendChild(this);
+    // });
     d3.select("#mainbluestroke").each(function() {
         this.parentNode.appendChild(this);
     });
+}
+
+function calcMu() {
+    mu1 = delta*std+mu0
+    internalmu1 = mu1;
+    $("#mu1").val(parseInt(mu1))
+}
+
+function calcDelta() {
+    delta = parseFloat(((internalmu1-mu0) / std).toFixed(2))
+    $("#delta").val(delta)
+}
+
+function calcStd() {
+    console.log(internalmu1, mu0, delta)
+    std = parseInt((internalmu1-mu0) / delta)
+    if (std<1 || isNaN(std)) {console.log("calculated std is zero\n"); std = 1; calcDelta()} // the problem here is when std is 0.  set it to 1 and set delta accordingly
+    console.log(std)
+    $("#stdev").val(std)
 }
 
 function setValues() {
@@ -205,15 +227,11 @@ function setValues() {
     mu1 = parseInt($("#mu1").val())
     internalmu1 = mu1;
     std = parseInt($("#stdev").val())
-    setDelta();
+    calcDelta();
     alpha = parseFloat($("#alpha").val())
     n = parseInt($("#samplesize").val())
     calculatePower(mu1);
     //Delta is set as a function of mu0, mu1, and standard dev
-}
-
-function setDelta() {
-    $("#delta").val(((mu1-mu0) / std).toFixed(2))
 }
 
 // function recenter(){
@@ -229,20 +247,20 @@ function setDelta() {
 // }
 
 function calcSampleSize() {
-    n = Math.pow((inv(power-cdf(inv(alpha/2, 0, 1), 0, 1), 0, 1) + inv(1-(alpha/2), 0, 1) )*std/(mu1-mu0),2);
-    return n;
-
+    return Math.pow((inv(power-cdf(inv(alpha/2, 0, 1), 0, 1), 0, 1) + inv(1-(alpha/2), 0, 1) )*std/(mu1-mu0),2);
 }
-
-function calculatePower(mu) {
-        // if (!mu) { var mu = internalmu1 }
-    // mu1 = parseFloat($("#mu1").val())
-    // console.log(mu1)
+//calculate power without setting any values.  Used to see if power slider should be allowed to move
+function testPower(mu) {
+    console.log("in testPower")
     zcritical1 = inv((1-alpha/2), 0, 1);
     zcritical2 = inv(alpha/2, 0, 1);
     // console.log(mu1)
     if (mu<mu0) {noncentrality=0;} else {noncentrality = (mu-mu0)/(std/(Math.sqrt(n)))};
-    power = parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
+    return parseFloat(cdf(noncentrality-zcritical1, 0, 1 ) + cdf(zcritical2-noncentrality, 0, 1 )).toFixed(3);
+}
+
+function calculatePower(mu) {
+    power = testPower(mu);
     console.log("Power: ", power)
     $("#power").val(power);
     $("#effectsize").val(parseFloat(1-power).toFixed(3));
@@ -250,7 +268,9 @@ function calculatePower(mu) {
 }
 
 function dragged(d) {
-    setDelta();
+    $(".bar").remove();
+    $(".console").text("")
+    calcDelta();
     d3.select("#mainpink").attr("transform", function(d) {
         d.x += d3.event.dx
         return "translate(" + [d.x, screen_h - 20] + ") scale(1,-1)"
@@ -264,16 +284,19 @@ function dragged(d) {
         return "translate(" + [d.x, 0] + ")"
     })
 
-    $("#mu1").val(parseInt(mu1 + d.x * 8 * std / screen_w))
+    $("#mu1").val(Math.round(mu1 + d.x * 8 * std / screen_w))
     internalmu1 = mu1 + d.x * 8 * std / screen_w
     checkOverlap(internalmu1);
     calculatePower(internalmu1);
 };
 
 function plot() {
+    $(".bar").remove();
+    $(".console").text("")
     curveFactory()
     pathFactory()
     alphaErrorPrep();
+    calculatePower(internalmu1);
     axisPrep();
     textPrep();
 }
@@ -290,8 +313,8 @@ function pathFactory() {
     $("text").remove()
     addPath("mainblue", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
     addPath("mainpink", "path", "", "", mainContainer, secondhalf_main, screen_h - 20, 1);
-    addPath("smallblue", "path", "", "", node, firsthalf_top, topscreen_h)
-    addPath("smallpink", "path", "", "", node, secondhalf_top, topscreen_h, 1)
+    addPath("smallblue", "path", "", "", topContainer, firsthalf_top, topscreen_h)
+    addPath("smallpink", "path", "", "", topContainer, secondhalf_top, topscreen_h, 1)
 }
 
 function prepare() {
@@ -311,8 +334,70 @@ function prepare() {
         .attr("width", screen_w)
         .attr("height", topscreen_h);
 
-    node = d3.select("svg")
-        .append('g')
+    // node = d3.select("svg")
+    //     .append('g')
 
     plot();
+}
+
+function sample() {
+    mu1 = internalmu1;
+    plot();
+    $(".bar").remove();
+    var randomValues = d3.range(n).map(d3.randomNormal(internalmu1, std));
+    for (i=0; i<n; i++) { randomValues[i] = screenScale(randomValues[i]) }
+
+    var x = d3.scaleLinear()
+        .domain([0, screen_w])
+        .rangeRound([0, screen_w]);
+
+    var bins = d3.histogram()
+        .domain(x.domain())
+        .thresholds(x.ticks(90))
+        (randomValues);
+
+    largestStack = d3.max(bins, function(d) { return d.length; })
+    console.log(largestStack, 12)
+
+    var max = (largestStack > 8) ? largestStack : 8;
+    var y = d3.scaleLinear()
+        .domain([0, max*1.5])
+        .range([topscreen_h, 0]);
+
+    var bar = topContainer.selectAll(".bar")
+      .data(bins)
+      .enter().append("g")
+        .attr("class", "bar")
+        .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; });
+
+    bar.append("rect")
+        .attr("x", 1)
+        .attr("width", x(bins[0].x1) - x(bins[0].x0) - 3)
+        .attr("height", function(d) { return (topscreen_h - y(d.length)); })
+        .attr("fill", "white")
+        .attr("rx", 2)
+        .attr("ry", 2)
+        .attr("stroke", "darkred")
+        .attr("fill-opacity",.7);
+
+    $('#smallpink').remove()
+    addPath("smallpink", "path", "", "", topContainer, secondhalf_top, topscreen_h, 1)
+    sampleMean = displayScale(d3.mean(randomValues));
+    zvalue = (mu0-sampleMean)/(std/(Math.sqrt(n)))
+    ztest = jStat.ztest(zvalue, 1)
+    var message =
+    "Critical Mean Value = " + displayScale(scaledXValue).toFixed(2) +
+    "\nSample Mean = " + sampleMean.toFixed(2) +
+    "\np(z>"+zvalue.toFixed(2) + ") = " + ztest.toFixed(4)
+
+    if (ztest>=alpha) {
+        message += "\n\nFail to Reject Ho";
+        $(".console").css('color', 'Crimson');
+
+    } else {
+        message += "\n\nReject Ho";
+        $(".console").css('color', 'Navy');
+    }
+
+    $(".console").text(message)
 }

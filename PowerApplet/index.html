@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td id="label">d = </td>
-                    <td><input type="text" id="delta" value="1.00" onchange="validate('delta');"></td>
+                    <td><input type="text" id="delta" onchange="validate('delta');"></td>
                 </tr>
                 </tr>
                 <tr>
@@ -69,8 +69,8 @@
                     <td></td>
                 </tr>
             </table>
-            <div class="samplebutton" onclick="prepare()">Sample</div>
-            <div class="console">Critical Mean Value = 102.60<br>Sample Mean = 114.30<br>p(z>9.05) = 0.00<br><br>Reject H<sub>0<sub></div>
+            <div class="samplebutton" onmousedown="sample()">Sample</div>
+            <div class="console"></div>
             <!-- <div class="console">Power must be a number between 0.00 and 1.00.</div> -->
         </div>
 
@@ -81,13 +81,13 @@
         </div>
         <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
         <link rel="stylesheet" href="style.css">
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+        <script src="https://d3js.org/d3.v5.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="calculations.js"></script>
         <script type="text/javascript" src="dragrect_second.js"></script>
         <script type="text/javascript" src="curves.js"></script>
-        <!-- <script type="text/javascript" src="jStat.js"></script> -->
+        <script type="text/javascript" src="jStat.js"></script>
     </div>
 </body>
 

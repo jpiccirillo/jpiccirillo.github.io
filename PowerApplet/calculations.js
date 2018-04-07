@@ -3,12 +3,8 @@ function cdf(x, mean, std) {
 }
 
 function normalcdf(mu0) {
-    // p = alpha/2
     mu = $("#mu0").val()
-    // sigma = parseInt($("#stdev").val())
-    // n = $("#samplesize").val();
     result = parseFloat(inv(alpha/2, mu, std/Math.sqrt(n)))
-    $(".console").text(result.toFixed(3))
     return result;
  }
 

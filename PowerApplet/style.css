@@ -98,6 +98,7 @@ body {
     padding-top: 3px;
     bottom: 0%;
     position: absolute;
+    white-space: pre-wrap;
 }
 
 .samplebutton {
