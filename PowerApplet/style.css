@@ -9,6 +9,13 @@ body {
     max-width: 1000px;
     height:380px;
 }
+rect {
+     fill: white;
+     rx: 2;
+     ry: 2;
+     stroke: grey;
+     fill-opacity: .85;
+}
 .container {
     display: none;
     width:100vw;
@@ -98,7 +105,7 @@ body {
     padding-top: 3px;
     bottom: 0%;
     position: absolute;
-    white-space: pre-wrap;
+    white-space: pre-wrap
 }
 
 .samplebutton {
@@ -223,15 +230,13 @@ input:focus {
 #alphaErrorRed {
     stroke-width: 1.5;
 }
-#smallpink,
-#smallblue {
-    stroke-width: 2;
-}
+
 #mainpink{
     fill-opacity:.7;
 }
 #smallpink,
 #smallblue {
+    stroke-width: 2;
     fill-opacity: 0;
 }
 
@@ -267,18 +272,26 @@ input:focus {
     text-anchor: middle;
 }
 
-#smallgreytext {
+#smallgreytext, #triangle {
     font-size: 12px;
     font-family: Courier;
     fill: grey;
-    mix-blend-mode: multiply
+    mix-blend-mode: multiply;
+    fill-opacity:.7;
 }
-
-#dashedLine {
+#triangle{
+    fill: grey;
+}
+#dashedLine, #sampleMeanLine {
      fill: none;
      stroke: #283747;
      stroke-width: 2;
      stroke-dasharray: 4, 4;
+
+}
+#sampleMeanLine{
+    stroke: grey;
+             mix-blend-mode: multiply;
 }
 #alphaErrorBlue{
     stroke: #1F618D;

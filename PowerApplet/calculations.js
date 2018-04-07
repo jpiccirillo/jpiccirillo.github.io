@@ -1,6 +1,4 @@
-function ztest(z, sides) {
-  return normalcdf(-Math.abs(z),0,1);
-}
+function ztest(z, sides) { return cdf(-Math.abs(z),0,1); }
 
 function cdf(x, mean, std) {
   return 0.5 * (1 + erf((x - mean) / Math.sqrt(2 * std * std)));

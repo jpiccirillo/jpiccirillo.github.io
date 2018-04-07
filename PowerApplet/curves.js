@@ -268,7 +268,10 @@ function calculatePower(mu) {
 }
 
 function dragged(d) {
-    $(".bar").remove();
+    d3.selectAll("#triangle, #sampleMeanLine, .bar").each(function() {
+        this.remove();
+    });
+    // $("#triangle").remove();
     $(".console").text("")
     calcDelta();
     d3.select("#mainpink").attr("transform", function(d) {
@@ -293,6 +296,7 @@ function dragged(d) {
 function plot() {
     $(".bar").remove();
     $(".console").text("")
+
     curveFactory()
     pathFactory()
     alphaErrorPrep();
@@ -374,11 +378,7 @@ function sample() {
         .attr("x", 1)
         .attr("width", x(bins[0].x1) - x(bins[0].x0) - 3)
         .attr("height", function(d) { return (topscreen_h - y(d.length)); })
-        .attr("fill", "white")
-        .attr("rx", 2)
-        .attr("ry", 2)
-        .attr("stroke", "darkred")
-        .attr("fill-opacity",.7);
+
 
     $('#smallpink').remove()
     addPath("smallpink", "path", "", "", topContainer, secondhalf_top, topscreen_h, 1)
@@ -389,6 +389,25 @@ function sample() {
     "Critical Mean Value = " + displayScale(scaledXValue).toFixed(2) +
     "\nSample Mean = " + sampleMean.toFixed(2) +
     "\np(z>"+zvalue.toFixed(2) + ") = " + ztest_result.toFixed(4)
+
+    mainContainer.append("line")
+        .attr("id", "sampleMeanLine")
+        .attr("x1", d3.mean(randomValues))
+        .attr("y1", screen_h - 20)
+        .attr("x2", d3.mean(randomValues))
+        .attr("y2", screen_h * .1)
+
+    var arc = d3.symbol().type(d3.symbolTriangle);
+
+    var triangle = mainContainer.append('path')
+      .attr("id", "triangle")
+      .attr('d', arc)
+      .attr('transform', "translate(" + d3.mean(randomValues) + "," + (screen_h - 10) + ")");
+
+  var triangle = mainContainer.append('path')
+    .attr("id", "triangle")
+    .attr('d', arc)
+    .attr('transform', "translate(" + d3.mean(randomValues) + "," + 10 + ")");
 
     if (ztest_result>=alpha) {
         message += "\n\nFail to Reject Ho";
