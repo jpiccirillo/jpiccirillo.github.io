@@ -3,22 +3,25 @@ html, body {
     max-height: 100%;
     overflow: hidden;
 }
+
 body {
-    width:100vw;
+    width: 100vw;
     min-width: 780px;
     max-width: 1000px;
-    height:380px;
+    height: 380px;
 }
+
 rect {
-     fill: white;
-     rx: 2;
-     ry: 2;
-     stroke: grey;
-     fill-opacity: .85;
+    fill: white;
+    rx: 2;
+    ry: 2;
+    stroke: grey;
+    fill-opacity: .85;
 }
+
 .container {
     display: none;
-    width:100vw;
+    width: 100vw;
     min-width: 780px;
     max-width: 1000px;
     padding: 0px;
@@ -57,6 +60,7 @@ rect {
     float: right;
     position: relative;
 }
+
 /*@media only screen and (max-width: 900px) {
     .container {
         width: 96vw;
@@ -76,7 +80,8 @@ rect {
         position: relative;
     }
 }*/
-.shell, .console,.samplebutton:active {
+
+.shell, .console, .samplebutton:active {
     border-color: grey;
     border-width: 1px;
     border-style: solid;
@@ -170,7 +175,7 @@ input:focus {
 
 .ui-slider-range-min {
     border-radius: 0px;
-    fill-opacity:.7;
+    fill-opacity: .7;
     background-color: Indianred;
     width: 100%;
 }
@@ -205,6 +210,7 @@ input:focus {
     margin-left: -47.5%;
     height: 4px;
 }
+
 .ui-slider-tick-mark_large {
     margin-left: -42%;
     height: 8px;
@@ -213,35 +219,32 @@ input:focus {
 .shell.left {
     margin-left: 5px;
 }
-.shell.right{
+
+.shell.right {
     /*overflow:visible;*/
 }
-.axis path,
-.axis line {
+
+.axis path, .axis line {
     fill: none;
     stroke: #4d5057;
     shape-rendering: crispEdges;
     stroke-width: 2px;
 }
 
-#mainpink,
-#mainblue,
-#alphaErrorBlue,
-#alphaErrorRed {
+#mainpink, #mainblue, #alphaErrorBlue, #alphaErrorRed {
     stroke-width: 1.5;
 }
 
-#mainpink{
-    fill-opacity:.7;
+#mainpink {
+    fill-opacity: .7;
 }
-#smallpink,
-#smallblue {
+
+#smallpink, #smallblue {
     stroke-width: 2;
     fill-opacity: 0;
 }
 
-#smallpink,
-#mainpink {
+#smallpink, #mainpink {
     cursor: move;
     fill: Indianred;
     stroke: DarkRed;
@@ -252,9 +255,9 @@ input:focus {
     stroke: #154360;
 }
 
-#mainbluestroke{
+#mainbluestroke {
     fill: none;
-    stroke-width:1px;
+    stroke-width: 1px;
 }
 
 #smallpinktext {
@@ -265,8 +268,7 @@ input:focus {
     fill: #154360;
 }
 
-#smallbluetext,
-#smallpinktext {
+#smallbluetext, #smallpinktext {
     font-size: 12px;
     font-family: Courier;
     text-anchor: middle;
@@ -277,30 +279,33 @@ input:focus {
     font-family: Courier;
     fill: grey;
     mix-blend-mode: multiply;
-    fill-opacity:.7;
+    fill-opacity: .7;
 }
-#triangle{
+
+#triangle {
     fill: grey;
 }
-#dashedLine, #sampleMeanLine {
-     fill: none;
-     stroke: #283747;
-     stroke-width: 2;
-     stroke-dasharray: 4, 4;
 
+#dashedLine, #sampleMeanLine {
+    fill: none;
+    stroke: #283747;
+    stroke-width: 2;
+    stroke-dasharray: 4, 4;
 }
-#sampleMeanLine{
+
+#sampleMeanLine {
     stroke: grey;
-             mix-blend-mode: multiply;
+    mix-blend-mode: multiply;
 }
-#alphaErrorBlue{
+
+#alphaErrorBlue {
     stroke: #1F618D;
     fill: #1F618D;
     position: absolute;
     clip-path: url(#rect-clip);
 }
 
-#alphaErrorRed{
+#alphaErrorRed {
     fill: maroon;
     clip-path: url(#rect-clip-left);
 }
@@ -309,6 +314,7 @@ input:focus {
     font-family: sans-serif;
     font-size: 12px;
 }
+
 #loader {
     position: relative;
     left: 50%;
@@ -322,14 +328,22 @@ input:focus {
     height: 50px;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
-
 }
+
 @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -6,7 +6,7 @@ function cdf(x, mean, std) {
 
 function normalcdf(mu0) {
     mu = $("#mu0").val()
-    result = parseFloat(inv(alpha/2, mu, std/Math.sqrt(n)))
+    result = parseFloat(inv(alpha, mu, std/Math.sqrt(n)))
     return result;
  }
 
