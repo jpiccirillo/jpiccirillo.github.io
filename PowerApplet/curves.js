@@ -384,13 +384,13 @@ function sample() {
     addPath("smallpink", "path", "", "", topContainer, secondhalf_top, topscreen_h, 1)
     sampleMean = displayScale(d3.mean(randomValues));
     zvalue = (mu0-sampleMean)/(std/(Math.sqrt(n)))
-    ztest = jStat.ztest(zvalue, 1)
+    ztest_result = ztest(zvalue, 1)
     var message =
     "Critical Mean Value = " + displayScale(scaledXValue).toFixed(2) +
     "\nSample Mean = " + sampleMean.toFixed(2) +
-    "\np(z>"+zvalue.toFixed(2) + ") = " + ztest.toFixed(4)
+    "\np(z>"+zvalue.toFixed(2) + ") = " + ztest_result.toFixed(4)
 
-    if (ztest>=alpha) {
+    if (ztest_result>=alpha) {
         message += "\n\nFail to Reject Ho";
         $(".console").css('color', 'Crimson');
 

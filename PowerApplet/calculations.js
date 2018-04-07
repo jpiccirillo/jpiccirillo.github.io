@@ -1,3 +1,7 @@
+function ztest(z, sides) {
+  return jStat.normal.cdf(-Math.abs(z),0,1);
+}
+
 function cdf(x, mean, std) {
   return 0.5 * (1 + erf((x - mean) / Math.sqrt(2 * std * std)));
 }
