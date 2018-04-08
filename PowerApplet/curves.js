@@ -197,10 +197,22 @@ function calcStd() {
     // the problem here is when std is 0.  set it to 1 and set delta accordingly
     if (std < 1 || isNaN(std)) { std = 1; calcDelta(); }
     // console.log(std)
-    $("#stdev").val(std)
+    $("#std").val(std)
 }
 
 function setValues() {
+    // Defines valid min, max, error msg, and precision for each entry paramater.
+    // Used in validate().
+    validvalues = [
+        ["mu0", -10000, 10000, "", 0],
+        ["mu1", -10000, 10000, "", 0],
+        ["std", 1, 10000, "Standard Deviation must be greater than 1.", 0],
+        ["delta", -10000, 10000, "", 3],
+        ["alpha", 0.001, 1, "Type I Error must be between 0.001 and 1.", 3],
+        ["n", 1, 100, "Sample size must be between 1 and 100.", 0, "#slider-vertical1"],
+        ["power", .001, .999, "Power must be between 0.001 and 0.999.", 3, "#slider-vertical2"],
+    ]
+
     //Validate input before setting internal variables
     //Delta, alpha error are validated in changeDelta() alphaErrorPrep()
     //Beta error is not validated as it is readonly
@@ -208,11 +220,11 @@ function setValues() {
     mu0 = parseInt($("#mu0").val())
     mu1 = parseInt($("#mu1").val())
     internalmu1 = mu1;
-    needCalcPower = 1;
-    std = parseInt($("#stdev").val())
+    needCalcPower = true;
+    std = parseInt($("#std").val())
     calcDelta();
     alpha = parseFloat($("#alpha").val())
-    n = parseInt($("#samplesize").val())
+    n = parseInt($("#n").val())
     calculatePower(mu1);
     //Delta is set as a function of mu0, mu1, and standard dev
 }
@@ -240,13 +252,13 @@ function testPower(mu) {
     // console.log(mu1)
     if (mu < mu0) { noncentrality = 0;}
     else { noncentrality = (mu - mu0) / (std / (Math.sqrt(n)))};
-    return parseFloat(cdf(noncentrality - zcritical1, 0, 1) + cdf(zcritical2 - noncentrality, 0, 1)).toFixed(3);
+    return parseFloat(cdf(noncentrality - zcritical1, 0, 1) + cdf(zcritical2 - noncentrality, 0, 1));
 }
 
 function calculatePower(mu) {
     power = testPower(mu);
     // console.log("Power: ", power)
-    $("#power").val(power);
+    $("#power").val(power.toFixed(3));
     $("#effectsize").val(parseFloat(1 - power).toFixed(3));
     $("#slider-vertical2").slider("value", power)
 }
@@ -276,11 +288,10 @@ function dragged(d) {
 
 function plot() {
     $(".bar").remove();
-    $(".console").text("")
     curveFactory()
     pathFactory()
     alphaErrorPrep();
-    if (needCalcPower == 1) { calculatePower(internalmu1);}
+    if (needCalcPower) { calculatePower(internalmu1); }
     axisPrep();
     textPrep();
 }

@@ -4,18 +4,18 @@ $(function() {
         range: "min",
         min: 0,
         max: 100,
-        value: parseInt($("#samplesize").val()),
+        value: parseInt($("#n").val()),
         step: 1,
         create: function(event, ui) {
             setSliderTicks(event.target);
         },
 
         slide: function(event, ui) {
-            if (ui.value<1) { return false; }
+            $(".console").text("") //Clear tool's console
+            if (ui.value<1) { return false; } // Freeze slider if out of bounds
             mu1 = internalmu1
-            $("#samplesize").val(ui.value);
-            n = ui.value;
-            $(ui.value).val($('#samplesize').val());
+            $("#n").val(ui.value); // Set samplesize box to slider value
+            n = ui.value; // Set internal sample size var to slider value
             plot();
         }
     });
@@ -33,25 +33,22 @@ $(function() {
         step: .001,
 
         slide: function(event, ui) {
-            if (testPower(internalmu1) <= .05 || ui.value<0) {
-                $(".console").text("To increase power, change another parameter.");
-                return false
-            }
-
-            mu1 = internalmu1
-            needCalcPower = 1;
-            power = ui.value
-            temp = calcSampleSize();
+            $(".console").text("") // Clear console
+            // Initialize some variables: dont recalc power, set power to slider value
+            mu1 = internalmu1, needCalcPower = false,
+            power = ui.value, temp = calcSampleSize(), error = ""
 
             if (temp>100 || temp<1 || power < alpha) {
-                $(".console").text("Smallest sample size is 1.");
-                console.log("TestSampleSize: ", temp, "Power: ", power, "->SHOULD BE LOCKED")
+                if ((temp < 1) && (n>1.5)){ error = "To increase power, change another parameter." }
+                if ((temp < 1) && (n<1.5)) { error = validvalues[5][3] }
+                $(".console").text(error);
+                // console.log("TestSampleSize: ", temp, "Power: ", power, "->SHOULD BE LOCKED")
                 return false;
             }
-            console.log(testPower(internalmu1))
+            // console.log(testPower(internalmu1))
             n = temp;
             $("#power").val(ui.value);
-            $("#samplesize").val(Math.round(n));
+            $("#n").val(Math.round(n));
             $("#slider-vertical1").slider("value", n)
             plot();
         }
@@ -72,55 +69,40 @@ function setSliderTicks(el) {
     }
 }
 
+//Check to make sure item is
 function validate(item) {
-    if (item=="mu0") { mu0 = parseInt($("#mu0").val())
-        if (!isNumeric(mu0)) { mu0 = 100; $("#mu0").val(mu0) }
-    }
-    else if (item=="mu1") { mu1 = parseInt($("#mu1").val());
-        if (!isNumeric(mu1)) { calcMu(); } // if mu invalid, calculate from delta
-        else { calcDelta();}
-    }
-    //Sigma Validation
-    else if (item=="sigma") { std = $("#stdev").val()
-        // if std invalid, calculate from delta/mu0/mu1
-        if (std<1) { std=1; $("#stdev").val(std) }
-        if (!isNumeric(std)) { calcStd(); }
-        else {calcDelta();}
-    }
-    //SampleSize Validation
-    else if (item=="samplesize") { n = parseInt($("#samplesize").val())
-        if (n > 100) { n=100; }
-        else if (n < 1) { n=1 }
-        else if (!isNumeric(n)) { n = 25; }
-        $("#samplesize").val(n)
-        $("#slider-vertical1").slider("value", n)
-    }
-    //Alpha Error Validation
-    else if (item=="alpha") { alpha = $("#alpha").val()
-        if ((alpha<0.001)||!isNumeric(alpha)||(alpha>0.999)) {
-            if (alpha < 0.001) { alpha=0.001 }
-            else if (alpha > 0.999) { alpha=0.999 }
-            else { alpha=0.05 };
+    var val = $("#" + item).val(); i=0; invalid = false; $(".console").text("");
+    // console.log(val, window[item])
+    // console.log("validating: " + item + " value: " + val)
+
+    for (i=0; len = validvalues.length, i < len;i++) {
+        // console.log(validvalues[i][0], item)
+        if (item == validvalues[i][0]) {
+            var min = validvalues[i][1], max = validvalues[i][2];
+            if (isNaN(val)) { val = window[item]; invalid = true; break; }
+            if (val < min) { val = min; invalid = true; break; }
+            if (val > max) { val = max; invalid = true; break; }
+            val = parseFloat(val); break; // If it's valid, still break out
         }
-        $("#alpha").val(parseFloat(alpha).toFixed(3))
     }
-    //Delta validation
-    else if (item=="delta") { delta = $("#delta").val()
-        if (!isNumeric(delta)) {calcDelta();} //If delta is non-numeric, calculate it
-        else { calcMu();} // Else it's valid and calculate mu1 based on it
-    }
-    //Power Validation
-    else if (item=="power") { power = parseFloat($("#power").val())
-        if ((power>1)&&(power<=100)){ power/=100 }
-        else if ((power<0.001)||(power>100)||(!isNumeric(power))) { power = 0.8 }
-        needCalcPower = 0;
-        $("#power").val(power.toFixed(3))
+    // Print error to tool's console, if present
+    if (invalid) { $(".console").text(validvalues[i][3]) }
+    window[item] = val; // Set internal variable to valid value
+    $("#" + item).val(val.toFixed(validvalues[i][4])) // Set display value with specified precision
+
+    // Special handling for sliders:
+    if ((item=="n") || (item=="power")) {
+        $(validvalues[i][5]).slider("value", val)
         $("#effectsize").val((1 - power).toFixed(3))
-        $("#slider-vertical2").slider("value", power)
     }
 
-    if (item=="mu1"||item=="delta") { internalmu1 = mu1; }
-    else {mu1 = internalmu1;}
-    if (item!="power" && item!="sigma") { needCalcPower = 1;}
+    // If Mu or Delta are being changed, internalmu is set to the new mu1, else no
+    if (item == "mu1" || item == "delta") { internalmu1 = mu1; }
+    else { mu1 = internalmu1; }
+
+    // If power or standard dev are being changed, dont recalculate power in later f(x)s
+    if (item == "power" || item == "std") { needCalcPower = false; }
+    else { needCalcPower = true;}
+
     plot();
 }
