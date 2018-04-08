@@ -13,7 +13,7 @@ $(function() {
         slide: function(event, ui) {
             $(".console").text("") //Clear tool's console
             if (ui.value<1) { return false; } // Freeze slider if out of bounds
-            mu1 = internalmu1
+            mu1 = internalmu1, needCalcPower = true
             $("#n").val(ui.value); // Set samplesize box to slider value
             n = ui.value; // Set internal sample size var to slider value
             plot();
