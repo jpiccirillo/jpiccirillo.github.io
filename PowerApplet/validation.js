@@ -23,16 +23,6 @@ $(function() {
     $(".ui-slider-range-min").css("background-color", "lightgrey");
 });
 
-function calculatePower(mu) {
-    // console.log("in testPower")
-    zcritical1 = inv((1 - alpha / 2), 0, 1);
-    zcritical2 = inv(alpha / 2, 0, 1);
-    // console.log(mu1)
-    if (mu < mu0) { noncentrality = 0;}
-    else { noncentrality = (mu - mu0) / (std / (Math.sqrt(n)))};
-    return parseFloat(cdf(noncentrality - zcritical1, 0, 1) + cdf(zcritical2 - noncentrality, 0, 1));
-}
-
 function ssInBounds(temp_power) {
     temp_n = calcSampleSize(temp_power)
         console.log("temp_n: ", temp_n, "temp_power: ", temp_power)
@@ -121,7 +111,6 @@ function setPowerSampleSize() {
     $("#slider-vertical2").slider("value", power)
 }
 
-//Check to make sure item is
 function validate(item) {
     var val = $("#" + item).val(); i=0; invalid = false; $(".console").text("");
 
@@ -151,6 +140,6 @@ function validate(item) {
 
     // If Mu or Delta are being changed, internalmu is set to the new mu1, else no
     if (item == "mu1" || item == "delta") { internalmu1 = mu1; }
-    else { mu1 = internalmu1; }
+    // else { mu1 = internalmu1; }
     plot();
 }

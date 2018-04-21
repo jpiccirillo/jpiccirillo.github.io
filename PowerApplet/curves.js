@@ -31,9 +31,7 @@ function appendText(id, anchor, movable, x, y, text) {
         .attr("y", y)
         .text(text)
     if (movable) {
-        textObject.data([{
-            "x": 0,
-        }])
+        textObject.data([{ "x": 0,}])
     }
 }
 
@@ -42,9 +40,6 @@ function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggabl
         .on("drag", function(d) {
             dragged(d)
         })
-        // .on("end", function(d) {
-        //     if (internalmu1 > mu0 ) { mu1 = internalmu1;  }
-        // });
 
     if (type == "path") {
         var path = anchor.append("path")
@@ -67,7 +62,6 @@ function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggabl
 }
 
 function axisPrep() {
-    // console.log("mu0: ", mu0, "\nmu1: ", mu1)
     $(".axis").remove()
     var ticks = [];
     for (var i = 0; i < 9; i++) {
@@ -157,12 +151,12 @@ function alphaErrorPrep() {
     checkOverlap()
 }
 
+// Determine the dark red shape that should be drawn (part of alternative
+// population curve that falls to the left of Type I Error)
 function checkOverlap(mu) {
     d3.selectAll("#alphaErrorRed, #rect-clip-left").each(function() { this.remove();});
     var mu = !mu ? internalmu1 : mu;
-    console.log("mu inside checkOverlap: ", mu)
 
-    // mu1 = parseInt($("#mu1").val())
     xValue = normalcdf()
     scaledXValue = screenScale(mu0 - xValue);
     alphaError = generateCurve(mu, n, std, mu - 4 * std, mu + 4 * std);
@@ -178,27 +172,18 @@ function checkOverlap(mu) {
     });
 }
 
-// function calcMu() {
-//     mu1 = delta * std + mu0
-//     internalmu1 = mu1;
-//     $("#mu1").val(parseInt(mu1))
-// }
-
+// Calculate normalized difference between the means using mu1, mu0, and std
 function calcDelta(mu) {
     delta = parseFloat(((mu - mu0) / std).toFixed(2))
     $("#delta").val(delta)
 }
 
-// function calcStd() {
-//     // console.log(internalmu1, mu0, delta)
-//     std = parseInt((internalmu1 - mu0) / delta)
-//     // the problem here is when std is 0.  set it to 1 and set delta accordingly
-//     if (std < 1 || isNaN(std)) { std = 1; calcDelta(); }
-//     // console.log(std)
-//     $("#std").val(std)
-// }
-
+// Validate input before setting internal variables
+// Delta, alpha error are validated in changeDelta() alphaErrorPrep()
+// Beta error is not validated as it is readonly
+// n from power: Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*std/(mu1-mu0),2))
 function setValues() {
+
     // Defines valid min, max, error msg, and precision for each entry paramater.
     // Used in validate().
     validvalues = [
@@ -211,22 +196,19 @@ function setValues() {
         ["power", .001, .999, "Power must be between 0.001 and 0.999.", 3, "#slider-vertical2"],
     ]
 
-    //Validate input before setting internal variables
-    //Delta, alpha error are validated in changeDelta() alphaErrorPrep()
-    //Beta error is not validated as it is readonly
-    // n from power: Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*std/(mu1-mu0),2))
     mu0 = parseInt($("#mu0").val())
     mu1 = parseInt($("#mu1").val())
-    internalmu1 = mu1;
     std = parseInt($("#std").val())
-    calcDelta(internalmu1);
     alpha = parseFloat($("#alpha").val())
     n = parseInt($("#n").val())
     power = calculatePower(mu1);
-    $("#slider-vertical2").slider("value", power)
-    $("#power").val(power.toFixed(3))
+    internalmu1 = mu1;
 
     //Delta is set as a function of mu0, mu1, and standard dev
+    calcDelta(internalmu1);
+
+    $("#slider-vertical2").slider("value", power)
+    $("#power").val(power.toFixed(3))
 }
 
 // function recenter(){
@@ -241,12 +223,16 @@ function setValues() {
 //     })
 // }
 
+// Calculate sample size based on power.  Used when power is being set
+// by the user through the text entry box or the slider, and a resulting
+// sample size must be calculated
 function calcSampleSize(temp_power) {
     return Math.pow((inv(temp_power - cdf(inv(alpha / 2, 0, 1), 0, 1), 0, 1) + inv(1 - (alpha / 2), 0, 1)) * std / (mu1 - mu0), 2);;
 }
 
+// Respond to drag events
 function dragged(d) {
-    console.log("internalmu1: ", internalmu1, "mu1: ", mu1)
+    // console.log("internalmu1: ", internalmu1, "mu1: ", mu1)
     d3.selectAll("#triangle, #sampleMeanLine, .bar").each(function() { this.remove();});
     $(".console").text("")
     calcDelta(internalmu1);
@@ -268,11 +254,12 @@ function dragged(d) {
     // console.log("before calculating power: ", internalmu1)
     power = calculatePower(internalmu1)
     // console.log("after calculating power: ", internalmu1)
-    console.log("mu before entering checkOverlap: ", internalmu1)
+    // console.log("mu before entering checkOverlap: ", internalmu1)
     checkOverlap(internalmu1);
     setPowerSampleSize();
 };
 
+// Coordinates the creation of most shapes on the screen
 function plot() {
     $(".bar").remove();
     curveFactory()
@@ -282,6 +269,8 @@ function plot() {
     textPrep();
 }
 
+// Coordinate calculating an array of values to draw a normal distribution curve
+// for the four main curves in the tool
 function curveFactory() {
     firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
     firsthalf_top = generateCurve(mu0, 1.25, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
@@ -289,6 +278,7 @@ function curveFactory() {
     secondhalf_top = generateCurve(mu1, 1.25, std, mu1 - 4 * std, mu1 + 4 * std); //Generate small top pink curve
 }
 
+// Put an SVG path on the screen for each curve calculated in curveFactory();
 function pathFactory() {
     d3.selectAll("path, text").each(function() {this.remove();});
     addPath("mainblue", "path", "", "", mainContainer, firsthalf_main, screen_h - 20);
@@ -297,12 +287,14 @@ function pathFactory() {
     addPath("smallpink", "path", "", "", topContainer, secondhalf_top, topscreen_h, 1)
 }
 
+// When tool loads for the first time, initialize screen size and prepare the
+// containers to which later shapes will be drawn.  Then call plot() to carry
+// out rest of shape creation
 function prepare() {
     $("#loader").remove();
     $(".container").css("display", "block");
     initScreenSize();
     setValues();
-    console.log("PREPARE CALLED")
     std_n = std / Math.sqrt(n);
 
     mainContainer = d3.select(".maingraph").append("svg")
@@ -317,16 +309,20 @@ function prepare() {
     plot();
 }
 
+// When the "Sample" button is pushed:
+// - Takes a random n number of sample of from the alternative population.
+// - Draws and stacks these to the top screen in a stylized histogram.
+// - Calculates mean sample, and determines whether or not to reject Ho
+// - Writes information to the tool's console
 function sample() {
     mu1 = internalmu1;
     plot();
-    $(".bar").remove();
-    n = Math.round(n)
+    $(".bar").remove(); // Remove previous histogram bars
+    n = Math.round(n) // Round value of n, in case previous calculations left it as float
     var randomValues = d3.range(n).map(d3.randomNormal(internalmu1, std));
-    for (i = 0; i < n; i++) {
-        randomValues[i] = screenScale(randomValues[i])
-    }
+    for (i = 0; i < n; i++) { randomValues[i] = screenScale(randomValues[i]) }
 
+    // Creating and scaling histogram to fit the top screen
     var x = d3.scaleLinear()
         .domain([0, screen_w])
         .rangeRound([0, screen_w]);
@@ -339,7 +335,6 @@ function sample() {
     largestStack = d3.max(bins, function(d) {
         return d.length;
     })
-    console.log(largestStack, 12)
 
     var max = (largestStack > 8) ? largestStack : 8;
     var y = d3.scaleLinear()
@@ -361,9 +356,7 @@ function sample() {
             return (topscreen_h - y(d.length));
         })
 
-    $('#smallpink').remove()
-    addPath("smallpink", "path", "", "", topContainer, secondhalf_top, topscreen_h, 1)
-    sampleMean = displayScale(d3.mean(randomValues));
+    sampleMean = displayScale(d3.mean(randomValues)); // Calculate mean of samples
     zvalue = (mu0 - sampleMean) / (std / (Math.sqrt(n)))
     ztest_result = ztest(zvalue, 1)
     var message =
@@ -371,6 +364,7 @@ function sample() {
         "\nSample Mean = " + sampleMean.toFixed(2) +
         "\np(z > " + (zvalue.toFixed(2)*-1) + ") = " + ztest_result.toFixed(4)
 
+    // Grey vertical line pointing to mean of smaple values
     mainContainer.append("line")
         .attr("id", "sampleMeanLine")
         .attr("x1", d3.mean(randomValues))
@@ -378,6 +372,7 @@ function sample() {
         .attr("x2", d3.mean(randomValues))
         .attr("y2", screen_h * .1)
 
+    // Two grey triangles in bottom section and top section
     var arc = d3.symbol().type(d3.symbolTriangle);
 
     var triangle = mainContainer.append('path')
@@ -390,14 +385,14 @@ function sample() {
         .attr('d', arc)
         .attr('transform', "translate(" + d3.mean(randomValues) + "," + 10 + ")");
 
+    // Switch to write 'fail to reject' or 'reject' based on value of ztest_result
     if (ztest_result >= alpha) {
         message += "\n\nFail to Reject Ho";
-        $(".console").css('color', 'Navy');
+        $(".console").css('color', 'Navy'); // Text == blue
 
     } else {
         message += "\n\nReject Ho";
-        $(".console").css('color', 'Crimson');
+        $(".console").css('color', 'Crimson'); // Text == red
     }
-    $(".console").text(message)
-    // $(".console").css('color', 'initial');
+    $(".console").text(message) // Finally write out message to tool's console
 }
