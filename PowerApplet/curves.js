@@ -12,7 +12,7 @@ function initScreenSize() {
     screen_w = $(".maingraph").innerWidth() //Establish screen space
     screen_h = $(".maingraph").innerHeight()
     topscreen_h = $(".minigraph").innerHeight()
-    var mu0, mu1, internalmu1, std, n, alpha, mainContainer, topContainer, node, power, needCalcPower; //Initialize globals
+    var mu0, mu1, internalmu1, std, n, alpha, mainContainer, topContainer, node, power; //Initialize globals
 }
 
 var interp = d3.line()
@@ -41,7 +41,10 @@ function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggabl
     var drag = d3.drag()
         .on("drag", function(d) {
             dragged(d)
-        });
+        })
+        // .on("end", function(d) {
+        //     if (internalmu1 > mu0 ) { mu1 = internalmu1;  }
+        // });
 
     if (type == "path") {
         var path = anchor.append("path")
@@ -49,9 +52,7 @@ function addPath(id, type, x, width, anchor, verticiesArray, maxHeight, draggabl
             .attr("d", interp(verticiesArray)) //Shape it with the array provided
             .attr("transform", "translate(0," + maxHeight + ") scale(1,-1)") //Transform it
         if (draggable) { //For paths created with "draggable" flag, implement
-            path.data([{
-                    "x": 0,
-                }])
+            path.data([{"x": 0,}])
                 .call(drag)
         }
     } else {
@@ -98,26 +99,22 @@ function axisPrep() {
         .call(xAxis);
 }
 
-function screenScale(x) {
-    var result = d3.scaleLinear()
+//Convert user/axis scale to pixel scale for writing to screen
+function screenScale(x) { return d3.scaleLinear()
         .domain([mu0 - 4 * std, mu0 + 4 * std])
-        .range([0, screen_w]);
-    return result(x);
+        .range([0, screen_w])(x)
 }
 
-function displayScale(x) {
-    var result = d3.scaleLinear()
+//Convert pixel-scale for writing to screen to user/axis scale
+function displayScale(x) { return d3.scaleLinear()
         .domain([0, screen_w])
-        .range([mu0 - 4 * std, mu0 + 4 * std]);
-    return result(x);
+        .range([mu0 - 4 * std, mu0 + 4 * std])(x);
 }
 
-function verticalScale(y) {
-    var result = d3.scaleLinear()
-        //Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
+//Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
+function verticalScale(y) { return d3.scaleLinear()
         .domain([0, pdf(mu0, mu0, std / (Math.sqrt(100)))])
-        .range([0, screen_h * 1.16])
-    return result(y);
+        .range([0, screen_h * 1.16])(y)
 }
 
 function generateCurve(mu, n, std, l_bound, u_bound) {
@@ -163,6 +160,7 @@ function alphaErrorPrep() {
 function checkOverlap(mu) {
     d3.selectAll("#alphaErrorRed, #rect-clip-left").each(function() { this.remove();});
     var mu = !mu ? internalmu1 : mu;
+    console.log("mu inside checkOverlap: ", mu)
 
     // mu1 = parseInt($("#mu1").val())
     xValue = normalcdf()
@@ -180,25 +178,25 @@ function checkOverlap(mu) {
     });
 }
 
-function calcMu() {
-    mu1 = delta * std + mu0
-    internalmu1 = mu1;
-    $("#mu1").val(parseInt(mu1))
-}
+// function calcMu() {
+//     mu1 = delta * std + mu0
+//     internalmu1 = mu1;
+//     $("#mu1").val(parseInt(mu1))
+// }
 
-function calcDelta() {
-    delta = parseFloat(((internalmu1 - mu0) / std).toFixed(2))
+function calcDelta(mu) {
+    delta = parseFloat(((mu - mu0) / std).toFixed(2))
     $("#delta").val(delta)
 }
 
-function calcStd() {
-    // console.log(internalmu1, mu0, delta)
-    std = parseInt((internalmu1 - mu0) / delta)
-    // the problem here is when std is 0.  set it to 1 and set delta accordingly
-    if (std < 1 || isNaN(std)) { std = 1; calcDelta(); }
-    // console.log(std)
-    $("#std").val(std)
-}
+// function calcStd() {
+//     // console.log(internalmu1, mu0, delta)
+//     std = parseInt((internalmu1 - mu0) / delta)
+//     // the problem here is when std is 0.  set it to 1 and set delta accordingly
+//     if (std < 1 || isNaN(std)) { std = 1; calcDelta(); }
+//     // console.log(std)
+//     $("#std").val(std)
+// }
 
 function setValues() {
     // Defines valid min, max, error msg, and precision for each entry paramater.
@@ -208,7 +206,7 @@ function setValues() {
         ["mu1", -10000, 10000, "", 0],
         ["std", 1, 10000, "Standard Deviation must be greater than 1.", 0],
         ["delta", -10000, 10000, "", 3],
-        ["alpha", 0.001, 1, "Type I Error must be between 0.001 and 1.", 3],
+        ["alpha", 0.001, 1, "Type I Error must be between 0.001 and 1", 3],
         ["n", 1, 100, "Sample size must be between 1 and 100.", 0, "#slider-vertical1"],
         ["power", .001, .999, "Power must be between 0.001 and 0.999.", 3, "#slider-vertical2"],
     ]
@@ -220,12 +218,14 @@ function setValues() {
     mu0 = parseInt($("#mu0").val())
     mu1 = parseInt($("#mu1").val())
     internalmu1 = mu1;
-    needCalcPower = true;
     std = parseInt($("#std").val())
-    calcDelta();
+    calcDelta(internalmu1);
     alpha = parseFloat($("#alpha").val())
     n = parseInt($("#n").val())
-    calculatePower(mu1);
+    power = calculatePower(mu1);
+    $("#slider-vertical2").slider("value", power)
+    $("#power").val(power.toFixed(3))
+
     //Delta is set as a function of mu0, mu1, and standard dev
 }
 
@@ -241,32 +241,15 @@ function setValues() {
 //     })
 // }
 
-function calcSampleSize() {
-    return Math.pow((inv(power - cdf(inv(alpha / 2, 0, 1), 0, 1), 0, 1) + inv(1 - (alpha / 2), 0, 1)) * std / (mu1 - mu0), 2);
-}
-//calculate power without setting any values.  Used to see if power slider should be allowed to move
-function testPower(mu) {
-    // console.log("in testPower")
-    zcritical1 = inv((1 - alpha / 2), 0, 1);
-    zcritical2 = inv(alpha / 2, 0, 1);
-    // console.log(mu1)
-    if (mu < mu0) { noncentrality = 0;}
-    else { noncentrality = (mu - mu0) / (std / (Math.sqrt(n)))};
-    return parseFloat(cdf(noncentrality - zcritical1, 0, 1) + cdf(zcritical2 - noncentrality, 0, 1));
-}
-
-function calculatePower(mu) {
-    power = testPower(mu);
-    // console.log("Power: ", power)
-    $("#power").val(power.toFixed(3));
-    $("#effectsize").val(parseFloat(1 - power).toFixed(3));
-    $("#slider-vertical2").slider("value", power)
+function calcSampleSize(temp_power) {
+    return Math.pow((inv(temp_power - cdf(inv(alpha / 2, 0, 1), 0, 1), 0, 1) + inv(1 - (alpha / 2), 0, 1)) * std / (mu1 - mu0), 2);;
 }
 
 function dragged(d) {
+    console.log("internalmu1: ", internalmu1, "mu1: ", mu1)
     d3.selectAll("#triangle, #sampleMeanLine, .bar").each(function() { this.remove();});
     $(".console").text("")
-    calcDelta();
+    calcDelta(internalmu1);
     d3.select("#mainpink").attr("transform", function(d) {
         d.x += d3.event.dx
         return "translate(" + [d.x, screen_h - 20] + ") scale(1,-1)"
@@ -282,8 +265,12 @@ function dragged(d) {
 
     $("#mu1").val(Math.round(mu1 + d.x * 8 * std / screen_w))
     internalmu1 = mu1 + d.x * 8 * std / screen_w
+    // console.log("before calculating power: ", internalmu1)
+    power = calculatePower(internalmu1)
+    // console.log("after calculating power: ", internalmu1)
+    console.log("mu before entering checkOverlap: ", internalmu1)
     checkOverlap(internalmu1);
-    calculatePower(internalmu1);
+    setPowerSampleSize();
 };
 
 function plot() {
@@ -291,7 +278,6 @@ function plot() {
     curveFactory()
     pathFactory()
     alphaErrorPrep();
-    if (needCalcPower) { calculatePower(internalmu1); }
     axisPrep();
     textPrep();
 }
@@ -413,4 +399,5 @@ function sample() {
         $(".console").css('color', 'Crimson');
     }
     $(".console").text(message)
+    // $(".console").css('color', 'initial');
 }
