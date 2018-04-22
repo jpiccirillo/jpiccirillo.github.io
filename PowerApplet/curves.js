@@ -190,7 +190,7 @@ function setValues() {
         ["mu0", -10000, 10000, "", 0],
         ["mu1", -10000, 10000, "", 0],
         ["std", 1, 10000, "Standard Deviation must be greater than 1.", 0],
-        ["delta", -10000, 10000, "", 3],
+        ["delta", -10000, 10000, "", 2],
         ["alpha", 0.001, 1, "Type I Error must be between 0.001 and 1", 3],
         ["n", 1, 100, "Sample size must be between 1 and 100.", 0, "#slider-vertical1"],
         ["power", .001, .999, "Power must be between 0.001 and 0.999.", 3, "#slider-vertical2"],
@@ -317,6 +317,13 @@ function prepare() {
 function sample() {
     mu1 = internalmu1;
     plot();
+
+    if ( mu1 < mu0) {
+        console.log("here")
+        $(".console").text("μ0 = " + mu0.toFixed(2) + "\nμ1 = " + mu1.toFixed(2) +"\nNot designed for two-tailed tests (μ1 < μ0).")
+        return;
+    }
+
     $(".bar").remove(); // Remove previous histogram bars
     n = Math.round(n) // Round value of n, in case previous calculations left it as float
     var randomValues = d3.range(n).map(d3.randomNormal(internalmu1, std));

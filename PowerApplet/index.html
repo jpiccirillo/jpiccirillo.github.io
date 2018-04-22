@@ -78,14 +78,60 @@
             <div class="maingraph"></div>
             <br><br>
         </div>
+
         <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
         <link rel="stylesheet" href="style.css">
         <script src="https://d3js.org/d3.v5.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
         <script type="text/javascript" src="calculations.js"></script>
         <script type="text/javascript" src="validation.js"></script>
         <script type="text/javascript" src="curves.js"></script>
     </div>
+<div id="description">
+    <table style="min-width:100%">
+        <tr>
+            <td>
+                <li>μ0 = Mean of the null population</li>
+            </td>
+            <td>
+                <li>α = Probability of a Type I error, one-tailed</li>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <li>μ1 = Mean of the alternative population</li>
+            </td>
+            <td>
+                <li>β = Probability of a Type II error (1-power)</li>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <li>σ = Pooled standard deviation</li>
+            </td>
+            <td>
+                <li>n = Sample size set by user.  When calculated from other parameters:
+                    <div style="margin: 1em;margin-left: 2em;">\(n = {(Z_\alpha + Z_\beta)^2 \;\cdot\; 2\sigma^2 \over d^2}\)</div>
+                </li>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <li>d = Normalized difference between the means:
+                    <div style="margin: 1em;margin-left: 2em;">\(d = {\mu_0-\mu_1\over\sigma}\)</div>
+
+                </li>
+            </td>
+            <td>
+                <li>Power = Statistical power resulting from the other parameters:<br></li>
+                <div style="margin: 1em;margin-left: 2em;">\(Z_\beta\,\rightarrow\,\beta\)<br>\(Power = 1\,-\,\beta\)</div>
+                </li>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

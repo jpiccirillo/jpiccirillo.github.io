@@ -130,16 +130,29 @@ function validate(item) {
     window[item] = val; // Set internal variable to valid value
     $("#" + item).val(val.toFixed(validvalues[i][4])) // Set display value with specified precision
 
-    // Special handling for sliders:
-    if ((item=="n") || (item =="mu1") || (item=="std") || (item =="alpha")) {
-        console.log("Getting here")
+    if (item=="n" || item =="mu1" || item=="std" || item =="alpha" || item=="delta") {
+        // console.log("Getting here")
+        if (item=="delta") {
+            mu1 = delta*std+mu0;
+            internalmu1 = mu1;
+            $("#mu1").val(parseInt(mu1))
+        }
         power = calculatePower(mu1)
-
         setPowerSampleSize();
     }
 
+    // if (item=="delta") {
+    //     // console.log("validating delta")
+    //     mu1 = delta*std+mu0
+    //     power = calculatePower(mu1)
+    //     console.log("new mu1: ", mu1)
+    //     internalmu1 = mu1;
+    //     $("#mu1").val(parseInt(mu1))
+    //     setPowerSampleSize();
+    // }
+
     // If Mu or Delta are being changed, internalmu is set to the new mu1, else no
     if (item == "mu1" || item == "delta") { internalmu1 = mu1; }
-    // else { mu1 = internalmu1; }
+    else (mu1 = internalmu1)
     plot();
 }
