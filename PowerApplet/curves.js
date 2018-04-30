@@ -293,6 +293,7 @@ function pathFactory() {
 function prepare() {
     $("#loader").remove();
     $(".container").css("display", "block");
+    $("#description").css("display", "block");
     initScreenSize();
     setValues();
     std_n = std / Math.sqrt(n);

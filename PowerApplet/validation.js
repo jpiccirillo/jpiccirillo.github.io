@@ -1,3 +1,4 @@
+// Main Power Slider on right (grey one)
 $(function() {
     $("#slider-vertical1").slider({
         orientation: "vertical",
@@ -23,10 +24,24 @@ $(function() {
     $(".ui-slider-range-min").css("background-color", "lightgrey");
 });
 
+// When a user changes power through the UI box or the slider, sample size
+// must be calculated as function of the inputted power value as the two affect
+// each other.
+//
+// It is possible that given a power of x, the resulting sample size y could be
+// outside of this tool's 0 - 100 sample size bounds.  This function returns true
+// if the resulting sample size is within 0 - 100, for a potential power value,
+// and false if not.  The tool's console displays (hopefully) helpful errors when
+// possible.
+//
+// The potential power value additionally must be smaller than the current Alpha
+// value to generate meaningful results. For mu1<mu0, this function also returns
+// an false as the "sample calculation" is only enabled for alternative populations
+// with mean greater than null population mean.
 function ssInBounds(temp_power) {
     temp_n = calcSampleSize(temp_power)
-        console.log("temp_n: ", temp_n, "temp_power: ", temp_power)
-        console.log("mu1: ", mu1, "mu0: ", mu0)
+    console.log("temp_n: ", temp_n, "temp_power: ", temp_power)
+    console.log("mu1: ", mu1, "mu0: ", mu0)
     if (temp_n>100 || temp_n<1 || temp_power < alpha || internalmu1 < mu0) {
         if (((temp_n < 1) && (n>1.5)) || (temp_n>100)){ error = "To increase power, change μ1." }
         if ((temp_n < 1) && (n<1.5)) { error = validvalues[5][3] }
@@ -40,8 +55,6 @@ function checkPower(temp_power) {
     // If no power is given to validate, it's not sent from the slider and we
     // should pull it out of form
     if (temp_power == "form") { temp_power = parseFloat($("#power").val()) }
-    // mu1 = internalmu1;
-    // console.log(temp_power)
 
     // First check if within bounds and is numeric
     if (isNaN(temp_power) || temp_power < validvalues[6][1] ||
@@ -53,17 +66,15 @@ function checkPower(temp_power) {
     // Then check if resulting sample size is within bounds
     if (ssInBounds(temp_power)) {
         mu1 = internalmu1
-        // console.log(testPower(internalmu1))
         n = temp_n; power = temp_power;
         setPowerSampleSize();
         plot();
-        // needCalcPower = false
         return true
     }
-    // $("#power").val(power.toFixed(3));
     return false
 }
 
+// Main Power Slider on right (red one)
 $(function() {
     power = $("#power").val();
     $("#slider-vertical2").slider({
@@ -75,15 +86,9 @@ $(function() {
         step: .001,
 
         slide: function(event, ui) {
-            // Initialize some variables: dont recalc power, set power to slider value
 
             if (checkPower(ui.value)) { return true; }
             else { return false; }
-            // if (temp_n>100 || temp_n<1 || temp_power < alpha) {
-
-            //     console.log("TestSampleSize: ", temp_n, "Power: ", temp_power, "->SHOULD BE LOCKED")
-            //     return false;
-            // }
         }
     })
 });
@@ -102,6 +107,8 @@ function setSliderTicks(el) {
     }
 }
 
+// Function to do common tasks all together in one call.  Whenever a parameter
+// is changed, the following all need to happen to keep the data updated
 function setPowerSampleSize() {
     $(".console").text("")
     $("#power").val(power.toFixed(3));
@@ -131,7 +138,6 @@ function validate(item) {
     $("#" + item).val(val.toFixed(validvalues[i][4])) // Set display value with specified precision
 
     if (item=="n" || item =="mu1" || item=="std" || item =="alpha" || item=="delta") {
-        // console.log("Getting here")
         if (item=="delta") {
             mu1 = delta*std+mu0;
             internalmu1 = mu1;
@@ -140,16 +146,6 @@ function validate(item) {
         power = calculatePower(mu1)
         setPowerSampleSize();
     }
-
-    // if (item=="delta") {
-    //     // console.log("validating delta")
-    //     mu1 = delta*std+mu0
-    //     power = calculatePower(mu1)
-    //     console.log("new mu1: ", mu1)
-    //     internalmu1 = mu1;
-    //     $("#mu1").val(parseInt(mu1))
-    //     setPowerSampleSize();
-    // }
 
     // If Mu or Delta are being changed, internalmu is set to the new mu1, else no
     if (item == "mu1" || item == "delta") { internalmu1 = mu1; }

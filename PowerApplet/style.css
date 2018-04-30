@@ -8,7 +8,7 @@ body {
     width: 100vw;
     min-width: 780px;
     max-width: 1000px;
-    /*height: 380px;*/
+    height: 800px;
 }
 
 rect {
@@ -300,7 +300,7 @@ input:focus {
 #loader {
     position: relative;
     left: 50%;
-    top: 65%;
+    top: 40%;
     z-index: 1;
     margin: -66px 0 0 -66px;
     border: 8px solid #f3f3f3;
@@ -331,9 +331,11 @@ input:focus {
 }
 
 #description {
+    display: none;
     font-family: Helvetica;
     font-size: 14px;
+    height: 220px;
     color: rgb(50, 50, 50);
-        background-color: #f1f1f1;
+    background-color: #f1f1f1;
     border: 2px solid lightgrey;
 }
