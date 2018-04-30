@@ -142,7 +142,9 @@ function validate(item) {
             mu1 = delta*std+mu0;
             internalmu1 = mu1;
             $("#mu1").val(parseInt(mu1))
-        }
+            console.log(internalmu1)
+        } else { calcDelta( mu1 ); }
+
         power = calculatePower(mu1)
         setPowerSampleSize();
     }

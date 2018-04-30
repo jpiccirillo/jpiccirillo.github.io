@@ -4,6 +4,7 @@ $(window).resize(function() {
     plot();
 });
 
+// Spinning wheel to display while loading for slow connections
 function startSpinningWheel() {
     setTimeout(prepare, 0);
 }
@@ -372,7 +373,7 @@ function sample() {
         "\nSample Mean = " + sampleMean.toFixed(2) +
         "\np(z > " + (zvalue.toFixed(2)*-1) + ") = " + ztest_result.toFixed(4)
 
-    // Grey vertical line pointing to mean of smaple values
+    // Grey vertical line pointing to mean of sample values
     mainContainer.append("line")
         .attr("id", "sampleMeanLine")
         .attr("x1", d3.mean(randomValues))
