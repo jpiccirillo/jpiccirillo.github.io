@@ -1,3 +1,15 @@
+/*
+This script holds the functions for calculating the statistics associated with
+the tool.  These functions are ported and adapted from the javascript
+statistical library 'jstat.js', v1.71 (https://jstat.github.io/all.html). Ported
+to avoid having to import the entire library as only a few functions are used.
+* @Author: Jeffrey Piccirillo (piccirilloj1@gmail.com)
+* @Date:   4/30/2018
+* @Last Modified by: Jeffrey Piccirillo
+* @Last Modified time: 4/30/18
+* @Main credit: jStat.js, v1.71 (https://jstat.github.io/all.html)
+*/
+
 function calculatePower(mu) {
     // console.log("in testPower")
     zcritical1 = inv((1 - alpha / 2), 0, 1);

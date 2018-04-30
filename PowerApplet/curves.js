@@ -1,3 +1,16 @@
+/*
+This script handles creating and drawing the various elements of the tool interface.
+It calculates the arrays needed to plot the 4 SVG curves (two red, two blue),
+plots them and initiates their drag behavior as necessary, plots axes and text, and
+updates / replots these elements as necessary when a user changes a parameter or
+drags a curve around.    
+* @Author: Jeffrey Piccirillo (piccirilloj1@gmail.com)
+* @Date:   4/30/2018
+* @Last Modified by: Jeffrey Piccirillo
+* @Last Modified time: 4/30/18
+*/
+
+//Update size of tool and replot shapes when screensize is changed
 $(window).resize(function() {
     mu1 = internalmu1;
     initScreenSize()

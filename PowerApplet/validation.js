@@ -1,3 +1,16 @@
+/* 
+This script handles validating most of the user input from the sliders and the
+UI boxes.  When a user inputs a value through a box or a slider, it must be
+confirmed to be numeric and in-bounds.  When inputting a power value, the resulting
+sample size must also be confiremd within 0-100.  Other interdependent parameters
+include changing delta when stdev is changed and vice versa, and recalculating
+power when alpha (Type I error) or mu1 (alternative population mean) are changed.
+* @Author: Jeffrey Piccirillo (piccirilloj1@gmail.com)
+* @Date:   4/30/2018
+* @Last Modified by: Jeffrey Piccirillo
+* @Last Modified time: 4/30/18
+*/
+
 // Main Power Slider on right (grey one)
 $(function() {
     $("#slider-vertical1").slider({
@@ -24,20 +37,20 @@ $(function() {
     $(".ui-slider-range-min").css("background-color", "lightgrey");
 });
 
-// When a user changes power through the UI box or the slider, sample size
-// must be calculated as function of the inputted power value as the two affect
-// each other.
-//
-// It is possible that given a power of x, the resulting sample size y could be
-// outside of this tool's 0 - 100 sample size bounds.  This function returns true
-// if the resulting sample size is within 0 - 100, for a potential power value,
-// and false if not.  The tool's console displays (hopefully) helpful errors when
-// possible.
-//
-// The potential power value additionally must be smaller than the current Alpha
-// value to generate meaningful results. For mu1<mu0, this function also returns
-// an false as the "sample calculation" is only enabled for alternative populations
-// with mean greater than null population mean.
+/*When a user changes power through the UI box or the slider, sample size
+must be calculated as function of the inputted power value as the two affect
+each other.
+
+It is possible that given a power of x, the resulting sample size y could be
+outside of this tool's 0 - 100 sample size bounds.  This function returns true
+if the resulting sample size is within 0 - 100, for a potential power value,
+and false if not.  The tool's console displays (hopefully) helpful errors when
+possible.
+
+The potential power value additionally must be smaller than the current Alpha
+value to generate meaningful results. For mu1<mu0, this function also returns
+an false as the "sample calculation" is only enabled for alternative populations
+with mean greater than null population mean.*/
 function ssInBounds(temp_power) {
     temp_n = calcSampleSize(temp_power)
     console.log("temp_n: ", temp_n, "temp_power: ", temp_power)
