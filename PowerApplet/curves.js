@@ -3,7 +3,7 @@ This script handles creating and drawing the various elements of the tool interf
 It calculates the arrays needed to plot the 4 SVG curves (two red, two blue),
 plots them and initiates their drag behavior as necessary, plots axes and text, and
 updates / replots these elements as necessary when a user changes a parameter or
-drags a curve around.    
+drags a curve around.
 * @Author: Jeffrey Piccirillo (piccirilloj1@gmail.com)
 * @Date:   4/30/2018
 * @Last Modified by: Jeffrey Piccirillo
@@ -195,7 +195,6 @@ function calcDelta(mu) {
 // Validate input before setting internal variables
 // Delta, alpha error are validated in changeDelta() alphaErrorPrep()
 // Beta error is not validated as it is readonly
-// n from power: Math.ceil(Math.pow((inv(power-cdf(inv(.05/2, 0, 1), 0, 1), 0, 1) + inv(1-(.05/2), 0, 1) )*std/(mu1-mu0),2))
 function setValues() {
 
     // Defines valid min, max, error msg, and precision for each entry paramater.
@@ -382,7 +381,8 @@ function sample() {
     zvalue = (mu0 - sampleMean) / (std / (Math.sqrt(n)))
     ztest_result = ztest(zvalue, 1)
     var message =
-        "Critical Mean Value = " + displayScale(scaledXValue).toFixed(2) +
+        "Cohen's d = " + ((mu1-mu0)/std).toFixed(2) +
+        "\nCritical Mean Value = " + displayScale(scaledXValue).toFixed(2) +
         "\nSample Mean = " + sampleMean.toFixed(2) +
         "\np(z > " + (zvalue.toFixed(2)*-1) + ") = " + ztest_result.toFixed(4)
 
@@ -409,11 +409,11 @@ function sample() {
 
     // Switch to write 'fail to reject' or 'reject' based on value of ztest_result
     if (ztest_result >= alpha) {
-        message += "\n\nFail to Reject Ho";
+        message += "\n-> Fail to Reject Ho";
         $(".console").css('color', 'Navy'); // Text == blue
 
     } else {
-        message += "\n\nReject Ho";
+        message += "\n-> Reject Ho";
         $(".console").css('color', 'Crimson'); // Text == red
     }
     $(".console").text(message) // Finally write out message to tool's console

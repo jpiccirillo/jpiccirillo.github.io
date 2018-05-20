@@ -11,10 +11,8 @@ to avoid having to import the entire library as only a few functions are used.
 */
 
 function calculatePower(mu) {
-    // console.log("in testPower")
     zcritical1 = inv((1 - alpha / 2), 0, 1);
     zcritical2 = inv(alpha / 2, 0, 1);
-    // console.log(mu1)
     if (mu < mu0) { noncentrality = 0;}
     else { noncentrality = (mu - mu0) / (std / (Math.sqrt(n)))};
     return parseFloat(cdf(noncentrality - zcritical1, 0, 1) + cdf(zcritical2 - noncentrality, 0, 1));
