@@ -26,7 +26,6 @@ function createMap() {
     var path = d3.geo.path() // path generator that will convert GeoJSON to SVG paths
         .projection(projection); // tell path generator to use albersUsa projection
 
-
     // Define linear scale for output
     var color = d3.scale.linear()
         .range(["rgb(213,222,217)", "rgb(69,173,168)", "rgb(84,36,55)", "rgb(217,91,67)"]);
@@ -43,13 +42,8 @@ function createMap() {
         .attr("class", "tooltip")
         .style("opacity", 0);
 
-    // Load in my states data!
-    // d3.csv("stateslived.csv", function(data) {
-    // color.domain([0,1,2,3]); // setting the range of the input data
-
     // Load GeoJSON data and merge with states data
     d3.json("us-states.json", function(json) {
-
 
         // Bind the data to the SVG and create one path per GeoJSON feature
         svg.selectAll("path")
@@ -74,25 +68,41 @@ function createMap() {
             });
 
 
-        // Map the cities I have lived in!
+        // Map the cities that graduates have relocated to
         d3.csv("cities-lived.csv", function(data) {
+            groupedGrads = d3.nest()
+              .key(function(d) { return d.place; })
+              .entries(data);
+
+             count = d3.nest()
+              .key(function(d) { return d.place; })
+              .rollup(function(v) { return v.length; })
+              .entries(data);
 
             svg.selectAll("circle")
-                .data(data)
+                .data(groupedGrads)
                 .enter()
                 .append("circle")
                 .attr("cx", function(d) {
-                    return projection([d.lon, d.lat])[0];
+                    entry = d.values[0]
+                    return projection([entry.lon, entry.lat])[0];
                 })
                 .attr("cy", function(d) {
-                    return projection([d.lon, d.lat])[1];
+                    entry = d.values[0]
+                    return projection([entry.lon, entry.lat])[1];
                 })
-                .attr('title', function(d) {return d.place})
+                .attr('title', function(d) {
+                    return createTooltip(d)
+                })
                 .attr('class', 'tooltip')
                 .attr("r", function(d) {
-                    return Math.sqrt(d.years) * 4;
+                    for (var i = 0, len = count.length; i < len; i++) {
+                        if (count[i].key==d.key) {
+                            return Math.sqrt(count[i].values)*10
+                        }
+                    }
                 })
-                .style("fill", "rgb(217,91,67)")
+                .style("fill", "#a51417")
                 .style("opacity", 0.85)
 
                 // Modification of custom tooltip code provided by Malcolm Maclean, "D3 Tips and Tricks"
@@ -144,6 +154,14 @@ function createMap() {
     return d.promise();
 }
 
+function createTooltip(info) {
+    var content = '<strong>' + info.key  + ':</strong><br>'
+    $.each(info.values, function(i, val) {
+        console.log(val)
+        content+=val.name.trim() + "<br>"
+    })
+    return content;
+}
 
 createMap()
     .then(function() {
