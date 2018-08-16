@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>3d Web Map</title>
+    <!-- Load d3.js and c3.js -->
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.5/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <!-- Include leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <!-- <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> -->
+
+    <!-- Include eegeo.js -->
+    <!-- <script src="https://cdn-webgl.eegeo.com/eegeojs/api/v0.1.780/eegeo.js"></script> -->
+
+    <script src="anime-master/anime.min.js"></script>
+
+    <style type="text/css">
+    body {
+      opacity: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: black;
+    }
+    body.ready {
+      opacity: 1;
+    }
+    .logo-animation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: -40px;
+    }
+    .letters {
+      position: relative;
+      display: flex;
+      width: 10000px;
+      height: 200px;
+    }
+    .letter {
+      position: relative;
+      width: 162px;
+      height: 162px;
+    }
+    .letter:not(:first-child) {
+      margin-left: -42px;
+    }
+    .letter-i {
+      z-index: 1;
+      width: 82px;
+      transform-origin: 100% 50%;
+    }
+    .dot {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      transform: scale(0);
+    }
+    .dot-i {
+      top: 0;
+      left: 240px;
+    }
+    .dot-e {
+      bottom: 0;
+      right: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="logo-animation">
+      <div class="letters">
+        <div class="letter letter-i">
+          <svg>
+            <g fill="none" fill-rule="evenodd" stroke="#18FF92">
+              <path class="fill in" stroke-width="5" stroke-linecap="round" d="
+              M60.882 46.33c0,0,.7386-.5308,2.016-.504s2.664,1.44,26.64,1.44
+          		s-11.767,13.599-18.72,23.04c-6.954,9.441-19.917,15.744-35.28,15.84c-15.364,0.096-24.222-4.423-23.04-7.92
+          		c1.182-3.498,10.797-8.577,79.2-6.48c5.229,0.621,10.386-0.092,12.24-1.44c1.854-1.349-4.784-0.848-5.76,1.44
+          		c-2.191,7.753,19.079-0.201,28.08-0.72"/>
+            </g>
+          </svg>
+        </div>
+        <div class="letter letter-m-1">
+          <svg>
+            <g fill="none" fill-rule="evenodd" stroke="#5E89FB">
+              <path class="fill in" stroke-width="4" stroke-linecap="round" d="M80.62 56.42c0,0-18.083,13.598-23.04,27.36
+                          		s12.919-7.125,12.24-10.08c-0.679-2.956-3.351,1.19,2.88,0.72c8.933-0.674,8.64,0,8.64,0"/>
+            </g>
+          </svg>
+        </div>
+        <div class="letter letter-m-2">
+          <svg>
+            <g fill="none" fill-rule="evenodd" stroke="#FB155A">
+              <path class="fill in" stroke-width="4" stroke-linecap="round" d="M10.978 56.114c0,0-18.776,14.364-22.32,27.36
+                            		c-3.543,12.996,13.146-9.699,11.52-10.08c-1.626-0.382-4.137,0.565,5.04,0.72c9.177,0.155,7.92,0.72,7.92,0.72
+                            		s-1.397,7.093,7.2-3.6c2.529-1.929-3.344,2.894,7.2,3.6c3.708-1.349,13.889,0.473,15.12,0c1.231-0.474,1.941-3.418-2.88-1.44
+                            		c-4.822,1.978-0.513,6.248,5.76,5.04c6.272-1.208,19.44-4.32,19.44-4.32s-3.813,7.767,12.24,0.72
+                            		c7.963-1.147-4.069,9.524-6.48,11.52c-10.332,11.097-9.563-9.499,23.76-12.24"/>
+            </g>
+          </svg>
+        </div>
+        <!-- <div class="letter letter-e">
+          <svg viewBox="0 0 162 162">
+            <g fill="none" fill-rule="evenodd" stroke="#18FF92">
+              <path class="fill in" stroke-width="40" d="M81 101h60V81c-1-33.14-26.86-60-60-60a60 60 0 1 0 0 120"/>
+            </g>
+          </svg>
+        </div> -->
+        <!-- <div class="logo-icon">
+          <div class="icon">
+            <svg viewBox="0 0 62 62">
+              <g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
+                <path class="icon-curve" stroke="#FF1554" d="M0 16a80.88 80.88 0 0 1 44 44"/>
+                 <path class="icon-line" stroke="#5E89FB" d="M4 0h54a2 2 0 0 1 2 2.01V58A2 2 0 0 1 58 60H2a2 2 0 0 1-2-2.01V2A2 2 0 0 1 2 0h2z"/>
+                <rect width="40" height="40" x="10" y="10" stroke="#18FF92" rx="20"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="dot dot-i">
+          <svg viewBox="0 0 42 42">
+            <g fill="none" fill-rule="evenodd">
+              <rect width="40" height="40" x="1" y="1" fill="#17F28C" rx="20"/>
+            </g>
+          </svg>
+        </div>
+        <div class="dot dot-e">
+          <svg viewBox="0 0 42 42">
+            <g fill="none" fill-rule="evenodd">
+              <rect width="40" height="40" x="1" y="1" fill="#FFFFFF" rx="20"/>
+            </g>
+          </svg>
+        </div> -->
+      </div>
+    </div>
+
+    <script src="3dwebmap.js"></script>
+</body>
+</html>

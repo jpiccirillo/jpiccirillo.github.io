@@ -103,7 +103,7 @@ function createMap() {
                     }
                 })
                 .style("fill", "#a51417")
-                .style("opacity", 0.85)
+                .style("opacity", 0.70)
 
                 // Modification of custom tooltip code provided by Malcolm Maclean, "D3 Tips and Tricks"
                 // http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html
