@@ -1,5 +1,28 @@
 {"days_1":
     [{
+"sessions":[],"minuteCount":120,"pickupCount":346,"pickups":[],
+"appUsages":[
+    { "appName" : "Grindr", "onScreen" : 62},
+    { "appName" : "Messages", "onScreen" : 143},
+    { "appName" : "Messenger", "onScreen" : 53},
+    { "appName" : "Instagram", "onScreen" : 17},
+    { "appName" : "Home & Lock Screen", "onScreen" : 58},
+    { "appName" : "Moment", "onScreen" : 1},
+    { "appName" : "Tinder", "onScreen" : 20},
+    { "appName" : "Spotify", "onScreen" : 5},
+    { "appName" : "Outlook", "onScreen" : 3},
+    { "appName" : "Notes", "onScreen" : 13},
+    { "appName" : "Phone", "onScreen" : 5},
+    { "appName" : "Fitbit", "onScreen" : 1},
+    { "appName" : "Tumblr", "onScreen" : 9},
+    { "appName" : "Photos", "onScreen" : 9},
+    { "appName" : "Safari", "onScreen" : 35},
+    { "appName" : "Google Photos", "onScreen" : 5},
+    { "appName" : "Gmail", "onScreen" : 7},
+    { "appName" : "Find Friends", "onScreen" : 1},
+    { "appName" : "Music", "onScreen" : 1}],
+    "date":"2018-08-14T00:00:00-06:00"},{
+
 "sessions":[],"minuteCount":52,"pickupCount":111,"pickups":[],
 "appUsages":[
     { "appName" : "Messages", "onScreen" : 0},
@@ -11,7 +34,7 @@
     { "appName" : "Photos", "onScreen" : 1},
     { "appName" : "App Store", "onScreen" : 4}],
     "date":"2018-05-27T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":170,"pickupCount":274,"pickups":[],
 "appUsages":[
     { "appName" : "Grindr", "onScreen" : 23},
@@ -31,7 +54,7 @@
     { "appName" : "Music", "onScreen" : 1}
 ],
     "date":"2018-05-28T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":66,"pickupCount":346,"pickups":[],
 "appUsages":[
     { "appName" : "Grindr", "onScreen" : 27},
@@ -52,7 +75,7 @@
     { "appName" : "Gmail", "onScreen" : 6},
     { "appName" : "Google Maps", "onScreen" : 2}],
     "date":"2018-06-29T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":80,"pickupCount":337,"pickups":[],
 "appUsages":[
     { "appName" : "Grindr", "onScreen" : 28},
@@ -73,7 +96,7 @@
     { "appName" : "Gmail", "onScreen" : 6},
     { "appName" : "Google Maps", "onScreen" : 2}],
     "date":"2018-06-28T00:00:00-06:00"},{
-        
+
 "sessions" : [], "minuteCount" : 70, "pickupCount" : 183, "pickups" : [],
 "appUsages" : [
     { "appName" : "Grindr", "onScreen" : 0},
@@ -97,93 +120,93 @@
 
 "sessions":[],"minuteCount":62,"pickupCount":124,"pickups":[],
 "appUsages":[
-    {"appName":"Messages","onScreen":57}, 
+    {"appName":"Messages","onScreen":57},
     {"appName":"Grindr","onScreen":48},
-    {"appName":"Home & Lock Screen","onScreen":26}, 
-    {"appName":"Slack","onScreen":4}, 
-    {"appName":"Instagram","onScreen":3}, 
-    {"appName":"Outlook","onScreen":2}, 
+    {"appName":"Home & Lock Screen","onScreen":26},
+    {"appName":"Slack","onScreen":4},
+    {"appName":"Instagram","onScreen":3},
+    {"appName":"Outlook","onScreen":2},
     {"appName":"Tinder","onScreen":4},
-    {"appName":"Moment","onScreen":1}, 
+    {"appName":"Moment","onScreen":1},
     {"appName":"Snapchat","onScreen":1},
     {"appName":"Google Photos","onScreen":1},
     {"appName":"Weather","onScreen":1},
     {"appName":"Camera","onScreen":2}],
     "date":"2018-05-01T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":62,"pickupCount":124,"pickups":[],
 "appUsages":[
-    {"appName":"Messages","onScreen":56}, 
+    {"appName":"Messages","onScreen":56},
     {"appName":"Grindr","onScreen":22},
     {"appName":"Safari","onScreen":25},
     {"appName":"Google Photos","onScreen":6},
-    {"appName":"Tinder","onScreen":7}, 
-    {"appName":"Home & Lock Screen","onScreen":19}, 
-    {"appName":"Instagram","onScreen":5}, 
-    {"appName":"Scruff","onScreen":4}, 
-    {"appName":"Messenger","onScreen":1}, 
-    {"appName":"Fitbit","onScreen":1}, 
+    {"appName":"Tinder","onScreen":7},
+    {"appName":"Home & Lock Screen","onScreen":19},
+    {"appName":"Instagram","onScreen":5},
+    {"appName":"Scruff","onScreen":4},
+    {"appName":"Messenger","onScreen":1},
+    {"appName":"Fitbit","onScreen":1},
     {"appName":"Snapchat","onScreen":1},
-    {"appName":"Slack","onScreen":1}, 
+    {"appName":"Slack","onScreen":1},
     {"appName":"Weather","onScreen":1},
     {"appName":"Moment","onScreen":1}],
     "date":"2018-04-22T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":62,"pickupCount":124,"pickups":[],
 "appUsages":[
-	{"appName":"Grindr","onScreen":190}, 
-    {"appName":"Messages","onScreen":46}, 
-    {"appName":"Scruff","onScreen":10}, 
+	{"appName":"Grindr","onScreen":190},
+    {"appName":"Messages","onScreen":46},
+    {"appName":"Scruff","onScreen":10},
     {"appName":"Outlook","onScreen":3},
-    {"appName":"Home & Lock Screen","onScreen":24}, 
+    {"appName":"Home & Lock Screen","onScreen":24},
     {"appName":"Snapchat","onScreen":3},
-	{"appName":"Safari","onScreen":28}, 
-    {"appName":"Tinder","onScreen":16}, 
+	{"appName":"Safari","onScreen":28},
+    {"appName":"Tinder","onScreen":16},
     {"appName":"Gmail","onScreen":1},
-    {"appName":"Slack","onScreen":6}, 
-    {"appName":"Moment","onScreen":1}, 
+    {"appName":"Slack","onScreen":6},
+    {"appName":"Moment","onScreen":1},
     {"appName":"Instagram","onScreen":2},
-    {"appName":"Safari","onScreen":1}, 
+    {"appName":"Safari","onScreen":1},
 	{"appName":"Weather","onScreen":1}],
     "date":"2018-04-18T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":51,"pickupCount":141,"pickups":[],
 "appUsages":[
-	{"appName":"Grindr","onScreen":57}, 
-    {"appName":"Messages","onScreen":58}, 
-    {"appName":"Home & Lock Screen","onScreen":28}, 
-	{"appName":"Safari","onScreen":28}, 
-    {"appName":"Google Photos","onScreen":2}, 
-    {"appName":"Slack","onScreen":6}, 
-    {"appName":"Moment","onScreen":1}, 
+	{"appName":"Grindr","onScreen":57},
+    {"appName":"Messages","onScreen":58},
+    {"appName":"Home & Lock Screen","onScreen":28},
+	{"appName":"Safari","onScreen":28},
+    {"appName":"Google Photos","onScreen":2},
+    {"appName":"Slack","onScreen":6},
+    {"appName":"Moment","onScreen":1},
     {"appName":"Outlook","onScreen":2},
-    {"appName":"Moment","onScreen":0}, 
+    {"appName":"Moment","onScreen":0},
 	{"appName":"Photos","onScreen":7},
-    {"appName":"Tinder","onScreen":2}, 
+    {"appName":"Tinder","onScreen":2},
 	{"appName":"Gmail","onScreen":2},
-    {"appName":"Weather","onScreen":1}, 
+    {"appName":"Weather","onScreen":1},
     {"appName":"Instagram","onScreen":1}],
     "date":"2018-04-09T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":73,"pickupCount":125,"pickups":[],
 "appUsages":[
-	{"appName":"Messages","onScreen":53}, 
-    {"appName":"Messenger","onScreen":21}, 
-    {"appName":"Mint","onScreen":4}, 
-	{"appName":"Phone","onScreen":15}, 
-	{"appName":"Home & Lock Screen","onScreen":25}, 
-    {"appName":"Outlook","onScreen":6}, 
-    {"appName":"Grindr","onScreen":8}, 
-    {"appName":"Gmail","onScreen":7}, 
+	{"appName":"Messages","onScreen":53},
+    {"appName":"Messenger","onScreen":21},
+    {"appName":"Mint","onScreen":4},
+	{"appName":"Phone","onScreen":15},
+	{"appName":"Home & Lock Screen","onScreen":25},
+    {"appName":"Outlook","onScreen":6},
+    {"appName":"Grindr","onScreen":8},
+    {"appName":"Gmail","onScreen":7},
     {"appName":"Photos","onScreen":6},
-    {"appName":"Moment","onScreen":0}, 
+    {"appName":"Moment","onScreen":0},
 	{"appName":"Safari","onScreen":2},
-    {"appName":"Google Photos","onScreen":3}, 
+    {"appName":"Google Photos","onScreen":3},
 	{"appName":"Slack","onScreen":1},
-    {"appName":"Instagram","onScreen":2}, 
+    {"appName":"Instagram","onScreen":2},
     {"appName":"Camera","onScreen":4}],
     "date":"2018-05-15T00:00:00-06:00"},{
-        
+
 "sessions":[],"minuteCount":73,"pickupCount":125,"pickups":[],
 "appUsages":[
 	{"appName":"Messages","onScreen":45},
@@ -3016,6 +3039,6 @@
 	{"appName":"Messenger","onScreen":4},
 	{"appName":"Mint","onScreen":2}],
 	"date":"2017-10-06T00:00:00-05:00"}
-    
+
     ]
 }
