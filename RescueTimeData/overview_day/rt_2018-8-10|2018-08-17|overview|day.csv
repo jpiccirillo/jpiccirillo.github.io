@@ -1,0 +1,52 @@
+Date,Time Spent (seconds),Number of People,Category
+2018-08-10T00:00:00,4833,1,Reference & Learning
+2018-08-10T00:00:00,2390,1,Software Development
+2018-08-10T00:00:00,483,1,Communication & Scheduling
+2018-08-10T00:00:00,149,1,Utilities
+2018-08-10T00:00:00,89,1,Social Networking
+2018-08-10T00:00:00,42,1,Uncategorized
+2018-08-10T00:00:00,1,1,Business
+Date,Time Spent (seconds),Number of People,Category
+2018-08-13T00:00:00,2980,1,Software Development
+2018-08-13T00:00:00,2336,1,Reference & Learning
+2018-08-13T00:00:00,1277,1,Communication & Scheduling
+2018-08-13T00:00:00,1142,1,Social Networking
+2018-08-13T00:00:00,1080,1,Business
+2018-08-13T00:00:00,518,1,Utilities
+2018-08-13T00:00:00,211,1,Entertainment
+2018-08-13T00:00:00,155,1,Uncategorized
+2018-08-13T00:00:00,4,1,Shopping
+2018-08-14T00:00:00,2675,1,Reference & Learning
+2018-08-14T00:00:00,746,1,Social Networking
+2018-08-14T00:00:00,611,1,Communication & Scheduling
+2018-08-14T00:00:00,327,1,Software Development
+2018-08-14T00:00:00,222,1,Entertainment
+2018-08-14T00:00:00,201,1,Utilities
+2018-08-14T00:00:00,179,1,News & Opinion
+2018-08-15T00:00:00,543,1,Social Networking
+2018-08-15T00:00:00,516,1,Communication & Scheduling
+2018-08-15T00:00:00,295,1,News & Opinion
+2018-08-15T00:00:00,275,1,Entertainment
+2018-08-15T00:00:00,205,1,Reference & Learning
+2018-08-15T00:00:00,174,1,Business
+2018-08-15T00:00:00,103,1,Utilities
+2018-08-15T00:00:00,20,1,Software Development
+2018-08-16T00:00:00,5653,1,Communication & Scheduling
+2018-08-16T00:00:00,2718,1,Reference & Learning
+2018-08-16T00:00:00,2405,1,Entertainment
+2018-08-16T00:00:00,1492,1,Software Development
+2018-08-16T00:00:00,1225,1,Business
+2018-08-16T00:00:00,491,1,Utilities
+2018-08-16T00:00:00,488,1,Uncategorized
+2018-08-16T00:00:00,440,1,Social Networking
+2018-08-16T00:00:00,170,1,News & Opinion
+2018-08-16T00:00:00,143,1,Design & Composition
+2018-08-17T00:00:00,8621,1,Reference & Learning
+2018-08-17T00:00:00,2882,1,Communication & Scheduling
+2018-08-17T00:00:00,1991,1,Social Networking
+2018-08-17T00:00:00,1931,1,Uncategorized
+2018-08-17T00:00:00,1203,1,Entertainment
+2018-08-17T00:00:00,866,1,News & Opinion
+2018-08-17T00:00:00,787,1,Software Development
+2018-08-17T00:00:00,496,1,Utilities
+2018-08-17T00:00:00,292,1,Design & Composition

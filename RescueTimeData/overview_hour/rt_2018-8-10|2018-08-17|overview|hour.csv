@@ -1,0 +1,215 @@
+Date,Time Spent (seconds),Number of People,Category
+2018-08-10T00:00:00,1659,1,Reference & Learning
+2018-08-10T00:00:00,144,1,Communication & Scheduling
+2018-08-10T01:00:00,2812,1,Reference & Learning
+2018-08-10T01:00:00,89,1,Social Networking
+2018-08-10T01:00:00,60,1,Communication & Scheduling
+2018-08-10T13:00:00,146,1,Software Development
+2018-08-10T13:00:00,20,1,Utilities
+2018-08-10T13:00:00,12,1,Communication & Scheduling
+2018-08-10T13:00:00,5,1,Reference & Learning
+2018-08-10T14:00:00,2244,1,Software Development
+2018-08-10T14:00:00,200,1,Communication & Scheduling
+2018-08-10T14:00:00,179,1,Reference & Learning
+2018-08-10T14:00:00,78,1,Utilities
+2018-08-10T14:00:00,42,1,Uncategorized
+2018-08-10T14:00:00,1,1,Business
+2018-08-10T15:00:00,178,1,Reference & Learning
+2018-08-10T15:00:00,67,1,Communication & Scheduling
+2018-08-10T15:00:00,31,1,Utilities
+2018-08-10T16:00:00,20,1,Utilities
+Date,Time Spent (seconds),Number of People,Category
+2018-08-13T11:00:00,383,1,Business
+2018-08-13T11:00:00,27,1,Reference & Learning
+2018-08-13T11:00:00,24,1,Utilities
+2018-08-13T11:00:00,16,1,Communication & Scheduling
+2018-08-13T12:00:00,689,1,Business
+2018-08-13T12:00:00,444,1,Communication & Scheduling
+2018-08-13T12:00:00,251,1,Reference & Learning
+2018-08-13T12:00:00,85,1,Social Networking
+2018-08-13T12:00:00,43,1,Utilities
+2018-08-13T12:00:00,39,1,Software Development
+2018-08-13T12:00:00,19,1,Uncategorized
+2018-08-13T13:00:00,942,1,Software Development
+2018-08-13T13:00:00,587,1,Communication & Scheduling
+2018-08-13T13:00:00,567,1,Social Networking
+2018-08-13T13:00:00,495,1,Reference & Learning
+2018-08-13T13:00:00,129,1,Utilities
+2018-08-13T13:00:00,1,1,Business
+2018-08-13T14:00:00,31,1,Utilities
+2018-08-13T14:00:00,12,1,Reference & Learning
+2018-08-13T16:00:00,1146,1,Software Development
+2018-08-13T16:00:00,486,1,Reference & Learning
+2018-08-13T16:00:00,135,1,Uncategorized
+2018-08-13T16:00:00,65,1,Utilities
+2018-08-13T16:00:00,36,1,Social Networking
+2018-08-13T16:00:00,5,1,Communication & Scheduling
+2018-08-13T17:00:00,645,1,Software Development
+2018-08-13T17:00:00,194,1,Reference & Learning
+2018-08-13T17:00:00,107,1,Communication & Scheduling
+2018-08-13T17:00:00,83,1,Utilities
+2018-08-13T17:00:00,7,1,Business
+2018-08-13T17:00:00,1,1,Social Networking
+2018-08-13T17:00:00,1,1,Uncategorized
+2018-08-13T20:00:00,256,1,Social Networking
+2018-08-13T20:00:00,77,1,Communication & Scheduling
+2018-08-13T20:00:00,69,1,Utilities
+2018-08-13T20:00:00,52,1,Entertainment
+2018-08-13T21:00:00,131,1,Reference & Learning
+2018-08-13T21:00:00,11,1,Social Networking
+2018-08-13T21:00:00,8,1,Communication & Scheduling
+2018-08-13T22:00:00,740,1,Reference & Learning
+2018-08-13T22:00:00,208,1,Software Development
+2018-08-13T22:00:00,186,1,Social Networking
+2018-08-13T22:00:00,159,1,Entertainment
+2018-08-13T22:00:00,74,1,Utilities
+2018-08-13T22:00:00,33,1,Communication & Scheduling
+2018-08-13T22:00:00,4,1,Shopping
+2018-08-14T00:00:00,683,1,Reference & Learning
+2018-08-14T00:00:00,498,1,Social Networking
+2018-08-14T00:00:00,179,1,News & Opinion
+2018-08-14T00:00:00,77,1,Utilities
+2018-08-14T00:00:00,49,1,Entertainment
+2018-08-14T00:00:00,1,1,Software Development
+2018-08-14T01:00:00,1498,1,Reference & Learning
+2018-08-14T12:00:00,141,1,Software Development
+2018-08-14T12:00:00,32,1,Utilities
+2018-08-14T12:00:00,4,1,Reference & Learning
+2018-08-14T17:00:00,61,1,Reference & Learning
+2018-08-14T17:00:00,49,1,Utilities
+2018-08-14T17:00:00,22,1,Software Development
+2018-08-14T19:00:00,10,1,Reference & Learning
+2018-08-14T19:00:00,5,1,Utilities
+2018-08-14T20:00:00,611,1,Communication & Scheduling
+2018-08-14T20:00:00,419,1,Reference & Learning
+2018-08-14T20:00:00,248,1,Social Networking
+2018-08-14T20:00:00,173,1,Entertainment
+2018-08-14T20:00:00,163,1,Software Development
+2018-08-14T20:00:00,38,1,Utilities
+2018-08-15T13:00:00,442,1,Social Networking
+2018-08-15T13:00:00,185,1,Entertainment
+2018-08-15T13:00:00,174,1,Business
+2018-08-15T13:00:00,101,1,Communication & Scheduling
+2018-08-15T13:00:00,93,1,Reference & Learning
+2018-08-15T13:00:00,18,1,Software Development
+2018-08-15T13:00:00,10,1,Utilities
+2018-08-15T14:00:00,283,1,News & Opinion
+2018-08-15T14:00:00,273,1,Communication & Scheduling
+2018-08-15T14:00:00,56,1,Entertainment
+2018-08-15T14:00:00,31,1,Utilities
+2018-08-15T14:00:00,13,1,Social Networking
+2018-08-15T14:00:00,2,1,Reference & Learning
+2018-08-15T17:00:00,142,1,Communication & Scheduling
+2018-08-15T17:00:00,110,1,Reference & Learning
+2018-08-15T17:00:00,88,1,Social Networking
+2018-08-15T17:00:00,62,1,Utilities
+2018-08-15T17:00:00,34,1,Entertainment
+2018-08-15T17:00:00,12,1,News & Opinion
+2018-08-15T17:00:00,2,1,Software Development
+2018-08-16T07:00:00,69,1,Social Networking
+2018-08-16T08:00:00,818,1,Software Development
+2018-08-16T08:00:00,503,1,Entertainment
+2018-08-16T08:00:00,453,1,Uncategorized
+2018-08-16T08:00:00,410,1,Business
+2018-08-16T08:00:00,336,1,Social Networking
+2018-08-16T08:00:00,253,1,Communication & Scheduling
+2018-08-16T08:00:00,170,1,News & Opinion
+2018-08-16T08:00:00,136,1,Reference & Learning
+2018-08-16T08:00:00,130,1,Utilities
+2018-08-16T08:00:00,63,1,Design & Composition
+2018-08-16T09:00:00,656,1,Business
+2018-08-16T09:00:00,651,1,Reference & Learning
+2018-08-16T09:00:00,359,1,Software Development
+2018-08-16T09:00:00,137,1,Communication & Scheduling
+2018-08-16T09:00:00,83,1,Utilities
+2018-08-16T09:00:00,54,1,Design & Composition
+2018-08-16T09:00:00,9,1,Entertainment
+2018-08-16T10:00:00,389,1,Reference & Learning
+2018-08-16T10:00:00,363,1,Communication & Scheduling
+2018-08-16T10:00:00,87,1,Entertainment
+2018-08-16T10:00:00,44,1,Business
+2018-08-16T10:00:00,35,1,Social Networking
+2018-08-16T10:00:00,26,1,Design & Composition
+2018-08-16T10:00:00,4,1,Utilities
+2018-08-16T10:00:00,3,1,Software Development
+2018-08-16T11:00:00,1484,1,Communication & Scheduling
+2018-08-16T11:00:00,359,1,Reference & Learning
+2018-08-16T11:00:00,249,1,Entertainment
+2018-08-16T11:00:00,114,1,Business
+2018-08-16T11:00:00,55,1,Utilities
+2018-08-16T11:00:00,33,1,Uncategorized
+2018-08-16T11:00:00,2,1,Software Development
+2018-08-16T12:00:00,1674,1,Communication & Scheduling
+2018-08-16T12:00:00,853,1,Entertainment
+2018-08-16T12:00:00,389,1,Reference & Learning
+2018-08-16T13:00:00,1644,1,Communication & Scheduling
+2018-08-16T13:00:00,695,1,Entertainment
+2018-08-16T13:00:00,189,1,Utilities
+2018-08-16T13:00:00,20,1,Reference & Learning
+2018-08-16T13:00:00,1,1,Business
+2018-08-16T20:00:00,58,1,Reference & Learning
+2018-08-16T20:00:00,9,1,Entertainment
+2018-08-16T21:00:00,716,1,Reference & Learning
+2018-08-16T21:00:00,310,1,Software Development
+2018-08-16T21:00:00,98,1,Communication & Scheduling
+2018-08-16T21:00:00,30,1,Utilities
+2018-08-16T21:00:00,2,1,Uncategorized
+2018-08-17T11:00:00,462,1,Reference & Learning
+2018-08-17T11:00:00,360,1,Communication & Scheduling
+2018-08-17T11:00:00,294,1,Social Networking
+2018-08-17T11:00:00,278,1,Design & Composition
+2018-08-17T11:00:00,85,1,Utilities
+2018-08-17T11:00:00,57,1,Software Development
+2018-08-17T11:00:00,26,1,News & Opinion
+2018-08-17T12:00:00,1523,1,Reference & Learning
+2018-08-17T12:00:00,782,1,Communication & Scheduling
+2018-08-17T12:00:00,107,1,Software Development
+2018-08-17T12:00:00,87,1,News & Opinion
+2018-08-17T12:00:00,21,1,Utilities
+2018-08-17T13:00:00,299,1,Reference & Learning
+2018-08-17T13:00:00,275,1,Software Development
+2018-08-17T13:00:00,111,1,News & Opinion
+2018-08-17T13:00:00,21,1,Communication & Scheduling
+2018-08-17T13:00:00,3,1,Utilities
+2018-08-17T14:00:00,289,1,Entertainment
+2018-08-17T14:00:00,277,1,Reference & Learning
+2018-08-17T14:00:00,191,1,News & Opinion
+2018-08-17T14:00:00,158,1,Utilities
+2018-08-17T14:00:00,45,1,Communication & Scheduling
+2018-08-17T14:00:00,7,1,Uncategorized
+2018-08-17T14:00:00,1,1,Software Development
+2018-08-17T15:00:00,2168,1,Reference & Learning
+2018-08-17T15:00:00,457,1,Social Networking
+2018-08-17T15:00:00,344,1,Communication & Scheduling
+2018-08-17T15:00:00,335,1,Software Development
+2018-08-17T15:00:00,146,1,Utilities
+2018-08-17T15:00:00,15,1,Uncategorized
+2018-08-17T15:00:00,14,1,Design & Composition
+2018-08-17T16:00:00,318,1,Reference & Learning
+2018-08-17T16:00:00,32,1,Utilities
+2018-08-17T17:00:00,1925,1,Reference & Learning
+2018-08-17T17:00:00,392,1,Uncategorized
+2018-08-17T17:00:00,243,1,Communication & Scheduling
+2018-08-17T17:00:00,200,1,Entertainment
+2018-08-17T17:00:00,123,1,News & Opinion
+2018-08-17T17:00:00,90,1,Social Networking
+2018-08-17T17:00:00,1,1,Utilities
+2018-08-17T19:00:00,1096,1,Reference & Learning
+2018-08-17T19:00:00,414,1,Social Networking
+2018-08-17T19:00:00,91,1,Uncategorized
+2018-08-17T19:00:00,54,1,Entertainment
+2018-08-17T19:00:00,49,1,Communication & Scheduling
+2018-08-17T19:00:00,8,1,Utilities
+2018-08-17T20:00:00,1426,1,Uncategorized
+2018-08-17T20:00:00,668,1,Social Networking
+2018-08-17T20:00:00,537,1,Communication & Scheduling
+2018-08-17T20:00:00,508,1,Reference & Learning
+2018-08-17T20:00:00,328,1,News & Opinion
+2018-08-17T20:00:00,100,1,Entertainment
+2018-08-17T20:00:00,20,1,Utilities
+2018-08-17T20:00:00,12,1,Software Development
+2018-08-17T21:00:00,560,1,Entertainment
+2018-08-17T21:00:00,501,1,Communication & Scheduling
+2018-08-17T21:00:00,68,1,Social Networking
+2018-08-17T21:00:00,45,1,Reference & Learning
+2018-08-17T21:00:00,22,1,Utilities

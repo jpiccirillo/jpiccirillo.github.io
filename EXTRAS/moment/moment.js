@@ -40,7 +40,7 @@ function processJSONs(error, data2, data1) {
 
 function compare(a, b) {
     var a_total = 0,
-        b_total = 0;
+        b_total = 0,
         len = a.length
 
     for (var i = 1; i < a.length; i++) {
