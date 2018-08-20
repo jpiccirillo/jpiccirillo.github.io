@@ -15,8 +15,8 @@ def request():
     os.system('clear')
     key = "B63YKcVWCSFH0NStuEC_TLKLNmGq5SjA9JHW3X9N"
     perspective = "interval"
-    begindate = "2018-08-10"
-    enddate = "2018-08-11"
+    begindate = "2017-10-15"
+    enddate = "2018-03-30"
     format = "csv"
 
     intervals = ["hour", "day"]
