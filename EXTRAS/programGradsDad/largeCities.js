@@ -519,4 +519,15 @@ var points =
         }]
     }
 },
+{
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-85.6680863, 42.9633599, {
+            "city": "Grand Rapids",
+            "state": "Michigan"
+        }]
+    }
+}, 
 ]

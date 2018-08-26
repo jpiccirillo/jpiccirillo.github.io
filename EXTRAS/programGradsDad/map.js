@@ -126,7 +126,7 @@ function createMap() {
 
                 var title = svg.append("g")
                     .attr("class", "title")
-                    .attr("transform", "translate(" + (innerWidth/2 - 100) + "," + (innerHeight*.05) + ")")
+                    .attr("transform", "translate(" + (innerWidth/2 - 100) + "," + (innerHeight*0.07) + ")")
                     .append("text").text("Where Do WashU Graduates Go?")
 
                 var legend = svg.append("g")
