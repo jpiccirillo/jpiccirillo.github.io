@@ -180,6 +180,7 @@ createMap()
             arrow: true,
             duration: 0,
             allowTitleHTML: true,
-            trigger: 'click'
+            // trigger: 'mouseenter focus',
+            // trigger: 'click'
         })
     })
