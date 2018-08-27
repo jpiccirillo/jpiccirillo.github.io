@@ -1,25 +1,24 @@
 /*
 Author: Jeffrey Piccirillo (jpiccirillo.com; piccirilloj1 at gmail)
-Purpose:
 
-Data Sources:
- - Zip Code Database: https://www.unitedstateszipcodes.org/zip-code-database/
-
-Tooltips using turf.js: https://bl.ocks.org/TGotwig/4536d70352fc1149b437f78f61361763
-Basemap inspired from: http://bl.ocks.org/michellechandra/raw/0b2ce4923dc9b5809922/
+Data and Resources:
+- Zip Code Database: https://www.unitedstateszipcodes.org/zip-code-database/
+- Tooltips using turf.js: https://bl.ocks.org/TGotwig/4536d70352fc1149b437f78f61361763
+- Basemap inspired from: http://bl.ocks.org/michellechandra/raw/0b2ce4923dc9b5809922/
 and https://bost.ocks.org/mike/bubble-map/base.html
-Legend from:
+- Legend from: https://bl.ocks.org/mbostock/9943478
+
 */
 
 function createMap() {
     var d = $.Deferred();
-    var innerWidth = 800;
-    var innerHeight = 500;
+    var innerWidth = window.innerWidth;
+    var innerHeight = window.innerHeight;
     var radius = function(number) { return Math.sqrt(number) * 10;}
 
     // D3 Projection
     var projection = d3.geo.albersUsa()
-        .translate([innerWidth / 2, innerHeight / 2]) // translate to center of screen
+        .translate([innerWidth / 2, innerHeight*.35]) // translate to center of screen
         .scale([1000]); // scale things down so see entire US
 
     // Define path generator
@@ -126,12 +125,12 @@ function createMap() {
 
                 var title = svg.append("g")
                     .attr("class", "title")
-                    .attr("transform", "translate(" + (innerWidth/2 - 100) + "," + (innerHeight*0.07) + ")")
-                    .append("text").text("Where Do WashU Graduates Go?")
+                    .attr("transform", "translate(" + (innerWidth/2 - 250) + "," + (innerHeight*0.06) + ")")
+                    .append("text").text("Practice Locations of Washington Univeristy Otolaryngology Graduates")
 
                 var legend = svg.append("g")
                     .attr("class", "legend")
-                    .attr("transform", "translate(" + (innerWidth - 50) + "," + (innerHeight - 75) + ")")
+                    .attr("transform", "translate(" + (innerWidth*.85) + "," + (innerHeight*.55) + ")")
                   .selectAll("g")
                     .data([1, 5, 15])
                   .enter().append("g");
