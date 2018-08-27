@@ -18,11 +18,11 @@ function createMap() {
 
     // D3 Projection
     var projection = d3.geo.albersUsa()
-        .translate([innerWidth / 2, innerHeight*.35]) // translate to center of screen
+        .translate([innerWidth / 2, 350]) // translate to position on screen
         .scale([1000]); // scale things down so see entire US
 
     // Define path generator
-    var path = d3.geo.path() // path generator that will convert GeoJSON to SVG paths
+    var path = d3.geo.path() // path generator that will converts GeoJSON to SVG paths
         .projection(projection); // tell path generator to use albersUsa projection
 
     //Create SVG element and append map to the SVG
@@ -125,12 +125,12 @@ function createMap() {
 
                 var title = svg.append("g")
                     .attr("class", "title")
-                    .attr("transform", "translate(" + (innerWidth/2 - 250) + "," + (innerHeight*0.06) + ")")
+                    .attr("transform", "translate(" + (innerWidth/2 - 250) + "," + (115) + ")")
                     .append("text").text("Practice Locations of Washington Univeristy Otolaryngology Graduates")
 
                 var legend = svg.append("g")
                     .attr("class", "legend")
-                    .attr("transform", "translate(" + (innerWidth/2+350) + "," + (innerHeight*.55) + ")")
+                    .attr("transform", "translate(" + (innerWidth/2+350) + "," + (525) + ")")
                   .selectAll("g")
                     .data([1, 5, 15])
                   .enter().append("g");
@@ -180,5 +180,6 @@ createMap()
             arrow: true,
             duration: 0,
             allowTitleHTML: true,
+            trigger: 'click'
         })
     })
