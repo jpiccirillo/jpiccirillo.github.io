@@ -130,7 +130,7 @@ function createMap() {
 
                 var legend = svg.append("g")
                     .attr("class", "legend")
-                    .attr("transform", "translate(" + (innerWidth*.85) + "," + (innerHeight*.55) + ")")
+                    .attr("transform", "translate(" + (innerWidth/2+350) + "," + (innerHeight*.55) + ")")
                   .selectAll("g")
                     .data([1, 5, 15])
                   .enter().append("g");
