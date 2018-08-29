@@ -746,7 +746,7 @@
                  "state": "Alabama"
              }]
          }
-     }, 
+     },
      {
          "type": "Feature",
          "properties": {},

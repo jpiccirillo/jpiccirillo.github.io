@@ -529,5 +529,5 @@ var points =
             "state": "Michigan"
         }]
     }
-}, 
+},
 ]

@@ -14,25 +14,50 @@
 			fill-opacity: .7;
 		}
 
+*{
+	font-family: Trebuchet MS;
+}
 		/* Style for Custom Tooltip */
 
-		.tippy-content {
-			/* Your styling here. Example: */
-			font-size: 12px;
-			text-align: left;
-		}
+		.tippy-tooltip.light-theme {
+  /* Your styling here. Example: */
+  background-color: white;
+  /*border: 2px solid orange;*/
+  /*font-weight: bold;*/
+  text-align: left;
+  vertical-align: middle;
+  font: 12px sans-serif;
+  color: #333;
+  border: 1px solid #b4bab6;
+}
+
+.tippy-popper[x-placement^=top] .tippy-arrow {
+	/*border: 1px solid grey;*/
+	border-top: 7px solid #b4bab6;
+
+	/*display: none;*/
+}
+.tippy-popper[x-placement^=bottom] .tippy-arrow {
+	border-bottom: 7px solid #b4bab6;
+	/*display: none;*/
+}
 
 		/* Legend Font Style */
 
 		body {
-			font: 11px sans-serif;
+			font: 11px sans-serif !important;
 		}
 
 		/* Legend Position Style */
 
 		.legend {
 			position: absolute;
-			left: 800px;
+			left: 884px;
+			top: 525px;
+		}
+		.legend2 {
+			position: absolute;
+			left: 850px;
 			top: 350px;
 		}
 
@@ -53,14 +78,21 @@
 			stroke: #ccc;
 		}
 
-		.legend text {
+		.legend text, .legend2 text {
 			fill: #777;
 			font: 11px Trebuchet MS;
 			text-anchor: middle;
 		}
 
-		.legend.title {
+		.legend.title, .legend2.title {
+			fill: #777;
+			text-anchor: middle;
 			font: 13px Trebuchet MS;
+		}
+		.legend.rects {
+			border-radius: 18px;
+			width: 18px;
+			height: 18px;
 		}
 
 		.bubble {
@@ -70,6 +102,16 @@
 			fill: #a51417;
 			outline: none;
 		}
+		.patch {
+			width: 12px;
+			height: 12px;
+			float: left;
+			margin-left: 0px;
+			margin-right: 5px;
+			opacity: 1;
+			border-radius: 12px;
+		}
+
 	</style>
 </head>
 

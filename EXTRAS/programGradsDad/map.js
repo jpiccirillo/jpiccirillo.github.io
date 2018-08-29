@@ -7,8 +7,18 @@ Data and Resources:
 - Basemap inspired from: http://bl.ocks.org/michellechandra/raw/0b2ce4923dc9b5809922/
 and https://bost.ocks.org/mike/bubble-map/base.html
 - Legend from: https://bl.ocks.org/mbostock/9943478
-
+- Squares in tooltips from legend in: https://leafletjs.com/examples/choropleth/example.html
 */
+
+//Keys of object correspond to the 'Academic Rank: 0 if none; 1=Instructor;
+// 2=Asst Prof; 3=Assoc Prof; 4=Professor' column entries.
+var tooltipColors = {
+    0: {"color": "#ffc0cb", "title": "None"},
+    1: {"color": "#c6ab99", "title": "Resident"},
+    2: {"color": "#8f9468", "title": "Assistant Professor"},
+    3: {"color": "#557d39", "title": "Associate Professor"},
+    4: {"color": "#006400", "title": "Full Professor"},
+}
 
 function createMap() {
     var d = $.Deferred();
@@ -43,7 +53,7 @@ function createMap() {
             .enter()
             .append("path")
             .attr("d", path)
-            .style("fill", "rgb(213,222,217)")
+            .style("fill", "#e1e8e4")
             .style("stroke", "#fff")
             .style("stroke-width", "1")
 
@@ -53,7 +63,7 @@ function createMap() {
                 var collection = turf.featureCollection(points)
                 data.forEach(function(val, i) {
 
-                    const result = zips.filter(word => +word["Zip Code"] == +val.ZipCode);
+                    const result = zips.filter(function(word) {return +word["Zip Code"] == +val.ZipCode});
                     if (result.length>0) {
                         var hometown = turf.point([+result[0]["Longitude"],+result[0]["Latitude"]]);
                         var nearest = turf.nearestPoint(hometown, collection);
@@ -123,22 +133,26 @@ function createMap() {
                         .style("opacity", 0);
                 })
 
+                var l_WidthCenter = innerWidth/2+370;
+                var l_Top = 335
+
                 var title = svg.append("g")
                     .attr("class", "title")
                     .attr("transform", "translate(" + (innerWidth/2 - 250) + "," + (115) + ")")
-                    .append("text").text("Practice Locations of Washington Univeristy Otolaryngology Graduates")
+                    .append("text").text("Practice Locations of Washington University Otolaryngology Graduates")
+
+                var legendTitle = svg.append("g")
+                    .attr("transform", "translate(" + l_WidthCenter + "," + l_Top + ")")
+                    .append("text")
+                        .attr("class", "legend title")
+                        .text("Graduates Per City")
 
                 var legend = svg.append("g")
                     .attr("class", "legend")
-                    .attr("transform", "translate(" + (innerWidth/2+350) + "," + (525) + ")")
+                    .attr("transform", "translate(" + l_WidthCenter + "," + (l_Top+90) + ")")
                   .selectAll("g")
                     .data([1, 5, 15])
                   .enter().append("g");
-
-              legend.append("text")
-                  .attr("dy", function(d) { return -2.1* radius(20) })
-                  .attr("class", "legend title")
-                  .text("Graduates per City")
 
                 legend.append("circle")
                     .attr("cy", function(d) { return -radius(d); })
@@ -149,6 +163,42 @@ function createMap() {
                     .attr("dy", "1.3em")
                     .text(d3.format());
 
+                    var legend2Title = svg.append("g")
+                        .attr("transform", "translate(" + l_WidthCenter + "," + (l_Top+125) + ")")
+                        .append("text")
+                            .attr("class", "legend title")
+                            .text("Academic Status")
+
+                    var color = d3.scale.ordinal()
+                        .range(Object.keys(tooltipColors).map(
+                            function(val) { return tooltipColors[val].color }));
+
+                        var r = 74,
+                            p = 10;
+
+                        var legend2 = svg.append("g")
+                            .attr("class", "legend2")
+                            .attr("transform", "translate(" + (l_WidthCenter-35) + "," + (l_Top+135) + ")")
+                          .selectAll("g")
+                            .data(color.range().slice().reverse())
+                          .enter().append("g")
+                            .attr("transform", function(d, i) {
+                                return "translate(0," + i * 20 + ")"; });
+
+                        legend2.append("circle")
+                            .attr("cy", 7)
+                            .attr("r", 7)
+                            .attr("class", "legend rects")
+                            .style("fill", color);
+
+                        legend2.append("text")
+                            .attr("x", 12)
+                            .attr("y", 9)
+                            .attr("dy", ".35em")
+                            .style("text-anchor", "start")
+                            .text(function(d, i) {
+                                return tooltipColors[Object.keys(tooltipColors)[i]].title; });
+
             d.resolve()
             })
         })
@@ -157,16 +207,31 @@ function createMap() {
 }
 
 function createTooltip(info) {
+    console.log(info)
     var content = '<strong>' + info.key  + ':</strong><br>'
-
+    const myTemplate = document.createElement('div')
+    myTemplate.innerHTML = '<h3>Cool <span style="color: pink;">HTML</span> inside here!</h3>'
     //sort each city's grouped grads before creating its tooltip
     info.values.sort(function(a, b) {
         return a["Final Year in Program"] - b["Final Year in Program"]
     })
+//     var div = L.DomUtil.create('div', 'info legend')
+//
+//
+//
+// }
+//
+// div.innerHTML = labels.join('<br>');
+// return div;
     $.each(info.values, function(i, val) {
-        content+=val["First Name"].trim() +
+        var prof = val["Academic Rank: 0 if none; 1=Instructor; 2=Asst Prof; 3=Assoc Prof; 4=Professor"]
+        if (isNaN(prof) || prof=="") { prof = 0;}
+        console.log(prof)
+        // var color = tooltipColors[prof].color
+        content+='<div><i class="patch" style="background: ' + tooltipColors[prof].color + '"></i> ' +
+        val["First Name"].trim() +
         " "+ val["Last Name"] +
-        " (" + val["Final Year in Program"] + ")<br>"
+        " (" + val["Final Year in Program"] + ")</div>"
     })
     return content;
 }
@@ -176,11 +241,13 @@ function createTooltip(info) {
 createMap()
     .then(function() {
         tippy('.tooltip', {
+            html: document.querySelector('#myTemplate'),
             delay: 0,
-            arrow: true,
             duration: 0,
+            arrow: true,
+            theme: 'light',
             allowTitleHTML: true,
             // trigger: 'mouseenter focus',
-            // trigger: 'click'
+            trigger: 'click'
         })
     })
