@@ -292,16 +292,6 @@
          "properties": {},
          "geometry": {
              "type": "Point",
-             "coordinates": [-81.3792365, 28.5383355, {
-                 "city": "Orlando",
-                 "state": "Florida"
-             }]
-         }
-     }, {
-         "type": "Feature",
-         "properties": {},
-         "geometry": {
-             "type": "Point",
              "coordinates": [-82.64, 27.773056, {
                  "city": "St. Petersburg",
                  "state": "Florida"
@@ -562,17 +552,7 @@
                  "state": "New York"
              }]
          }
-     }, {
-         "type": "Feature",
-         "properties": {},
-         "geometry": {
-             "type": "Point",
-             "coordinates": [-93.6091064, 41.6005448, {
-                 "city": "Des Moines",
-                 "state": "Iowa"
-             }]
-         }
-     }, {
+     },{
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -709,12 +689,24 @@
          "properties": {},
          "geometry": {
              "type": "Point",
+             "coordinates": [-81.723774, 33.555178, {
+                 "city": "Aiken",
+                 "state": "South Carolina"
+             }]
+         }
+     },
+     {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+             "type": "Point",
              "coordinates": [-82.0105148, 33.4734978, {
-                 "city": "Augusta-Richmond County",
+                 "city": "Augusta",
                  "state": "Georgia"
              }]
          }
-     }, {
+     },
+     {
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -1468,17 +1460,7 @@
                  "state": "Michigan"
              }]
          }
-     }, {
-         "type": "Feature",
-         "properties": {},
-         "geometry": {
-             "type": "Point",
-             "coordinates": [-72.9278835, 41.308274, {
-                 "city": "New Haven",
-                 "state": "Connecticut"
-             }]
-         }
-     }, {
+     },{
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -3555,7 +3537,19 @@
                  "state": "California"
              }]
          }
-     }, {
+     },
+     {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-90.6298922, 38.7874699, {
+                 "city": "St. Peters",
+                 "state": "Missouri"
+             }]
+         }
+     },
+     {
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -7399,17 +7393,6 @@
          "properties": {},
          "geometry": {
              "type": "Point",
-             "coordinates": [-90.5770675, 38.6631083, {
-                 "city": "Chesterfield",
-                 "state": "Missouri"
-             }]
-         }
-     },
-     {
-         "type": "Feature",
-         "properties": {},
-         "geometry": {
-             "type": "Point",
              "coordinates": [-77.56360149999999, 39.1156615, {
                  "city": "Leesburg",
                  "state": "Virginia"
@@ -8273,7 +8256,8 @@
                  "state": "California"
              }]
          }
-     }, {
+     },
+     {
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -8283,7 +8267,19 @@
                  "state": "New Hampshire"
              }]
          }
-     }, {
+     },
+     {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-72.290014, 43.701767, {
+                 "city": "Hanover",
+                 "state": "New Hampshire"
+             }]
+         }
+     },
+     {
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -8293,7 +8289,30 @@
                  "state": "Vermont"
              }]
          }
-     }, {
+     },
+     {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-80.8431267, 35.2270869, {
+                 "city": "Charlotte",
+                 "state": "North Carolina"
+             }]
+         }
+     },
+     {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-80.885400, 35.787593, {
+                 "city": "Statesville",
+                 "state": "North Carolina"
+             }]
+         }
+     },
+     {
          "type": "Feature",
          "properties": {},
          "geometry": {
@@ -8750,6 +8769,18 @@
              }]
          }
      },
+     {
+         "type": "Feature",
+         "properties": {},
+         "geometry": {
+             "type": "Point",
+             "coordinates": [-81.162316, 36.141082, {
+                 "city": "Wilkesboro",
+                 "state": "North Carolina"
+             }]
+         }
+     },
+
      {
          "type": "Feature",
          "properties": {},

@@ -12,13 +12,29 @@ and https://bost.ocks.org/mike/bubble-map/base.html
 
 //Keys of object correspond to the 'Academic Rank: 0 if none; 1=Instructor;
 // 2=Asst Prof; 3=Assoc Prof; 4=Professor' column entries.
+
+// SHADED
 var tooltipColors = {
-    0: {"color": "#ffc0cb", "title": "None"},
-    1: {"color": "#c6ab99", "title": "Resident"},
-    2: {"color": "#8f9468", "title": "Assistant Professor"},
-    3: {"color": "#557d39", "title": "Associate Professor"},
-    4: {"color": "#006400", "title": "Full Professor"},
+    1: {"color": "#f6eff7", "title": "Fellow"},
+    2: {"color": "#bdc9e1", "title": "Instructor"},
+    3: {"color": "#67a9cf", "title": "Assistant Professor"},
+    4: {"color": "#1c9099", "title": "Associate Professor"},
+    5: {"color": "#016c59", "title": "Professor"},
 }
+// QUALITATIVE
+var tooltipColors = {
+    1: {"color": "#e41a1c", "title": "Fellow"},
+    2: {"color": "#377eb8", "title": "Instructor"},
+    3: {"color": "#4daf4a", "title": "Assistant Professor"},
+    4: {"color": "#984ea3", "title": "Associate Professor"},
+    5: {"color": "#ff7f00", "title": "Professor"},
+}
+//
+// #e41a1c
+// #377eb8
+// #4daf4a
+// #984ea3
+// #ff7f00
 
 function createMap() {
     var d = $.Deferred();
@@ -58,25 +74,31 @@ function createMap() {
             .style("stroke-width", "1")
 
         // Map the cities that graduates have relocated to
-        d3.csv("Copy of ALUMNI TRACKING PROJECT - MASTER WORKSHEET_ZipCode.csv", function(data) {
+        d3.csv("ALUMNI TRACKING PROJECT - MASTER WORKSHEET.csv", function(data) {
             d3.csv("us_postal_codes.csv", function(zips) {
                 var collection = turf.featureCollection(points)
                 data.forEach(function(val, i) {
 
                     const result = zips.filter(function(word) {return +word["Zip Code"] == +val.ZipCode});
-                    if (result.length>0) {
-                        var hometown = turf.point([+result[0]["Longitude"],+result[0]["Latitude"]]);
-                        var nearest = turf.nearestPoint(hometown, collection);
-
-                        // Look to list of smaller cities if closest large city is more than 100km away
-                        // (dont want to bin with a city that's too far away)
-                        if (turf.distance(hometown, nearest) > 100) {
-                            var smallCities = turf.featureCollection(smaller);
-                            var smallerResult = turf.nearestPoint(hometown, smallCities);
-                            var info = smallerResult.geometry.coordinates;
+                    //if it could find a matching zipcode:
+                    if (result.length > 0) {
+                        //set "city" for Washington University manually:
+                        if (result[0]["Zip Code"] == "63110") {
+                            console.log(result)
+                            var info = washU.geometry.coordinates
 
                         } else {
-                            var info = nearest.geometry.coordinates;
+                            var hometown = turf.point([+result[0]["Longitude"], +result[0]["Latitude"]]);
+                            var nearest = turf.nearestPoint(hometown, collection);
+
+                            // Look to list of smaller cities if closest large city is more than 100km away
+                            // (dont want to bin with a city that's too far away)
+                            if (turf.distance(hometown, nearest) > 100) {
+                                var smallCities = turf.featureCollection(smaller);
+                                var smallerResult = turf.nearestPoint(hometown, smallCities);
+                                var info = smallerResult.geometry.coordinates;
+
+                            } else { var info = nearest.geometry.coordinates; }
                         }
 
                         val.lat = info[1]
@@ -139,7 +161,14 @@ function createMap() {
                 var title = svg.append("g")
                     .attr("class", "title")
                     .attr("transform", "translate(" + (innerWidth/2 - 250) + "," + (115) + ")")
-                    .append("text").text("Practice Locations of Washington University Otolaryngology Graduates")
+                    .append("text")
+                        .text("Practice Locations of Washington University Otolaryngology Graduates")
+
+                var title = svg.append("g")
+                    .attr("class", "disclaimer")
+                    .attr("transform", "translate(" + (l_WidthCenter+75) + "," + (l_Top+300) + ")")
+                    .append("text")
+                        .text("We apologize for any oversight.  For corrections, please reach out to janar@washu.edu.  Thank you!")
 
                 var legendTitle = svg.append("g")
                     .attr("transform", "translate(" + l_WidthCenter + "," + l_Top + ")")
@@ -163,41 +192,41 @@ function createMap() {
                     .attr("dy", "1.3em")
                     .text(d3.format());
 
-                    var legend2Title = svg.append("g")
-                        .attr("transform", "translate(" + l_WidthCenter + "," + (l_Top+125) + ")")
-                        .append("text")
-                            .attr("class", "legend title")
-                            .text("Academic Status")
+                var legend2Title = svg.append("g")
+                    .attr("transform", "translate(" + l_WidthCenter + "," + (l_Top+125) + ")")
+                    .append("text")
+                        .attr("class", "legend title")
+                        .text("Academic Status")
 
-                    var color = d3.scale.ordinal()
-                        .range(Object.keys(tooltipColors).map(
-                            function(val) { return tooltipColors[val].color }));
+                var color = d3.scale.ordinal()
+                    .range(Object.keys(tooltipColors).map(
+                        function(val) { return tooltipColors[val].color }));
 
-                        var r = 74,
-                            p = 10;
+                var r = 74,
+                    p = 10;
 
-                        var legend2 = svg.append("g")
-                            .attr("class", "legend2")
-                            .attr("transform", "translate(" + (l_WidthCenter-35) + "," + (l_Top+135) + ")")
-                          .selectAll("g")
-                            .data(color.range().slice().reverse())
-                          .enter().append("g")
-                            .attr("transform", function(d, i) {
-                                return "translate(0," + i * 20 + ")"; });
+                var legend2 = svg.append("g")
+                    .attr("class", "legend2")
+                    .attr("transform", "translate(" + (l_WidthCenter-35) + "," + (l_Top+135) + ")")
+                  .selectAll("g")
+                    .data(color.range().slice().reverse())
+                  .enter().append("g")
+                    .attr("transform", function(d, i) {
+                        return "translate(0," + i * 20 + ")"; });
 
-                        legend2.append("circle")
-                            .attr("cy", 7)
-                            .attr("r", 7)
-                            .attr("class", "legend rects")
-                            .style("fill", color);
+                legend2.append("circle")
+                    .attr("cy", 7)
+                    .attr("r", 7)
+                    .attr("class", "legend rects")
+                    .style("fill", color);
 
-                        legend2.append("text")
-                            .attr("x", 12)
-                            .attr("y", 9)
-                            .attr("dy", ".35em")
-                            .style("text-anchor", "start")
-                            .text(function(d, i) {
-                                return tooltipColors[Object.keys(tooltipColors)[i]].title; });
+                legend2.append("text")
+                    .attr("x", 12)
+                    .attr("y", 9)
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "start")
+                    .text(function(d, i) {
+                        return tooltipColors[Object.keys(tooltipColors)[i]].title; });
 
             d.resolve()
             })
@@ -207,31 +236,23 @@ function createMap() {
 }
 
 function createTooltip(info) {
-    console.log(info)
     var content = '<strong>' + info.key  + ':</strong><br>'
-    const myTemplate = document.createElement('div')
-    myTemplate.innerHTML = '<h3>Cool <span style="color: pink;">HTML</span> inside here!</h3>'
+    console.log(info)
+
     //sort each city's grouped grads before creating its tooltip
     info.values.sort(function(a, b) {
-        return a["Final Year in Program"] - b["Final Year in Program"]
+        return a["Final Year in Residency Program"] - b["Final Year in Residency Program"]
     })
-//     var div = L.DomUtil.create('div', 'info legend')
-//
-//
-//
-// }
-//
-// div.innerHTML = labels.join('<br>');
-// return div;
+
     $.each(info.values, function(i, val) {
-        var prof = val["Academic Rank: 0 if none; 1=Instructor; 2=Asst Prof; 3=Assoc Prof; 4=Professor"]
+        content+='<div>'
+        var prof = val["Academic Rank: 0 if not ranked; 1=Fellow; 2=Instructor; 3=Asst Prof; 4=Assoc Prof; 5=Professor"]
         if (isNaN(prof) || prof=="") { prof = 0;}
-        console.log(prof)
-        // var color = tooltipColors[prof].color
-        content+='<div><i class="patch" style="background: ' + tooltipColors[prof].color + '"></i> ' +
-        val["First Name"].trim() +
+        else if (prof>0) { content+='<i class="patch" style="background: ' + tooltipColors[prof].color + '"></i> '}
+
+        content += val["First Name"].trim() +
         " "+ val["Last Name"] +
-        " (" + val["Final Year in Program"] + ")</div>"
+        " (" + val["Final Year in Residency Program"] + ")</div>"
     })
     return content;
 }
@@ -241,7 +262,6 @@ function createTooltip(info) {
 createMap()
     .then(function() {
         tippy('.tooltip', {
-            html: document.querySelector('#myTemplate'),
             delay: 0,
             duration: 0,
             arrow: true,
