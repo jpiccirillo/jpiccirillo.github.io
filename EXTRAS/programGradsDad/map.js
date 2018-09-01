@@ -265,6 +265,6 @@ createMap()
             theme: 'light',
             allowTitleHTML: true,
             // trigger: 'mouseenter focus',
-            // trigger: 'click'
+            trigger: 'click'
         })
     })

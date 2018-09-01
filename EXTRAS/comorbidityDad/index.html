@@ -23,43 +23,35 @@
 
             <div class="controls">
                 <table>
+                    <tr>
+                        <td id="label">Functional Status:</td>
+                        <td><select class="input">
+                            <option value="incomplete" selected disabled>Choose...</option>
+                            <option value=">=4METs">&ge;4METs</option>
+                            <option value="<4METs">&lt;4METs</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
+                    </tr>
                                 <tr>
                                     <td id="label">Comorbidity:</td>
-                                    <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
+                                    <td><select class="input">
+                                        <option value="incomplete" selected disabled>Choose...</option>
+                                        <option value="none/mild">None/Mild</option>
+                                        <option value="mod/severe">Mod/Severe</option>
                                     </select></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
                                 </tr>
-
-                                <tr>
-                                    <td id="label">Functional Status:</td>
-                                    <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
-                                    </select></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-
-                                </tr>
-                                <tr>
-                                    <td id="label">Weight Loss:</td>
-                                    <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
+                                    <td id="label">Pre-Op Weight Loss:</td>
+                                    <td><select class="input">
+                                        <option value="incomplete" selected disabled>Choose...</option>
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
                                     </select></td>
                                 </tr>
                                 </tr>
@@ -69,12 +61,10 @@
 
                                 <tr>
                                     <td id="label">TNM Stage:</td>
-                                    <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
+                                    <td><select class="input">
+                                        <option value="incomplete" selected disabled>Choose...</option>
+                                        <option value="1or2">1 or 2</option>
+                                        <option value="3or4">3 or 4</option>
                                     </select></td>
                                 </tr>
                                 <tr>
@@ -86,10 +76,13 @@
             </div>
             <div class="results">
                 <table>
+                    <tr>
+                        <td colspan="2" class="severity">Clinical Severity Staging: <span></span></td>
+                    </tr>
                                 <tr>
                                     <td id="label">Comorbidity:</td>
                                     <td><select class="dropdown">
-                                        <option value="">None</option>
+                                        <option value="" disabled>None</option>
                                         <option value="text1">text1</option>
                                         <option value="text2">text2</option>
                                         <option value="text3">text3</option>
@@ -104,10 +97,8 @@
                                     <td id="label">Functional Status:</td>
                                     <td><select class="dropdown">
                                         <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
+                                        <option value=">=4METs">&ge;4METs</option>
+                                        <option value="<4METs">&lt;4METs</option>
                                     </select></td>
                                 </tr>
                                 <tr>
@@ -116,13 +107,11 @@
 
                                 </tr>
                                 <tr>
-                                    <td id="label">Weight Loss:</td>
+                                    <td id="label">Pre-Op Weight Loss:</td>
                                     <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
+                                        <option value=""></option>
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
                                     </select></td>
                                 </tr>
                                 </tr>

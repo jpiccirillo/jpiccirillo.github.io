@@ -16,7 +16,7 @@ body {
     height: 800px;
 }
 
-.dropdown {
+.input {
     width: 100%;
 }
 .container {
@@ -68,6 +68,13 @@ body {
 table {
     width: 100%;
 }
+.severity {
+    font-size: 18px;
+    font-weight: 800;
+}
+.severity span {
+    font-style: oblique;
+}
 #loader {
     position: relative;
     left: 50%;
@@ -84,19 +91,11 @@ table {
 }
 
 @-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
+    0% { -webkit-transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(360deg);}
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
 }
