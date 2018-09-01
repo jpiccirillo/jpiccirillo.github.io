@@ -29,22 +29,20 @@ var tooltipColors = {
     4: {"color": "#984ea3", "title": "Associate Professor"},
     5: {"color": "#ff7f00", "title": "Professor"},
 }
-//
-// #e41a1c
-// #377eb8
-// #4daf4a
-// #984ea3
-// #ff7f00
 
 function createMap() {
     var d = $.Deferred();
-    var innerWidth = window.innerWidth;
-    var innerHeight = window.innerHeight;
+    // var width = window.width;
+    // var height = window.height;
+
+    var width = 800;
+    var height = 275;
+
     var radius = function(number) { return Math.sqrt(number) * 10;}
 
     // D3 Projection
     var projection = d3.geo.albersUsa()
-        .translate([innerWidth / 2, 350]) // translate to position on screen
+        .translate([width / 2, height]) // translate to position on screen
         .scale([1000]); // scale things down so see entire US
 
     // Define path generator
@@ -155,30 +153,29 @@ function createMap() {
                         .style("opacity", 0);
                 })
 
-                var l_WidthCenter = innerWidth/2+370;
-                var l_Top = 335
+                var l_WidthCenter = width/2+370;
 
                 var title = svg.append("g")
                     .attr("class", "title")
-                    .attr("transform", "translate(" + (innerWidth/2 - 250) + "," + (115) + ")")
+                    .attr("transform", "translate(" + (width/2 - 250) + "," + (height-230) + ")")
                     .append("text")
                         .text("Practice Locations of Washington University Otolaryngology Graduates")
 
                 var title = svg.append("g")
                     .attr("class", "disclaimer")
-                    .attr("transform", "translate(" + (l_WidthCenter+75) + "," + (l_Top+300) + ")")
+                    .attr("transform", "translate(" + (l_WidthCenter+75) + "," + (height+275) + ")")
                     .append("text")
                         .text("We apologize for any oversight.  Please communicate suggestions to otoresidency@wustl.edu.")
 
                 var legendTitle = svg.append("g")
-                    .attr("transform", "translate(" + l_WidthCenter + "," + l_Top + ")")
+                    .attr("transform", "translate(" + l_WidthCenter + "," + height + ")")
                     .append("text")
                         .attr("class", "legend title")
                         .text("Graduates Per City")
 
                 var legend = svg.append("g")
                     .attr("class", "legend")
-                    .attr("transform", "translate(" + l_WidthCenter + "," + (l_Top+90) + ")")
+                    .attr("transform", "translate(" + l_WidthCenter + "," + (height+90) + ")")
                   .selectAll("g")
                     .data([1, 5, 15])
                   .enter().append("g");
@@ -193,7 +190,7 @@ function createMap() {
                     .text(d3.format());
 
                 var legend2Title = svg.append("g")
-                    .attr("transform", "translate(" + l_WidthCenter + "," + (l_Top+125) + ")")
+                    .attr("transform", "translate(" + l_WidthCenter + "," + (height+125) + ")")
                     .append("text")
                         .attr("class", "legend title")
                         .text("Academic Status")
@@ -207,7 +204,7 @@ function createMap() {
 
                 var legend2 = svg.append("g")
                     .attr("class", "legend2")
-                    .attr("transform", "translate(" + (l_WidthCenter-35) + "," + (l_Top+135) + ")")
+                    .attr("transform", "translate(" + (l_WidthCenter-35) + "," + (height+135) + ")")
                   .selectAll("g")
                     .data(color.range().slice().reverse())
                   .enter().append("g")
@@ -268,6 +265,6 @@ createMap()
             theme: 'light',
             allowTitleHTML: true,
             // trigger: 'mouseenter focus',
-            trigger: 'click'
+            // trigger: 'click'
         })
     })
