@@ -168,7 +168,7 @@ function createMap() {
                     .attr("class", "disclaimer")
                     .attr("transform", "translate(" + (l_WidthCenter+75) + "," + (l_Top+300) + ")")
                     .append("text")
-                        .text("We apologize for any oversight.  For corrections, please reach out to janar@washu.edu.  Thank you!")
+                        .text("We apologize for any oversight.  Please communicate suggestions to otoresidency@wustl.edu.")
 
                 var legendTitle = svg.append("g")
                     .attr("transform", "translate(" + l_WidthCenter + "," + l_Top + ")")
@@ -236,7 +236,7 @@ function createMap() {
 }
 
 function createTooltip(info) {
-    var content = '<strong>' + info.key  + ':</strong><br>'
+    var content = '<strong>' + info.key  + '</strong><br>'
     console.log(info)
 
     //sort each city's grouped grads before creating its tooltip
@@ -268,6 +268,6 @@ createMap()
             theme: 'light',
             allowTitleHTML: true,
             // trigger: 'mouseenter focus',
-            // trigger: 'click'
+            trigger: 'click'
         })
     })
