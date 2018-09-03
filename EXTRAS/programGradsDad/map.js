@@ -8,20 +8,12 @@ Data and Resources:
 and https://bost.ocks.org/mike/bubble-map/base.html
 - Legend from: https://bl.ocks.org/mbostock/9943478
 - Squares in tooltips from legend in: https://leafletjs.com/examples/choropleth/example.html
+- Colors from Cynthia Brewer: http://colorbrewer2.org/#type=qualitative&scheme=Set1&n=3
 */
 
-//Keys of object correspond to the 'Academic Rank: 0 if none; 1=Instructor;
-// 2=Asst Prof; 3=Assoc Prof; 4=Professor' column entries.
-
-// SHADED
-var tooltipColors = {
-    1: {"color": "#f6eff7", "title": "Fellow"},
-    2: {"color": "#bdc9e1", "title": "Instructor"},
-    3: {"color": "#67a9cf", "title": "Assistant Professor"},
-    4: {"color": "#1c9099", "title": "Associate Professor"},
-    5: {"color": "#016c59", "title": "Professor"},
-}
-// QUALITATIVE
+//Keys of object correspond to the column entries:
+// 'Academic Rank: 0 if none; 1=Fellow; 2=Instructor; 3=Assistant Prof;
+// 4=Assoc Professor; 5=Professor column entries.
 var tooltipColors = {
     1: {"color": "#e41a1c", "title": "Fellow"},
     2: {"color": "#377eb8", "title": "Instructor"},
@@ -265,6 +257,6 @@ createMap()
             theme: 'light',
             allowTitleHTML: true,
             // trigger: 'mouseenter focus',
-            trigger: 'click'
+            // trigger: 'click'
         })
     })

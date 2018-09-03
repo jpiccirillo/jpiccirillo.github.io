@@ -1,51 +1,113 @@
-// Spinning wheel to display while loading for slow connections
 var tree = {
     ">=4METs": {
         "none/mild": {
             "no": {
-                "1or2": "alpha",
-                "3or4": "beta"
+                "1or2": {
+                    "class": "alpha",
+                    "day30": 52,
+                    "day90": 20
+                },
+                "3or4": {
+                    "class": "beta",
+                    "day30": 80,
+                    "day90": 10
+                }
             },
             "yes": {
-                "1or2": "beta",
-                "3or4": "gamma"
+                "1or2": {
+                    "class": "beta",
+                    "day30": 80,
+                    "day90": 10
+                },
+                "3or4": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                }
             }
         },
         "mod/severe": {
             "no": {
-                "1or2": "beta",
-                "3or4": "gamma"
+                "1or2": {
+                    "class": "beta",
+                    "day30": 80,
+                    "day90": 10
+                },
+                "3or4": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                }
             },
             "yes": {
-                "1or2": "gamma",
-                "3or4": "delta"
+                "1or2": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                },
+                "3or4": {
+                    "class": "delta",
+                    "day30": 81,
+                    "day90": 30
+                }
             }
         }
     },
     "<4METs": {
         "none/mild": {
             "no": {
-                "1or2": "beta",
-                "3or4": "gamma"
+                "1or2": {
+                    "class": "beta",
+                    "day30": 80,
+                    "day90": 10
+                },
+                "3or4": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                }
             },
             "yes": {
-                "1or2": "gamma",
-                "3or4": "delta"
+                "1or2": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                },
+                "3or4": {
+                    "class": "delta",
+                    "day30": 81,
+                    "day90": 30
+                }
             }
         },
         "mod/severe": {
             "no": {
-                "1or2": "gamma",
-                "3or4": "delta"
+                "1or2": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                },
+                "3or4": {
+                    "class": "delta",
+                    "day30": 81,
+                    "day90": 30
+                }
             },
             "yes": {
-                "1or2": "gamma",
-                "3or4": "delta"
+                "1or2": {
+                    "class": "gamma",
+                    "day30": 20,
+                    "day90": 49
+                },
+                "3or4": {
+                    "class": "delta",
+                    "day30": 81,
+                    "day90": 30
+                }
             }
         }
     }
 }
-
 function startSpinningWheel() {
     setTimeout(prepare, 0);
 }
@@ -73,8 +135,46 @@ function checkIfComplete() {
     console.log(arr)
     if (arr.length == 4) {
         //index into var tree to see what resulting severity is
-        var severity = tree[arr[0]][arr[1]][arr[2]][arr[3]];
-        //Append into title section with first letter upper, rest left alone
-        $(".severity span").text(severity[0].toUpperCase()+severity.slice(1))
+        severity = tree[arr[0]][arr[1]][arr[2]][arr[3]];
+        //Set title section to 1st letter (upper), rest left alone
+        console.log(severity)
+        $(".severity span").text(severity.class[0].toUpperCase()+severity.class.slice(1))
+        $("#day30 span").text(severity.day30 + "%")
+        $("#day90 span").text(severity.day90 + "%")
+        plotSurvival();
     }
+}
+
+function plotSurvival() {
+    var data = ["survival", 10, 4, 12, 17, 4, 5, 6, 7, 8, 9]
+    lowerbound = data.map(function(each) { return each*=.5})
+    lowerbound[0] = "lowerbound"
+    upperbound = data.map(function(each) { return each*.7})
+    upperbound = upperbound.map(function(each, i) {return each+lowerbound[i]})
+    upperbound[0] = "upperbound"
+    var chart = c3.generate({
+        data: {
+            colors: {
+                lowerbound: 'transparent',
+            },
+            columns: [
+                lowerbound,
+                upperbound,
+                data
+            ],
+            type: 'bar',
+            types: {
+                survival: 'line'
+            },
+            groups: [
+                ['lowerbound', 'upperbound']
+            ],
+            order: null
+        },
+        bar: {
+            width: {
+                ratio: 1,
+            }
+        },
+    });
 }

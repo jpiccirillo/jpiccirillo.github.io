@@ -1,14 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Power Applet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,400,700" rel="stylesheet">
+    <link href="c3.css" rel="stylesheet">
+    <script async src="c3.min.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments) }
+
+        function gtag() {
+            dataLayer.push(arguments)
+        }
         gtag('js', new Date());
         gtag('config', 'UA-96097643-1');
     </script>
@@ -18,140 +24,101 @@
 <body onLoad="startSpinningWheel()" style="margin:0;">
 
     <div class="container">
-    <div id="loader"></div>
+        <div id="loader"></div>
         <!-- <div class="graph"> -->
 
-            <div class="controls">
-                <table>
-                    <tr>
-                        <td id="label">Functional Status:</td>
-                        <td><select class="input">
+        <div class="controls">
+            <table>
+                <tr>
+                    <td class="label">Functional Status:</td>
+                    <td><select class="input">
                             <option value="incomplete" selected disabled>Choose...</option>
                             <option value=">=4METs">&ge;4METs</option>
                             <option value="<4METs">&lt;4METs</option>
                         </select></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                    </tr>
-                                <tr>
-                                    <td id="label">Comorbidity:</td>
-                                    <td><select class="input">
+                </tr>
+                <tr>
+                    <td colspan="2" class="description"> Here is the information for mu_o. There's alot of information so hopefully this will take up two lines</td>
+                </tr>
+                <tr>
+                    <td class="label">Comorbidity:</td>
+                    <td><select class="input">
                                         <option value="incomplete" selected disabled>Choose...</option>
                                         <option value="none/mild">None/Mild</option>
                                         <option value="mod/severe">Mod/Severe</option>
                                     </select></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-                                </tr>
-                                <tr>
-                                    <td id="label">Pre-Op Weight Loss:</td>
-                                    <td><select class="input">
+                </tr>
+                <tr>
+                    <td colspan="2" class="description"> Here is the information for mu_o. There's alot of information so hopefully this will take up two lines</td>
+                </tr>
+                </tr>
+                <tr>
+                    <td class="label">Pre-Op Weight Loss:</td>
+                    <td><select class="input">
                                         <option value="incomplete" selected disabled>Choose...</option>
                                         <option value="no">No</option>
                                         <option value="yes">Yes</option>
                                     </select></td>
-                                </tr>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
+                </tr>
+                </tr>
+                <tr>
+                    <td colspan="2" class="description"> Here is the information for mu_o. There's alot of information so hopefully this will take up two lines</td>
+                </tr>
 
-                                <tr>
-                                    <td id="label">TNM Stage:</td>
-                                    <td><select class="input">
+                <tr>
+                    <td class="label">TNM Stage:</td>
+                    <td><select class="input">
                                         <option value="incomplete" selected disabled>Choose...</option>
                                         <option value="1or2">1 or 2</option>
                                         <option value="3or4">3 or 4</option>
                                     </select></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-
-                            </table>
-
-            </div>
-            <div class="results">
-                <table>
-                    <tr>
-                        <td colspan="2" class="severity">Clinical Severity Staging: <span></span></td>
-                    </tr>
-                                <tr>
-                                    <td id="label">Comorbidity:</td>
-                                    <td><select class="dropdown">
-                                        <option value="" disabled>None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
-                                    </select></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="label">Functional Status:</td>
-                                    <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value=">=4METs">&ge;4METs</option>
-                                        <option value="<4METs">&lt;4METs</option>
-                                    </select></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-
-                                </tr>
-                                <tr>
-                                    <td id="label">Pre-Op Weight Loss:</td>
-                                    <td><select class="dropdown">
-                                        <option value=""></option>
-                                        <option value="no">No</option>
-                                        <option value="yes">Yes</option>
-                                    </select></td>
-                                </tr>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-
-                                <tr>
-                                    <td id="label">TNM Stage:</td>
-                                    <td><select class="dropdown">
-                                        <option value="">None</option>
-                                        <option value="text1">text1</option>
-                                        <option value="text2">text2</option>
-                                        <option value="text3">text3</option>
-                                        <option value="text4">text4</option>
-                                    </select></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="description"> Here is the information for mu_o.  There's alot of information so hopefully this will take up two lines</td>
-                                </tr>
-
-                            </table>
-
-
-
-
-            </div>
-
+                </tr>
+                <tr>
+                    <td colspan="2" class="description"> Here is the informlly this will take up two lines</td>
+                </tr>
+            </table>
         </div>
+        <div class="results">
+            <div>
+                <div class="severity">Clinical Severity Staging: <span></span></div>
+            </div>
+            <div class="panes">
+                <div class="pane">
+                    <div class="label">30-day Readmission:</div>
+                    <div id="day30"><span></span></div>
+                    <div class="description">
+                    Here is the information for mu_o. There's alot of infoere is the information for mu_o.
+                                    </div>
+                </div>
+                <div class="pane">
+                    <div class="label">90-day Complication:</div>
+                    <div id="day90"><span></span></div>
+                    <div class="description">
+                    Here is the information for mu_o. There's alot of infere is the information for mu_o.
+                </div>
+                </div>
+            </div>
+            <div class="chart">
+                <div class="label">Total survival:</div>
+                <div id="chart"></div>
+                <div class="description">
+                 is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_ is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_ is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_ is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_o. There's alot of information so hopefully this will take up two linesHere is the information for mu_
+             </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
-        <link rel="stylesheet" href="style.css">
-        <script src="https://d3js.org/d3.v5.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <!-- <script type="text/javascript" async
+    <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
-        <!-- <script type="text/javascript" src="calculations.js"></script>
+    <!-- <script type="text/javascript" src="calculations.js"></script>
         <script type="text/javascript" src="validation.js"></script> -->
-        <script type="text/javascript" src="motion.js"></script>
+    <script type="text/javascript" src="motion.js"></script>
     </div>
 </body>
+
 </html>

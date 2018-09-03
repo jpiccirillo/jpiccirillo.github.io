@@ -6,7 +6,7 @@ html, body {
 
 * {
     /*border: 1px solid grey;*/
-    font-family: "Trebuchet MS"
+    font-family: "Open Sans"
 }
 
 body {
@@ -68,13 +68,40 @@ body {
 table {
     width: 100%;
 }
+.panes {
+    /*width: 50%;*/
+    display: inline-flex;
+    border-bottom: 1px solid grey;
+}
+.pane {
+    padding: 5px;
+    padding-top: 0px;
+}
+.pane:last-child {
+    border-left: 1px solid grey;
+}
+.severity, .label {
+    font-weight: 700;
+}
 .severity {
+    padding: 5px;
     font-size: 18px;
-    font-weight: 800;
+    border: none ! important;
 }
 .severity span {
     font-style: oblique;
 }
+.chart {
+    padding: 5px;
+
+}
+#day30 span, #day90 span {
+    font-weight: 400;
+    font-size: 32px;
+    display: table;
+    margin: auto;  
+}
+
 #loader {
     position: relative;
     left: 50%;
