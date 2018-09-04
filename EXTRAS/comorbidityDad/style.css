@@ -20,16 +20,10 @@ body {
     width: 100%;
 }
 .container {
-    /*padding: 5px;*/
     margin: 5px;
     border: 1px solid grey;
-
-    /*width: 100vw;*/
     min-width: 600px;
     max-width: 900px;
-    /*padding: 0px;*/
-    /*height: 350px;*/
-    font-family: Helvetica;
     font-size: 14px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-user-select: none;
@@ -60,13 +54,20 @@ body {
 .results {
     display: inline-block;
     width: 69%;
-    /*height: 100%;*/
     border-left: 1px solid grey;
     vertical-align: top;
 }
 
 table {
     width: 100%;
+}
+.c3-tooltip th,.c3-tooltip td {
+    font-size: 10px;
+}
+/*alternative coloring for title of toolitp*/
+.c3-tooltip th {
+    /*background-color: gainsboro;
+    color: black;*/
 }
 .panes {
     /*width: 50%;*/
@@ -99,7 +100,7 @@ table {
     font-weight: 400;
     font-size: 32px;
     display: table;
-    margin: auto;  
+    margin: auto;
 }
 
 #loader {
