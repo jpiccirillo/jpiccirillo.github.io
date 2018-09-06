@@ -20,7 +20,7 @@ function grabValues() {
         s_capital = calculate(s_capital, s_contribution, s_rate, s_month)
         b_capital = calculate(b_capital, b_contribution, b_rate, b_month)
         // console.log(s_capital)
-        console.log(b_capital)
+        // console.log(b_capital)
         var row = '<tr class="output-area">'
         row+='<td class="label">Year ' + +(i+1) + '</td>'
         row+='<td class="output">'+s_capital.toFixed(2)+'</td>'

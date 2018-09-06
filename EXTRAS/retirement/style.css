@@ -76,6 +76,9 @@ table#results {
     font-family: 'Courier';
     text-align: right;
 }
+.output-area td.label {
+    padding-right: 10px;
+}
 .headers {
     font-style: oblique;
     width: 5rem;
