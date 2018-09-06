@@ -229,11 +229,7 @@ function plotSurvival(stage) {
               },
             }
         },
-        legend: {
-            hide: true
-            //or hide: 'data1'
-            //or hide: ['data1', 'data2']
-        },
+        legend: { hide: true },
     });
 }
 
@@ -243,27 +239,26 @@ function tooltip_contents(d, defaultTitleFormat, defaultValueFormat, color) {
         nameFormat = function(name) { return name; },
         text, i, title, value, name, bgcolor;
 
-    for (i = 0; i < d.length; i++) {
-        if (d[i].name === 'lowerbound') { continue; }
+    d.forEach(function(val, i) {
+        if (val.name === 'lowerbound') { return; }
         if (!text) {
-            // console.log(defaultTitleFormat(title))
-            title = d[i].x + " months"
+            title = val.x + " months"
             text = "<table class='" + $$.CLASS.tooltip + "'><tr id='title'><th colspan='2'>" + title + "</th></tr>";
         }
-        if (d[i].name === 'upperbound') {
+        if (val.name === 'upperbound') {
             name = "Confidence"
-            low = lowerbound[d[i].x+1].toFixed(0)
-            high = (lowerbound[d[i].x+1]+upperbound[d[i].x+1]).toFixed(0)
+            low = lowerbound[val.x+1].toFixed(0)
+            high = (lowerbound[val.x+1]+upperbound[val.x+1]).toFixed(0)
             value = low + " - " + high + "%"
         } else {
-            name = nameFormat(d[i].name);
-            value = defaultValueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index) + "%";
+            name = nameFormat(val.name);
+            value = defaultValueFormat(val.value, val.ratio, val.id, val.index) + "%";
         }
 
-        text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-        text += "<td class='name'><span style='background-color:" + color(d[i].id) + "'></span>" + name + "</td>";
+        text += "<tr class='" + $$.CLASS.tooltipName + "-" + val.id + "'>";
+        text += "<td class='name'><span style='background-color:" + color(val.id) + "'></span>" + name + "</td>";
         text += "<td class='value'>" + value + "</td>";
         text += "</tr>";
-    }
+    })
     return text + "</table>";
 }
