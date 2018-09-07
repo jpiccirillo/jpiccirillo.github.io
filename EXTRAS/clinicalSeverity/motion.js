@@ -191,7 +191,7 @@ function plotSurvival(stage) {
             ],
             type: 'area-spline',
             types: {
-                Survival: 'line'
+                Survival: 'spline'
             },
             groups: [
                 ['lowerbound', 'upperbound']
