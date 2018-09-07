@@ -134,6 +134,7 @@ var tree = {
         }
     }
 }
+
 function startSpinningWheel() {
     setTimeout(prepare, 0);
 }

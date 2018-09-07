@@ -23,9 +23,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" charset="utf-8"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="EXTRAS/d3websitefiles/highlight.min.js"></script>
-    <script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
     <!--    Icon Links-->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -51,6 +50,7 @@
             height: 520px;
             border: 1px solid black;
         }
+
         .MathJax_Display {
             text-align: left !important;
             display: inline !important;
@@ -114,22 +114,25 @@
 
                     <section style="max-width: 85%; margin-left:2em">
                         <p>
-                            I've been working on an applet that visualizes the different parameters affecting statistical power when sampling populations. So far it's been a lot of generating custom SVGs / appending and deleting them according to math done on user input.  <a href="http://jstat.github.io/all.html" target="_blank">Stats.js</a>, a javascript statistical library, has been handy for calculating the z-score of α, and especially for generating the shape of the normal distributions based on user-entered mean/standard deviation.
-                            <li style="margin-top:-1em">mu0 = mean of the null population</li>
-                            <li>mu1 = mean of the alternative population<br></li>
-                            <li>σ = pooled standard deviation<br></li>
-                            <li>d = normalized difference between the means<br></li>
-                            <li>α = probability of a Type I error, one-tailed<br></li>
-                            <li>β = probability of a Type II error (1-power)<br></li>
-                            <li>Power = statistical power resulting from the above parameters</li>
+                            I've been working on an applet that visualizes the different parameters affecting statistical power when sampling populations. So far it's been a lot of generating custom SVGs / appending and deleting them according to math done on user input.
+                            <a
+                                href="http://jstat.github.io/all.html" target="_blank">Stats.js</a>, a javascript statistical library, has been handy for calculating the z-score of α, and especially for generating the shape of the normal distributions based on user-entered mean/standard deviation.
+                                <li style="margin-top:-1em">mu0 = mean of the null population</li>
+                                <li>mu1 = mean of the alternative population<br></li>
+                                <li>σ = pooled standard deviation<br></li>
+                                <li>d = normalized difference between the means<br></li>
+                                <li>α = probability of a Type I error, one-tailed<br></li>
+                                <li>β = probability of a Type II error (1-power)<br></li>
+                                <li>Power = statistical power resulting from the above parameters</li>
                         </p>
                         <p>
-                        <b style="font-weight: 500">Next steps:</b>
-                        <li style="margin-top:-2em">Build in functionality for sampling the populations, and rejecting/accepting null hypothesis accordingly<br></li>
-                        <li>Calculate power (or required sample size, and change peaks accordingly), as the user is changing inputs.  Power, β, and the rest of the parameters can be related to each other via the following formulas and a z-score table:<br>
-                            <!-- <div style="margin-left:2em">\(β\,\rightarrow\,Z_β\)</div></li> -->
-                            <div style="margin-left:2em; margin-top:1em">\(n = {(Z_\alpha + Z_\beta)^2 \;\cdot\; 2\sigma^2 \over d^2}\), \(d = {\mu_0-\mu_1\over\sigma}\)<br>\(Z_\beta\,\rightarrow\,\beta\)<br>\(Power = 1\,-\,\beta\)</div></li>
-                    </p>
+                            <b style="font-weight: 500">Next steps:</b>
+                            <li style="margin-top:-2em">Build in functionality for sampling the populations, and rejecting/accepting null hypothesis accordingly<br></li>
+                            <li>Calculate power (or required sample size, and change peaks accordingly), as the user is changing inputs. Power, β, and the rest of the parameters can be related to each other via the following formulas and a z-score table:<br>
+                                <!-- <div style="margin-left:2em">\(β\,\rightarrow\,Z_β\)</div></li> -->
+                                <div style="margin-left:2em; margin-top:1em">\(n = {(Z_\alpha + Z_\beta)^2 \;\cdot\; 2\sigma^2 \over d^2}\), \(d = {\mu_0-\mu_1\over\sigma}\)<br>\(Z_\beta\,\rightarrow\,\beta\)<br>\(Power = 1\,-\,\beta\)</div>
+                            </li>
+                        </p>
                     </section>
                 </section>
             </div>
@@ -184,9 +187,6 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
-    <!--[if lte IE 8]>
-                    <script src="assets/js/ie/respond.min.js"></script>
-                    <![endif]-->
     <script src="assets/js/main.js"></script>
     </script>
 
