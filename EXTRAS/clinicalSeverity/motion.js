@@ -189,7 +189,7 @@ function plotSurvival(stage) {
                 lowerbound,
                 upperbound,
             ],
-            type: 'bar',
+            type: 'area-spline',
             types: {
                 Survival: 'line'
             },
