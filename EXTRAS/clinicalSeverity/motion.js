@@ -211,7 +211,7 @@ function plotSurvival(stage) {
         },
         axis: {
             x: {
-                label: 'Months since Treatment',
+                label: 'Years since Treatment',
                 padding: {
                     left: 0,
                     right: 0.05,

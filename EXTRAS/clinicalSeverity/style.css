@@ -19,6 +19,7 @@ body {
 .input {
     width: 100%;
 }
+
 .container {
     margin: 5px;
     border: 1px solid grey;
@@ -51,6 +52,7 @@ body {
     height: 100%;
     /*border: none;*/
 }
+
 .results {
     display: inline-block;
     width: 69%;
@@ -61,14 +63,21 @@ body {
 table {
     width: 100%;
 }
+
 .c3-tooltip th,.c3-tooltip td {
     font-size: 10px;
 }
+
 /*alternative coloring for title of toolitp*/
 .c3-tooltip th {
     /*background-color: gainsboro;
     color: black;*/
 }
+
+.c3-line-upperbound, .c3-circles-upperbound {
+    display: none;
+}
+
 .panes {
     /*width: 50%;*/
     display: inline-flex;
