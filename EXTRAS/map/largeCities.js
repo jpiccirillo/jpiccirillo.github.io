@@ -251,7 +251,7 @@ var large = [{
         "geometry": {
             "type": "Point",
             "coordinates": [-77.0368707, 38.9071923, {
-                "city": "Washington, DC",
+                "city": "Washington",
                 "state": "District of Columbia"
             }]
         }
