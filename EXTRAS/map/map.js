@@ -3,11 +3,11 @@ Author: Jeffrey Piccirillo (jpiccirillo.com; piccirilloj1 at gmail)
 
 Data and Resources:
 - Zip Code Database: https://www.unitedstateszipcodes.org/zip-code-database/
-- Tooltips using turf.js: https://bl.ocks.org/TGotwig/4536d70352fc1149b437f78f61361763
+- Tooltips using tippy.js: https://bl.ocks.org/TGotwig/4536d70352fc1149b437f78f61361763
 - Basemap inspired from: http://bl.ocks.org/michellechandra/raw/0b2ce4923dc9b5809922/
 and https://bost.ocks.org/mike/bubble-map/base.html
 - Legend from: https://bl.ocks.org/mbostock/9943478
-- Squares in tooltips from legend in: https://leafletjs.com/examples/choropleth/example.html
+- Circles in tooltips from legend in: https://leafletjs.com/examples/choropleth/example.html
 - Colors from Cynthia Brewer: http://colorbrewer2.org/#type=qualitative&scheme=Set1&n=3
 */
 
@@ -66,7 +66,7 @@ function createMap() {
         // Map the cities that graduates have relocated to
         d3.csv("graduates.csv", function(data) {
             d3.csv("us_postal_codes.csv", function(zips) {
-                var collection = turf.featureCollection(points)
+                var large_collect = turf.featureCollection(large)
                 data.forEach(function(val, i) {
 
                     const result = zips.filter(function(word) {return +word["Zip Code"] == +val.ZipCode});
@@ -74,21 +74,20 @@ function createMap() {
                     if (result.length > 0) {
                         //set "city" for Washington University manually:
                         if (result[0]["Zip Code"] == "63110") {
-                            console.log(result)
                             var info = washU.geometry.coordinates
 
                         } else {
                             var hometown = turf.point([+result[0]["Longitude"], +result[0]["Latitude"]]);
-                            var nearest = turf.nearestPoint(hometown, collection);
+                            var large_result = turf.nearestPoint(hometown, large_collect);
 
                             // Look to list of smaller cities if closest large city is more than 100km away
                             // (dont want to bin with a city that's too far away)
-                            if (turf.distance(hometown, nearest) > 100) {
-                                var smallCities = turf.featureCollection(smaller);
-                                var smallerResult = turf.nearestPoint(hometown, smallCities);
-                                var info = smallerResult.geometry.coordinates;
+                            if (turf.distance(hometown, large_result) > 100) {
+                                var small_collect = turf.featureCollection(small);
+                                var small_result = turf.nearestPoint(hometown, small_collect);
+                                var info = small_result.geometry.coordinates;
 
-                            } else { var info = nearest.geometry.coordinates; }
+                            } else { var info = large_result.geometry.coordinates; }
                         }
 
                         val.lat = info[1]
@@ -99,23 +98,25 @@ function createMap() {
                 })
 
             groupedGrads = d3.nest()
-              .key(function(d) { return d.city; })
+              .key(function(d) { return d.city + ", " + d.state; })
               .entries(data);
 
+            console.log(groupedGrads)
             // Remove the entry representing zip codes that didnt match w a city,
             // d3.nest() returns this grouping w name "undefined"
             groupedGrads.splice(
                 groupedGrads.findIndex(function(i) {
                     // console.log(i.key === "undefined")
-                    return i.key === "undefined"
+                    return i.key === "undefined, undefined"
                 }), 1);
               // console.log(groupedGrads)
 
              count = d3.nest()
-              .key(function(d) { return d.city; })
+              .key(function(d) { return d.city + ", " + d.state; })
               .rollup(function(v) { return v.length; })
               .entries(data);
 
+            console.log(count)
             svg.selectAll("circle")
                 .data(groupedGrads.sort(function(a, b) { return b.values.length - a.values.length; }))
                 .enter()

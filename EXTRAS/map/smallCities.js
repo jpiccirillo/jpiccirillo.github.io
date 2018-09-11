@@ -1,4 +1,4 @@
- var smaller = [
+ var small = [
      {
          "type": "Feature",
          "properties": {},

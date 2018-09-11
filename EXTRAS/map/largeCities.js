@@ -9,7 +9,7 @@ var washU = {
         }]
     }
 }
-var points = [{
+var large = [{
         "type": "Feature",
         "properties": {},
         "geometry": {
@@ -184,7 +184,7 @@ var points = [{
                "state": "Connecticut"
            }]
        }
-   }, 
+   },
     {
         "type": "Feature",
         "properties": {},
@@ -251,7 +251,7 @@ var points = [{
         "geometry": {
             "type": "Point",
             "coordinates": [-77.0368707, 38.9071923, {
-                "city": "Washington DC",
+                "city": "Washington, DC",
                 "state": "District of Columbia"
             }]
         }
