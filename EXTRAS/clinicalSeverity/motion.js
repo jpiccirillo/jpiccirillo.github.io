@@ -173,9 +173,42 @@ function checkIfComplete() {
 }
 
 function plotSurvival(stage) {
-    var data = ["Survival", 10, 4, 12, 17, 4, 5, 6, 7, 8, 9]
-    lowerbound = data.map(function(each, i) { return (i == 0) ? "lowerbound" : each*=.5})
-    upperbound = data.map(function(each, i) { return (i == 0) ? "upperbound" : (lowerbound[i] + each*.5)})
+    window.stage = stage;
+    window.data = {
+        0: [
+            ["Survival", 0.975, 0.943, 0.943, 0.9, 0.9],
+            ["lowerbound", 0.941, 0.888, 0.888, 0.803, 0.803],
+            ["upperbound", 1, 0.998, 0.998, 0.9974, 0.9974],
+            ["difference", 0.059, 0.11, 0.11, 0.1944, 0.1944],
+            {max: 1, min: .75}
+        ],
+        1: [
+            ["Survival", 0.958, 0.9, 0.814, 0.786, 0.75],
+            ["lowerbound", 0.931, 0.856, 0.747, 0.711, 0.651],
+            ["upperbound", 0.85, 0.943, 0.881, 0.861, 0.849],
+            ["difference", 0.05399, 0.087, 0.134, 0.15, 0.198],
+            {max: 1, min: .5}
+        ],
+        2: [
+            ["Survival", 0.868, 0.724, 0.642, 0.602, 0.602],
+            ["lowerbound", 0.818, 0.655, 0.562, 0.508, 0.508],
+            ["upperbound", 0.917, 0.793, 0.721, 0.696, 0.696],
+            ["difference", 0.0990, 0.138, 0.159, 0.188, 0.188],
+            {max: 1, min: .25}
+        ],
+        3: [
+            ["Survival", 0.781, 0.643, 0.475, 0.362, 0.362],
+            ["lowerbound", 0.684, 0.52, 0.326, 0.183, 0.183],
+            ["upperbound", 0.877, 0.766, 0.624, 0.54, 0.54],
+            ["difference", 0.193, 0.246, 0.298, 0.357, 0.357],
+            {max: 1, min: 0}
+        ]
+    }
+
+    // var data = ["Survival", 10, 4, 12, 17, 4, 5, 6, 7, 8, 9]
+    // lowerbound = data.map(function(each, i) { return (i == 0) ? "lowerbound" : each*=.5})
+    // upperbound = data.map(function(each, i) { return (i == 0) ? "upperbound" : (lowerbound[i] + each*.5)})
+    // console.log(lowerbound, upperbound)
     var chart = c3.generate({
         size: {
           height: 125
@@ -186,16 +219,16 @@ function plotSurvival(stage) {
         },
         data: {
             columns: [
-                data,
-                lowerbound,
-                upperbound,
+                data[stage][0],
+                data[stage][1],
+                data[stage][3]
             ],
             type: 'area-spline',
             types: {
                 Survival: 'spline'
             },
             groups: [
-                ['lowerbound', 'upperbound']
+                ['lowerbound', 'difference']
             ],
             order: null
         },
@@ -212,22 +245,26 @@ function plotSurvival(stage) {
         },
         axis: {
             x: {
-                label: 'Years since Treatment',
+                label: 'Years',
                 padding: {
-                    left: 0,
+                    left: .2,
                     right: 0.05,
                 },
                 tick: {
                   culling: false,
                   outer: false,
+                  format: function(d) { return d + 1; }
                 },
             },
             y: {
-              label: 'Survival (%)',
+              label: 'Survival',
+              padding: {top: 0, bottom: 0},
               tick: {
-                  count: 10,
-                  format: function(d) {return parseInt(d).toFixed(0)}
+                  count: 8,
+                  format: function(d) {return d.toFixed(2)}
               },
+              max: data[stage][4].max,
+              min: data[stage][4].min,
             }
         },
         legend: { hide: true },
@@ -235,25 +272,28 @@ function plotSurvival(stage) {
 }
 
 function tooltip_contents(d, defaultTitleFormat, defaultValueFormat, color) {
+    console.log(stage)
+    console.log(data)
     var $$ = this,
         config = $$.config,
         nameFormat = function(name) { return name; },
         text, i, title, value, name, bgcolor;
 
     d.forEach(function(val, i) {
+        console.log(val)
         if (val.name === 'lowerbound') { return; }
         if (!text) {
-            title = val.x + " months"
+            title = (val.x+1>1) ? val.x+1 + " years" : val.x+1 + " year";
             text = "<table class='" + $$.CLASS.tooltip + "'><tr id='title'><th colspan='2'>" + title + "</th></tr>";
         }
-        if (val.name === 'upperbound') {
+        if (val.name === 'difference') {
             name = "Confidence"
-            low = lowerbound[val.x+1].toFixed(0)
-            high = (lowerbound[val.x+1]+upperbound[val.x+1]).toFixed(0)
-            value = low + " - " + high + "%"
+            low = data[stage][1][val.x+1].toFixed(3)
+            high = data[stage][2][val.x+1].toFixed(3)
+            value = low + " - " + high
         } else {
             name = nameFormat(val.name);
-            value = defaultValueFormat(val.value, val.ratio, val.id, val.index) + "%";
+            value = val.value.toFixed(3);
         }
 
         text += "<tr class='" + $$.CLASS.tooltipName + "-" + val.id + "'>";

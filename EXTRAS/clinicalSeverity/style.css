@@ -74,8 +74,8 @@ table {
     color: black;*/
 }
 
-.c3-line-upperbound,
-.c3-circles-upperbound,
+.c3-line-difference,
+.c3-circles-difference,
 .c3-circles-lowerbound,
 .c3-line-lowerbound {
     display: none;
