@@ -2973,3 +2973,122 @@ Date,Time Spent (seconds),Number of People,Category
 2018-08-27T00:00:00,540,1,Uncategorized
 2018-08-27T00:00:00,364,1,Design & Composition
 2018-08-27T00:00:00,243,1,Business
+Date,Time Spent (seconds),Number of People,Category
+2018-08-28T00:00:00,4832,1,Software Development
+2018-08-28T00:00:00,2820,1,Reference & Learning
+2018-08-28T00:00:00,1529,1,Social Networking
+2018-08-28T00:00:00,1251,1,Entertainment
+2018-08-28T00:00:00,755,1,News & Opinion
+2018-08-28T00:00:00,674,1,Communication & Scheduling
+2018-08-28T00:00:00,663,1,Uncategorized
+2018-08-28T00:00:00,383,1,Business
+2018-08-28T00:00:00,299,1,Utilities
+2018-08-28T00:00:00,77,1,Design & Composition
+2018-08-29T00:00:00,7418,1,Reference & Learning
+2018-08-29T00:00:00,3688,1,Software Development
+2018-08-29T00:00:00,3636,1,Social Networking
+2018-08-29T00:00:00,1735,1,Communication & Scheduling
+2018-08-29T00:00:00,1563,1,Uncategorized
+2018-08-29T00:00:00,937,1,Business
+2018-08-29T00:00:00,935,1,Utilities
+2018-08-29T00:00:00,850,1,Design & Composition
+2018-08-29T00:00:00,65,1,Entertainment
+2018-08-29T00:00:00,56,1,News & Opinion
+2018-08-30T00:00:00,2210,1,Software Development
+2018-08-30T00:00:00,1329,1,Reference & Learning
+2018-08-30T00:00:00,867,1,Communication & Scheduling
+2018-08-30T00:00:00,423,1,Social Networking
+2018-08-30T00:00:00,422,1,Business
+2018-08-30T00:00:00,180,1,News & Opinion
+2018-08-30T00:00:00,175,1,Design & Composition
+2018-08-30T00:00:00,166,1,Utilities
+2018-08-30T00:00:00,70,1,Uncategorized
+2018-08-31T00:00:00,12608,1,Reference & Learning
+2018-08-31T00:00:00,2597,1,Communication & Scheduling
+2018-08-31T00:00:00,2308,1,Software Development
+2018-08-31T00:00:00,1935,1,Uncategorized
+2018-08-31T00:00:00,1513,1,Business
+2018-08-31T00:00:00,832,1,News & Opinion
+2018-08-31T00:00:00,727,1,Utilities
+2018-08-31T00:00:00,672,1,Social Networking
+2018-08-31T00:00:00,359,1,Design & Composition
+2018-08-31T00:00:00,332,1,Entertainment
+2018-09-01T00:00:00,2470,1,Reference & Learning
+2018-09-01T00:00:00,994,1,Communication & Scheduling
+2018-09-01T00:00:00,895,1,Software Development
+2018-09-01T00:00:00,442,1,News & Opinion
+2018-09-01T00:00:00,429,1,Design & Composition
+2018-09-01T00:00:00,392,1,Social Networking
+2018-09-01T00:00:00,212,1,Utilities
+2018-09-01T00:00:00,197,1,Business
+2018-09-01T00:00:00,142,1,Uncategorized
+2018-09-02T00:00:00,6429,1,Reference & Learning
+2018-09-02T00:00:00,584,1,Utilities
+2018-09-02T00:00:00,418,1,Communication & Scheduling
+2018-09-02T00:00:00,223,1,Social Networking
+2018-09-02T00:00:00,3,1,Uncategorized
+2018-09-03T00:00:00,8370,1,Software Development
+2018-09-03T00:00:00,5230,1,Reference & Learning
+2018-09-03T00:00:00,1071,1,Communication & Scheduling
+2018-09-03T00:00:00,662,1,Uncategorized
+2018-09-03T00:00:00,534,1,Utilities
+2018-09-03T00:00:00,181,1,Design & Composition
+2018-09-03T00:00:00,97,1,Social Networking
+2018-09-03T00:00:00,37,1,News & Opinion
+2018-09-04T00:00:00,6965,1,Reference & Learning
+2018-09-04T00:00:00,3730,1,Communication & Scheduling
+2018-09-04T00:00:00,1517,1,Business
+2018-09-04T00:00:00,1297,1,Social Networking
+2018-09-04T00:00:00,1188,1,Software Development
+2018-09-04T00:00:00,1048,1,Utilities
+2018-09-04T00:00:00,830,1,Shopping
+2018-09-04T00:00:00,643,1,Design & Composition
+2018-09-04T00:00:00,377,1,Uncategorized
+2018-09-04T00:00:00,122,1,News & Opinion
+2018-09-04T00:00:00,59,1,Entertainment
+2018-09-05T00:00:00,6924,1,Reference & Learning
+2018-09-05T00:00:00,4972,1,Communication & Scheduling
+2018-09-05T00:00:00,2728,1,Uncategorized
+2018-09-05T00:00:00,865,1,News & Opinion
+2018-09-05T00:00:00,607,1,Social Networking
+2018-09-05T00:00:00,364,1,Utilities
+2018-09-05T00:00:00,335,1,Business
+2018-09-05T00:00:00,301,1,Software Development
+2018-09-05T00:00:00,62,1,Entertainment
+2018-09-05T00:00:00,49,1,Design & Composition
+2018-09-05T00:00:00,14,1,Shopping
+2018-09-06T00:00:00,5905,1,Software Development
+2018-09-06T00:00:00,5536,1,Reference & Learning
+2018-09-06T00:00:00,2936,1,Communication & Scheduling
+2018-09-06T00:00:00,1195,1,Design & Composition
+2018-09-06T00:00:00,1132,1,Social Networking
+2018-09-06T00:00:00,675,1,News & Opinion
+2018-09-06T00:00:00,641,1,Business
+2018-09-06T00:00:00,457,1,Utilities
+2018-09-06T00:00:00,444,1,Uncategorized
+2018-09-06T00:00:00,83,1,Entertainment
+2018-09-07T00:00:00,9332,1,Communication & Scheduling
+2018-09-07T00:00:00,6867,1,Reference & Learning
+2018-09-07T00:00:00,6862,1,Design & Composition
+2018-09-07T00:00:00,2480,1,Software Development
+2018-09-07T00:00:00,937,1,Utilities
+2018-09-07T00:00:00,725,1,Shopping
+2018-09-07T00:00:00,652,1,Uncategorized
+2018-09-07T00:00:00,519,1,Social Networking
+2018-09-07T00:00:00,168,1,Business
+2018-09-07T00:00:00,38,1,News & Opinion
+2018-09-08T00:00:00,1662,1,Reference & Learning
+2018-09-08T00:00:00,296,1,Social Networking
+2018-09-08T00:00:00,261,1,Utilities
+2018-09-08T00:00:00,132,1,Software Development
+2018-09-08T00:00:00,4,1,Design & Composition
+2018-09-09T00:00:00,7001,1,Communication & Scheduling
+2018-09-09T00:00:00,3398,1,Social Networking
+2018-09-09T00:00:00,2345,1,Reference & Learning
+2018-09-09T00:00:00,819,1,Uncategorized
+2018-09-09T00:00:00,276,1,Design & Composition
+2018-09-09T00:00:00,214,1,Utilities
+2018-09-09T00:00:00,194,1,News & Opinion
+2018-09-09T00:00:00,147,1,Business
+2018-09-09T00:00:00,34,1,Shopping
+2018-09-09T00:00:00,24,1,Entertainment
