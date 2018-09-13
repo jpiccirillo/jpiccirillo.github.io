@@ -113,14 +113,15 @@ table {
     font-size: 32px;
     display: table;
     margin: auto;
+    color: gainsboro;
 }
 
 #loader {
-    position: relative;
-    left: 50%;
-    top: calc(350px/2 + 25px);
+    /*position: relative;*/
+    /*left: 50%;*/
+    /*top: calc(350px/2 + 25px);*/
     z-index: 1;
-    margin: -66px 0 0 -66px;
+    margin: auto;
     border: 8px solid #f3f3f3;
     border-radius: 50%;
     border-top: 8px solid #2980B9;

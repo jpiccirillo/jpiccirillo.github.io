@@ -2,10 +2,11 @@
 // inspired from: https://jsfiddle.net/uphokkax/31/
 // Custom tooltip code from http://jsfiddle.net/7kYJu/186/
 colors = {
-    0: { "opaque": [218, 247, 166], "alpha": [218, 247, 166, .25]},
-    1: { "opaque": [255, 195, 0], "alpha": [255, 245, 217]},
-    2: { "opaque": [255, 87, 51], "alpha": [255, 87, 51, 0.25]},
-    3: { "opaque": [199, 0, 57], "alpha": [199, 0, 57, 0.25]  }
+    0: { "opaque": [240,211,125], "alpha": [240,211,125, 0.5]},
+    1: { "opaque": [237,185,147], "alpha": [237,185,147, 0.5]},
+    2: { "opaque": [174,209,151], "alpha": [174,209,151, 0.5]},
+    3: { "opaque": [152,174,217], "alpha": [152,174,217, 0.5]},
+    4: { "opaque": [255,255,255], "alpha": [255,255,255, 0.5]}
 }
 
 var tree = {
@@ -15,28 +16,28 @@ var tree = {
                 "1or2": {
                     "class": "alpha",
                     "number": 0,
-                    "day30": 52,
+                    "day30": 5,
                     "day90": 20
                 },
                 "3or4": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 80,
-                    "day90": 10
+                    "day30": 9,
+                    "day90": 26
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 80,
-                    "day90": 10
+                    "day30": 9,
+                    "day90": 26
                 },
                 "3or4": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 }
             }
         },
@@ -45,28 +46,28 @@ var tree = {
                 "1or2": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 80,
-                    "day90": 10
+                    "day30": 9,
+                    "day90": 26
                 },
                 "3or4": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 81,
-                    "day90": 30
+                    "day30": 21,
+                    "day90": 60
                 }
             }
         }
@@ -77,28 +78,28 @@ var tree = {
                 "1or2": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 80,
-                    "day90": 10
+                    "day30": 9,
+                    "day90": 26
                 },
                 "3or4": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 81,
-                    "day90": 30
+                    "day30": 21,
+                    "day90": 60
                 }
             }
         },
@@ -107,28 +108,28 @@ var tree = {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 81,
-                    "day90": 30
+                    "day30": 21,
+                    "day90": 60
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 20,
-                    "day90": 49
+                    "day30": 14,
+                    "day90": 32
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 81,
-                    "day90": 30
+                    "day30": 21,
+                    "day90": 60
                 }
             }
         }
@@ -137,23 +138,20 @@ var tree = {
 
 function startSpinningWheel() {
     setTimeout(prepare, 0);
+    plotSurvival(4)
 }
 
-// When tool loads for the first time, initialize screen size and prepare the
-// containers.
 function prepare() {
     $("#loader").remove();
     $('select[class="input"]').change(function() {
-        if ($(this).val() != "2") {
-            checkIfComplete()
-        }
+        checkIfComplete()
     })
 }
 
 function checkIfComplete() {
     // arr for input array
     var arr = [];
-    $('.input').each(function(i, input) {
+    $('select[class="input"]').each(function(i, input) {
         //quit if a dropdown not filled out
         if (!$(input).val()) { return false;  }
         //else add into result array
@@ -166,8 +164,8 @@ function checkIfComplete() {
         //Set title section to 1st letter (upper), rest left alone
         console.log(severity)
         $(".severity span").text(severity.class[0].toUpperCase()+severity.class.slice(1))
-        $("#day30 span").text(severity.day30 + "%")
-        $("#day90 span").text(severity.day90 + "%")
+        $("#day30 span").text(severity.day30 + "%").css("color", "black")
+        $("#day90 span").text(severity.day90 + "%").css("color", "black")
         plotSurvival(severity.number);
     }
 }
@@ -202,20 +200,23 @@ function plotSurvival(stage) {
             ["upperbound", 0.877, 0.766, 0.624, 0.54, 0.54],
             ["difference", 0.193, 0.246, 0.298, 0.357, 0.357],
             {max: 1, min: 0}
+        ],
+        4: [
+            ["Survival"],
+            ["lowerbound"],
+            ["upperbound"],
+            ["difference"],
+            {max: 1, min: 0}
         ]
     }
 
-    // var data = ["Survival", 10, 4, 12, 17, 4, 5, 6, 7, 8, 9]
-    // lowerbound = data.map(function(each, i) { return (i == 0) ? "lowerbound" : each*=.5})
-    // upperbound = data.map(function(each, i) { return (i == 0) ? "upperbound" : (lowerbound[i] + each*.5)})
-    // console.log(lowerbound, upperbound)
     var chart = c3.generate({
         size: {
-          height: 125
+          height: 130
         },
         padding: {
           left: 30,
-          bottom: -20,
+          bottom: -30,
         },
         data: {
             columns: [
@@ -243,6 +244,11 @@ function plotSurvival(stage) {
         tooltip: {
                 contents: tooltip_contents
         },
+        grid: {
+          y: {
+            show: true
+          }
+        },
         axis: {
             x: {
                 label: 'Years',
@@ -257,11 +263,11 @@ function plotSurvival(stage) {
                 },
             },
             y: {
-              label: 'Survival',
+              label: 'Survival (%)',
               padding: {top: 0, bottom: 0},
               tick: {
-                  count: 8,
-                  format: function(d) {return d.toFixed(2)}
+                  count: 6,
+                  format: function(d) {return (d*100).toFixed(0)}
               },
               max: data[stage][4].max,
               min: data[stage][4].min,
@@ -288,12 +294,12 @@ function tooltip_contents(d, defaultTitleFormat, defaultValueFormat, color) {
         }
         if (val.name === 'difference') {
             name = "Confidence"
-            low = data[stage][1][val.x+1].toFixed(3)
-            high = data[stage][2][val.x+1].toFixed(3)
-            value = low + " - " + high
+            low = (data[stage][1][val.x+1]*100).toFixed(1)
+            high = (data[stage][2][val.x+1]*100).toFixed(1)
+            value = low + " to " + high + "%";
         } else {
             name = nameFormat(val.name);
-            value = val.value.toFixed(3);
+            value = (val.value*100).toFixed(1)+"%";
         }
 
         text += "<tr class='" + $$.CLASS.tooltipName + "-" + val.id + "'>";

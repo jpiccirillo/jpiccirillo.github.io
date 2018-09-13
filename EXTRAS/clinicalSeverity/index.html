@@ -24,7 +24,6 @@
 <body onLoad="startSpinningWheel()" style="margin:0;">
 
     <div class="container">
-        <div id="loader"></div>
         <!-- <div class="graph"> -->
 
         <div class="controls">
@@ -84,15 +83,15 @@
             </div>
             <div class="panes">
                 <div class="pane">
-                    <div class="label">30-day Readmission:</div>
-                    <div id="day30"><span></span></div>
+                    <div class="label">30-Day Unplanned Readmissions:</div>
+                    <div id="day30"><span>N/A</span></div>
                     <div class="description">
                     Here is the information for mu_o. There's alot of infoere is the information for mu_o.
                                     </div>
                 </div>
                 <div class="pane">
-                    <div class="label">90-day Complication:</div>
-                    <div id="day90"><span></span></div>
+                    <div class="label">90-Day Complications:</div>
+                    <div id="day90"><span>N/A</span></div>
                     <div class="description">
                     Here is the information for mu_o. There's alot of infere is the information for mu_o.
                 </div>
@@ -100,7 +99,9 @@
             </div>
             <div class="chart">
                 <div class="label">Total survival:</div>
-                <div id="chart"></div>
+                <div id="chart" style="height: 130px">
+                                <div id="loader"></div>
+                            </div>
                 <div class="description">
                  Brief description here.  Note that it's possible for this text to change or update when a user hovers over a different month post-treatment, if there are blurbs that are relevant to different stages as time passes.
              </div>
@@ -113,10 +114,6 @@
     <script src="https://d3js.org/d3.v5.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
-    <!-- <script type="text/javascript" src="calculations.js"></script>
-        <script type="text/javascript" src="validation.js"></script> -->
     <script type="text/javascript" src="motion.js"></script>
     </div>
 </body>
