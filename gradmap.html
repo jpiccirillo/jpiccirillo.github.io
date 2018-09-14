@@ -14,7 +14,7 @@
         gtag('config', 'UA-96097643-1');
     </script>
 
-    <title>Power Applet Draft</title>
+    <title>Grad Student Map / Jeffrey Piccirillo</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -226,9 +226,9 @@
     <p>
     The current locations of each came as individual zip codes in an Excel spreadsheet - Without any street-address ambiguity with zip codes, producing lat/lon pairs would be pretty failsafe through any common geocoders (nominatim/OSM, google/bing's geocoding API, etc.). <br>
     However, I soon realized that the trickiness was in the <span style="font-style: oblique">distribution</span> of the grads' locations: <span style="font-weight: 400">As I wanted only one tooltip per city (not per grad), the goal was to bin graduates when close together (in same city), but not when far apart.</span> Thus I needed to  detect if a lat/lon was near or in a large city for combining with others nearby, to avoid having markers stacking over each other in cities.</p>
-    Stacking would be a problem for a few reasons, because it:
+    Stacking is a problem for a few reasons, because it:
     <ul>
-        <li>Prevents the user from accessing markers at the bottom of the stack.  While the list can always be sorted to plot smaller markers on top and larger ones on the bottom thus reducing overlap, it's still just tough to play around to access the bottom marker/its tooltip, and also doesn't solve Point 2.</li>
+        <li>Prevents the user from accessing markers at the bottom of the stack.  While the list can always be sorted to plot smaller markers on top and larger ones on the bottom (increasing access to small markers), it's still tough to play around to get the bottom marker/its tooltip, and also doesn't solve #2.</li>
         <li>
             Gives a false impression of distribution.  A stack of many markers on the same point will be about the same size as one marker by itself - likely only the opacity will differ depending on presentation.  This inherently undermines the ability of the cartographer to communicate accurately how the data is distributed spatially, and in what quantities.
         </li>
