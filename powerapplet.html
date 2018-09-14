@@ -90,11 +90,10 @@
                                 min-width: 100%;
                             }
                         </style>
-                        <h3 style="max-width: 95%; margin: auto; margin-top:-.5em; margin-bottom: .75em;margin-left:1em">Power Applet Visualization</h3>
-                        <iframe id="hostingsite" src="/PowerApplet/index.html" scrolling="no" style="overflow: hidden;height: 360px; width:800px; margin-left:1em; margin-top: -.5em"></iframe>
-                        <p class="caption" style="font-weight: 500; max-width: 95%; margin: auto"><i>Demonstrating parameters underlying statistical power using HTML, JS, and SVG elements (Instead of Java, as found <a href="http://wise1.cgu.edu/power_applet/power.asp#/" target="_blank">here</a>).</i>
-
-                        </p>
+                        <h3 style="max-width: 95%; margin-top:-.5em; margin-bottom: .75em;">Power Applet Visualization</h3>
+                        <iframe id="hostingsite" src="/PowerApplet/woDescription.html" scrolling="no" style="height: 360px;"></iframe>
+                        <div style="font-weight: 500; margin-top: -1em; margin-bottom: 1em"><i>Demonstrating parameters underlying statistical power using HTML, JS, and SVG elements (Instead of Java, as found <a href="http://wise1.cgu.edu/power_applet/power.asp#/" target="_blank">here</a>).</i>
+                        </div>
                         <script>
                             iFrameResize({
                                 log: true
@@ -102,19 +101,14 @@
                         </script>
 
                     </div>
-
-                    <p id="callback">
-                    </p>
                     <script type="text/javascript">
-                        //
                         iFrameResize({
                             heightCalculationMethod: 'documentElementScroll'
                         });
                     </script>
 
-                    <section style="max-width: 85%; margin-left:2em">
-                        <p>
-                            I've been working on an applet that visualizes the different parameters affecting statistical power when sampling populations. So far it's been a lot of generating custom SVGs / appending and deleting them according to math done on user input.
+                    <section style="max-width: 85%;">
+                        <p>I've been working on an applet that visualizes the different parameters that affect statistical power when sampling populations. So far it's been a lot of generating custom SVGs / appending and deleting them according to statistics performed on the parameters input by the user. The rest of the application is built on d3.js, which has been especially helpful for implementing drag functionality and writing SVG shapes to the screen.  Sliders to the right are based on jquery-ui library.
                             <a
                                 href="http://jstat.github.io/all.html" target="_blank">Stats.js</a>, a javascript statistical library, has been handy for calculating the z-score of α, and especially for generating the shape of the normal distributions based on user-entered mean/standard deviation.
                                 <li style="margin-top:-1em">mu0 = mean of the null population</li>
@@ -127,7 +121,7 @@
                         </p>
                         <p>
                             <b style="font-weight: 500">Next steps:</b>
-                            <li style="margin-top:-2em">Build in functionality for sampling the populations, and rejecting/accepting null hypothesis accordingly<br></li>
+                            <li style="margin-top:-2em">Build in functionality for sampling the populations, and rejecting/accepting null hypothesis accordingly (done!)<br></li>
                             <li>Calculate power (or required sample size, and change peaks accordingly), as the user is changing inputs. Power, β, and the rest of the parameters can be related to each other via the following formulas and a z-score table:<br>
                                 <!-- <div style="margin-left:2em">\(β\,\rightarrow\,Z_β\)</div></li> -->
                                 <div style="margin-left:2em; margin-top:1em">\(n = {(Z_\alpha + Z_\beta)^2 \;\cdot\; 2\sigma^2 \over d^2}\), \(d = {\mu_0-\mu_1\over\sigma}\)<br>\(Z_\beta\,\rightarrow\,\beta\)<br>\(Power = 1\,-\,\beta\)</div>
@@ -163,8 +157,9 @@
                         </li>
                         <li>
                             <span class="opener">Programming</span>
-
                             <ul>
+                                <li><a href="gradmap.html">D3 Interactive Map</a></li>
+                                <li><a href="powerapplet.html">Statistical Power Applet</a></li>
                                 <li><a href="fitbit.html">Fitbit Data Visualization</a></li>
                                 <li><a href="gettingthere.html">Mint Financial Data</a></li>
                                 <li><a href="gettingthere.html">Computer Productivity</a></li>

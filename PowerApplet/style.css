@@ -6,8 +6,7 @@ html, body {
 
 body {
     width: 100vw;
-    min-width: 780px;
-    max-width: 1000px;
+    max-width: 900px;
     height: 800px;
 }
 
@@ -21,9 +20,10 @@ rect {
 
 .container {
     display: none;
-    width: 100vw;
-    min-width: 780px;
-    max-width: 1000px;
+    width: calc(100vw - 18px);
+    min-width: 700px;
+    /*min-width: 780px;*/
+    max-width: 900px;
     padding: 0px;
     height: 350px;
     font-family: Helvetica;
@@ -300,7 +300,7 @@ input:focus {
 #loader {
     position: relative;
     left: 50%;
-    top: 40%;
+    top: 150px;
     z-index: 1;
     margin: -66px 0 0 -66px;
     border: 8px solid #f3f3f3;

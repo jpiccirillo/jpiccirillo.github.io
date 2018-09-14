@@ -28,7 +28,7 @@ function createMap() {
     // var height = window.height;
 
     var width = 810;
-    var height = 310;
+    var height = 300;
 
     var radius = function(number) { return Math.sqrt(number) * 10;}
 
@@ -53,7 +53,7 @@ function createMap() {
          .classed("svg-content-responsive", true);
 
     // Load GeoJSON data and merge with states data
-    d3.json("us-states.json", function(json) {
+    d3.json("/EXTRAS/map/us-states.json", function(json) {
 
         // Bind the data to the SVG and create one path per GeoJSON feature
         svg.selectAll("path")
@@ -66,8 +66,8 @@ function createMap() {
             .style("stroke-width", "1")
 
         // Map the cities that graduates have relocated to
-        d3.csv("graduates.csv", function(data) {
-            d3.csv("us_postal_codes.csv", function(zips) {
+        d3.csv("/EXTRAS/map/graduates.csv", function(data) {
+            d3.csv("/EXTRAS/map/us_postal_codes.csv", function(zips) {
                 var large_collect = turf.featureCollection(large)
                 data.forEach(function(val, i) {
 
