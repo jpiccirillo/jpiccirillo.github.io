@@ -20,7 +20,7 @@ bin_menu = d3.select("#bin").on("change", change_bin),
 
 d3.queue()
     //Beware that top name might change if you clear your downloads folder
-    .defer(d3.csv, "transactions%20(14).csv")
+    .defer(d3.csv, "transactions (14).csv")
     .defer(d3.csv, "NonMintTransactions.csv")
     .await(process_csvs);
 
@@ -28,6 +28,7 @@ function process_csvs(error, csv_data, early_csv_data) {
     csv_data.forEach(function (d) {
         d.Amount = +d.Amount
         d.Date = parseDate(d["Date"])
+        console.log(d.Date)
         d.Week = getDateOfISOWeek(d.Date.getWeek(), (d.Date.getYear() + 1900).toString());
         d.Month = JFP_GetMonth(d.Date);
         d.Category = d.Category;
@@ -111,6 +112,7 @@ function process_csvs(error, csv_data, early_csv_data) {
 
 function bucketData(category, replot) {
     var bucket = bin_menu.property("value");
+        console.log(bin_menu)
     if (replot == 0) {category = menu.property("value")}
 
     //If switching bucket and categories already exist in other bucket, don't reparse everything
@@ -130,13 +132,15 @@ function bucketData(category, replot) {
     };
 
     combined_unbinned_original = filled_days.concat(all_days);
+    // console.log(combined_unbinned_original)
     bin_data2(combined_unbinned_original, bucket, category)
     modernDrawPlot(bucket);
+
     replot=0;
 }
 
 function bin_data2(combined_unbinned, bucket, category) {
-
+    console.log(bucket)
     nestedData2 = d3.nest()
         .key(function (d) {
             return d[bucket];
@@ -148,7 +152,7 @@ function bin_data2(combined_unbinned, bucket, category) {
         })
         .entries(combined_unbinned);
 
-    console.log(combined_unbinned);
+    console.log(nestedData2);
 
     for (i in finalDatesTotal) {
         // if the correct date array has only one entry (the initial label)
@@ -159,7 +163,7 @@ function bin_data2(combined_unbinned, bucket, category) {
             }
         }
     }
-
+    console.log(finalDatesTotal)
     // Sort Amount Array and Date arrays
     sorting(nestedData2, 'key');
     for (i in finalDatesTotal) {

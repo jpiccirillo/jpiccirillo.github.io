@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<!--
+Hi there! Thanks for checking out my site.  Its theme is a modified version of the Editorial HTML5 template, and is hosted through GitHub pages.  If you have comments, I’d love to hear them at piccirilloj1 at gmail.com! (or github.com/jpiccirillo).  I take pride in this site and update it as regularly as I can with personal projects I’m working on.  Input / suggestions are critical to learning best practices, and with a web-based learning approach I certainly miss things.
+
+	Info on Template:
+	- Editorial by HTML5 UP
+	- html5up.net | @ajlkn
+	- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-96097643-1');
+    </script>
+    <title>Mapping / Jeffrey Piccirillo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <!--    Icon Links-->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        h4 {
+            margin-bottom: 0px;
+            font-style: oblique;
+            color: darkgrey;
+            font-size: 11px;
+        }
+
+        .team-square > a {
+            border-bottom: none;
+            cursor: pointer;
+        }
+
+
+        /*.grid {
+        max-width: 100%;
+    }*/
+
+        div[class^='grid-container'] {
+            display: grid;
+            grid-gap: 15pt;
+            text-align: left;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .grid-container-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-container-3 {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr auto;
+            display: grid;
+        }
+
+        .grid-container-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .bottom {
+            grid-column: span 2;
+        }
+
+        .side {
+            grid-row: span 2;
+        }
+
+        .team-headshot {
+            width: 100%;
+            /*height: 100%;*/
+            /*border-radius: 50%;*/
+        }
+
+        .team-square {
+            /*padding-bottom: 15pt;*/
+            /*background-color: rgb(76, 217, 100);*/
+            /*border-radius: 10pt;*/
+            width: 100%;
+            height: 100%;
+            /*height: 50%;*/
+        }
+
+        @media (min-width: 900px) and (max-width: 1000px) {
+            .grid-container-2 {
+                grid-template-columns: 1fr;
+                padding: 0pt !important;
+            }
+        }
+
+        @media (max-width: 799px) {
+            .grid-container-2 {
+                grid-template-columns: 1fr;
+                padding: 0pt !important;
+            }
+        }
+
+        @media (max-width:900px) and (min-width: 800px) {
+            .grid-container-3 {
+                grid-template-columns: 1fr;
+                padding: 0pt !important;
+            }
+            .bottom {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width:620px) {
+            .grid-container-3 {
+                grid-template-columns: 1fr;
+                padding: 0pt !important;
+            }
+            .bottom {
+                grid-column: span 1;
+            }
+        }
+
+        /*@media (max-width: 500px) {
+            .grid-container-2 {
+                grid-template-columns: 1fr;
+                padding: 0pt !important;
+            }
+        }*/
+
+        p {
+            font-size: 13.5px;
+        }
+        .w3-modal {
+            z-index: 3;
+            display: none;
+            padding-top: 100px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4)
+        }
+
+        .w3-modal-content {
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0);
+            position: relative;
+            padding: 0;
+            outline: 0;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .w3-button {
+            border: none;
+            display: inline-block;
+            padding: 8px 16px;
+            vertical-align: middle;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            background-color: inherit;
+            text-align: center;
+            cursor: pointer;
+            white-space: nowrap
+        }
+
+        .w3-display-topright {
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+
+        .modal-image {
+            width: 100%;
+        }
+        /*p a {
+            border-bottom: initial;
+        }*/
+    </style>
+</head>
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Section -->
+                <section>
+
+                    <div class="grid-container-2">
+                        <div class="team-square side">
+
+
+                            <section>
+                                <div>
+                                    <!-- <article style=""> -->
+                                        <div>
+                                            <h3>Maps of Medieval Spain</h3>
+                                            <p>
+                                                While at the GIS / Data Center at Rice, I had the chance to collaborate with Dr. Soifer Irish, a professor of medieval Iberian history, to create maps of pilgrimage routes and holy sites in medieval Spain for her book,
+                                                <a
+                                                    href="https://www.amazon.com/Jews-Christians-Medieval-Castile-Coexistence/dp/0813228654" target=_blank>Jews and Christians in Medieval Castile: Tradition, Coexistence, and Change (2016)</a>. Her work explores the changes in Jewish-Christian relations in the Iberian kingdom of Castile during the 11th to mid-14th century, a period when Christian kingdoms were reclaiming the peninsula from the Umayyad Caliphate during the Reconquista. </p>
+
+                                                <p>Pilgrimage routes and city locations were georeferenced from hard-copy maps, and established through discussion with Dr. Irish.  One twist of the project was the inability to consistently use digital resources for laying the basis of the maps, like county-level shapefiles and city lat/lons.  The maps really only applied for a much older version of Spain than exists today - the true location of cities now are often different than they were in the Middle Ages (or also no longer there).  Publicly available shapefiles for towns, cities, borders, and even some rivers and shorelines either weren't an option, or needed consideration and discussion before use in the project.
+                                            </p>
+<hr>
+                                            <p>
+                                                The <a href="https://library.rice.edu/gdc" target=_blank>GIS / Data Center</a> is a lab employing students who assist patrons with their spatial projects using ArcMap and Python (for example, architectural or environmental students with spatial analysis questions, or need for datasets for site research).  Additionally, faculty members' research or publication projects may require the lab's expertise, giving student employees the chance to collaborate on a longer-term basis.  </p>
+                                        </div>
+
+                                    <!-- </article> -->
+                                </div>
+                            </section>
+
+
+                        </div>
+                        <div class="grid-container-3">
+                            <div class="team-square">
+                                <a onclick="document.getElementById('map1').style.display='block'"><img class="team-headshot" src="images/pilgrimage/map1.jpg"/>
+            <h4 class="team-name">Kingdom and city overview in medieval Iberia</h4>
+          </a>
+                            </div>
+                            <div class="team-square">
+                                <a onclick="document.getElementById('map3').style.display='block'"><img class="team-headshot" src="images/pilgrimage/map3.jpg"/>
+            <h4 class="team-name">Overview of religious sites</h4>
+          </a>
+                            </div>
+                            <div class="team-square bottom">
+                                <a onclick="document.getElementById('map2').style.display='block'"><img class="team-headshot" src="images/pilgrimage/map2.jpg"/>
+            <h4 class="team-name">Pilgrimage routes in north-central Spain</h4>
+          </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </section>
+            </div>
+            <div id="map1" class="w3-modal">
+                <div class="w3-modal-content">
+                    <span onclick="document.getElementById('map1').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <img class="modal-image" src="images/pilgrimage/map1.jpg" />
+                </div>
+            </div>
+            <div id="map2" class="w3-modal">
+                <div class="w3-modal-content">
+                    <span onclick="document.getElementById('map2').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <img class="modal-image" src="images/pilgrimage/map2.jpg" />
+                </div>
+            </div>
+            <div id="map3" class="w3-modal">
+                <div class="w3-modal-content">
+                    <span onclick="document.getElementById('map3').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                    <img class="modal-image" src="images/pilgrimage/map3.jpg" />
+                </div>
+            </div>
+        </div>
+        <script>
+            // This is very redundant code I am aware
+            var modal1 = document.getElementById('map1'),
+                modal2 = document.getElementById("map2"),
+                modal3 = document.getElementById("map3");
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal1 || event.target == modal2 || event.target == modal3) {
+                    modal1.style.display = "none";
+                    modal2.style.display = "none";
+                    modal3.style.display = "none";
+                }
+            }
+        </script>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Jeffrey Piccirillo</h2>
+                    </header>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="places.html">Places</a></li>
+                        <li><a href="people.html">People</a></li>
+                        <li><a href="surf.html">Surf</a></li>
+                        <li><a href="font.html">Font</a></li>
+                        <li>
+                            <span class="opener">Mapping</span>
+                            <ul>
+                                <li><a href="mapping.html">Geological</a></li>
+                                <li><a href="pilgrimage.html">Medieval Spain</a></li>
+                                <li><a href="politicalchoropleth.html">Political / Choropleth</a></li>
+                                <li><a href="campuswalkingmap.html">Campus Walking Map</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="opener">Programming</span>
+                            <ul>
+                                <li><a href="gradmap.html">D3 Interactive Map</a></li>
+                                <li><a href="powerapplet.html">Statistical Power Applet</a></li>
+                                <li><a href="fitbit.html">Fitbit Data Visualization</a></li>
+                                <li><a href="gettingthere.html">Mint Financial Data</a></li>
+                                <li><a href="gettingthere.html">Computer Productivity</a></li>
+                                <li><a href="moment.html">App Usage</a></li>
+                                <li><a href="gettingthere.html">Physics Simulations</a></li>
+                                <li><a href="temps.html">Plotting Climate Data</a></li>
+                            </ul>
+                        </li>
+                        <li style="color: grey;border-top: 0; margin-top: 2em"><a href="about.html">About</a></li>
+                        <li style="color: grey;border-top: 0; margin-top: -.5em"><a href=" https://www.linkedin.com/in/jfpiccirillo/ " target="_blank">LinkedIn</a></li>
+                    </ul>
+
+                    <ul>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js "></script>
+    <script src="assets/js/skel.min.js "></script>
+    <script src="assets/js/util.js "></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js "></script><![endif]-->
+    <script src="assets/js/main.js "></script>
+
+</body>
+
+</html>
