@@ -8,6 +8,7 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
 	- html5up.net | @ajlkn
 	- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
@@ -18,13 +19,11 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'UA-96097643-1');
     </script>
 
-    <title>Places / Jeffrey Piccirillo</title>
+    <title>Mapping / Jeffrey Piccirillo</title>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -38,6 +37,76 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="assets/css/main.css" />
+
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <style>
+        h4 {
+            margin-bottom: 0px;
+            font-style: oblique;
+            color: darkgrey;
+            font-size: 11px;
+        }
+
+        .team-square a {
+            border-bottom: none;
+        }
+
+        /*.grid {
+        max-width: 100%;
+    }*/
+
+    .grid-container-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 15pt;
+        text-align: center;
+        font-size: 12pt;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 15pt;
+            text-align: center;
+            font-size: 12pt;
+
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .team-headshot {
+            width: 100%;
+            /*height: 70pt;*/
+            /*border-radius: 50%;*/
+        }
+
+        .team-square {
+            /*padding-bottom: 15pt;*/
+            /*background-color: rgb(76, 217, 100);*/
+            /*border-radius: 10pt;*/
+            width: 100%;
+            /*height: 50%;*/
+        }
+
+        @media (max-width:745px) {
+            .grid-container, .grid-container-3 {
+                grid-template-columns: 1fr 1fr;
+                padding: 0pt !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -48,91 +117,112 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
         <!-- Main -->
         <div id="main">
             <div class="inner">
-
-                <!-- Section -->
                 <section>
-                    <span class="image main"><img src="images/Places/Places-01.jpg" alt="" />
-                <p class="caption"><i>Sardis, Southwestern Turkey</i></p></span>
+                    <h3>Photography and Font</h3>
+                    <div class="grid-container">
+                        <div class="team-square">
+                            <a href="places.html"><img class="team-headshot" src="images/homepage/places.jpg">
+        <h4 class="team-name">Places</h4>
+      </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="people.html"><img class="team-headshot" src="images/homepage/people.jpg">
+        <h4 class="team-name">People</h4>
+      </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="surf.html"><img class="team-headshot" src="images/homepage/surf.jpg">
+        <h4 class="team-name">Waves</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="font.html"><img class="team-headshot" src="images/homepage/font.jpg">
+        <h4 class="team-name">Font</h4>
+        </a>
+                        </div>
+                    </div>
 
-                    <span class="image main"><img src="images/Places/Dubai-06.JPG" alt="" />
-                <p class="caption"><i>Dubai, UAE</i></p></span>
-
-                    <span class="image main"><img src="images/Places/moab-06.JPG" alt="" />
-                <p class="caption"><i>Arches National Park, Utah</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-02.jpg" alt="" />
-                <p class="caption"><i>Islands of Vestmannaeyjar, Iceland</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-03.jpg" alt="" />
-                <p class="caption"><i>Jökulsárlón, Iceland</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-04.jpg" alt="" />
-                <p class="caption"><i>Eastfjords, Iceland</i></p></span>
-
-                    <span class="image main"><img src="images/Places/jeffrey-078.jpg" alt="" />
-                <p class="caption"><i>Milas, Turkey</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-07.jpg" alt="" />
-                <p class="caption"><i>Wadi Mujib, Southern Jordan</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-05.5.jpg" alt="" />
-                <p class="caption"><i>Aya Sofya, Istanbul</i></p></span>
-
-                    <span class="image mainvertical"><img src="images/Places/waterfall-1.jpg" alt="" />
-                <p class="caption"><i>Punch Bowl Falls, Oregon</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-06.jpg" alt="" />
-                <p class="caption"><i>Columbia River, Western Oregon</i></p></span>
+                    <h3>Static Maps</h3>
+                    <div class="grid-container">
+                        <div class="team-square">
+                            <a href="mapping.html"><img class="team-headshot" src="images/homepage/NM-138.jpg">
+        <h4 class="team-name">Geological mapping</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="pilgrimage.html"><img class="team-headshot" src="images/pilgrimage/pilgrimage.jpg">
+        <h4 class="team-name">Maps of medieval Spain</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="politicalchoropleth.html"><img class="team-headshot" src="images/homepage/choropleth.jpg">
+        <h4 class="team-name">Static choropleths</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="campuswalkingmap.html"><img class="team-headshot" src="images/homepage/campuswalking.jpg">
+        <h4 class="team-name">Campus walking map</h4>
+        </a>
+                        </div>
+                    </div>
 
 
-                    <span class="image main"><img src="images/Places/Places-08.jpg" alt="" />
-                <p class="caption"><i>Vik, Iceland</i></p></span>
 
-                    <span class="image main"><img src="images/Places/moab-12.JPG" alt="" />
-                <p class="caption"><i>Arches National Park</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-11.jpg" alt="" />
-                <p class="caption"><i>Southern California</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-09.jpg" alt="" />
-                <p class="caption"><i>Southern California</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-10.jpg" alt="" />
-                <p class="caption"><i>Canon Beach, Oregon</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-12.jpg" alt="" />
-                <p class="caption"><i>Wadi Rum, Southern Jordan</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-13.jpg" alt="" />
-                <p class="caption"><i>Houston, Texas</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-14.jpg" alt="" />
-                <p class="caption"><i>Coso Volcanic Field, California</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-15.jpg" alt="" />
-                <p class="caption"><i>Portland, Oregon</i></p></span>
-
-                    <span class="image mainvertical"><img src="images/Places/Places-16.jpg" alt="" />
-                <p class="caption"><i>Lava Tube, Southern California</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-17.jpg" alt="" />
-                <p class="caption"><i>Petra, Jordan</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-18.jpg" alt="" />
-                <p class="caption"><i>Las Cruces, New Mexico</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-19.jpg" alt="" />
-                <p class="caption"><i>Mount St Helens, Washington</i></p></span>
-
-                    <span class="image main"><img src="images/Places/Places-20.jpg" alt="" />
-                <p class="caption"><i>Amman, Jordan</i></p></span>
+                    <h3>Programming</h3>
+                    <div class="grid-container-3">
+                        <div class="team-square">
+                            <a href="gradmap.html"><img class="team-headshot" src="images/homepage/d3map.jpg">
+        <h4 class="team-name">Interactive d3.js visualization</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="powerapplet.html"><img class="team-headshot" src="images/homepage/powerapplet.jpg">
+        <h4 class="team-name">Statistical Power Applet</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="fitbit.html"><img class="team-headshot" src="images/homepage/fitbit.jpg">
+        <h4 class="team-name">Timeseries of Fitbit walking data</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="temps.html"><img class="team-headshot" src="images/homepage/climate.jpg">
+        <h4 class="team-name">Madison temps and snow 1890s-2018</h4>
+        </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="moment.html"><img class="team-headshot" src="images/homepage/appusage.jpg">
+        <h4 class="team-name">iPhone app usage visualization</h4>
+        </a>
+                        </div>
+                        <!-- <div class="team-square">
+                            <a href="https://www.linkedin.com/in/joshua-corvinus-1b696aa9/">
+                            <img class="team-headshot" src="images/newmexico/NM-88.jpg">
+                            <h4 class="team-name">Josh Corvinus</h4>
+                            </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="https://www.linkedin.com/in/tyler-waite/" target="_blank">
+                            <img class="team-headshot" src="images/newmexico/NM-88.jpg">
+                            <h4 class="team-name">Tyler Waite</h4>
+                            </a>
+                        </div>
+                        <div class="team-square">
+                            <a href="https://www.linkedin.com/in/joshua-corvinus-1b696aa9/" target="_blank">
+                            <img class="team-headshot" src="images/newmexico/NM-88.jpg">
+                            <h4 class="team-name">Josh Corvinus</h4>
+                            </a>
+                        </div> -->
+                    </div>
                 </section>
+
             </div>
         </div>
 
         <!-- Sidebar -->
         <div id="sidebar">
             <div class="inner">
+
 
                 <!-- Menu -->
                 <nav id="menu">
@@ -165,7 +255,6 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
                                 <li><a href="moment.html">App Usage</a></li>
                                 <li><a href="gettingthere.html">Physics Simulations</a></li>
                                 <li><a href="temps.html">Plotting Climate Data</a></li>
-
                             </ul>
                         </li>
                         <li style="color: grey;border-top: 0; margin-top: 2em"><a href="about.html">About</a></li>
@@ -174,7 +263,6 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
                 </nav>
             </div>
         </div>
-
     </div>
 
     <!-- Scripts -->
