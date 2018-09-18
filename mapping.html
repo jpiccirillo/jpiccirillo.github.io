@@ -8,6 +8,7 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
 	- html5up.net | @ajlkn
 	- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
@@ -20,7 +21,6 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
         gtag('js', new Date());
         gtag('config', 'UA-96097643-1');
     </script>
-
     <title>Mapping / Jeffrey Piccirillo</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -40,9 +40,44 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <style>
-    .grid {
-        max-width: 100%;
-    }
+        i {
+            font-size: 11px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 15pt;
+            text-align: center;
+            font-size: 12pt;
+
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .team-headshot {
+            width: 100%;
+            /*height: 70pt;*/
+            /*border-radius: 50%;*/
+        }
+
+        .team-square {
+            /*padding-bottom: 15pt;*/
+            /*background-color: rgb(76, 217, 100);*/
+            /*border-radius: 10pt;*/
+            width: 100%;
+            /*height: 50%;*/
+        }
+
+        @media (max-width:745px) {
+            .grid-container, .grid-container-3 {
+                grid-template-columns: 1fr 1fr;
+                padding: 0pt !important;
+            }
+        }
     </style>
 </head>
 
@@ -59,66 +94,58 @@ Hi there! Thanks for checking out my site.  Its theme is a modified version of t
                 <section>
                     <span class="image main" style="max-width: 95%;"><a href="sanysidro.html"><img src="images/newmexico/SanYsidroMapjpeg.jpg" alt="" /></a>
                 <p class="caption"><i>Click for full size</i></p></span>
-                    <p style="max-width:95%; margin: auto;">One part of the Earth Science curriculum at Rice University was a geological techniques class, offering an introduction to describing, recording, and interpreting geologic features in the field, along with mapping and creating cross-sections.
-                        By far the largest project for this course involved mapping a spectacular sequence of rocks along the eastern edge of the Colorado Plateau, near San Ysidro, NM. During our week of field work, our class divided into small teams and hiked through Cretaceous, Jurassic, and Triassic sandstones and siltstones, learned how to recognize and record faults and deformed geology, and how to perform the variety of observations involved with producing a geologic map.
-                        <br>
-                        <br>After returning to Houston, we spent the spring interpreting our observations and data. From these efforts, we produced our own, regional geologic map and cross section of the San Ysidro area, in addition to field methods report
-                        and a general geologic history of the Southwest.
-                        <br>
-                        <br>This page showcases the final compilation I produced, including the geologic map, cross section, and unit descriptions. Below is a small collection of photos I took over the course of the trip.
+                    <p style="">One part of the Earth Science curriculum at Rice University was a geological techniques class, offering an introduction to describing, recording, and interpreting geologic features in the field, along with mapping and creating cross-sections.
+                        By far the largest project for this course involved mapping a spectacular sequence of rocks along the eastern edge of the Colorado Plateau, near San Ysidro, NM. During our week of field work, our class divided into small teams
+                        and hiked through Cretaceous, Jurassic, and Triassic sandstones and siltstones, learned how to recognize and record faults and deformed geology, and how to perform the variety of observations involved with producing a geologic
+                        map.
                     </p>
-                </section>
-                <section style="max-width: 97%; margin: auto; border: none; margin-bottom: 3em">
-                    <div class="features">
-                        <article>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-88.jpg" /></a></p>
-                            </div>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-127.jpg" /></a></p>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-121.jpg" /></a></p>
-                            </div>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-118.jpg" /></a></p>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-132.jpg" /></a></p>
-                            </div>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-134.jpg" /></a></p>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-138.jpg" /></a></p>
-                            </div>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-27.jpg" /></a></p>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-8.jpg" /></a></p>
-                            </div>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-107.jpg" /></a></p>
-                            </div>
-                        </article>
-                        <article>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-105.jpg" /></a>
-                                </p>
-                            </div>
-                            <div class="content">
-                                <p><a class="image"><img class ="grid" src="images/newmexico/NM-79.jpg" /></a></p>
-                            </div>
-                        </article>
+                    <p>
+                        After returning to Houston, we spent the spring interpreting our observations and data. From these efforts, we produced our own, regional geologic map and cross section of the San Ysidro area, in addition to field methods report and a general geologic
+                        history of the Southwest.
+                    </p>
+                    <p>
+                        This page showcases the final compilation I produced, including the geologic map, cross section, and unit descriptions. Below is a small collection of photos I took over the course of the trip.
+                    </p>
+
+                    <div class="grid-container" style="margin-bottom: 2em;">
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-88.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-127.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-121.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-118.jpg">
+                        </div>
+
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-132.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-134.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-138.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-27.jpg">
+                        </div>
+
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-8.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-107.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-105.jpg">
+                        </div>
+                        <div class="team-square">
+                            <img class="team-headshot" src="images/newmexico/NM-79.jpg">
+                        </div>
                     </div>
                 </section>
 
