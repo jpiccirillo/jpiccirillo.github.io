@@ -1,4 +1,5 @@
-Jeffrey Piccirillo 
+Jeffrey Piccirillo
+piccirilloj1@gmail.com 
 09/18/2018
 
 Hi there, I'm not sure where this graphic will be hosted / presented, or by whom.  I wanted to provide clues to how I myself as its creator would position it within a separate web page (for the best user experience, taking into account other content on the page and presentation at different scales).  If you already have experience with embedding interactive/responsive SVG graphics within HTML, feel free to disregard.  Regardless, the hosting webpage must have a div with id=map for the script to select and bind the graphic to, and load largeCities.js/smallCities.js before the main script as these are used to create the graphic.  Thank you! 
