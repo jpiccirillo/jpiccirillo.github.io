@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<!--
+Hi there! Thanks for checking out my site.  Its theme is a modified version of the Editorial HTML5 template, and is hosted through GitHub pages.  If you have comments, I’d love to hear them at piccirilloj1 at gmail.com! (or github.com/jpiccirillo).  I take pride in this site and update it as regularly as I can with personal projects I’m working on.  Input / suggestions are critical to learning best practices, and with a web-based learning approach I certainly miss things.
+
+	Info on Template:
+	- Editorial by HTML5 UP
+	- html5up.net | @ajlkn
+	- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-96097643-1');
+    </script>
+
+    <title>App Usage / Jeffrey Piccirillo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <!-- <script src="EXTRAS/d3websitefiles/highlight.min.js"></script> -->
+
+    <!--    Icon Links-->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- <script type="text/javascript" src="js/iframeResizer.min.js"></script> -->
+    <style>
+        #wrap {
+            width: 600px;
+            height: 390px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #frame {
+            width: 800px;
+            height: 520px;
+            border: 1px solid black;
+        }
+
+        #frame {
+            -ms-zoom: 0.75;
+            -moz-transform: scale(0.75);
+            -moz-transform-origin: 0 0;
+            -o-transform: scale(0.75);
+            -o-transform-origin: 0 0;
+            -webkit-transform: scale(0.75);
+            -webkit-transform-origin: 0 0;
+        }
+    </style>
+</head>
+
+<style>
+    @import url("/assets/css/style.css");
+</style>
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <section>
+                    <div style="">
+                        <style>
+                            iframe {
+                                width: 1px;
+                                min-width: 100%;
+                            }
+                        </style>
+                        <h3 style="max-width: 95%; margin: auto; margin-bottom: 1em">Most Used iPhone Apps</h3>
+                        <iframe id="hostingsite" src="/EXTRAS/moment/index.html" scrolling="no" style="overflow: hidden;height: 400px; margin-top: -.5em"></iframe>
+                        <p class="caption" style="font-weight: 500; max-width: 95%; margin: auto"><i>To expose different areas of the dataset, drag/resize the grey box in the bottom plot.  Hover over top plot for detail about time on each app.</i>
+                        </p>
+                    </div>
+                    <p id="callback">
+                    </p>
+                    <section style="max-width: 95%; margin: auto">
+                        <p>
+                            Our phones can do a pretty much endless variety of things — they keep us company and entertain us when we’re alone, and when we’re with friends, they probably helped get us there with a text, phone call, or map. They offer music when we're walking on the street, alarms for waking up, content for scrolling through before sleep, so many push notifications, and a thousand things in between. With an object that does so much, how can I visualize the main things I actually use my phone for? More importantly, <span style="font-weight: 400">will this knowledge help me use it less?</span>
+                            <br>
+                            <br>To start this quest, I found the pretty handy iOS application <a href="https://inthemoment.io/" target="_blank">Moment</a>, which works in the phone's background to automatically track key usage metrics: Number of "pick-ups", total minutes used, and minutes used on specific apps. As long as you keep Moment on in the background, it gathers minutes/pickups-per-day infromation on its own. For app usage, though, you're prompted to take a screenshot from Settings at the end of the day, which gives a break-down based on the amount of the battery that each app used. Moment also supports exporting the data it has collected, allowing me to create this visualization.
+                            <br>
+                            <br>Does having a graphic like this to show the biggest culprits really help? I'm not sure that having the data-oriented, detailed scoop on where I can improve makes starting that process too much easier. Following through and using this data to truly spend less time on my phone is going to require just as much motivation and effort as before.
+                            <br>
+                            <br>
+                            <b style="font-weight: 500">Practicing with:</b>
+                            <li style="margin-top:-2em">Setting up <a href="https://ifttt.com/discover" target="_blank">IFTTT</a> to sync the JSON-formatted export to my <a href="https://aws.amazon.com/s3/" target="_blank">Amazon S3</a> directory, so the plot is up-to-date, with minimal routine effort (still working on this).</li>
+                            <li>Parse through the JSON and push time spent on each app into an array, one for each app. Each array is a list of the minutes spent on that particular app per day.</li>
+                            <li>Average all the days in each array to find the apps I've spent the most time on, then display the top five using <a href="http://c3js.org/" target="_blank">c3.js</a>, a <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank">d3.js</a> based plotting library.</li>
+                            <li>Add some custom styling: color ramps, data series stacking, tooltip and subchart formatting, x-axis ticks, etc.</li>
+                        </p>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Jeffrey Piccirillo</h2>
+                    </header>
+                    <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/places/">Places</a></li>
+<li><a href="/people/">People</a></li>
+                        <li><a href="/surf/">Surf</a></li>
+                        <li><a href="/font/">Font</a></li>
+                        <li>
+                            <span class="opener">Mapping</span>
+                            <ul>
+                                <li><a href="/geological/">Geological</a></li>
+                                <li><a href="/pilgrimage/">Medieval Spain</a></li>
+                                <li><a href="/pchoropleth/">Political / Choropleth</a></li>
+                                <li><a href="/walkingpaths/">Campus Walking Map</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="opener">Programming</span>
+                            <ul>
+                                <li><a href="/gradmap/">D3 Interactive Map</a></li>
+                                <li><a href="/PowerApplet/powerapplet.html">Statistical Power Applet</a></li>
+                                <li><a href="/fitbit/">Fitbit Data Visualization</a></li>
+                                <li><a href="/workingonit/">Mint Financial Data</a></li>
+                                <li><a href="/workingonit/">Computer Productivity</a></li>
+                                <li><a href="/moment/">App Usage</a></li>
+                                <li><a href="/workingonit/">Physics Simulations</a></li>
+                                <li><a href="/temps/">Plotting Climate Data</a></li>
+                            </ul>
+                        </li>
+                        <li style="color: grey;border-top: 0; margin-top: 2em"><a href="/about/">About</a></li>
+                        <li style="color: grey;border-top: 0; margin-top: -.5em"><a href=" https://www.linkedin.com/in/jfpiccirillo/ " target="_blank">LinkedIn</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

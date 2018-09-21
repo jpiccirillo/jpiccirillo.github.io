@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<!--
+Hi there! Thanks for checking out my site.  Its theme is a modified version of the Editorial HTML5 template, and is hosted through GitHub pages.  If you have comments, I’d love to hear them at piccirilloj1 at gmail.com! (or github.com/jpiccirillo).  I take pride in this site and update it as regularly as I can with personal projects I’m working on.  Input / suggestions are critical to learning best practices, and with a web-based learning approach I certainly miss things.
+
+	Info on Template:
+	- Editorial by HTML5 UP
+	- html5up.net | @ajlkn
+	- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-96097643-1');
+    </script>
+
+    <title>Climate Data / Jeffrey Piccirillo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+
+    <!--    Icon Links-->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <style>
+        #wrap {
+            width: 600px;
+            height: 390px;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #frame {
+            width: 800px;
+            height: 520px;
+            border: 1px solid black;
+        }
+
+        #frame {
+            -ms-zoom: 0.75;
+            -moz-transform: scale(0.75);
+            -moz-transform-origin: 0 0;
+            -o-transform: scale(0.75);
+            -o-transform-origin: 0 0;
+            -webkit-transform: scale(0.75);
+            -webkit-transform-origin: 0 0;
+        }
+    </style>
+</head>
+
+<style>
+    @import url("/assets/css/style.css");
+</style>
+
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <section>
+
+                    <!--                    <h2>Automatically resizing iFrame</h2>-->
+                    <div style="">
+                        <style>
+                            iframe {
+                                width: 1px;
+                                min-width: 100%;
+                            }
+                        </style>
+                        <h3 style="margin-bottom: .75em;">Madison Climate Visualization</h3>
+                        <iframe id="hostingsite" src="/temps/madisonsnow/" style="overflow: hidden;height: 320px; margin-left:-1em; margin-top: -.5em"></iframe>
+                        <iframe id="hostingsite" src="/temps/madisonsnow/index2.html" style="overflow: hidden;height: 300px; margin-left:-1em;"></iframe>
+                        <p class="caption" style="font-weight: 500; "><i>Select a month from the dropdown menu in the top left to view temperature data for that month.  Hover over data series for year-by-year tooltip.</i>
+                        </p>
+                    </div>
+
+                    <p id="callback">
+                    </p>
+
+
+                    <section style="">
+                        <p>
+                            <!-- Just a first run through to do some simple visualization of fitbit walking data over the last year+ using c3.js. Big thanks to <a href="http://gsx2json.com" target="_blank">gsx2json</a> for an API that provides an amazingly
+                            simple way to connect to a public Google Drive spreadsheet and convert it to JSON data :D. -->
+                            <b style="font-weight: 500">Sources:</b>
+                            <li style="margin-top:-2em">Monthly temperature data: <a href="https://www7.ncdc.noaa.gov/CDO/CDODivisionalSelect.jsp" target="_blank">NOAA/National Climate Data Center</a></li>
+                            <li>Snowfall data: <a href="http://www.aos.wisc.edu/~sco/clim-history/7cities/madison.html#Snow" target="_blank">Wisconsin State Climatology Office</a></li>
+                        </p>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Jeffrey Piccirillo</h2>
+                    </header>
+                    <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/places/">Places</a></li>
+<li><a href="/people/">People</a></li>
+                        <li><a href="/surf/">Surf</a></li>
+                        <li><a href="/font/">Font</a></li>
+                        <li>
+                            <span class="opener">Mapping</span>
+                            <ul>
+                                <li><a href="/geological/">Geological</a></li>
+                                <li><a href="/pilgrimage/">Medieval Spain</a></li>
+                                <li><a href="/pchoropleth/">Political / Choropleth</a></li>
+                                <li><a href="/walkingpaths/">Campus Walking Map</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="opener">Programming</span>
+
+                            <ul>
+                                <li><a href="/gradmap/">D3 Interactive Map</a></li>
+                                <li><a href="/PowerApplet/powerapplet.html">Statistical Power Applet</a></li>
+                                <li><a href="/fitbit/">Fitbit Data Visualization</a></li>
+                                <li><a href="/workingonit/">Mint Financial Data</a></li>
+                                <li><a href="/workingonit/">Computer Productivity</a></li>
+                                <li><a href="/moment/">App Usage</a></li>
+                                <li><a href="/workingonit/">Physics Simulations</a></li>
+                                <li><a href="/temps/">Plotting Climate Data</a></li>
+                            </ul>
+                        </li>
+                        <li style="color: grey;border-top: 0; margin-top: 2em"><a href="/about/">About</a></li>
+                        <li style="color: grey;border-top: 0; margin-top: -.5em"><a href=" https://www.linkedin.com/in/jfpiccirillo/ " target="_blank">LinkedIn</a></li>
+                    </ul>
+                </nav>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+</body>
+</html>

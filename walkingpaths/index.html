@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<!--
+Hi there! Thanks for checking out my site.  Its theme is a modified version of the Editorial HTML5 template, and is hosted through GitHub pages. If you have comments, I’d love to hear them at piccirilloj1 at gmail.com! (or github.com/jpiccirillo).  I take pride in this site and update it as regularly as I can with personal projects I’m working on.  Input / suggestions are critical to learning best practices, and with a web-based learning approach I certainly miss things.
+
+	Info on Template:
+	- Editorial by HTML5 UP
+	- html5up.net | @ajlkn
+	- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-96097643-1');
+    </script>
+
+    <title>Mapping / Jeffrey Piccirillo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+
+    <!--    Icon Links-->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/assets/css/main.css" />
+
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</head>
+<body>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Section -->
+                <section>
+                    <span class="image main" style=""><img src="pedestrianpaths.gif" alt="" />
+                <p class="caption"><i>Image rotates through five most common sets of paths taken, each symbolized efficiency.  Green: most efficient, Red: least efficient.</i></p></span>
+
+                    <p style="">
+                        When there's many ways to go from one place to another, how do we decide on which path to take? How efficient is our chosen path? This map gathers location data over the course of several weeks to explore the way an actual student navigates the network of sidewalks on his college campus toget from one place to another. The five most common paths taken throughout this time are displayed (Location 1 to 2, Location 1 to 3, Location 1 to 5, Location 1 to 6, and Location 4 to 6). They are then symbolized by efficiency, green being most efficient and red being least efficient. This efficiency is calculated by comparison to a "most efficient" path between corresponding locations, symbolized by the dotted white line.
+                        <br>
+                        <br> Being able to gather immense amounts of data about our daily habits and activities is a common feature of modern devices, and I believe that seeing all our patterns visualized can help create a striking portrait of what we value, and how we prioritize tasks. In recording the seemingly subconscious decisions that dictate which paths I use to get from one place to another, I hope to gain a quantitative portrait of how I value, enjoy, and prioritize different parts of campus.
+                        <br>
+                        <br>
+
+                        <b>Motivating Question:</b>
+                        <br> How efficient am I when walking from location to location? How can I make my five most common paths more efficient?
+                        <br>
+                        <br>
+
+                        <b>Data Collection:</b>
+                        <br> In order to answer this question, I carried an Garmin eTrex 10 GPS unit with me while walking around campus over the course of several weeks. This small GPS device is capable of recording tracks, or the where I walk over a period of time. After a few weeks of recording, I had a pretty complete log of where I walked and when. Unfortunately, the Garmin eTrex was accurate only occasionally, often generating line data that was so innaccurate that I struggled to determine where I had actually been walking. In order to reduce this problem, I tried to use the eTrex in a strictly open air context only after it achieved good reception.
+                        <br>
+                        <br>
+
+                        <b>Data Cleaning: </b>
+                        <br> The GPS tracks collected on the eTrex 10 required a significant amount of processing and cleaning in order to be ready for display and analysis. I first connected the device to my computer by USB and imported the tracks into Garmin BaseCamp, where I was able to export the tracks as a .gpx file, and later used FME Workbench to convert the tracks into .shp format. I then pulled the tracks into ArcMap and was ready to begin the cleaning process.
+                        <br>
+                        <br> I started cleaning the data by removing extraneous vertices along the tracks that represented clearly false data, where the eTrex 10 was extremely inaccurate, and produced tracks that jumped several hundred feet across campus. This often happened when entering or leaving a building, where the quality of satellite reception changed greatly in a short amount of time, or when lost reception at one point but regained it in a much different location while the eTrex 10 device was on. I then used my best judgement to modify less-obviously incorrect tracks, for example when I was inside a building, but the eTrex 10 registered me as outside, or more often, walking in and out of walls. This required knowledge of my walking habits, and the path I was most likely to take. Lastly, to achieve a more organic and realistic look, I smoothed the tracks several times using simple geoprocessing methods.
+                        <br>
+                        <br>
+
+                        <b>In ArcMap:</b>
+                        <br> After looking through the multitude of processed tracks, I identified the five most common paths I took, and chose these as the five characteristic tracks I would analyze for efficiency. I did this by generating, for each track, a "most efficient" version - that is, the shortest feasible route from the beginning to end of the walk. I then looked at how much longer my path data was compared to the "most efficient" version, then symbolized the paths based on this calculated efficiency (Green most efficient, red least efficient).
+                        <br>
+                        <br>
+
+                        <b>Conclusions: </b>
+                        <br> In general, I'm actually pretty efficient already (a clear attempt to maximize time in bed, while still getting to class somewhat on time lol). Shorter paths appear to be less efficient, while longer paths appear to be more efficient. Campus shape, and the presence of streets lengthwise through campus are most likely candidates for this pattern, rather than any particular habits on my part. Additionally, some routes on campus are more scenic than others. Although not a particularly powerful factor in what path I choose, it certainly does explain why I choose a route ~20% less efficient so routinely when going from Location 1 to Location 6.
+                        <br>
+                        <br> Anyway, through this project, I certainly learned a lot about where I can reduce walk-time when going from place to place. Even if I continue to choose a less efficient route, at least I'll have some numbers on how much longer I can expect my walk-time to take.
+                        <br>
+                        <br>
+
+
+
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="inner">
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Jeffrey Piccirillo</h2>
+                    </header>
+                    <ul>
+<li><a href="/">Home</a></li>
+<li><a href="/places/">Places</a></li>
+<li><a href="/people/">People</a></li>
+                        <li><a href="/surf/">Surf</a></li>
+                        <li><a href="/font/">Font</a></li>
+                        <li>
+                            <span class="opener">Mapping</span>
+                            <ul>
+                                <li><a href="/geological/">Geological</a></li>
+                                <li><a href="/pilgrimage/">Medieval Spain</a></li>
+                                <li><a href="/pchoropleth/">Political / Choropleth</a></li>
+                                <li><a href="/walkingpaths/">Campus Walking Map</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="opener">Programming</span>
+                            <ul>
+                                <li><a href="/gradmap/">D3 Interactive Map</a></li>
+                                <li><a href="/PowerApplet/powerapplet.html">Statistical Power Applet</a></li>
+                                <li><a href="/fitbit/">Fitbit Data Visualization</a></li>
+                                <li><a href="/workingonit/">Mint Financial Data</a></li>
+                                <li><a href="/workingonit/">Computer Productivity</a></li>
+                                <li><a href="/moment/">App Usage</a></li>
+                                <li><a href="/workingonit/">Physics Simulations</a></li>
+                                <li><a href="/temps/">Plotting Climate Data</a></li>
+                            </ul>
+                        </li>
+                        <li style="color: grey;border-top: 0; margin-top: 2em"><a href="/about/">About</a></li>
+                        <li style="color: grey;border-top: 0; margin-top: -.5em"><a href=" https://www.linkedin.com/in/jfpiccirillo/ " target="_blank">LinkedIn</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>
