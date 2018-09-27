@@ -8,6 +8,17 @@ colors = {
     3: { "opaque": [152,174,217], "alpha": [152,174,217, 0.5]},
     4: { "opaque": [255,255,255], "alpha": [255,255,255, 0.5]}
 }
+// 30 day unplanned:
+// alpha: 1.7 - 11
+// beta: 6 - 14
+// gamma: 10 - 20
+// delta: 13 - 32
+//
+// 90 day complications:
+// alpha: 13 - 29
+// beta: 21 - 32
+// gamma: 26 - 39
+// delta: 49 - 70
 
 var tree = {
     ">=4METs": {
@@ -16,28 +27,28 @@ var tree = {
                 "1or2": {
                     "class": "alpha",
                     "number": 0,
-                    "day30": 5,
-                    "day90": 20
+                    "day30": "5%|1.7% to 11%",
+                    "day90": "20%|13% to 29%"
                 },
                 "3or4": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 9,
-                    "day90": 26
+                    "day30": "9%|6% to 14%",
+                    "day90": "26%|21% to 32%"
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 9,
-                    "day90": 26
+                    "day30": "9%|6% to 14%",
+                    "day90": "26%|21% to 32%"
                 },
                 "3or4": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 }
             }
         },
@@ -46,28 +57,28 @@ var tree = {
                 "1or2": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 9,
-                    "day90": 26
+                    "day30": "9%|6% to 14%",
+                    "day90": "26%|21% to 32%"
                 },
                 "3or4": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 21,
-                    "day90": 60
+                    "day30": "21%|13% to 32%",
+                    "day90": "60%|49% to 70%"
                 }
             }
         }
@@ -78,28 +89,28 @@ var tree = {
                 "1or2": {
                     "class": "beta",
                     "number": 1,
-                    "day30": 9,
-                    "day90": 26
+                    "day30": "9%|6% to 14%",
+                    "day90": "26%|21% to 32%"
                 },
                 "3or4": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 21,
-                    "day90": 60
+                    "day30": "21%|13% to 32%",
+                    "day90": "60%|49% to 70%"
                 }
             }
         },
@@ -108,33 +119,35 @@ var tree = {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 21,
-                    "day90": 60
+                    "day30": "21%|13% to 32%",
+                    "day90": "60%|49% to 70%"
                 }
             },
             "yes": {
                 "1or2": {
                     "class": "gamma",
                     "number": 2,
-                    "day30": 14,
-                    "day90": 32
+                    "day30": "14%|10% to 20%",
+                    "day90": "32%|26% to 39%"
                 },
                 "3or4": {
                     "class": "delta",
                     "number": 3,
-                    "day30": 21,
-                    "day90": 60
+                    "day30": "21%|13% to 32%",
+                    "day90": "60%|49% to 70%"
                 }
             }
         }
     }
 }
+
+
 
 function startSpinningWheel() {
     setTimeout(prepare, 0);
@@ -164,8 +177,12 @@ function checkIfComplete() {
         //Set title section to 1st letter (upper), rest left alone
         console.log(severity)
         $(".severity span").text(severity.class[0].toUpperCase()+severity.class.slice(1))
-        $("#day30 span").text(severity.day30 + "%").css("color", "black")
-        $("#day90 span").text(severity.day90 + "%").css("color", "black")
+
+        $("#day30 #main").text(severity.day30.split("|")[0]).css("color", "black")
+        $("#day30 #ci").text("     (" + severity.day30.split("|")[1] + ")")
+
+        $("#day90 #main").text(severity.day90.split("|")[0]).css("color", "black")
+        $("#day90 #ci").text("     (" + severity.day90.split("|")[1] + ")")
         plotSurvival(severity.number);
     }
 }

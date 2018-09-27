@@ -25,30 +25,35 @@
 
     <div class="container">
         <!-- <div class="graph"> -->
-
+        <div class="logo">
+        <img src="washulogo.png">
+    </div>
         <div class="controls">
             <table>
                 <tr>
                     <td class="label">Functional Status:</td>
                     <td><select class="input">
                             <option value="incomplete" selected disabled>Choose...</option>
-                            <option value=">=4METs">&ge;4METs</option>
-                            <option value="<4METs">&lt;4METs</option>
+                            <option value="<4METs">Yes</option>
+                            <option value=">=4METs">No</option>
                         </select></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="description">Can the patient climb 1 to 2 flights of stairs or walk brisky on level ground without feeling short of breath or having chest pain? &ge;4 if 'Yes', &lt;4 if 'No'.</td>
+                    <td colspan="2" class="description">Can the patient climb 1 to 2 flights of stairs without stopping, or walk brisky on level ground without feeling short of breath?
+                    </td>
                 </tr>
                 <tr>
                     <td class="label">Comorbidity:</td>
                     <td><select class="input">
                                         <option value="incomplete" selected disabled>Choose...</option>
-                                        <option value="none/mild">None/Mild</option>
-                                        <option value="mod/severe">Mod/Severe</option>
+                                        <option value="none/mild">0 = None</option>
+                                        <option value="none/mild">1 = Mild</option>
+                                        <option value="mod/severe">2 = Moderate</option>
+                                        <option value="mod/severe">3 = Severe</option>
                                     </select></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="description">Identify the important medical comorbidities and grade severity using the index (insert link here). Overall Comorbidity Score is defined according to the highest ranked single ailment, except in the case where two or more Grade 2 ailments occur in different organ systems. In this situation, the overall comorbidity score should be designated Grade 3.</td>
+                    <td colspan="2" class="description">Identify the important medical comorbidities and grade severity using the <a href="http://otooutcomes.wustl.edu/Research/Research-Focus/Cancer/Comorbidity-Calculator" target=_blank>Comorbidity Calculator</a>.</td>
                 </tr>
             </tr>
             <tr>
@@ -83,28 +88,28 @@
             </div>
             <div class="panes">
                 <div class="pane">
-                    <div class="label">30-Day Unplanned Readmissions:</div>
-                    <div id="day30"><span>N/A</span></div>
+                    <div class="label">30-Day Unplanned Readmission Rate:</div>
+                    <div id="day30"><span id="main">N/A</span><span id="ci"></span></div>
                     <div class="description">
-                    Here is the information for mu_o. There's alot of infoere is the information for mu_o.
+                    Numbers in parentheses represent 95% confidence interval.
                                     </div>
                 </div>
                 <div class="pane">
-                    <div class="label">90-Day Complications:</div>
-                    <div id="day90"><span>N/A</span></div>
+                    <div class="label">90-Day Complication Rate:</div>
+                    <div id="day90"><span id="main">N/A</span>    <span id="ci"></span></div>
                     <div class="description">
-                    Here is the information for mu_o. There's alot of infere is the information for mu_o.
+                                        Numbers in parentheses represent 95% confidence interval.
                 </div>
                 </div>
             </div>
             <div class="chart">
-                <div class="label">Total survival:</div>
+                <div class="label">Overall Survival:</div>
                 <div id="chart" style="height: 130px">
                                 <div id="loader"></div>
                             </div>
-                <div class="description">
+                <!-- <div class="description">
                  Brief description here.  Note that it's possible for this text to change or update when a user hovers over a different month post-treatment, if there are blurbs that are relevant to different stages as time passes.
-             </div>
+             </div> -->
             </div>
         </div>
     </div>

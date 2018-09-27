@@ -48,16 +48,23 @@ body {
 
 .controls {
     display: inline-block;
-    width: 30%;
+    width: calc(30% - 5px);
     height: 100%;
+    padding-right: 5px;
+    border-right: 1px solid grey;
     /*border: none;*/
 }
 
 .results {
     display: inline-block;
     width: 69%;
-    border-left: 1px solid grey;
+    /*border-left: 1px solid grey;*/
     vertical-align: top;
+}
+
+.logo {
+    padding: 5px;
+    padding-bottom:0px;
 }
 
 table {
@@ -99,6 +106,7 @@ table {
 .severity {
     padding: 5px;
     font-size: 18px;
+    background-color: gainsboro;
     border: none ! important;
 }
 .severity span {
@@ -108,12 +116,23 @@ table {
     padding: 5px;
 
 }
-#day30 span, #day90 span {
-    font-weight: 400;
-    font-size: 32px;
+#day30, #day90 {
     display: table;
     margin: auto;
+}
+
+/*#day30 span, #day90 span {
+
+}*/
+#main {
+    font-weight: 400;
+    font-size: 28px;
     color: gainsboro;
+}
+#ci {
+    font-style: oblique;
+    color: grey;
+    font-size: 20px;
 }
 
 #loader {
