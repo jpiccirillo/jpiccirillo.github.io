@@ -2,11 +2,11 @@
 // inspired from: https://jsfiddle.net/uphokkax/31/
 // Custom tooltip code from http://jsfiddle.net/7kYJu/186/
 colors = {
-    0: { "opaque": [240,211,125], "alpha": [240,211,125, 0.5]},
-    1: { "opaque": [237,185,147], "alpha": [237,185,147, 0.5]},
-    2: { "opaque": [174,209,151], "alpha": [174,209,151, 0.5]},
-    3: { "opaque": [152,174,217], "alpha": [152,174,217, 0.5]},
-    4: { "opaque": [255,255,255], "alpha": [255,255,255, 0.5]}
+    0: { "opaque": [240,211,125, 1], "alpha": [240,211,125, 0.5]},
+    1: { "opaque": [237,185,147, 1], "alpha": [237,185,147, 0.5]},
+    2: { "opaque": [174,209,151, 1], "alpha": [174,209,151, 0.5]},
+    3: { "opaque": [152,174,217, 1], "alpha": [152,174,217, 0.5]},
+    4: { "opaque": [255,255,255, 1], "alpha": [255,255,255, 0.5]}
 }
 // 30 day unplanned:
 // alpha: 1.7 - 11
@@ -311,12 +311,12 @@ function tooltip_contents(d, defaultTitleFormat, defaultValueFormat, color) {
         }
         if (val.name === 'difference') {
             name = "Confidence"
-            low = (data[stage][1][val.x+1]*100).toFixed(1)
-            high = (data[stage][2][val.x+1]*100).toFixed(1)
-            value = low + " to " + high + "%";
+            low = (data[stage][1][val.x+1]*100).toFixed(0)
+            high = (data[stage][2][val.x+1]*100).toFixed(0)
+            value = low + "% " + " to " + high + "%";
         } else {
             name = nameFormat(val.name);
-            value = (val.value*100).toFixed(1)+"%";
+            value = (val.value*100).toFixed(0)+"%";
         }
 
         text += "<tr class='" + $$.CLASS.tooltipName + "-" + val.id + "'>";
