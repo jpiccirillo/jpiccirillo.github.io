@@ -79,13 +79,13 @@ function createCal(activity) {
 
     const filterValue = (obj, key, value) => obj.filter(v => v[key] === value);
 
-    d3.csv("activity_day/rt_2017-10-15|2018-08-26|activity|day.csv", function(error, csv) {
+    d3.csv("activity_day/rt_2017-10-15|2018-09-09|activity|day.csv", function(error, csv) {
         if (error) throw error;
-        // console.log(csv.slice(0, 100))
+
         var arr = csv.map(function(el) {
             return el.Activity;
         });
-        // console.log(csv)
+
         var options = {
             data: [...new Set(arr)],
             list: {

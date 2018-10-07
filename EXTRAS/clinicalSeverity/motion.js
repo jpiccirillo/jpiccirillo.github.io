@@ -147,8 +147,6 @@ var tree = {
     }
 }
 
-
-
 function startSpinningWheel() {
     setTimeout(prepare, 0);
     plotSurvival(4)
@@ -295,15 +293,15 @@ function plotSurvival(stage) {
 }
 
 function tooltip_contents(d, defaultTitleFormat, defaultValueFormat, color) {
-    console.log(stage)
-    console.log(data)
+    // console.log(stage)
+    // console.log(data)
     var $$ = this,
         config = $$.config,
         nameFormat = function(name) { return name; },
         text, i, title, value, name, bgcolor;
 
     d.forEach(function(val, i) {
-        console.log(val)
+        // console.log(val)
         if (val.name === 'lowerbound') { return; }
         if (!text) {
             title = (val.x+1>1) ? val.x+1 + " years" : val.x+1 + " year";
