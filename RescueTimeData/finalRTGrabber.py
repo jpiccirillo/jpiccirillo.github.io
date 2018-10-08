@@ -18,7 +18,7 @@ def request():
     for interval in intervals:
         for kind in kindsofdata:
             folder = kind + "_" + interval + "/"
-
+            print(folder)
             #most recent date on record (begin date)
             mostRecent = lastDate(folder) + dt.timedelta(days=1)
 
@@ -40,9 +40,9 @@ def request():
             webpage = urllib.request.urlopen(url)
             datareader = csv.reader(webpage.read().decode('utf-8').splitlines())
 
-            with open(latestFile(folder), 'a', encoding='utf-8', newline='') as outFile:
-                writer = csv.writer(outFile)
-                writer.writerows(datareader)
+            # with open(latestFile(folder), 'a', encoding='utf-8', newline='') as outFile:
+            #     writer = csv.writer(outFile)
+            #     writer.writerows(datareader)
 
             latest = latestFile(folder)
             print("latest: " + str(latest))
@@ -50,6 +50,11 @@ def request():
             print(oldParts)
             newName = oldParts[0] + "|" + yday_midnight + "|" + oldParts[2] + "|" + oldParts[3]
             os.rename(latest, newName)
+
+    with open('latest.csv', 'a', encoding='utf-8', newline='') as outFile:
+        print("writing " + newName + " into latest.csv")
+        csv.writer(outFile).writerow([newName])
+
 
 def latestFile(dir):
     list_of_files = glob.glob(dir + "*.csv")
@@ -64,7 +69,7 @@ def lastDate(dir):
             pass
 
         last = line
-        # print(last)
+        print(last)
         date_obj = dt.datetime.strptime(last[0], "%Y-%m-%dT%H:%M:%S")
 
     return date_obj

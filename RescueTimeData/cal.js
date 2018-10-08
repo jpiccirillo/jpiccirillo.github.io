@@ -1,6 +1,7 @@
 var width = 960,
     height = 136,
-    cellSize = 17;
+    cellSize = 17,
+    latestFile = "";
 
 var color = d3.scaleQuantize()
     .domain([0, 7])
@@ -79,54 +80,61 @@ function createCal(activity) {
 
     const filterValue = (obj, key, value) => obj.filter(v => v[key] === value);
 
-    d3.csv("activity_day/rt_2017-10-15|2018-09-09|activity|day.csv", function(error, csv) {
-        if (error) throw error;
+    // what you need to do here is instead of manually updating the file name, have your python script edit the contents of a text file with the new file name.  the filename of that .txt stays constant, so that this script can always be opening something it knows the name of.  i think
+    d3.csv("latest.csv", function(error, csv) {
+        latestFile = csv.slice(-1)[0].HEADER
+        console.log("using " + latestFile + " as source")
 
-        var arr = csv.map(function(el) {
-            return el.Activity;
-        });
+        d3.csv(latestFile, function(error, csv) {
+            // console.log(latestFile)
+            if (error) throw error;
 
-        var options = {
-            data: [...new Set(arr)],
-            list: {
-                match: {
-                    enabled: true
-                },
-                onClickEvent: function() {
-                    var value = $("#provider-file").getSelectedItemData();
-                    console.log("replotting with:" + value)
-                    replot(value)
+            console.log(csv)
+            // window.csv = csv;
+            var arr = csv.map(function(el) {
+                return el.Activity;
+            });
+
+            var options = {
+                data: [...new Set(arr)],
+                list: {
+                    match: {
+                        enabled: true
+                    },
+                    onClickEvent: function() {
+                        var value = $("#provider-file").getSelectedItemData();
+                        console.log("replotting with:" + value)
+                        replot(value)
+                    }
                 }
-            }
-        };
+            };
 
-        var data = d3.nest()
-            .key(function(d) {
-                return d.Date.substring(0, 10);
-            })
-            .rollup(function(d) {
-                result = filterValue(d, "Activity", activity)
-                // console.log(result[0])
-                return (result[0] && result[0]["Time Spent (seconds)"] / 60) || 0
-            })
-            .object(csv);
+            var data = d3.nest()
+                .key(function(d) {
+                    return d.Date.substring(0, 10);
+                })
+                .rollup(function(d) {
+                    result = filterValue(d, "Activity", activity)
+                    // console.log(result[0])
+                    return (result[0] && result[0]["Time Spent (seconds)"] / 60) || 0
+                })
+                .object(csv);
 
-        console.log(data)
-
-        rect.filter(function(d) {
-                return String(d) in data;
-            })
-            .attr("fill", function(d) {
-                console.log(data[d])
-                var patch = color(Math.pow(data[d], 0.33))
-                return data[d]!=0 ? patch : 0;
-            })
-            .attr('class', 'tooltip')
-            .attr('title', function(d) {
-                return createTooltip(d, data)
-            })
-        d.resolve(options)
-    });
+            rect.filter(function(d) {
+                    return String(d) in data;
+                })
+                .attr("fill", function(d) {
+                    // console.log(data[d])
+                    var patch = color(Math.pow(data[d], 0.33))
+                    return data[d] != 0 ? patch : 0;
+                })
+                .attr('class', 'tooltip')
+                .attr('title', function(d) {
+                    return createTooltip(d, data)
+                })
+            d.resolve(options)
+        });
+    })
 
     return d.promise();
 }
