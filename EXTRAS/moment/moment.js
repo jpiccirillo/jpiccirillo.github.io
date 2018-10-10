@@ -1,40 +1,31 @@
 var applications = [],
+    numApps = 6, //top 5 apps
     modData = [],
     groups = [],
     dates = ['x'],
     minuteCount = ['Screentime'],
     pickupCount = ['Pickups'],
-    labels = ['Appstore', 'Bumble', 'Camera', 'Google Drive', 'Google Photos', 'Facebook', 'Fitbit', 'Gmail', 'Google Maps', 'Grindr', 'Hornet', 'Instagram', 'Maps', 'Messages', 'Messenger', 'Mint', 'Moment', 'Music', 'Notes', 'OK Cupid', 'Outlook', 'Phone', 'Photos', 'Reversee', 'Safari', 'Scruff', 'Settings', 'Snapchat', 'Uber', 'Lyft', 'Weather'],
-    ramps = [
-        ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
-        ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
-        ['#006837', '#31a354', '#78c679', '#c2e699', '#ffffcc'], ];
+    labels = ['Appstore', 'Bumble', 'Camera', 'Google Drive', 'Google Photos', 'Facebook', 'Fitbit', 'Gmail', 'Google Maps', 'Grindr', 'Hornet', 'Instagram', 'Maps', 'Messages', 'Messenger', 'Mint', 'Moment', 'Music', 'Notes', 'OK Cupid', 'Outlook', 'Phone', 'Photos', 'Reversee', 'Safari', 'Scruff', 'Settings', 'Snapchat', 'Uber', 'Lyft', 'Weather'];
+    // ramps = [
+    //     ['#8b0000', '#cb2f44', '#f47461', '#ffbd84', '#ffffe0'],
+    //     ['#253494', '#2c7fb8', '#41b6c4', '#a1dab4', '#ffffcc'],
+    //     ['#006837', '#31a354', '#78c679', '#c2e699', '#ffffcc'], ];
     // style = window.getComputedStyle(document.getElementById("#chart"), null);
     // width = style.getPropertyValue("width");
 
 d3.queue()
-    .defer(d3.json, "moment_before.json")
     .defer(d3.json, "moment.json")
+    .defer(d3.json, "moment_before.json")
     .await(processJSONs);
 
-function processJSONs(error, data2, data1) {
-    data = function (array) {
-        var o = {};
-        array.forEach(function (a) {
-            Object.keys(a).forEach(function (k) {
-                o[k] = a[k];
-            });
-        });
-        return o;
-    }([data1, data2]);
+function processJSONs(error, data1, data2) {
+    var a = data1.days, b = data2.days_1;
+    var data = {a, b};
 
-    for (var i = 0; i < labels.length; i++) {
-        applications.push([labels[i]]);
-    }
-
+    applications = labels.map(function(labels) { return [labels]})
     readData(data);
     changeLabels();
-    makeGroups();
+    makeGroups(numApps);
     makeChart();
 }
 
@@ -56,9 +47,8 @@ function compare(a, b) {
 
 function readData(obj) {
     for (var key in obj) {
-        // if (obj.hasOwnProperty(key)) {
-            var val = obj[key];
-        // }
+        var val = obj[key];
+
         for (var i = 0; i < val.length; i++) {
 
             //If appUsages subarray has length of 0 for a day, it means that battery screenshot failed 4 that day.
@@ -89,12 +79,6 @@ function readData(obj) {
                         }
                         if (applications[k][0] == app_name) {
                             var new_value = Math.floor(val[i]["appUsages"][j]['onScreen'])
-                                //                        var random_low_value = Math.floor((Math.random() * (5 - 0) + 0))
-
-                            //                        if (new_value < 2) {
-                            //                            new_value = random_low_value
-                            //                        }
-
                             applications[k].push(new_value);
                             var written = 1;
                         }
@@ -113,9 +97,6 @@ function readData(obj) {
     }
 
     applications = applications.sort(compare);
-    //    console.log(dates.length);
-    //    console.log(applications[0].length);
-    //    console.log(dates);
     console.log(applications[0],
                     applications[1],
                     applications[2],
@@ -124,93 +105,55 @@ function readData(obj) {
     console.log(applications);
 }
 
-function makeGroups() {
-    for (var i = 0; i < 5; i++) {
-        groups.push(applications[i][0])
-    }
-    console.log(groups)
+function makeGroups(limit) {
+    groups = applications.slice(0, limit).map(function(i) {return i[0]})
 }
 
 function changeLabels() {
-    for (var i = 0; i < applications.length; i++) {
-        if (applications[i][0] == "Grindr") { applications[i][0] = "Tinder" }
-        if (applications[i][0] == "Messages") { applications[i][0] = "iMessage"
-        }
-    }
+    applications.forEach(function(a, index) {
+        if (a[0] == "Grindr") { a[0] = "Tinder" }
+        if (a[0] == "Messages") { a[0] = "iMessage" }
+        //more exceptions and changes here if necessary
+    })
 }
 
 function makeChart() {
-    console.log(parseInt(window.innerWidth/100))
+    var columns = applications.filter(function(i, index) { return index < numApps})
+    columns.unshift(dates) //dates is global
+
+    // console.log(parseInt(window.innerWidth/100))
     var chart = c3.generate({
         data: {
             x: 'x',
             xFormat: '%Y-%m-%dT%H:%M:%S-%L:%S',
-            columns: [
-                dates,
-                applications[0],
-                applications[1],
-                applications[2],
-                applications[3],
-                applications[4]
-            ],
+            columns: columns,
             type: 'area-spline',
             groups: [groups]
         },
-        // bar: {
-        //     width: {
-        //         ratio: 1 // this makes bar width 50% of length between ticks
-        //     }
-        // },
-        point: {
-            show: false
-        },
-        legend: {
-            position: 'inset',
-            reverse: true
-        },
-        subchart: {
-            show: true
-        },
-        zoom: {
-            rescale: true
-        },
+        point: { show: false },
+        legend: { position: 'inset', reverse: true },
+        subchart: { show: true },
+        zoom: { rescale: true },
         tooltip: {
             format: {
                 value: function (value) {
                     return value + " min"
                 },
             }
-            //            value: d3.format(',') // apply this format to both y and y2
         },
         axis: {
             x: {
                 extent: [dates[32], dates[1]],
                 type: 'timeseries',
-                tick: {
-                    fit: false,
-                    format: '%m/%d',
-                    //                    rotate: -45,
-                    //                    multiline: false,
-                    // culling: {
-                    //     max: parseInt(window.innerWidth/10),
-                    // }
-                },
+                tick: { fit: false, format: '%m/%d', },
                 padding: 0
             },
-            y: {
-                padding: {
-                    bottom: 0
-                }
-            }
+            y: { padding: { bottom: 0 } }
         },
-        // onresized: function () {
-        //     window.innerWidth > 830 ?
-        //         chart.internal.config.axis_x_tick_culling_max = 36 : (window.innerWidth >= 600 ? chart.internal.config.axis_x_tick_culling_max = 14 : (window.innerWidth < 500 ? chart.internal.config.axis_x_tick_culling_max = 7 : (
-        //             chart.internal.config.axis_x_tick_culling_max = 5)));
+
+        // color: {
+        //     pattern: ramps[Math.floor((Math.random() * (3 - 0) + 0))]
         // },
-        color: {
-            pattern: ramps[Math.floor((Math.random() * (3 - 0) + 0))]
-        },
         padding: {
             left: 25,
             right: 15
