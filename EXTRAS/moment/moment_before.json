@@ -23,6 +23,25 @@
     { "appName" : "Music", "onScreen" : 1}],
     "date":"2018-08-14T00:00:00-06:00"},{
 
+"sessions":[],"minuteCount":99,"pickupCount":271,"pickups":[],
+"appUsages":[
+    { "appName" : "Google Photos", "onScreen" : 21},
+    { "appName" : "Messages", "onScreen" : 54},
+    { "appName" : "Messenger", "onScreen" : 5},
+    { "appName" : "Instagram", "onScreen" : 27},
+    { "appName" : "Tinder", "onScreen" : 17},
+    { "appName" : "Photos", "onScreen" : 8},
+    { "appName" : "Home & Lock Screen", "onScreen" : 28},
+    { "appName" : "Camera", "onScreen" : 10},
+    { "appName" : "Gmail", "onScreen" : 4},
+    { "appName" : "Moment", "onScreen" : 1},
+    { "appName" : "Safari", "onScreen" : 5},
+    { "appName" : "Fitbit", "onScreen" : 2},
+    { "appName" : "Maps", "onScreen" : 2},
+    { "appName" : "Weather", "onScreen" : 1},
+    { "appName" : "App Store", "onScreen" : 1}],
+    "date":"2018-09-17T00:00:00-06:00"},{
+
 "sessions":[],"minuteCount":52,"pickupCount":111,"pickups":[],
 "appUsages":[
     { "appName" : "Messages", "onScreen" : 0},
