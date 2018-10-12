@@ -1,5 +1,5 @@
 var applications = [],
-    numApps = 6, //top 5 apps
+    numApps = 6, //top n-1 apps
     modData = [],
     groups = [],
     dates = ['x'],
@@ -73,21 +73,18 @@ function readData(obj) {
                     var written = 0;
 
                     for (var j = 0; j < val[i]["appUsages"].length; j++) {
+
                         var app_name = val[i]["appUsages"][j]['appName']
-                        if (app_name == "Sc ruff") {
-                            app_name = "Scruff"
-                        }
+                        if (app_name == "Sc ruff") { app_name = "Scruff" }
+
                         if (applications[k][0] == app_name) {
                             var new_value = Math.floor(val[i]["appUsages"][j]['onScreen'])
                             applications[k].push(new_value);
-                            var written = 1;
+                            written = 1;
                         }
                     }
 
-                    if (written == 0) {
-                        applications[k].push(0);
-                        //                    applications[k].push(Math.floor((Math.random() * (5 - 0) + 0)));
-                    }
+                    if (written == 0) { applications[k].push(0);  }
                 }
             }
             else {
@@ -97,12 +94,9 @@ function readData(obj) {
     }
 
     applications = applications.sort(compare);
-    console.log(applications[0],
-                    applications[1],
-                    applications[2],
-                    applications[3],
-                    applications[4]);
-    console.log(applications);
+    for (var i = 0; i < numApps; i++) {
+        console.log(applications[i]);
+    }
 }
 
 function makeGroups(limit) {
