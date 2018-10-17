@@ -1,0 +1,15 @@
+{
+  "name": "app-first-attempt",
+  "version": "1.0.0",
+  "description": "First run through of trying to create a node.js application.  Will be fleshed out in later versions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Jeffrey Piccirillo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
