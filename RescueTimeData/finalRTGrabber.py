@@ -40,14 +40,13 @@ def request():
             webpage = urllib.request.urlopen(url)
             datareader = csv.reader(webpage.read().decode('utf-8').splitlines())
 
-            # with open(latestFile(folder), 'a', encoding='utf-8', newline='') as outFile:
-            #     writer = csv.writer(outFile)
-            #     writer.writerows(datareader)
+            with open(latestFile(folder), 'a', encoding='utf-8', newline='') as outFile:
+                writer = csv.writer(outFile)
+                writer.writerows(datareader)
 
             latest = latestFile(folder)
             print("latest: " + str(latest))
             oldParts = latest.split("|")
-            print(oldParts)
             newName = oldParts[0] + "|" + yday_midnight + "|" + oldParts[2] + "|" + oldParts[3]
             os.rename(latest, newName)
 

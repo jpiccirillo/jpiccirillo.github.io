@@ -78,7 +78,7 @@ function createCal(activity) {
     //         console.log(d[0]["Time Spent (seconds)"])
     //         return d[0]["Time Spent (seconds)"]; })
 
-    const filterValue = (obj, key, value) => obj.filter(v => v[key] === value);
+    const filterValue = function(obj, key, value) { return obj.filter(function(v) { return v[key] === value; }) };
 
     // what you need to do here is instead of manually updating the file name, have your python script edit the contents of a text file with the new file name.  the filename of that .txt stays constant, so that this script can always be opening something it knows the name of.  i think
     d3.csv("latest.csv", function(error, csv) {

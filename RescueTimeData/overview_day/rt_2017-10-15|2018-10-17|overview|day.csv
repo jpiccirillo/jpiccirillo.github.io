@@ -3348,3 +3348,100 @@ Date,Time Spent (seconds),Number of People,Category
 2018-10-07T00:00:00,660,1,Utilities
 2018-10-07T00:00:00,539,1,Uncategorized
 2018-10-07T00:00:00,152,1,Shopping
+Date,Time Spent (seconds),Number of People,Category
+2018-10-08T00:00:00,8501,1,Communication & Scheduling
+2018-10-08T00:00:00,5214,1,Social Networking
+2018-10-08T00:00:00,4162,1,News & Opinion
+2018-10-08T00:00:00,4104,1,Reference & Learning
+2018-10-08T00:00:00,2263,1,Software Development
+2018-10-08T00:00:00,789,1,Utilities
+2018-10-08T00:00:00,589,1,Uncategorized
+2018-10-08T00:00:00,131,1,Design & Composition
+2018-10-09T00:00:00,10499,1,Reference & Learning
+2018-10-09T00:00:00,6152,1,Communication & Scheduling
+2018-10-09T00:00:00,3092,1,Social Networking
+2018-10-09T00:00:00,1257,1,Software Development
+2018-10-09T00:00:00,1255,1,News & Opinion
+2018-10-09T00:00:00,539,1,Design & Composition
+2018-10-09T00:00:00,365,1,Utilities
+2018-10-09T00:00:00,362,1,Uncategorized
+2018-10-09T00:00:00,179,1,Business
+2018-10-09T00:00:00,88,1,Entertainment
+2018-10-09T00:00:00,3,1,Shopping
+2018-10-10T00:00:00,9409,1,Reference & Learning
+2018-10-10T00:00:00,7319,1,Communication & Scheduling
+2018-10-10T00:00:00,5382,1,Software Development
+2018-10-10T00:00:00,1319,1,News & Opinion
+2018-10-10T00:00:00,814,1,Social Networking
+2018-10-10T00:00:00,597,1,Utilities
+2018-10-10T00:00:00,176,1,Design & Composition
+2018-10-10T00:00:00,60,1,Uncategorized
+2018-10-10T00:00:00,58,1,Business
+2018-10-10T00:00:00,26,1,Entertainment
+2018-10-11T00:00:00,4376,1,Social Networking
+2018-10-11T00:00:00,4141,1,Reference & Learning
+2018-10-11T00:00:00,3162,1,Software Development
+2018-10-11T00:00:00,2274,1,Communication & Scheduling
+2018-10-11T00:00:00,1343,1,Business
+2018-10-11T00:00:00,1326,1,Uncategorized
+2018-10-11T00:00:00,992,1,Utilities
+2018-10-11T00:00:00,415,1,Design & Composition
+2018-10-11T00:00:00,235,1,News & Opinion
+2018-10-11T00:00:00,73,1,Entertainment
+2018-10-12T00:00:00,11954,1,Reference & Learning
+2018-10-12T00:00:00,6642,1,Communication & Scheduling
+2018-10-12T00:00:00,4171,1,Social Networking
+2018-10-12T00:00:00,3474,1,Design & Composition
+2018-10-12T00:00:00,904,1,Utilities
+2018-10-12T00:00:00,624,1,Business
+2018-10-12T00:00:00,415,1,Uncategorized
+2018-10-12T00:00:00,230,1,Entertainment
+2018-10-12T00:00:00,102,1,News & Opinion
+2018-10-12T00:00:00,99,1,Software Development
+2018-10-13T00:00:00,7594,1,Reference & Learning
+2018-10-13T00:00:00,2605,1,Communication & Scheduling
+2018-10-13T00:00:00,1674,1,News & Opinion
+2018-10-13T00:00:00,946,1,Software Development
+2018-10-13T00:00:00,732,1,Social Networking
+2018-10-13T00:00:00,675,1,Business
+2018-10-13T00:00:00,671,1,Uncategorized
+2018-10-13T00:00:00,353,1,Utilities
+2018-10-13T00:00:00,102,1,Shopping
+2018-10-14T00:00:00,5197,1,Reference & Learning
+2018-10-14T00:00:00,3541,1,Communication & Scheduling
+2018-10-14T00:00:00,3277,1,Uncategorized
+2018-10-14T00:00:00,2014,1,Social Networking
+2018-10-14T00:00:00,1022,1,Business
+2018-10-14T00:00:00,918,1,Software Development
+2018-10-14T00:00:00,803,1,News & Opinion
+2018-10-14T00:00:00,550,1,Shopping
+2018-10-14T00:00:00,463,1,Utilities
+2018-10-14T00:00:00,1,1,Entertainment
+2018-10-15T00:00:00,10101,1,Social Networking
+2018-10-15T00:00:00,9911,1,Reference & Learning
+2018-10-15T00:00:00,4547,1,Communication & Scheduling
+2018-10-15T00:00:00,1659,1,Business
+2018-10-15T00:00:00,1151,1,Software Development
+2018-10-15T00:00:00,970,1,Uncategorized
+2018-10-15T00:00:00,796,1,News & Opinion
+2018-10-15T00:00:00,282,1,Utilities
+2018-10-15T00:00:00,10,1,Design & Composition
+2018-10-16T00:00:00,7520,1,Communication & Scheduling
+2018-10-16T00:00:00,2338,1,Social Networking
+2018-10-16T00:00:00,1397,1,Reference & Learning
+2018-10-16T00:00:00,1070,1,Software Development
+2018-10-16T00:00:00,717,1,Uncategorized
+2018-10-16T00:00:00,200,1,Entertainment
+2018-10-16T00:00:00,100,1,News & Opinion
+2018-10-16T00:00:00,76,1,Utilities
+2018-10-16T00:00:00,38,1,Business
+2018-10-17T00:00:00,5577,1,Reference & Learning
+2018-10-17T00:00:00,2953,1,Communication & Scheduling
+2018-10-17T00:00:00,2649,1,Uncategorized
+2018-10-17T00:00:00,1845,1,Software Development
+2018-10-17T00:00:00,981,1,Social Networking
+2018-10-17T00:00:00,657,1,Design & Composition
+2018-10-17T00:00:00,220,1,Utilities
+2018-10-17T00:00:00,85,1,News & Opinion
+2018-10-17T00:00:00,67,1,Business
+2018-10-17T00:00:00,14,1,Shopping
