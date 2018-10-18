@@ -22,6 +22,29 @@ var tooltipColors = {
     5: {"color": "#ff7f00", "title": "Professor"},
 }
 
+function startSpinningWheel() {
+    setTimeout(prepare, 0);
+}
+
+function prepare() {
+    // Create map which will take some time,
+    // then attach tooltips after map is made
+    createMap()
+        .then(function() {
+            //remove spinning wheel
+            $("#loader").remove();
+            tippy('.tooltip', {
+                delay: 0,
+                duration: 0,
+                arrow: true,
+                theme: 'light',
+                allowTitleHTML: true,
+                // trigger: 'mouseenter focus',
+                // trigger: 'click'
+            })
+        })
+}
+
 function createMap() {
     var d = $.Deferred();
     // var width = window.width;
@@ -240,18 +263,3 @@ function createTooltip(info) {
     })
     return content;
 }
-
-// Create map which will take some time,
-// then attach tooltips after map is made
-createMap()
-    .then(function() {
-        tippy('.tooltip', {
-            delay: 0,
-            duration: 0,
-            arrow: true,
-            theme: 'light',
-            allowTitleHTML: true,
-            // trigger: 'mouseenter focus',
-            // trigger: 'click'
-        })
-    })
