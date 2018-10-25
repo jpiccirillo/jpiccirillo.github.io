@@ -66,12 +66,12 @@ function createMap() {
             .style("stroke-width", "1")
 
         // Map the cities that graduates have relocated to
-        d3.csv("graduates.csv", function(data) {
-            d3.csv("us_postal_codes.csv", function(zips) {
+        d3.csv("graduates.csv", function(grad) {
+            d3.csv("us_zip_codes_SMALL.csv", function(zips) {
                 var large_collect = turf.featureCollection(large)
-                data.forEach(function(val, i) {
+                grad.forEach(function(val, i) {
+                    const result = zips.filter(function(word) { return +word["Zip Code"] == +val.ZipCode});
 
-                    const result = zips.filter(function(word) {return +word["Zip Code"] == +val.ZipCode});
                     //if it could find a matching zipcode:
                     if (result.length > 0) {
                         //set "city" for Washington University manually:
@@ -101,7 +101,7 @@ function createMap() {
 
             groupedGrads = d3.nest()
               .key(function(d) { return d.city + ", " + d.state; })
-              .entries(data);
+              .entries(grad);
 
             console.log(groupedGrads)
             // Remove the entry representing zip codes that didnt match w a city,
@@ -116,7 +116,7 @@ function createMap() {
              count = d3.nest()
               .key(function(d) { return d.city + ", " + d.state; })
               .rollup(function(v) { return v.length; })
-              .entries(data);
+              .entries(grad);
 
             console.log(count)
             svg.selectAll("circle")
