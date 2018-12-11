@@ -153,7 +153,7 @@ function createMap() {
                     .attr("class", "disclaimer")
                     .attr("transform", "translate(" + (l_WidthCenter+75) + "," + (height+225) + ")")
                     .append("text")
-                        .text("We apologize for any oversight.  Please communicate suggestions to otoresidency@wustl.edu.")
+                        .text("We apologize for any oversight.  Please communicate suggestions to ENTresidency@wustl.edu.")
 
                 var legendTitle = svg.append("g")
                     .attr("transform", "translate(" + l_WidthCenter + "," + (height-50) + ")")
