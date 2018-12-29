@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <!-- <link rel="stylesheet" href="stylesheet.css" type="text/css"> -->
+</head>
+
+<body>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAti0gZmtID7ftxvoeHE-SL4VCCaYxKqo8",
+            authDomain: "example-a481a.firebaseapp.com",
+            databaseURL: "https://example-a481a.firebaseio.com",
+            projectId: "example-a481a",
+            storageBucket: "example-a481a.appspot.com",
+            messagingSenderId: "174775354997"
+        };
+        firebase.initializeApp(config);
+
+
+
+        var database = firebase.database();
+        writeData(database);
+
+        // console.log("user id: " + firebase.auth().currentUser.uid);
+
+        function writeData(database) {
+            database.ref("/new/hello/").set({
+                username: "jeffreyDecember2",
+                email: "email",
+                profile_picture: "imageUrl"
+            });
+        }
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+</body>
+
+</html>
