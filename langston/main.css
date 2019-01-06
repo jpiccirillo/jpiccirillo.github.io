@@ -33,6 +33,13 @@ li:before {
     content: '_';
 }
 
+li:hover {
+    /*padding-right: 25px;*/
+    /*padding-top:5px;*/
+    /*padding-bottom:5px;*/
+    padding-left:15px;
+}
+
 a {
     /*text-decoration: overline;*/
     cursor: pointer;

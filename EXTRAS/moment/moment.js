@@ -19,7 +19,8 @@ d3.queue()
     .await(processJSONs);
 
 function processJSONs(error, data1, data2) {
-    var a = data1.days, b = data2.days_1;
+    var a = data1.days;
+    var b = data2.days_1;
     var data = {a, b};
 
     applications = labels.map(function(labels) { return [labels]})
