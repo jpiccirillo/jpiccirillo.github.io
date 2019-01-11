@@ -1,5 +1,5 @@
 var applications = [],
-    numApps = 6, //top n-1 apps
+    numApps = 5, //top n apps
     modData = [],
     groups = [],
     dates = ['x'],
@@ -23,7 +23,7 @@ function processJSONs(error, data1, data2) {
     var b = data2.days_1;
     var data = {a, b};
 
-    applications = labels.map(function(labels) { return [labels]})
+    applications = labels.map(function(labels) { return [labels] })
     readData(data);
     changeLabels();
     makeGroups(numApps);
@@ -65,6 +65,16 @@ function readData(obj) {
                     break
                 }
             }
+
+            //skip certain days since Moment sometimes gets the day wrong (?)
+            // var skippedDays = ["2019-01-09"]
+            // skippedDays.forEach(function(el, i) {
+            //     if (el===val[i].date.slice(0, 10)) {
+            //         hasData = false; //set hasData back to false so it wont be plotted?
+            //         return false;
+            //     }
+            //
+            // })
 
             if (hasData) {
                 dates.push(val[i].date);
@@ -116,6 +126,7 @@ function makeChart() {
     var columns = applications.filter(function(i, index) { return index < numApps})
     columns.unshift(dates) //dates is global
 
+    console.log(Math.max(dates))
     // console.log(parseInt(window.innerWidth/100))
     var chart = c3.generate({
         data: {
