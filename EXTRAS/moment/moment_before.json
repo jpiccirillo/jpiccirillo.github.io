@@ -1,5 +1,52 @@
 {"days_1":
     [{
+"sessions": [], "minuteCount" : 0, "pickupCount" : 0, "pickups": [],
+"appUsages" : [
+{ "appName": "Messages", "onScreen": 48 },
+{ "appName": "Instagram", "onScreen": 41 },
+{ "appName": "Phone", "onScreen": 16.5 },
+{ "appName": "Safari", "onScreen": 29.5 },
+{ "appName": "Strong", "onScreen": 7.5 },
+{ "appName": "Moment", "onScreen": 2 },
+{ "appName": "Google Maps", "onScreen": 3 },
+{ "appName": "Home & Lock Screen", "onScreen": 31 },
+{ "appName": "Gmail", "onScreen": 2 },
+{ "appName": "Google Photos", "onScreen": 4.5 },
+{ "appName": "Tumblr", "onScreen": 22.5 },
+{ "appName": "Camera", "onScreen": 2.5 },
+{ "appName": "Fitbit", "onScreen": 1 },
+{ "appName": "Photos", "onScreen": 9 },
+{ "appName": "Notes", "onScreen": 0.5 },
+{ "appName": "Weather", "onScreen": 1.5 },
+{ "appName": "Tinder", "onScreen": 3 },
+{ "appName": "Messenger", "onScreen": 1 }
+],
+"date" : "2019-01-12T00:00:00-06:00"}, {
+
+
+"sessions": [], "minuteCount" : 0, "pickupCount" : 0, "pickups": [],
+"appUsages" : [
+{ "appName": "Messages", "onScreen": 48 },
+{ "appName": "Instagram", "onScreen": 41 },
+{ "appName": "Phone", "onScreen": 16.5 },
+{ "appName": "Safari", "onScreen": 29.5 },
+{ "appName": "Strong", "onScreen": 7.5 },
+{ "appName": "Moment", "onScreen": 2 },
+{ "appName": "Google Maps", "onScreen": 3 },
+{ "appName": "Home & Lock Screen", "onScreen": 31 },
+{ "appName": "Gmail", "onScreen": 2 },
+{ "appName": "Google Photos", "onScreen": 4.5 },
+{ "appName": "Tumblr", "onScreen": 22.5 },
+{ "appName": "Camera", "onScreen": 2.5 },
+{ "appName": "Fitbit", "onScreen": 1 },
+{ "appName": "Photos", "onScreen": 9 },
+{ "appName": "Notes", "onScreen": 0.5 },
+{ "appName": "Weather", "onScreen": 1.5 },
+{ "appName": "Tinder", "onScreen": 3 },
+{ "appName": "App Store", "onScreen": 1 }
+],
+"date" : "2019-01-11T00:00:00-06:00"}, {
+
 
 "sessions": [], "minuteCount" : 60, "pickupCount" : 310, "pickups": [],
 "appUsages" : [
