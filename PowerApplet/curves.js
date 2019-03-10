@@ -7,7 +7,7 @@ drags a curve around.
 * @Author: Jeffrey Piccirillo (piccirilloj1@gmail.com)
 * @Date:   4/30/2018
 * @Last Modified by: Jeffrey Piccirillo
-* @Last Modified time: 4/30/18
+* @Last Modified time: 3/10/19
 */
 
 //Update size of tool and replot shapes when screensize is changed
@@ -26,7 +26,7 @@ function initScreenSize() {
     screen_w = $(".maingraph").innerWidth() //Establish screen space
     screen_h = $(".maingraph").innerHeight()
     topscreen_h = $(".minigraph").innerHeight()
-    var mu0, mu1, internalmu1, std, n, alpha, mainContainer, topContainer, node, power; //Initialize globals
+    var mu0, mu1, internalmu1, std, n, alpha, mainContainer, topContainer, node, power;
 }
 
 var interp = d3.line()
@@ -215,6 +215,7 @@ function setValues() {
     alpha = parseFloat($("#alpha").val())
     n = parseInt($("#n").val())
     power = calculatePower(mu1);
+    $("#effectsize").val((1-power).toFixed(3))
     internalmu1 = mu1;
 
     //Delta is set as a function of mu0, mu1, and standard dev
