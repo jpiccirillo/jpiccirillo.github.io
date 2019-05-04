@@ -1,5 +1,24 @@
 {"days_1":
     [{
+
+"sessions": [], "minuteCount" : 103, "pickupCount" : 358, "pickups": [],
+"appUsages" : [
+{ "appName": "Weather", "onScreen": 1 },
+{ "appName": "Slack", "onScreen": 1 },
+{ "appName": "Maps", "onScreen": 1 },
+{ "appName": "Gmail", "onScreen": 2 },
+{ "appName": "Photos", "onScreen": 1 },
+{ "appName": "Fitbit", "onScreen": 2 },
+{ "appName": "Phone", "onScreen": 2 },
+{ "appName": "Tinder", "onScreen": 2 },
+{ "appName": "Google Photos", "onScreen": 4 },
+{ "appName": "Instagram", "onScreen": 14 },
+{ "appName": "Safari", "onScreen": 4 },
+{ "appName": "Find Friends", "onScreen": 8 },
+{ "appName": "Messages", "onScreen": 40 },
+{ "appName": "Google Maps", "onScreen": 28 }   
+],
+"date" : "2019-04-14T00:00:00-06:00"}, {
         
 "sessions": [], "minuteCount" : 58, "pickupCount" : 364, "pickups": [],
 "appUsages" : [
