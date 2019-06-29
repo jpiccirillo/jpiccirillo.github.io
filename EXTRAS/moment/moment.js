@@ -8,7 +8,7 @@ var applications = [],
     minuteCount = ['Screentime'],
     pickupCount = ['Pickups'],
     labels = ['App Store', 'Bumble', 'Camera', 'Google Drive', 'Google Photos', 'Facebook', 'Fitbit', 'Find Friends', 'Gmail', 'Google Maps', 'Grindr', 'Hornet', 'Instagram', 'Maps', 'Messages', 'Messenger', 'Mint', 'Moment', 'Music', 'Notes', 'OK Cupid', 'Outlook', 'Phone', 'Photos', 'Slack', 'Reversee', 'Safari', 'Scruff', 'Strong', 'Settings', 'Snapchat', 'Uber', 'Lyft', 'Weather', 'Tinder', 'Siri', 'Pinterest', 'Venmo', 'Co — Star'],
-    daysToLog = ['2019-05-16'],
+    daysToLog = ['2019-06-17','2019-06-16','2019-06-15','2019-06-14','2019-06-13','2019-06-12','2019-06-11' ],
     log = {
         dates: [],
     };
@@ -91,7 +91,7 @@ function readData(obj) {
             });
 
             //Last, if the day we're considering is actually a patch for missing day in moment.json, alert
-            //and remove it 
+            //and remove it
             if (blankDays[day.date.slice(0, 10)]) {
                 //                console.log("Found patch for", day.date);
                 delete blankDays[day.date.slice(0, 10)];
@@ -145,7 +145,7 @@ function printLoggedDays() {
 }
 
 function makeChart() {
-//    printLoggedDays();
+   // printLoggedDays();
     console.log("Blank Days:", blankDays);
     var columns = applicationsArray.filter(function (i, index) {
         return index < numApps

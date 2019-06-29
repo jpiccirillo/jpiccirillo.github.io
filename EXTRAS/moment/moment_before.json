@@ -1,7 +1,83 @@
 {"days_1":
     [{
 
-        
+"sessions": [], "minuteCount" : 36, "pickupCount" : 179, "pickups": [],
+"appUsages" : [
+{ "appName": "Camera", "onScreen": 3 },
+{ "appName": "Fitbit", "onScreen": 3 },
+{ "appName": "Gmail", "onScreen": 7 },
+{ "appName": "Google Maps", "onScreen": 8 },
+{ "appName": "Instagram", "onScreen": 12 },
+{ "appName": "Messages", "onScreen": 17 },
+{ "appName": "Phone", "onScreen": 9 },
+{ "appName": "Safari", "onScreen": 8 }
+],
+"date" : "2019-06-16T00:00:00-05:00" }, {
+
+"sessions": [], "minuteCount" : 96, "pickupCount" : 279, "pickups": [],
+"appUsages" : [
+{ "appName": "Camera", "onScreen": 1 },
+{ "appName": "Gmail", "onScreen": 3 },
+{ "appName": "Google Maps", "onScreen": 3 },
+{ "appName": "Instagram", "onScreen": 27 },
+{ "appName": "Messages", "onScreen": 57 },
+{ "appName": "Phone", "onScreen": 19 },
+{ "appName": "Slack", "onScreen": 1 },
+{ "appName": "Strong", "onScreen": 1 },
+{ "appName": "Home & Lock Screen", "onScreen": 14 }
+],
+"date" : "2019-06-23T00:00:00-05:00" }, {
+
+"sessions": [], "minuteCount" : 123, "pickupCount" : 355, "pickups": [],
+"appUsages" : [
+{ "appName": "Camera", "onScreen": 4 },
+{ "appName": "Fitbit", "onScreen": 20 },
+{ "appName": "Gmail", "onScreen": 2 },
+{ "appName": "Google Maps", "onScreen": 6 },
+{ "appName": "Grindr", "onScreen": 114 },
+{ "appName": "Instagram", "onScreen": 27 },
+{ "appName": "Messages", "onScreen": 24 },
+{ "appName": "Photos", "onScreen": 5 },
+{ "appName": "Slack", "onScreen": 3 },
+{ "appName": "Strong", "onScreen": 5 },
+{ "appName": "Tinder", "onScreen": 5 },
+{ "appName": "Home & Lock Screen", "onScreen": 38 }
+],
+"date" : "2019-06-03T00:00:00-05:00" }, {
+
+"sessions": [], "minuteCount" : 123, "pickupCount" : 355, "pickups": [],
+"appUsages" : [
+{ "appName": "Camera", "onScreen": 7 },
+{ "appName": "Gmail", "onScreen": 1 },
+{ "appName": "Grindr", "onScreen": 168 },
+{ "appName": "Instagram", "onScreen": 6 },
+{ "appName": "Messages", "onScreen": 40 },
+{ "appName": "Phone", "onScreen": 21 },
+{ "appName": "Slack", "onScreen": 1 },
+{ "appName": "Settings", "onScreen": 2 },
+{ "appName": "Tinder", "onScreen": 18 },
+{ "appName": "Home & Lock Screen", "onScreen": 31 }
+],
+"date" : "2019-06-02T00:00:00-05:00" }, {
+
+"sessions": [], "minuteCount" : 123, "pickupCount" : 355, "pickups": [],
+"appUsages" : [
+{ "appName": "Camera", "onScreen": 10 },
+{ "appName": "Gmail", "onScreen": 3 },
+{ "appName": "Google Maps", "onScreen": 25 },
+{ "appName": "Grindr", "onScreen": 78 },
+{ "appName": "Instagram", "onScreen": 11 },
+{ "appName": "Messages", "onScreen": 39 },
+{ "appName": "Moment", "onScreen": 1 },
+{ "appName": "Photos", "onScreen": 1 },
+{ "appName": "Safari", "onScreen": 1 },
+{ "appName": "Strong", "onScreen": 8 },
+{ "appName": "Settings", "onScreen": 3 },
+{ "appName": "Tinder", "onScreen": 32 },
+{ "appName": "Home & Lock Screen", "onScreen": 28 }
+],
+"date" : "2019-06-01T00:00:00-05:00" }, {
+
 "sessions": [], "minuteCount" : 33, "pickupCount" : 140, "pickups": [],
 "appUsages" : [
 { "appName": "Camera", "onScreen": 3 },
@@ -22,7 +98,7 @@
 { "appName": "Tinder", "onScreen": 11 }
 ],
 "date" : "2019-05-15T00:00:00-06:00"}, {
-    
+
 "sessions": [], "minuteCount" : 44, "pickupCount" : 258, "pickups": [],
 "appUsages" : [
 { "appName": "Messages", "onScreen": 27 },
@@ -49,10 +125,10 @@
 { "appName": "Venmo ", "onScreen": 0 },
 { "appName": "Messenger", "onScreen": 0 },
 { "appName": "Maps", "onScreen": 1 },
-{ "appName": "Slack", "onScreen": 13 }  
+{ "appName": "Slack", "onScreen": 13 }
 ],
 "date" : "2019-05-16T00:00:00-06:00"}, {
-    
+
 "sessions": [], "minuteCount" : 103, "pickupCount" : 358, "pickups": [],
 "appUsages" : [
 { "appName": "Weather", "onScreen": 1 },
@@ -68,10 +144,10 @@
 { "appName": "Safari", "onScreen": 4 },
 { "appName": "Find Friends", "onScreen": 8 },
 { "appName": "Messages", "onScreen": 40 },
-{ "appName": "Google Maps", "onScreen": 28 }   
+{ "appName": "Google Maps", "onScreen": 28 }
 ],
 "date" : "2019-04-14T00:00:00-06:00"}, {
-        
+
 "sessions": [], "minuteCount" : 58, "pickupCount" : 364, "pickups": [],
 "appUsages" : [
 { "appName": "Messages", "onScreen": 114 },
@@ -84,9 +160,9 @@
 { "appName": "Home & Lock Screen", "onScreen": 21 },
 { "appName": "Gmail", "onScreen": 7 }
 ],
-"date" : "2019-03-12T00:00:00-06:00"}, 
+"date" : "2019-03-12T00:00:00-06:00"},
      {
-    
+
 "sessions": [], "minuteCount" : 0, "pickupCount" : 0, "pickups": [],
 "appUsages" : [
 { "appName": "Messages", "onScreen": 48 },
@@ -108,7 +184,7 @@
 { "appName": "Tinder", "onScreen": 3 },
 { "appName": "Messenger", "onScreen": 1 }
 ],
-"date" : "2019-01-12T00:00:00-06:00"}, 
+"date" : "2019-01-12T00:00:00-06:00"},
      {
 
 "sessions": [], "minuteCount" : 0, "pickupCount" : 0, "pickups": [],
