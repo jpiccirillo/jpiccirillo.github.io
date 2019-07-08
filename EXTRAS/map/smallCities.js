@@ -744,16 +744,6 @@
          "properties": {},
          "geometry": {
              "type": "Point",
-             "coordinates": [-111.8910474, 40.7607793, {
-                 "city": "Salt Lake City",
-                 "state": "Utah"
-             }]
-         }
-     }, {
-         "type": "Feature",
-         "properties": {},
-         "geometry": {
-             "type": "Point",
              "coordinates": [-84.28073289999999, 30.4382559, {
                  "city": "Tallahassee",
                  "state": "Florida"

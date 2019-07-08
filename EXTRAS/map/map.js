@@ -71,7 +71,6 @@ function createMap() {
                 var large_collect = turf.featureCollection(large)
                 grad.forEach(function(val, i) {
                     const result = zips.filter(function(word) { return +word["Zip Code"] == +val.ZipCode});
-
                     //if it could find a matching zipcode:
                     if (result.length > 0) {
                         //set "city" for Washington University manually:
@@ -96,6 +95,8 @@ function createMap() {
                         val.lon = info[0]
                         val.city = info[2].city
                         val.state = info[2].state
+                    } else {
+                        console.log(val['First Name'], val['Last Name'], " not found.  Zip code: (", val.ZipCode ,")")
                     }
                 })
 
@@ -143,13 +144,25 @@ function createMap() {
 
                 var l_WidthCenter = width/2+370;
 
-                var title = svg.append("g")
-                    .attr("class", "title")
+                var titleContainer = svg.append("g")
                     .attr("transform", "translate(" + (width/2 - 250) + "," + (height-270) + ")")
-                    .append("text")
+
+                titleContainer.append("text")
+                        .attr("class", "title")
                         .text("Practice Locations of Washington University Otolaryngology Graduates")
 
-                var title = svg.append("g")
+                titleContainer.append("text")
+                        .attr("class", "subtitle")
+                        .attr("transform", "translate(" + (120) + "," + (20) + ")")
+                        .text("Interactive map: Hover over circles for more information")
+
+
+                // title
+                //     // .attr("transform", "translate(" + (width/2 - 250) + "," + (height-270) + ")")
+                //     .append("text")
+                //         .text("Interactive map: hover over circles for more information")
+
+                var oversight = svg.append("g")
                     .attr("class", "disclaimer")
                     .attr("transform", "translate(" + (l_WidthCenter+75) + "," + (height+225) + ")")
                     .append("text")
