@@ -1,6 +1,20 @@
 {"days_1":
     [{
 
+"sessions": [], "minuteCount" : 28, "pickupCount" : 191, "pickups": [],
+"appUsages" : [
+{ "appName": "Phone", "onScreen": 49 },
+{ "appName": "Messages", "onScreen": 26 },
+{ "appName": "Instagram", "onScreen": 32 },
+{ "appName": "Gmail", "onScreen": 10 },
+{ "appName": "Slack", "onScreen": 11 },
+{ "appName": "Safari", "onScreen": 14 },
+{ "appName": "Tinder", "onScreen": 5 },
+{ "appName": "Home & Lock Screen", "onScreen": 13 },
+{ "appName": "Weather", "onScreen": 1 }
+],
+"date" : "2019-08-21T00:00:00-05:00" }, {
+
 "sessions": [], "minuteCount" : 36, "pickupCount" : 179, "pickups": [],
 "appUsages" : [
 { "appName": "Camera", "onScreen": 3 },
