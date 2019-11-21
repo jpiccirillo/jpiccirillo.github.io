@@ -11,16 +11,16 @@ This post is extense research, from my years of experience dealing with a poor s
 If you need help to align your node.js project architecture, just drop me a letter at sam@softwareontheroad.com
 
 ## Table of Contents
-[The folder structure 🏢](#folder-structure)
-[3 Layer architecture 🥪](#3-layer)
-[Service Layer 💼](#service-layer)
-[Pub/Sub Layer ️️️️🎙️️](#pub-sub-layer)
-[Dependency Injection 💉](#di)
-[Unit Testing 🕵🏻](#unit-testing)
-[Cron Jobs and recurring task ⚡](#chron-jobs)
-[Configurations and secrets 🤫](#configs)
-[Loaders 🏗️](#loaders)
-[Example repository](#example)
+- [The folder structure 🏢](#folder-structure)
+- [3 Layer architecture 🥪](#3-layer)
+- [Service Layer 💼](#service-layer)
+- [Pub/Sub Layer ️️️️🎙️️](#pub-sub-layer)
+- [Dependency Injection 💉](#di)
+- [Unit Testing 🕵🏻](#unit-testing)
+- [Cron Jobs and recurring task ⚡](#chron-jobs)
+- [Configurations and secrets 🤫](#configs)
+- [Loaders 🏗️](#loaders)
+- [Example repository](#example)
 
 ## The folder structure <a name="folder-structure"></a>
 Here is the node.js project structure that I’m talking about.
