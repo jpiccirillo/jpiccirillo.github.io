@@ -1,14 +1,14 @@
 ## Introduction
 
-Express.js is great frameworks for making a node.js REST APIs however it doesn’t give you any clue on how to organizing your node.js project.
+Express.js is a great framework for making a node.js REST APIs, however it doesn’t give you any clue on how to actually organize your node.js project.
 
 While it may sound silly, this is a real problem.
 
-The correct organization of your node.js project structure will avoid duplication of code, will improve stability, and potentially, will help you scale your services if is done correctly.
+The correct organization of your node.js project structure will avoid duplication of code, improve stability, and potentially also help you scale your services if done correctly.
 
-This post is extense research, from my years of experience dealing with a poor structured node.js project, bad patterns, and countless hours of refactoring code and moving things around.
+This post is a result of extense research, from my years of experience dealing with poorly structured node.js projects, bad patterns, and countless hours of refactoring code and moving things around.
 
-If you need help to align your node.js project architecture, just drop me a letter at sam@softwareontheroad.com
+If you need help aligning your node.js project architecture, just drop me a note at sam@softwareontheroad.com
 
 ## Table of Contents
 - [The folder structure 🏢](#folder-structure)
@@ -25,7 +25,7 @@ If you need help to align your node.js project architecture, just drop me a lett
 ## The folder structure <a name="folder-structure"></a>
 Here is the node.js project structure that I’m talking about.
 
-I use this in every node.js REST API service that I build, let’s see in details what every component do.
+I use this in every node.js REST API service that I build.  Let's see in detail what each component does. 
 ```
 src
 │   app.js          # App entry point
@@ -47,16 +47,16 @@ The idea is to use the principle of separation of concerns to move the business 
 
 Because someday, you will want to use your business logic on a CLI tool, or not going far, in a recurring task.
 
-And make an API call from the node.js server to itself it’s not a good idea…
+And making an API call from the node.js server to itself is not a good idea…
 
 ![](https://softwareontheroad.com/static/53933c8bb9f5f8f2f945b5f736d9a71a/cd8de/server_layers_2.jpg)
 
 ### ☠️ Don’t put your business logic inside the controllers!! ☠️
-You may be tempted to just use the express.js controllers to store the business logic of your application, but this quickly becomes spaghetti code, as soon as you need to write unit tests, you will end up dealing with complex mocks for req or res express.js objects.
+You may be tempted to just use the express.js controllers to store the business logic of your application, but this quickly becomes spaghetti code. As soon as you need to write unit tests, you will end up dealing with complex mocks for `req` or `res` express.js objects.
 
-It’s complicated to distingue when a response should be sent, and when to continue processing in ‘background’, let’s say after the response is sent to the client.
+Furthermore, it’s complicated to distinguish when a response should be sent, and when to continue processing in ‘background’, say after the response is sent to the client.
 
-Here is an example of what not to do.
+Here is an example of what not to do:
 ```javascript
 route.post('/', async (req, res, next) => {
 
@@ -91,14 +91,15 @@ route.post('/', async (req, res, next) => {
 ```
 
 ## Use a service layer for your business logic 💼<a name="service-layer"></a>
-This layer is where your business logic should live.
+This is the layer where your business logic should live.
 
 It’s just a collection of classes with clear porpuses, following the SOLID principles applied to node.js.
 
-In this layer there should not exists any form of ‘SQL query’, use the data access layer for that.
+In this layer there shouldn't be any ‘SQL query'ing type code.  Use the data access layer for that. 
 - Move your code away from the express.js router
-- Don’t pass the req or res object to the service layer
+- Don’t pass the `req` or `res` object to the service layer
 - Don’t return anything related to the HTTP transport layer like a status code or headers from the service layer.
+
 #### Example
 ```javascript 
 route.post('/', 
@@ -140,15 +141,15 @@ export default class UserService() {
 [_Visit the example repository_](https://github.com/santiq/bulletproof-nodejs)
 
 ## Use a Pub/Sub layer too 🎙️<a name="pub-sub-layer"></a>
-The pub/sub pattern goes beyond the classic 3 layer architecture proposed here but it’s extremely useful.
+The pub/sub pattern goes beyond the classic 3 layer architecture proposed here, but it’s extremely useful.
 
-The simple node.js API endpoint that creates a user right now, may want to call third-party services, maybe to an analytics service, or maybe start an email sequence.
+The simple node.js API endpoint that creates a user may want to call third-party services, maybe to an analytics service, or maybe start an email sequence.
 
 Sooner than later, that simple “create” operation will be doing several things, and you will end up with 1000 lines of code, all in a single function.
 
 That violates the principle of single responsibility.
 
-So, it’s better to separate responsibilities from the start, so your code remains maintainable.
+It’s better to separate responsibilities from the start, so your code remains maintainable.
 ```javascript
 import UserModel from '../models/user';
 import CompanyModel from '../models/company';
@@ -239,7 +240,7 @@ eventEmitter.on('user_signup', async ({ user, company }) => {
 You can wrap the await statements into a try-catch block or [you can just let it fail and handle the ‘unhandledPromise’](https://softwareontheroad.com/nodejs-crash-exception-handler) with `process.on(‘unhandledRejection’,cb)`.  
 
 ## Dependency Injection 💉<a name="di"></a>
-D.I. or inversion of control (IoC) is a common pattern that will help the organization of your code, by ‘injecting’ or passing through the constructor the dependencies of your class or function.
+D.I. or inversion of control (IoC) is a common pattern that will help organize your code, by ‘injecting’ or passing through to the constructor the dependencies of your class or function.
 
 By doing this way you will gain the flexibility to inject a ‘compatible dependency’ when, for example, you write the unit tests for the service, or when the service is used in another context.
 
@@ -286,13 +287,11 @@ const salaryModelMock = {
 const userServiceInstance = new UserService(userModel, companyModel, salaryModelMock);
 const user = await userServiceInstance.getMyUser('12346');
 ```
-The amount of dependencies a service can have is infinite, and refactor every instantiation of it when you add a new one is a boring and error-prone task.
+The amount of dependencies a service can have is infinite, but refactoring every instantiation of it when you add a new dependency is a boring and error-prone task.That’s why dependency injection frameworks were created.
 
-That’s why dependency injection frameworks were created.
+The idea is you declare your dependencies in the class, then when you need an instance of that class, you just call the ‘Service Locator’.
 
-The idea is you declare your dependencies in the class, and when you need an instance of that class, you just call the ‘Service Locator’.
-
-Let’s see an example using typedi an npm library that brings D.I to node.js
+Let’s see an example using `typedi`, an npm library that brings D.I to node.js.
 
 [You can read more on how to use typedi in the official documentation](https://www.github.com/typestack/typedi)
 
@@ -341,13 +340,13 @@ route.post('/',
   });
 ```
 
-Awesome, project is looking great ! It’s so organized that makes me want to be coding something right now.
+Awesome, our project is looking great ! It’s so organized that it makes me want to be coding something right now.
 [_Visit the example repository_](https://github.com/santiq/bulletproof-nodejs)
 
 ## Unit Testing 🕵🏻<a name="unit-testing"></a>
 By using dependency injection and these organization patterns, unit testing becomes really simple.
 
-You don’t have to mock req/res objects or require(…) calls.
+You don’t have to mock `req`/`res` objects or `require(…)` calls.
 
 **Example: Unit test for signup user method**
 
@@ -397,18 +396,18 @@ describe('User service unit tests', () => {
 ```
 
 ## Cron Jobs and recurring task ⚡ <a name="chron-jobs"></a>
-So, now that the business logic encapsulated into the service layer, it’s easier to use it from a Cron job.
+So, now that the business logic is encapsulated in the service layer, it’s easier to use it from a Cron job.
 
-You should never rely on node.js `setTimeout` or another primitive way of delay the execution of code, but on a framework that persist your jobs, and the execution of them, in a database.
+You should never rely on node.js `setTimeout` or another primitive way of delaying the execution of code, but rather on a framework that persists your jobs, and the execution of them, in a database.
 
-This way you will have control over the failed jobs, and feedback of those who succeed. I already wrote on good practice for this so, [check my guide on using agenda.js the best task manager for node.js](https://softwareontheroad.com/nodejs-scalability-issues).
+This way, you will have control over the failed jobs, and feedback of those which succeed. I already wrote on good practices for this, so  [check my guide on using agenda.js, the best task manager for node.js](https://softwareontheroad.com/nodejs-scalability-issues).
 
 ## Configurations and secrets 🤫 <a name="configs"></a>
-Following the battle-tested concepts of [Twelve-Factor App](https://12factor.net/) for node.js the best approach to store API Keys and database string connections, it’s by using **dotenv**.
+Following the battle-tested concepts of [Twelve-Factor App](https://12factor.net/) for node.js, the best approach to store API Keys and database string connections is by using **dotenv**.
 
-Put a `.env` file, that must never be committed (but it has to exist with default values in your repository) then, the npm package `dotenv` loads the `.env` file and insert the vars into the `process.env` object of node.js.
+Create a `.env` file which must never be committed (but it does have to exist with default values in your repository), then the `dotenv` npm package will load the `.env` file and insert the vars into the `process.env` object of node.js.
 
-That could be enough but, I like to add an extra step. Have a `config/index.ts` file where the `dotenv` npm package and loads the .env file and then I use an object to store the variables, so we have a structure and code autocompletion.
+That could be enough, but I like to add an extra step. Write a `config/index.ts` file that uses the `dotenv` npm package, then loads the .env file.  I use an object to store the variables to allow for structure and code autocompletion.
 
 _config/index.js_
 ```javascript
@@ -433,12 +432,12 @@ export default {
   }
 }
 ```
-This way you avoid flooding your code with `process.env.MY_RANDOM_VAR` instructions, and by having the autocompletion you don’t have to know how to name the env var.
+This way you avoid flooding your code with `process.env.MY_RANDOM_VAR` instructions, and by having the autocompletion, you don’t have to know how to name the env var.
 
 [_Visit the example repository_](https://github.com/santiq/bulletproof-nodejs)
 
 ## Loaders 🏗️<a name="loaders"></a>
-I took this pattern from [W3Tech microframework](https://www.npmjs.com/package/microframework-w3tec) but without depending upon their package.
+I took this pattern from [W3Tech microframework](https://www.npmjs.com/package/microframework-w3tec), but without depending upon their package.
 
 The idea is that you split the startup process of your node.js service into testable modules.
 
@@ -579,7 +578,7 @@ export default async (): Promise<any> => {
 }
 ```
 ## Conclusion
-We deep dive into a production tested node.js project structure, here are some summarized tips:
+We took a deep dive into a production tested node.js project structure, and here are some summarized tips:
 - Use a 3 layer architecture.
 - Don’t put your business logic into the express.js controllers.
 - Use PubSub pattern and emit events for background tasks.
