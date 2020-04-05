@@ -1,6 +1,45 @@
 {"days_1":
     [{
-
+        
+"sessions": [], "minuteCount" : 14, "pickupCount" : 77, "pickups": [],
+"appUsages" : [
+{ "appName": "Messages", "onScreen": 54 },
+{ "appName": "Instagram", "onScreen": 8 },
+{ "appName": "Safari", "onScreen": 34 },
+{ "appName": "Phone", "onScreen": 24 },
+{ "appName": "Gmail", "onScreen": 15 },
+{ "appName": "Hinge", "onScreen": 5 },
+{ "appName": "Siri", "onScreen": 1 },
+{ "appName": "Home & Lock Screen", "onScreen": 15 },
+{ "appName": "Pinterest", "onScreen": 1 },
+{ "appName": "Calendar", "onScreen": 2 },
+{ "appName": "Weather", "onScreen": 1 },
+{ "appName": "Tinder", "onScreen": 1 },
+{ "appName": "Notes", "onScreen": 1 },
+{ "appName": "Slack", "onScreen": 1 }
+],
+"date" : "2019-09-21T00:00:00-05:00" }, {
+    
+"sessions": [], "minuteCount" : 0, "pickupCount" : 0, "pickups": [],
+"appUsages" : [
+{ "appName": "WhatsApp", "onScreen": 96 },
+{ "appName": "Messages", "onScreen": 31 },
+{ "appName": "Instagram", "onScreen": 58 },
+{ "appName": "Safari", "onScreen": 22 },
+{ "appName": "Google Maps", "onScreen": 18 },
+{ "appName": "App Store", "onScreen": 3 },
+{ "appName": "Gmail", "onScreen": 3 },
+{ "appName": "Google Photos", "onScreen": 7 },
+{ "appName": "Yelp", "onScreen": 2 },
+{ "appName": "Home & Lock Screen", "onScreen": 16 },
+{ "appName": "Settings", "onScreen": 3 },
+{ "appName": "Photos", "onScreen": 2 },
+{ "appName": "Hinge", "onScreen": 3 },
+{ "appName": "Fitbit", "onScreen": 4 },
+{ "appName": "Slack", "onScreen": 1 }
+],
+"date" : "2019-09-22T00:00:00-05:00" }, {
+        
 "sessions": [], "minuteCount" : 28, "pickupCount" : 191, "pickups": [],
 "appUsages" : [
 { "appName": "Phone", "onScreen": 49 },
