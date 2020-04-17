@@ -3,15 +3,17 @@ let runningSim,
     chart;
 
 function startPlot(data) {
-    const rateOfGrowth = data[2].map((e, i) => {
+    let rateOfGrowth = data[2].map((cur, i) => {
         const calcRate = function () {
-            if (i === 1) return 0;
-            if (e === 0 || e === 1) return 0;
-
-            return ((e - data[2][i - 1]) / (data[2][i - 1] || 100000)) * 100;
+            const yday = data[2][i-1];
+            if (i === 1) return null; // First in cumulative dataset is title
+            if (cur === 0) return null; //If cumulative still 0, no growth 
+            if (yday === 0) return null; //If yesterday was 0, returns infinity
+            return ((cur - yday) / yday) * 100;
         };
-        return i === 0 ? "Rate of Growth" : calcRate();
+        return i === 0 ? "Cumulative growth" : calcRate();
     });
+    rateOfGrowth.splice(1, 0, null);
     data.push(rateOfGrowth);
 
     chart = c3.generate({
@@ -28,7 +30,7 @@ function startPlot(data) {
             type: "spline",
             axes: {
                 deaths: "y",
-                "Rate of Growth": "y2"
+                "Cumulative growth": "y2"
             }
         },
         point: {
