@@ -1,4 +1,14 @@
-function init(deaths_us, deaths_world) {
+let deaths_us,
+  deaths_world,
+  country = "U.S.",
+  initial;
+
+function changeCountry(chosen) {
+  country = chosen;
+  startPlot(parseData());
+}
+
+function init() {
   var chartData = { deaths_us, deaths_world };
 
   ["us", "world"].forEach(scope => {
@@ -58,41 +68,53 @@ function init(deaths_us, deaths_world) {
     });
   });
 
-  return (function({ type, scope }) {
-    var dat = chartData[`${type}_${scope}`].filter(
-      d => d.chart_label != "Mainland China"
-    );
+  return parseData();
+}
 
-    const index = Object.keys(dat).filter(k => {
-      return dat[k].key === "USA";
-    });
+function parseData() {
+  const type = "deaths",
+    scope = "world",
+    chartData = { deaths_us, deaths_world };
+  const dat = chartData[`${type}_${scope}`];
 
-    filtered_data = dat[index].all_values.map(v => {
-      delete v.obj;
-      delete v.doubling_time;
-      delete v.date_text;
-      v.date = new Date(v.date);
-      return v;
-    });
+  const index = Object.keys(dat).filter(k => {
+    return dat[k].chart_label === country;
+  });
 
-    let deaths = filtered_data.reduce(
-      (a, i) => {
-        a.push(i.value);
-        return a;
-      },
-      ["deaths"]
-    );
+  filtered_data = dat[index].all_values.map(v => {
+    delete v.obj;
+    delete v.doubling_time;
+    delete v.date_text;
+    v.date = new Date(v.date);
+    return v;
+  });
 
-    let dates = filtered_data.reduce(
-      (a, i) => {
-        a.push(i.date);
-        return a;
-      },
-      ["date"]
-    );
+  let deaths = filtered_data.reduce(
+    (a, i, index) => {
+      !index
+        ? a.push(i.value, 0)
+        : a.push(i.value - filtered_data[index - 1].value);
+      return a;
+    },
+    ["Daily Deaths"]
+  );
 
-    return [dates, deaths];
-  })({ type: "deaths", scope: "world" });
+  let cum_deaths = filtered_data.reduce(
+    (a, i) => {
+      a.push(i.value);
+      return a;
+    },
+    ["Cumulative Deaths"]
+  );
+
+  let dates = filtered_data.reduce(
+    (a, i) => {
+      a.push(i.date);
+      return a;
+    },
+    ["date"]
+  );
+  return [dates, deaths, cum_deaths];
 }
 
 function responseJson(response) {
@@ -114,8 +136,20 @@ Promise.all([
   )
 ])
   .then(r => {
-    console.log(r);
-    return init(r[0], r[1]);
+    deaths_us = r[0];
+    deaths_world = r[1];
+    return init(deaths_us, deaths_world);
   })
   .then(r => startPlot(r))
+  .then(function() {
+    const countries = deaths_world
+      .filter(c => c.last_last.value > 3000)
+      .map(c => c.chart_label);
+
+    var s = $("#dropdown");
+    for (let c = 0; c < countries.length; c++) {
+      $("<option />", { value: countries[c], text: countries[c] }).appendTo(s);
+    }
+    s.val("U.S.");
+  })
   .catch(err => console.log(err));

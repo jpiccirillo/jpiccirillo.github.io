@@ -18,12 +18,16 @@
 </header>
 
 <body>
+  <label>Choose a country:</label>
+
+  <select id="dropdown" onchange="changeCountry(this.value)">
+  </select>
+
   <div id="chartContainer">
     <script type="text/javascript" src="./countries.js"></script>
     <script type="text/javascript" src="./sim.js"></script>
-    <script type="text/javascript" src="./newYorkTimes.js"></script> 
+    <script type="text/javascript" src="./newYorkTimes.js"></script>
   </div>
-  <!-- <button onclick="pause()" id="pauseButton">Pause</button> -->
 </body>
 
 </html>

@@ -3,37 +3,37 @@ let runningSim,
     chart;
 
 function startPlot(data) {
-    console.log(data);
-    const rateOfGrowth = data[1].map((e, i) => {
+    const rateOfGrowth = data[2].map((e, i) => {
         const calcRate = function () {
             if (i === 1) return 0;
             if (e === 0 || e === 1) return 0;
-            return ((e - data[1][i - 1]) / data[1][i - 1]) * 100;
+
+            return ((e - data[2][i - 1]) / (data[2][i - 1] || 100000)) * 100;
         };
-        return i === 0 ? "Rate of growth" : calcRate();
+        return i === 0 ? "Rate of Growth" : calcRate();
     });
     data.push(rateOfGrowth);
-    console.log(rateOfGrowth);
+
     chart = c3.generate({
         bindto: "#chartContainer",
         size: {
             height: 700
         },
         title: {
-            text: "Coronavirus deaths in the U.S. since January 21 2020"
+            text: `Coronavirus deaths in ${country} since ${date(data[0][1])}`
         },
         data: {
             x: "date",
-            columns: data,
+            columns: [data[0], data[1], data[3]],
             type: "spline",
             axes: {
                 deaths: "y",
-                "Rate of growth": "y2"
+                "Rate of Growth": "y2"
             }
         },
-        // point: {
-        //     show: false
-        // },
+        point: {
+            show: false
+        },
         legend: {
             position: "inset",
             inset: {
@@ -59,7 +59,7 @@ function startPlot(data) {
             },
             y: {
                 label: {
-                    text: "Cumulative deaths",
+                    text: "Daily Deaths",
                     position: "outer-right"
                 },
                 tick: {
@@ -69,7 +69,7 @@ function startPlot(data) {
             y2: {
                 show: true,
                 label: {
-                    text: "Rate of growth",
+                    text: "Rate of Growth",
                     position: "outer-right"
                 },
                 tick: {
@@ -78,6 +78,7 @@ function startPlot(data) {
             }
         },
         tooltip: {
+            order: (t1, t2) => t1.id > t2.id,
             format: {
                 title: x => `On ${date(x)}`,
                 value: v =>
@@ -110,7 +111,6 @@ function pause() {
 }
 
 function newTemp(oldDate) {
-    console.log(oldDate);
     newDate = oldDate + 1;
     // const month = oldDate.split("/")[1];
     // const year = oldDate.split("/")[2];
@@ -135,7 +135,6 @@ function getRandomTemp() {
 }
 
 function updatePlot(chart) {
-    
     const oldData = chart.data()[0].values;
     if (oldData.length > 20) oldData.shift();
 
