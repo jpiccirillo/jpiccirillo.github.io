@@ -1,66 +1,98 @@
-let runningSim, counter = 0, chart;
-let data = [
-    ['x', 0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    ['heat', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-]
+let runningSim,
+    counter = 0,
+    chart;
 
-function startPlot() {
-
+function startPlot(data) {
     console.log(data);
+    const rateOfGrowth = data[1].map((e, i) => {
+        const calcRate = function () {
+            if (i === 1) return 0;
+            if (e === 0 || e === 1) return 0;
+            return ((e - data[1][i - 1]) / data[1][i - 1]) * 100;
+        };
+        return i === 0 ? "Rate of growth" : calcRate();
+    });
+    data.push(rateOfGrowth);
+    console.log(rateOfGrowth);
     chart = c3.generate({
         bindto: "#chartContainer",
         size: {
-            height: 700,
+            height: 700
         },
         title: {
-            text: 'Temperature of Water over Time',
+            text: "Coronavirus deaths in the U.S. since January 21 2020"
         },
         data: {
-            x: 'x',
+            x: "date",
             columns: data,
-            type: 'spline',
+            type: "spline",
+            axes: {
+                deaths: "y",
+                "Rate of growth": "y2"
+            }
         },
         // point: {
         //     show: false
         // },
         legend: {
-            position: 'inset',
+            position: "inset",
             inset: {
-                anchor: 'top-left',
+                anchor: "top-left",
                 y: 5
-            },
+            }
         },
         axis: {
             x: {
+                show: false,
                 label: {
-                    text: 'Seconds',
-                    position: 'outer-right'
+                    text: "Date",
+                    position: "outer-right"
                 },
                 tick: {
                     // values: 'x',
+                    rotate: 75,
+                    multiline: false,
+                    format: d => date(d),
                     fit: true,
                     culling: false
-                },
+                }
             },
             y: {
                 label: {
-                    text: 'Temperature',
-                    position: 'outer-right'
+                    text: "Cumulative deaths",
+                    position: "outer-right"
                 },
                 tick: {
-                    format: x => `${x}\°F`
+                    format: x => `${Number(x).toLocaleString()}`
+                }
+            },
+            y2: {
+                show: true,
+                label: {
+                    text: "Rate of growth",
+                    position: "outer-right"
                 },
+                tick: {
+                    format: x => `${x.toFixed(1)}%`
+                }
             }
         },
         tooltip: {
             format: {
-                title: x => `At ${x} seconds`,
-                value: v => `${v.toFixed(1)}°`
+                title: x => `On ${date(x)}`,
+                value: v =>
+                    v % 1 === 0 ? `${Number(v).toLocaleString()}` : `${v.toFixed(2)}%`
             }
         }
     });
+}
 
-    runningSim = setInterval(() => { updatePlot(chart) }, 1000)
+function date(d) {
+    return new Date(d).toLocaleString("en-US", {
+        day: "2-digit",
+        year: "numeric",
+        month: "short"
+    });
 }
 
 function pause() {
@@ -68,11 +100,13 @@ function pause() {
     if (options[counter % 2] === "Pause") {
         clearTimeout(runningSim);
     } else {
-        updatePlot(chart)
-        runningSim = setInterval(() => { updatePlot(chart) }, 1000)
+        updatePlot(chart);
+        runningSim = setInterval(() => {
+            updatePlot(chart);
+        }, 1000);
     }
     counter += 1;
-    $("#pauseButton").text(options[counter % 2])
+    $("#pauseButton").text(options[counter % 2]);
 }
 
 function newTemp(oldDate) {
@@ -101,23 +135,20 @@ function getRandomTemp() {
 }
 
 function updatePlot(chart) {
-
+    
     const oldData = chart.data()[0].values;
     if (oldData.length > 20) oldData.shift();
 
-    const oldTemps = oldData.map(v => v.value)
-    oldTemps.push(getRandomTemp())
+    const oldTemps = oldData.map(v => v.value);
+    oldTemps.push(getRandomTemp());
 
     const oldTimes = oldData.map(v => v.x);
-    oldTimes.push(newTick(oldTimes[oldTimes.length - 1]))
+    oldTimes.push(newTick(oldTimes[oldTimes.length - 1]));
 
     chart.load({
         columns: [
-            ['heat', ...oldTemps],
-            ['x', ...oldTimes]
-        ],
-
-    })
-};
-
-startPlot()
+            ["heat", ...oldTemps],
+            ["x", ...oldTimes]
+        ]
+    });
+}
