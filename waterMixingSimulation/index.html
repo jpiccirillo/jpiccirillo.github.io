@@ -18,10 +18,17 @@
 </header>
 
 <body>
-  <label>Choose a country:</label>
-
-  <select id="dropdown" onchange="changeCountry(this.value)">
-  </select>
+  <div>
+    <label>Choose a country:</label>
+    <select id="dropdown" onchange="changeRegion(this.value)">
+    </select>
+    <div id="statesContainer" style="display: inline">
+      <label>or choose a state:</label>
+      <select id="states" onchange="changeRegion(this.value)">
+        <option value="Nationwide">Nationwide</option>
+      </select>
+    </div>
+  </div>
 
   <div id="chartContainer">
     <script type="text/javascript" src="./countries.js"></script>

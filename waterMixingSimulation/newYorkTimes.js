@@ -1,10 +1,16 @@
 let deaths_us,
   deaths_world,
-  country = "U.S.",
+  region = "U.S.",
+  scope = "world",
+  countries,
+  states,
   initial;
 
-function changeCountry(chosen) {
-  country = chosen;
+function changeRegion(chosen) {
+  region = chosen === "Nationwide" ? "U.S." : chosen;
+  scope = states.includes(region) ? "us" : "world";
+  const c = $("#statesContainer");
+  c[scope == "world" && region !== "U.S." ? "hide" : "show"]();
   startPlot(parseData());
 }
 
@@ -68,20 +74,19 @@ function init() {
     });
   });
 
-  return parseData();
+  return parseData(scope);
 }
 
 function parseData() {
   const type = "deaths",
-    scope = "world",
     chartData = { deaths_us, deaths_world };
   const dat = chartData[`${type}_${scope}`];
-
   const index = Object.keys(dat).filter(k => {
-    return dat[k].chart_label === country;
+    return dat[k].chart_label === region;
   });
 
-  filtered_data = dat[index].all_values.map(v => {
+  const dataField = scope === "us" ? "values" : "all_values";
+  filtered_data = dat[index][dataField].map(v => {
     delete v.obj;
     delete v.doubling_time;
     delete v.date_text;
@@ -142,14 +147,28 @@ Promise.all([
   })
   .then(r => startPlot(r))
   .then(function() {
-    const countries = deaths_world
+    countries = deaths_world
       .filter(c => c.last_last.value > 3000)
       .map(c => c.chart_label);
 
-    var s = $("#dropdown");
+    states = deaths_us
+      .filter(c => c.last_last.value > 150)
+      .map(c => c.chart_label);
+
+    var cDropdown = $("#dropdown");
     for (let c = 0; c < countries.length; c++) {
-      $("<option />", { value: countries[c], text: countries[c] }).appendTo(s);
+      $("<option />", { value: countries[c], text: countries[c] }).appendTo(
+        cDropdown
+      );
     }
-    s.val("U.S.");
+    cDropdown.val("U.S.");
+
+    var sDropdown = $("#states");
+    for (let c = 0; c < states.length; c++) {
+      $("<option />", { value: states[c], text: states[c] }).appendTo(
+        sDropdown
+      );
+    }
+    sDropdown.val("Nationwide");
   })
   .catch(err => console.log(err));

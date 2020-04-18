@@ -3,6 +3,11 @@ let runningSim,
     chart;
 
 function startPlot(data) {
+    if (scope === "us") {
+        data[0].splice(1, 1); // Fix issue with bad first date in state data
+        data[1].splice(1, 1);
+        data[2].splice(1, 1);
+    }
     let rateOfGrowth = data[2].map((cur, i) => {
         const calcRate = function () {
             const yday = data[2][i-1];
@@ -13,8 +18,7 @@ function startPlot(data) {
         };
         return i === 0 ? "Cumulative growth" : calcRate();
     });
-    rateOfGrowth.splice(1, 0, null);
-    data.push(rateOfGrowth);
+    if (scope === "world") rateOfGrowth.splice(1, 0, null);
 
     chart = c3.generate({
         bindto: "#chartContainer",
@@ -22,11 +26,11 @@ function startPlot(data) {
             height: 700
         },
         title: {
-            text: `Coronavirus deaths in ${country} since ${date(data[0][1])}`
+            text: `Coronavirus deaths in ${region} since ${date(data[0][1])}`
         },
         data: {
             x: "date",
-            columns: [data[0], data[1], data[3]],
+            columns: [data[0], data[1], rateOfGrowth],
             type: "spline",
             axes: {
                 deaths: "y",
