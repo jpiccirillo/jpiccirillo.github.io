@@ -3,14 +3,18 @@ let runningSim,
     chart;
 
 function startPlot(data) {
-    if (scope === "us") {
-        data[0].splice(1, 1); // Fix issue with bad first date in state data
-        data[1].splice(1, 1);
-        data[2].splice(1, 1);
-    }
-    let rateOfGrowth = data[2].map((cur, i) => {
+    //   https://github.com/CSSEGISandData/COVID-19/issues/2126#issuecomment-612546925
+    if (region === "Germany") data[0][1586581200000] = 2871;
+
+    const deaths = _.values(data[0]);
+    deaths[0] = "Cumulative deaths";
+
+    const dates = _.keys(data[0]).map((d, i) => (i === 0 ? d : new Date(+d)));
+    dates[0] = "date";
+
+    let rateOfGrowth = deaths.map((cur, i) => {
         const calcRate = function () {
-            const yday = data[2][i-1];
+            const yday = deaths[i - 1];
             if (i === 1) return null; // First in cumulative dataset is title
             if (cur === 0) return null; //If cumulative still 0, no growth 
             if (yday === 0) return null; //If yesterday was 0, returns infinity
@@ -18,7 +22,9 @@ function startPlot(data) {
         };
         return i === 0 ? "Cumulative growth" : calcRate();
     });
-    if (scope === "world") rateOfGrowth.splice(1, 0, null);
+    let dailyDeaths = deaths.map((cur, i) =>
+        i === 0 ? "Daily deaths" : cur - deaths[i - 1]
+    );
 
     chart = c3.generate({
         bindto: "#chartContainer",
@@ -26,11 +32,11 @@ function startPlot(data) {
             height: 700
         },
         title: {
-            text: `Coronavirus deaths in ${region} since ${date(data[0][1])}`
+            text: `Coronavirus deaths in ${region} since ${date(dates[1])}`
         },
         data: {
             x: "date",
-            columns: [data[0], data[1], rateOfGrowth],
+            columns: [dates, dailyDeaths, rateOfGrowth],
             type: "spline",
             axes: {
                 deaths: "y",
