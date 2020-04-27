@@ -1,30 +1,30 @@
+let cumulativeSum = ((sum) => (value) => (sum += value))(0);
 let runningSim,
     counter = 0,
     chart;
 
 function startPlot(data) {
+    data = data[0].values;
     //   https://github.com/CSSEGISandData/COVID-19/issues/2126#issuecomment-612546925
-    if (region === "Germany") data[0][1586581200000] = 2871;
+    if (region === "Germany") data[1586581200000] = 2871;
 
-    const deaths = _.values(data[0]);
-    deaths[0] = "Cumulative deaths";
-
-    const dates = _.keys(data[0]).map((d, i) => (i === 0 ? d : new Date(+d)));
-    dates[0] = "date";
-
-    let rateOfGrowth = deaths.map((cur, i) => {
-        const calcRate = function () {
+    const deaths = _.values(data);
+    const dates = _.keys(data).map((d) => new Date(+d));
+    const rateOfGrowth = moving_average(
+        deaths.map((cur, i) => {
             const yday = deaths[i - 1];
-            if (i === 1) return null; // First in cumulative dataset is title
-            if (cur === 0) return null; //If cumulative still 0, no growth 
-            if (yday === 0) return null; //If yesterday was 0, returns infinity
-            return ((cur - yday) / yday) * 100;
-        };
-        return i === 0 ? "Cumulative growth" : calcRate();
-    });
-    let dailyDeaths = deaths.map((cur, i) =>
-        i === 0 ? "Daily deaths" : cur - deaths[i - 1]
+            //If yesterday or today is 0, return null
+            return cur === 0 || yday === 0 ? null : ((cur - yday) / yday) * 100;
+        })
     );
+
+    let dailyDeaths = deaths.map((cur, i) => cur - deaths[i - 1]);
+    const smoothed_deaths = moving_average(dailyDeaths);
+
+    dates[0] = "date";
+    rateOfGrowth.unshift("Cumulative growth");
+    dailyDeaths.unshift("Daily deaths");
+    smoothed_deaths.unshift("Smoothed average");
 
     chart = c3.generate({
         bindto: "#chartContainer",
@@ -36,8 +36,13 @@ function startPlot(data) {
         },
         data: {
             x: "date",
-            columns: [dates, dailyDeaths, rateOfGrowth],
+            columns: [dates, dailyDeaths, smoothed_deaths, rateOfGrowth],
             type: "spline",
+            colors: {
+                "Daily deaths": "#d8dfe4",
+                "Smoothed average": "#5f6fa2",
+                "Cumulative growth": "#ef7c8e",
+            },
             axes: {
                 deaths: "y",
                 "Cumulative growth": "y2"
@@ -90,6 +95,7 @@ function startPlot(data) {
             }
         },
         tooltip: {
+            contents: generateTooltip,
             order: (t1, t2) => t1.id > t2.id,
             format: {
                 title: x => `On ${date(x)}`,
@@ -162,4 +168,71 @@ function updatePlot(chart) {
             ["x", ...oldTimes]
         ]
     });
+}
+
+function sum(numbers) {
+    return numbers.reduce((a, b) => a + b, 0);
+}
+
+function average(numbers) {
+    return sum(numbers) / (numbers.length || 1);
+}
+
+function make_window(before, after) {
+    return function (_number, index, array) {
+        const start = Math.max(0, index - before);
+        const end = Math.min(array.length, index + after + 1);
+        return array.slice(start, end);
+    };
+}
+
+function moving_average(numbers) {
+    return _.chain(numbers).map(make_window(1, 1)).map(average).value();
+}
+
+function generateTooltip(d, defaultTitleFormat, defaultValueFormat, color) {
+    var $$ = this,
+        config = $$.config,
+        titleFormat = config.tooltip_format_title || defaultTitleFormat,
+        nameFormat = config.tooltip_format_name || ((n) => n),
+        valueFormat = config.tooltip_format_value || defaultValueFormat,
+        text,
+        i,
+        title,
+        value,
+        name,
+        bgcolor;
+    for (i = 0; i < d.length; i++) {
+        if (!(d[i] && (d[i].value || d[i].value === 0))) {
+            continue;
+        }
+
+        if (d[i].id === "Smoothed average") continue;
+
+        if (!text) {
+            title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+            text =
+                "<table class='" +
+                $$.CLASS.tooltip +
+                "'>" +
+                (title || title === 0
+                    ? "<tr><th colspan='2'>" + title + "</th></tr>"
+                    : "");
+        }
+
+        name = nameFormat(d[i].name);
+        value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+        bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
+
+        text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
+        text +=
+            "<td class='name'><span style='background-color:" +
+            bgcolor +
+            "'></span>" +
+            name +
+            "</td>";
+        text += "<td class='value'>" + value + "</td>";
+        text += "</tr>";
+    }
+    return text + "</table>";
 }
