@@ -27,20 +27,21 @@ Promise.all([
       "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv",
       (err, data) => res(data)
     );
-  })
+  }),
 ])
-  .then(r => parseJohnsHopkinsData(r[0]))
+  .then((r) => parseJohnsHopkinsData(r[0]))
   .then(() => filterCountry("US"))
-  .then(singleCountryData => startPlot(singleCountryData))
-  .then(function() {
+  .then((singleCountryData) => startPlot(singleCountryData))
+  .then(function () {
     function getMaxDeaths(c) {
       c = _.omit(c, ["Country/Region"]); // remove metadata before dates;
-      return d3.max(_.values(c).map(c => +c)); // get max of values
+      return d3.max(_.values(c).map((c) => +c)); // get max of values
     }
 
     countries = deaths_world
-      .filter(c => getMaxDeaths(c) > 1000)
-      .map(c => c["Country/Region"]);
+      .filter((c) => getMaxDeaths(c) > 1000)
+      .map((c) => c["Country/Region"])
+      .sort();
 
     var cDropdown = $("#dropdown");
     for (let c = 0; c < countries.length; c++) {
@@ -50,21 +51,31 @@ Promise.all([
     }
     cDropdown.val("US");
   })
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 function parseJohnsHopkinsData(data) {
   deaths_world = d3
     .nest()
-    .key(p => p["Country/Region"])
+    .key((p) => p["Country/Region"])
+    .rollup((all) => {
+      return all.reduce(
+        (acc, region) => {
+          for (const [key, value] of Object.entries(region)) {
+            if (/^[a-zA-Z\/]/.test(key)) continue;
+            acc[key] = acc[key] ? acc[key] + parseInt(value) : parseInt(value);
+          }
+          return acc;
+        },
+        { "Country/Region": all[0]["Country/Region"] }
+      );
+    })
     .entries(data)
-    .map(c => {
-      delete c.values[0]["Province/State"];
-      delete c.values[0].Lat;
-      delete c.values[0].Long;
-      return _.keys(c.values[0]).reduce((acc, key) => {
-        if (key === "Country/Region") acc[key] = c.values[0][key];
+    .map((c) => {
+      c = c.values;
+      return _.keys(c).reduce((acc, key) => {
+        if (key === "Country/Region") acc[key] = c[key];
         else {
-          acc[new Date(key).getTime()] = parseInt(c.values[0][key]);
+          acc[new Date(key).getTime()] = parseInt(c[key]);
         }
         return acc;
       }, {});
@@ -72,5 +83,5 @@ function parseJohnsHopkinsData(data) {
 }
 
 function filterCountry(region) {
-  return deaths_world.filter(country => country["Country/Region"] === region);
+  return deaths_world.filter((country) => country["Country/Region"] === region);
 }
