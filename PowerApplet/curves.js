@@ -300,31 +300,6 @@ function calcDelta(mu) {
 // Delta, alpha error are validated in changeDelta() alphaErrorPrep()
 // Beta error is not validated as it is readonly
 function setValues() {
-  // Defines valid min, max, error msg, and precision for each entry paramater.
-  // Used in validate().
-  validvalues = [
-    ["mu0", -10000, 10000, "", 0],
-    ["mu1", -10000, 10000, "", 0],
-    ["std", 1, 10000, "Standard Deviation must be greater than 1.", 0],
-    ["delta", -10000, 10000, "", 2],
-    ["alpha", 0.001, 1, "Type I Error must be between 0.001 and 1", 3],
-    [
-      "n",
-      1,
-      100,
-      "Sample size must be between 1 and 100.",
-      0,
-      "#slider-vertical1",
-    ],
-    [
-      "power",
-      0.001,
-      0.999,
-      "Power must be between 0.001 and 0.999.",
-      3,
-      "#slider-vertical2",
-    ],
-  ];
 
   mu0 = parseInt($("#mu0").val());
   mu1 = parseInt($("#mu1").val());
