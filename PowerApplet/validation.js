@@ -16,8 +16,8 @@ $(function () {
   $("#slider-vertical1").slider({
     orientation: "vertical",
     range: "min",
-    min: 0,
-    max: 100,
+    min: validValues.n.min,
+    max: validValues.n.max,
     value: parseInt($("#n").val()),
     step: 1,
     create: function (event, ui) {
@@ -62,7 +62,7 @@ function ssInBounds(temp_power) {
       error = "To increase power, change μ1.";
     }
     if (temp_n < 1 && n < 1.5) {
-      error = validvalues[5][3];
+      error = validValues.n.msg;
     }
     $(".console").text(error);
     return false;
@@ -71,17 +71,13 @@ function ssInBounds(temp_power) {
 }
 
 function checkPower(temp_power) {
-  // If no power is given to validate, it's not sent from the slider and we
-  // should pull it out of form
-  if (temp_power == "form") {
-    temp_power = parseFloat($("#power").val());
-  }
+  temp_power = temp_power.value;
 
   // First check if within bounds and is numeric
   if (
     isNaN(temp_power) ||
-    temp_power < validvalues[6][1] ||
-    temp_power > validvalues[6][2]
+    temp_power < validValues.power.min ||
+    temp_power > validValues.power.max
   ) {
     $("#power").val(power.toFixed(3));
     return false;
@@ -105,17 +101,13 @@ $(function () {
   $("#slider-vertical2").slider({
     orientation: "vertical",
     range: "min",
-    min: 0,
-    max: 1,
+    min: validValues.power.min,
+    max: validValues.power.max,
     value: 0.6,
     step: 0.001,
 
     slide: function (event, ui) {
-      if (checkPower(ui.value)) {
-        return true;
-      } else {
-        return false;
-      }
+      return checkPower(ui);
     },
   });
 });
@@ -152,51 +144,33 @@ function setPowerSampleSize() {
   $("#slider-vertical2").slider("value", power);
 }
 
-function validate(item) {
-  var val = $("#" + item).val();
-  i = 0;
-  invalid = false;
+function validate(DOMElement) {
+  const item = DOMElement.id;
+  const { min, max, msg, precision } = validValues[item];
+  let val = $("#" + item).val();
+  let valid = true;
   $(".console").text("");
 
-  for (i = 0; (len = validvalues.length), i < len; i++) {
-    // console.log(validvalues[i][0], item)
-    if (item == validvalues[i][0]) {
-      var min = validvalues[i][1],
-        max = validvalues[i][2];
-      if (isNaN(val) || !val) {
-        val = window[item];
-        invalid = true;
-        break;
-      }
-      if (val < min) {
-        val = min;
-        invalid = true;
-        break;
-      }
-      if (val > max) {
-        val = max;
-        invalid = true;
-        break;
-      }
-      val = parseFloat(val);
-      break; // If it's valid, still break out
-    }
+  if (isNaN(val) || !val) {
+    val = window[item];
+    valid = false;
+  } else if (val < min) {
+    val = min;
+    valid = false;
+  } else if (val > max) {
+    val = max;
+    valid = false;
   }
 
-  // Print error to tool's console, if present
-  if (invalid) {
-    $(".console").text(validvalues[i][3]);
-  }
+  // If invalid, notify via console and continue
+  if (!valid) $(".console").text(msg);
+
+  val = parseFloat(val);
   window[item] = val; // Set internal variable to valid value
-  $("#" + item).val(val.toFixed(validvalues[i][4])); // Set display value with specified precision
+  $("#" + item).val(val.toFixed(precision)); // Set display value with specified precision
 
-  if (
-    item == "n" ||
-    item == "mu1" ||
-    item == "std" ||
-    item == "alpha" ||
-    item == "delta"
-  ) {
+  // Some values are based on others:
+  if (["n", "mu1", "std", "alpha", "delta"].includes(item)) {
     if (item == "delta") {
       mu1 = delta * std + mu0;
       internalmu1 = mu1;

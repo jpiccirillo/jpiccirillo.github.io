@@ -31,25 +31,25 @@
             <table>
                 <tr>
                     <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0" value="100" autocomplete="off" onchange="validate('mu0');"></td>
+                    <td><input type="text" id="mu0" value="100" autocomplete="off" onchange="validate(this);"></td>
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1" value="105"  autocomplete="off"onchange="validate('mu1');"></td>
+                    <td><input type="text" id="mu1" value="105"  autocomplete="off"onchange="validate(this);"></td>
                 </tr>
 
                 <tr>
                     <td id="label">σ = </td>
-                    <td><input type="text" id="std" value="5" autocomplete="off" onchange="validate('std');"></td>
+                    <td><input type="text" id="std" value="5" autocomplete="off" onchange="validate(this);"></td>
                 </tr>
                 <tr>
                     <td id="label">d = </td>
-                    <td><input type="text" id="delta" autocomplete="off" onchange="validate('delta');"></td>
+                    <td><input type="text" id="delta" autocomplete="off" onchange="validate(this);"></td>
                 </tr>
                 </tr>
                 <tr>
                     <td id="label">α = </td>
-                    <td><input type="text" id="alpha" value=".05" autocomplete="off" onchange="validate('alpha')"></td>
+                    <td><input type="text" id="alpha" value=".05" autocomplete="off" onchange="validate(this)"></td>
                 </tr>
                 </tr>
                 <tr>
@@ -58,11 +58,11 @@
                 </tr>
                 <tr>
                     <td id="label">n = </td>
-                    <td><input type="text" id="n" value="4" autocomplete="off" onchange="validate('n')"></td>
+                    <td><input type="text" id="n" value="4" autocomplete="off" onchange="validate(this)"></td>
                 </tr>
                 <tr>
                     <td id="label">Power = </td>
-                    <td><input type="text" id="power" autocomplete="off" onchange="checkPower('form');"></td>
+                    <td><input type="text" id="power" autocomplete="off" onchange="checkPower(this);"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -86,6 +86,8 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        
+        <script type="text/javascript" src="validValues.js"></script>
         <script type="text/javascript" src="calculations.js"></script>
         <script type="text/javascript" src="validation.js"></script>
         <script type="text/javascript" src="curves.js"></script>
