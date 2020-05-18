@@ -11,14 +11,14 @@ power when alpha (Type I error) or mu1 (alternative population mean) are changed
 * @Last Modified time: 4/30/18
 */
 
-// Main Power Slider on right (grey one)
+// Main Sample size Slider on right (grey one)
 $(function () {
   $("#slider-vertical1").slider({
     orientation: "vertical",
     range: "min",
     min: validValues.n.min,
     max: validValues.n.max,
-    value: parseInt($("#n").val()),
+    value: validValues.n.initial,
     step: 1,
     create: function (event, ui) {
       setSliderTicks(event.target);
@@ -103,7 +103,7 @@ $(function () {
     range: "min",
     min: validValues.power.min,
     max: validValues.power.max,
-    value: 0.6,
+    value: 0.6, // similar value until calculated in const p object
     step: 0.001,
 
     slide: function (event, ui) {
