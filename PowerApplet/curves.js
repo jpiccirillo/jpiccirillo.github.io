@@ -300,6 +300,9 @@ function calcDelta(mu) {
 // Delta, alpha error are validated in changeDelta() alphaErrorPrep()
 // Beta error is not validated as it is readonly
 function setValues() {
+  ["mu0", "mu1", "std", "alpha", "n"].forEach((param) => {
+    $(`#${param}`).val(validValues[param].initial);
+  });
 
   mu0 = parseInt($("#mu0").val());
   mu1 = parseInt($("#mu1").val());

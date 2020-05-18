@@ -3,16 +3,19 @@
 
 const validValues = {
   mu0: {
+    initial: 100,
     min: -10000,
     max: 10000,
     precision: 0,
   },
   mu1: {
+    initial: 105,
     min: -10000,
     max: 10000,
     precision: 0,
   },
   std: {
+    initial: 5,
     min: 1,
     max: 10000,
     msg: "Standard Deviation must be greater than 1.",
@@ -24,12 +27,14 @@ const validValues = {
     precision: 2,
   },
   alpha: {
+    initial: 0.05,
     min: 0.001,
     max: 0.999,
     msg: "Type I Error must be between 0.001 and 1",
     precision: 3,
   },
   n: {
+    initial: 4,
     min: 1,
     max: 100,
     msg: "Sample size must be between 1 and 100.",
