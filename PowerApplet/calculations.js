@@ -10,10 +10,9 @@ to avoid having to import the entire library as only a few functions are used.
 * @Main credit: jStat.js, v1.71 (https://jstat.github.io/all.html)
 */
 
-function calculateValue(changed, toCalculate) {
+function calculateValue(toCalculate, test) {
   // This function is calculates a result based on a test value (changed) combined with the rest of p.  Combine p with the test value
-  const test_p = { ...p, ...changed };
-  let { mu0, mu1, std, alpha, n, power } = test_p;
+  let { mu0, mu1, std, alpha, n, power, delta } = { ...p, ...test };
 
   if (toCalculate === "power") {
     zcritical1 = inv(1 - alpha / 2, 0, 1);
@@ -35,8 +34,14 @@ function calculateValue(changed, toCalculate) {
     );
   }
 
+  // Calculate delta from a change in mu0, mu1 or std
   if (toCalculate === "delta") {
     return (mu1 - mu0) / std;
+  }
+
+  // Calculate mu1 from delta
+  if (toCalculate === "mu1") {
+    return delta * std + mu0;
   }
 
   if (toCalculate === "effectsize") {

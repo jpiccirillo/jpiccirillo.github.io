@@ -46,45 +46,6 @@ The potential power value additionally must be smaller than the current Alpha
 value to generate meaningful results. For mu1<mu0, this function also returns
 an false as the "sample calculation" is only enabled for alternative populations
 with mean greater than null population mean.*/
-function ssInBounds(temp_power) {
-  temp_n = calcSampleSize(temp_power);
-  // console.log("temp_n: ", temp_n, "temp_power: ", temp_power);
-  // console.log("mu1: ", mu1, "mu0: ", mu0);
-  if (temp_n > 100 || temp_n < 1 || temp_power < alpha || internalmu1 < mu0) {
-    if ((temp_n < 1 && n > 1.5) || temp_n > 100) {
-      error = "To increase power, change μ1.";
-    }
-    if (temp_n < 1 && n < 1.5) {
-      error = validValues.n.msg;
-    }
-    $(".console").text(error);
-    return false;
-  }
-  return true;
-}
-
-function checkPower(temp_power) {
-  // First check if within bounds and is numeric
-  if (
-    isNaN(temp_power) ||
-    temp_power < validValues.power.min ||
-    temp_power > validValues.power.max
-  ) {
-    // $("#power").val(power.toFixed(3));
-    return false;
-  }
-
-  // Then check if resulting sample size is within bounds
-  // if (ssInBounds(temp_power)) {
-  //   mu1 = internalmu1;
-  //   n = temp_n;
-  //   power = temp_power;
-  //   setPowerSampleSize();
-  //   plot();
-  //   return true;
-  // }
-  return true;
-}
 
 // Main Power Slider on right (red one)
 $(function () {
@@ -123,7 +84,7 @@ function setSliderTicks(el) {
   }
 }
 
-function setValues() {
+function setValues(id) {
   $(".console").text("");
   Object.keys(p).forEach((v) => {
     $(`#${v}`).val(p[v].toFixed(validValues[v].precision));
@@ -141,13 +102,12 @@ $(function () {
 
 function validate(component) {
   const id = Object.keys(component)[0];
-  const val = component[id];
-
+  const val = parseFloat(component[id]);
   $(".console").text("");
 
   function withinBounds(component) {
     const id = Object.keys(component)[0];
-    const val = component[id];
+    const val = parseFloat(component[id]);
     const { min, max, msg } = validValues[id];
 
     if (isNaN(val) || !val || val < min || val > max) {
@@ -164,14 +124,21 @@ function validate(component) {
   // If original value was valid, make sure dependent field is valid
   if (id === "power") {
     return withinBounds({
-      n: calculateValue({ power: val }, "n"),
+      n: calculateValue("n", { power: val }),
     });
   }
 
-  if (["mu0", "mu1", "n"].includes(id)) {
+  if (["mu0", "mu1", "n", "std"].includes(id)) {
     return withinBounds({
-      power: calculateValue({ [id]: val }, "power"),
+      power: calculateValue("power", { [id]: val }),
     });
+  }
+
+  // If we're changing delta, make sure that resulting mu1 is within bounds, then that resulting
+  if (id === "delta") {
+    const t_mu1 = calculateValue("mu1", { delta: val });
+    const t_power = calculateValue("power", { mu1: t_mu1 });
+    return withinBounds({ mu1: t_mu1 }) && withinBounds({ power: t_power });
   }
 
   // return valid;
