@@ -10,11 +10,45 @@ drags a curve around.
 * @Last Modified time: 3/10/19
 */
 
+// add an appropriate event listener
+const channel = new Channel();
+const p = {};
+
+function setValuesNew(changed, event) {
+  event = event || "change";
+  const id = Object.keys(changed)[0];
+  const value = changed[id];
+
+  p[id] = parseFloat(value);
+
+  // If mu0, mu1, std, alpha, or n change, recalculate power
+  if (["mu0", "mu1", "std", "alpha", "n"].includes(id)) {
+    p.power = calculateValue({ [id]: value }, "power");
+    p.effectsize = calculateValue({ power: p.power }, "effectsize");
+  }
+
+  // If mu0, mu1, or std change, recalculate delta
+  if (["mu0", "mu1", "std"].includes(id)) {
+    p.delta = calculateValue({ [id]: value }, "delta");
+  }
+
+  // If power changes, recalculate required sample size to achieve that power
+  if (id === "power") {
+    p.n = calculateValue({ [id]: value }, "n");
+    p.effectsize = calculateValue({ [id]: value }, "effectsize");
+  }
+
+  // Emit new p values to presentation layer
+  channel.emit(event);
+  return true;
+}
+
 //Update size of tool and replot shapes when screensize is changed
 $(window).resize(function () {
-  mu1 = internalmu1;
+  // mu1 = internalmu1;
   initScreenSize();
-  plot();
+  // plot();
+  // channel.emit("change");
 });
 
 // Spinning wheel to display while loading for slow connections
@@ -26,16 +60,6 @@ function initScreenSize() {
   screen_w = $(".maingraph").innerWidth(); //Establish screen space
   screen_h = $(".maingraph").innerHeight();
   topscreen_h = $(".minigraph").innerHeight();
-  var mu0,
-    mu1,
-    internalmu1,
-    std,
-    n,
-    alpha,
-    mainContainer,
-    topContainer,
-    node,
-    power;
 }
 
 var interp = d3
@@ -60,42 +84,6 @@ function appendText(id, anchor, movable, x, y, text) {
   }
 }
 
-function addPath(
-  id,
-  type,
-  x,
-  width,
-  anchor,
-  verticiesArray,
-  maxHeight,
-  draggable
-) {
-  var drag = d3.drag().on("drag", function (d) {
-    dragged(d);
-  });
-
-  if (type == "path") {
-    var path = anchor
-      .append("path")
-      .attr("id", id) //Assign the shape the ID provided in id argument
-      .attr("d", interp(verticiesArray)) //Shape it with the array provided
-      .attr("transform", "translate(0," + maxHeight + ") scale(1,-1)"); //Transform it
-    if (draggable) {
-      //For paths created with "draggable" flag, implement
-      path.data([{ x: 0 }]).call(drag);
-    }
-  } else {
-    anchor
-      .append("clipPath") // define a clip path
-      .attr("id", id) // give the clipPath an ID
-      .append("rect") // shape it as a rectangle
-      .attr("x", x) // position the top x corner
-      .attr("y", 0) // position the y-corner, always 0
-      .attr("height", screen_h) // set the height
-      .attr("width", width); // set the width
-  }
-}
-
 function axisPrep() {
   $(".axis").remove();
   var ticks = [];
@@ -107,7 +95,7 @@ function axisPrep() {
     if (i == -4 || i == 4) {
       ticknames.push(""); //4 standard deviations away from mu0 have blank X ticks
     } else {
-      ticknames.push(i * std + mu0);
+      ticknames.push(i * p.std + p.mu0);
     }
   }
   //Create the Scale we will use for the Axis
@@ -129,7 +117,8 @@ function axisPrep() {
 }
 
 //Convert user/axis scale to pixel scale for writing to screen
-function screenScale(x) {
+function screenScale({ mu0, std, x }) {
+  // console.log(mu0, x, std)
   return d3
     .scaleLinear()
     .domain([mu0 - 4 * std, mu0 + 4 * std])
@@ -137,7 +126,7 @@ function screenScale(x) {
 }
 
 //Convert pixel-scale for writing to screen to user/axis scale
-function displayScale(x) {
+function displayScale({ mu0, std, x }) {
   return d3
     .scaleLinear()
     .domain([0, screen_w])
@@ -145,24 +134,11 @@ function displayScale(x) {
 }
 
 //Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
-function verticalScale(y) {
+function verticalScale({ mu0, std, y }) {
   return d3
     .scaleLinear()
     .domain([0, pdf(mu0, mu0, std / Math.sqrt(100))])
     .range([0, screen_h * 1.16])(y);
-}
-
-function generateCurve(mu, n, std, l_bound, u_bound) {
-  var array = [];
-  var step = (8 * std) / 30;
-
-  for (var x = l_bound; x < u_bound; x += step) {
-    array.push({
-      x: screenScale(x),
-      y: verticalScale(pdf(x, mu, std / Math.sqrt(n))),
-    });
-  }
-  return array;
 }
 
 function textPrep() {
@@ -171,7 +147,7 @@ function textPrep() {
     "smallpinktext",
     topContainer,
     1,
-    screenScale(mu1),
+    screenScale({ ...p, x: mu1 }),
     (topscreen_h / 10) * 2.5,
     "Alternative Population"
   );
@@ -179,7 +155,7 @@ function textPrep() {
     "smallbluetext",
     mainContainer,
     "",
-    screenScale(mu0),
+    screenScale({ ...p, x: mu0 }),
     (topscreen_h / 10) * 2.5,
     "Null Population"
   );
@@ -205,89 +181,50 @@ function alphaErrorPrep() {
   d3.selectAll("line, #alphaErrorBlue, #rect-clip").each(function () {
     this.remove();
   });
-  xValue = normalcdf();
-  scaledXValue = screenScale(mu0 - xValue);
+  // xValue = normalcdf();
+  // scaledXValue = screenScale(mu0 - xValue);
 
-  addPath(
-    "rect-clip",
-    "clipPath",
-    scaledXValue,
-    Math.abs(screen_w - scaledXValue),
-    mainContainer,
-    "",
-    "",
-    ""
-  );
-  addPath(
-    "alphaErrorBlue",
-    "path",
-    "",
-    "",
-    mainContainer,
-    firsthalf_main,
-    screen_h - 20
-  );
+  // addPath(
+  //   "rect-clip",
+  //   "clipPath",
+  //   scaledXValue,
+  //   Math.abs(screen_w - scaledXValue),
+  //   mainContainer,
+  //   "",
+  //   "",
+  //   ""
+  // );
+  // addPath(
+  //   "alphaErrorBlue",
+  //   "path",
+  //   "",
+  //   "",
+  //   mainContainer,
+  //   firsthalf_main,
+  //   screen_h - 20
+  // );
 
-  mainContainer
-    .append("line")
-    .attr("id", "dashedLine")
-    .attr("x1", scaledXValue)
-    .attr("y1", screen_h - 20)
-    .attr("x2", scaledXValue)
-    .attr("y2", screen_h * 0.1);
+  // xValue = normalcdf();
+  // scaledXValue = screenScale(mu0 - xValue);
 
-  addPath(
-    "mainbluestroke",
-    "path",
-    "",
-    "",
-    mainContainer,
-    firsthalf_main,
-    screen_h - 20
-  );
-  checkOverlap();
-}
+  // mainContainer
+  //   .append("line")
+  //   .attr("id", "dashedLine")
+  //   .attr("x1", scaledXValue)
+  //   .attr("y1", screen_h - 20)
+  //   .attr("x2", scaledXValue)
+  //   .attr("y2", screen_h * 0.1);
 
-// Determine the dark red shape that should be drawn (part of alternative
-// population curve that falls to the left of Type I Error)
-function checkOverlap(mu) {
-  d3.selectAll("#alphaErrorRed, #rect-clip-left").each(function () {
-    this.remove();
-  });
-  var mu = !mu ? internalmu1 : mu;
-
-  xValue = normalcdf();
-  scaledXValue = screenScale(mu0 - xValue);
-  alphaError = generateCurve(mu, n, std, mu - 4 * std, mu + 4 * std);
-
-  addPath(
-    "rect-clip-left",
-    "clipPath",
-    0,
-    scaledXValue,
-    mainContainer,
-    "",
-    "",
-    ""
-  );
-  addPath(
-    "alphaErrorRed",
-    "path",
-    "",
-    "",
-    mainContainer,
-    alphaError,
-    screen_h - 20
-  );
-
-  d3.selectAll(
-    "#mainpink, #dashedLine, #alphaErrorBlue, #smallgreytext, .axis"
-  ).each(function () {
-    this.parentNode.appendChild(this);
-  });
-  d3.select("#mainbluestroke").each(function () {
-    this.parentNode.appendChild(this);
-  });
+  // addPath(
+  //   "mainbluestroke",
+  //   "path",
+  //   "",
+  //   "",
+  //   mainContainer,
+  //   firsthalf_main,
+  //   screen_h - 20
+  // );
+  // checkOverlap();
 }
 
 // Calculate normalized difference between the means using mu1, mu0, and std
@@ -299,37 +236,25 @@ function calcDelta(mu) {
 // Validate input before setting internal variables
 // Delta, alpha error are validated in changeDelta() alphaErrorPrep()
 // Beta error is not validated as it is readonly
-function setValues() {
-  ["mu0", "mu1", "std", "alpha", "n"].forEach((param) => {
-    $(`#${param}`).val(validValues[param].initial);
-  });
+// function setValues() {
+//   ["mu0", "mu1", "std", "alpha", "n"].forEach((param) => {
+//     $(`#${param}`).val(validValues[param].initial);
+//   });
 
-  mu0 = parseInt($("#mu0").val());
-  mu1 = parseInt($("#mu1").val());
-  std = parseInt($("#std").val());
-  alpha = parseFloat($("#alpha").val());
-  n = parseInt($("#n").val());
-  power = calculatePower(mu1);
-  $("#effectsize").val((1 - power).toFixed(3));
-  internalmu1 = mu1;
+//   mu0 = parseInt($("#mu0").val());
+//   mu1 = parseInt($("#mu1").val());
+//   std = parseInt($("#std").val());
+//   alpha = parseFloat($("#alpha").val());
+//   n = parseInt($("#n").val());
+//   power = calculatePower(mu1);
+//   $("#effectsize").val((1 - power).toFixed(3));
+//   internalmu1 = mu1;
 
-  //Delta is set as a function of mu0, mu1, and standard dev
-  calcDelta(internalmu1);
+//   //Delta is set as a function of mu0, mu1, and standard dev
+//   calcDelta(internalmu1);
 
-  $("#slider-vertical2").slider("value", power);
-  $("#power").val(power.toFixed(3));
-}
-
-// function recenter(){
-//                 // console.log("ok")
-//     $('#mainContainer').mousedown(function() {
-//         if ((secondhalf_main[0].x > screen_w*.7) || (secondhalf_main[secondhalf_main.length - 1].x < 0+screen_w*.2)) {
-//             internalmu1 = secondhalf_main[0].x > screen_w*.7 ? 4*std:-4*std;
-//             $("#mu1").val(internalmu1)
-//             // console.log("ok")
-//             prepare();
-//         }
-//     })
+//   $("#slider-vertical2").slider("value", power);
+//   $("#power").val(power.toFixed(3));
 // }
 
 // Calculate sample size based on power.  Used when power is being set
@@ -386,60 +311,6 @@ function plot() {
   textPrep();
 }
 
-// Coordinate calculating an array of values to draw a normal distribution curve
-// for the four main curves in the tool
-function curveFactory() {
-  firsthalf_main = generateCurve(mu0, n, std, mu0 - 4 * std, mu0 + 4 * std); //Generate large blue curve
-  firsthalf_top = generateCurve(mu0, 1.25, std, mu0 - 4 * std, mu0 + 4 * std); //Generate small top blue curve
-  secondhalf_main = generateCurve(mu1, n, std, mu1 - 4 * std, mu1 + 4 * std); //Generate large red curve
-  secondhalf_top = generateCurve(mu1, 1.25, std, mu1 - 4 * std, mu1 + 4 * std); //Generate small top pink curve
-}
-
-// Put an SVG path on the screen for each curve calculated in curveFactory();
-function pathFactory() {
-  d3.selectAll("path, text").each(function () {
-    this.remove();
-  });
-  addPath(
-    "mainblue",
-    "path",
-    "",
-    "",
-    mainContainer,
-    firsthalf_main,
-    screen_h - 20
-  );
-  addPath(
-    "mainpink",
-    "path",
-    "",
-    "",
-    mainContainer,
-    secondhalf_main,
-    screen_h - 20,
-    1
-  );
-  addPath(
-    "smallblue",
-    "path",
-    "",
-    "",
-    topContainer,
-    firsthalf_top,
-    topscreen_h
-  );
-  addPath(
-    "smallpink",
-    "path",
-    "",
-    "",
-    topContainer,
-    secondhalf_top,
-    topscreen_h,
-    1
-  );
-}
-
 // When tool loads for the first time, initialize screen size and prepare the
 // containers to which later shapes will be drawn.  Then call plot() to carry
 // out rest of shape creation
@@ -448,8 +319,14 @@ function prepare() {
   $(".container").css("display", "block");
   $("#description").css("display", "block");
   initScreenSize();
+
+  // Set initial values object (p)
+  Object.keys(validValues).forEach((param) => {
+    const valid = validValues[param];
+    p[param] = valid.initial ? valid.initial : calculateValue({}, param);
+  });
+
   setValues();
-  std_n = std / Math.sqrt(n);
 
   mainContainer = d3
     .select(".maingraph")
@@ -464,7 +341,61 @@ function prepare() {
     .attr("width", screen_w)
     .attr("height", topscreen_h);
 
-  plot();
+  xValue = normalcdf(p);
+  scaledXValue = screenScale({ ...p, x: p.mu0 - xValue });
+
+  mainContainer
+    .append("clipPath") // define a clip path
+    .attr("id", "rect-clip-right") // give the clipPath an ID
+    .append("rect") // shape it as a rectangle
+    .attr("x", scaledXValue) // position the top x corner
+    .attr("y", 0) // position the y-corner, always 0
+    .attr("height", screen_h) // set the height
+    .attr("width", Math.abs(screen_w - scaledXValue)); // set the width
+
+  mainContainer
+    .append("clipPath") // define a clip path
+    .attr("id", "rect-clip-left") // give the clipPath an ID
+    .append("rect") // shape it as a rectangle
+    .attr("x", 0) // position the top x corner
+    .attr("y", 0) // position the y-corner, always 0
+    .attr("height", screen_h) // set the height
+    .attr("width", scaledXValue); // set the width
+
+  mainContainer
+    .append("line")
+    .attr("id", "dashedLine")
+    .attr("x1", scaledXValue)
+    .attr("y1", screen_h - 20)
+    .attr("x2", scaledXValue)
+    .attr("y2", screen_h * 0.1);
+
+  const blue = "21, 67, 96";
+  const red = "139, 0, 0";
+
+  // Blue curves (null population)
+  new Curve({
+    position: "bottom",
+    draggable: false,
+    id: "mainblue",
+    center: "mu0",
+    clip: "right",
+    color: blue,
+    hasError: true,
+  });
+
+  // Red curves (alternative population)
+  new Curve({
+    position: "bottom",
+    draggable: true,
+    id: "mainpink",
+    center: "mu1",
+    clip: "left",
+    color: red,
+    hasError: true,
+  });
+
+  axisPrep();
 }
 
 // When the "Sample" button is pushed:
@@ -477,7 +408,6 @@ function sample() {
   plot();
 
   if (mu1 < mu0) {
-    console.log("here");
     $(".console").text(
       "μ0 = " +
         mu0.toFixed(2) +

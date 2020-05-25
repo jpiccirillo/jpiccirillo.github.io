@@ -10,19 +10,56 @@ to avoid having to import the entire library as only a few functions are used.
 * @Main credit: jStat.js, v1.71 (https://jstat.github.io/all.html)
 */
 
-function calculatePower(mu) {
-  zcritical1 = inv(1 - alpha / 2, 0, 1);
-  zcritical2 = inv(alpha / 2, 0, 1);
-  if (mu < mu0) {
-    noncentrality = 0;
-  } else {
-    noncentrality = (mu - mu0) / (std / Math.sqrt(n));
+function calculateValue(changed, toCalculate) {
+  // This function is calculates a result based on a test value (changed) combined with the rest of p.  Combine p with the test value
+  const test_p = { ...p, ...changed };
+  let { mu0, mu1, std, alpha, n, power } = test_p;
+
+  if (toCalculate === "power") {
+    zcritical1 = inv(1 - alpha / 2, 0, 1);
+    zcritical2 = inv(alpha / 2, 0, 1);
+    noncentrality = mu1 < mu0 ? 0 : (mu1 - mu0) / (std / Math.sqrt(n));
+    return parseFloat(
+      cdf(noncentrality - zcritical1, 0, 1) +
+        cdf(zcritical2 - noncentrality, 0, 1)
+    );
   }
-  return parseFloat(
-    cdf(noncentrality - zcritical1, 0, 1) +
-      cdf(zcritical2 - noncentrality, 0, 1)
-  );
+
+  if (toCalculate === "n") {
+    return Math.pow(
+      ((inv(power - cdf(inv(alpha / 2, 0, 1), 0, 1), 0, 1) +
+        inv(1 - alpha / 2, 0, 1)) *
+        std) /
+        (mu1 - mu0),
+      2
+    );
+  }
+
+  if (toCalculate === "delta") {
+    return (mu1 - mu0) / std;
+  }
+
+  if (toCalculate === "effectsize") {
+    return 1 - power;
+  }
 }
+// function calculatePower(mu) {
+//   zcritical1 = inv(1 - alpha / 2, 0, 1);
+//   zcritical2 = inv(alpha / 2, 0, 1);
+//   if (mu < mu0) {
+//     noncentrality = 0;
+//   } else {
+//     noncentrality = (mu - mu0) / (std / Math.sqrt(n));
+//   }
+//   return parseFloat(
+//     cdf(noncentrality - zcritical1, 0, 1) +
+//       cdf(zcritical2 - noncentrality, 0, 1)
+//   );
+// }
+
+// function calculatePowerAbstracted({ mu0, mu1, std, alpha, n }) {}
+
+// function calcSampleSizeAbstracted({ mu0, mu1, std, alpha, power }) {}
 
 function ztest(z, sides) {
   return cdf(-Math.abs(z), 0, 1);
@@ -32,10 +69,8 @@ function cdf(x, mean, std) {
   return 0.5 * (1 + erf((x - mean) / Math.sqrt(2 * std * std)));
 }
 
-function normalcdf(mu0) {
-  mu = $("#mu0").val();
-  result = parseFloat(inv(alpha, mu, std / Math.sqrt(n)));
-  return result;
+function normalcdf({ alpha, mu0, std, n }) {
+  return inv(alpha, mu0, std / Math.sqrt(n)) - mu0;
 }
 
 function inv(p, mean, std) {

@@ -4,9 +4,14 @@ class Curve {
     this.top = $(".minigraph").innerHeight();
     this.bottom = $(".maingraph").innerHeight() - 20;
     this.addPath();
+
     channel.on("change", () => this.removePath() && this.addPath());
   }
 
+  /**
+   * Coordinate calculating an array of values to draw a normal distribution curve.  Position parameter is to specify that we're drawing a flattened curve in the top pane
+   * @param {String} position "top" or undefined
+   */
   generateCurve(position) {
     let { std, n } = p;
     const l_bound = p[this.center] - 4 * std;
@@ -28,29 +33,32 @@ class Curve {
   }
 
   drag() {
-    let initial = 0;
     let _this = this;
-    return d3
-      .drag()
-      .on("start", (d) => (initial = d.x))
-      .on("drag", (d) => {
+    return d3.drag().on("drag", (d) => {
+      const newMu = p[_this.center] + (d3.event.dx * 8 * p.std) / screen_w;
+      const changed = { [_this.center]: newMu };
+      if (validate(changed)) {
         d.x += d3.event.dx;
-        d3.selectAll(`#${this.id},#${this.id}-error`).attr(
-          "transform",
-          `translate(${d.x},${this.bottom}) scale(1,-1)`
-        );
-        d3.selectAll(`#${this.id}top`).attr(
-          "transform",
-          `translate(${d.x},${this.top}) scale(1,-1)`
-        );
-      })
-      .on("end", function (d) {
-        const newMu =
-          p[_this.center] + ((d.x - initial) * 8 * p.std) / screen_w;
-        setValuesNew({ id: _this.center, value: newMu });
-      });
+        setValuesNew(changed, "drag");
+      }
+
+      d3.selectAll(`#${this.id},#${this.id}-error`).attr(
+        "transform",
+        `translate(${d.x},${this.bottom}) scale(1,-1)`
+      );
+      d3.selectAll(`#${this.id}top`).attr(
+        "transform",
+        `translate(${d.x},${this.top}) scale(1,-1)`
+      );
+    });
   }
 
+  /**
+   * Append 3 SVGs to the screen
+   * - One in the top pane
+   * - One in the bottom pane, the main curve
+   * - One curve with a darker background, representing the alpha error
+   */
   addPath() {
     this.hasError &&
       mainContainer
@@ -72,16 +80,19 @@ class Curve {
       .attr("stroke-width", "1.5px")
       .attr("transform", `translate(0, ${this.bottom}) scale(1,-1)`);
 
-    topContainer
+    const topPath = topContainer
       .append("path")
       .attr("id", `${this.id}top`)
       .attr("d", interp(this.generateCurve("top")))
-      .attr("fill", "none")
+      .attr("fill", "rgba(0, 0, 0, 0)")
+      // .attr("fill-opacity", "0")
       .attr("stroke", `rgba(${this.color}, 1)`)
       .attr("stroke-width", "2px")
       .attr("transform", `translate(0, ${this.top}) scale(1,-1)`);
 
-    if (this.draggable) path.data([{ x: 0 }]).call(this.drag());
+    if (this.draggable) {
+      path.data([{ x: 0 }]).call(this.drag());
+    }
   }
 
   removePath() {
