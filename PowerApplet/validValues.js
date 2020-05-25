@@ -22,9 +22,10 @@ const validValues = {
     precision: 0,
   },
   delta: {
-    min: -10000,
+    min: 0,
     max: 10000,
     precision: 2,
+    msg: "Normalized difference must be greater than 0.",
   },
   alpha: {
     initial: 0.05,

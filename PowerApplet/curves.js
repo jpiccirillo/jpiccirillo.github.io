@@ -23,21 +23,30 @@ function setValuesNew(changed, event) {
 
   // If mu0, mu1, std, alpha, or n change, recalculate power
   if (["mu0", "mu1", "std", "alpha", "n"].includes(id)) {
-    p.power = calculateValue({ [id]: value }, "power");
-    p.effectsize = calculateValue({ power: p.power }, "effectsize");
+    p.power = calculateValue("power");
+    p.effectsize = calculateValue("effectsize");
   }
 
   // If mu0, mu1, or std change, recalculate delta
   if (["mu0", "mu1", "std"].includes(id)) {
-    p.delta = calculateValue({ [id]: value }, "delta");
+    p.delta = calculateValue("delta");
   }
 
   // If power changes, recalculate required sample size to achieve that power
   if (id === "power") {
-    p.n = calculateValue({ [id]: value }, "n");
-    p.effectsize = calculateValue({ [id]: value }, "effectsize");
+    p.n = calculateValue("n");
+    p.effectsize = calculateValue("effectsize");
   }
 
+  if (id === "delta") {
+    p.mu1 = calculateValue("mu1");
+    p.power = calculateValue("power");
+  }
+
+  // Replot axis if a mean or standard deviation changes
+  if (["mu0", "mu1", "std"].includes(id)) {
+    axisPrep();
+  }
   // Emit new p values to presentation layer
   channel.emit(event);
   return true;
@@ -61,16 +70,6 @@ function initScreenSize() {
   screen_h = $(".maingraph").innerHeight();
   topscreen_h = $(".minigraph").innerHeight();
 }
-
-var interp = d3
-  .line()
-  .x(function (d) {
-    return d.x;
-  })
-  .y(function (d) {
-    return d.y;
-  })
-  .curve(d3.curveBasis);
 
 function appendText(id, anchor, movable, x, y, text) {
   var textObject = anchor
@@ -141,41 +140,41 @@ function verticalScale({ mu0, std, y }) {
     .range([0, screen_h * 1.16])(y);
 }
 
-function textPrep() {
-  greytextXPos = screen_w - (screen_w / 10) * 9.8;
-  appendText(
-    "smallpinktext",
-    topContainer,
-    1,
-    screenScale({ ...p, x: mu1 }),
-    (topscreen_h / 10) * 2.5,
-    "Alternative Population"
-  );
-  appendText(
-    "smallbluetext",
-    mainContainer,
-    "",
-    screenScale({ ...p, x: mu0 }),
-    (topscreen_h / 10) * 2.5,
-    "Null Population"
-  );
-  appendText(
-    "smallgreytext",
-    mainContainer,
-    "",
-    greytextXPos,
-    screen_h - 50,
-    "Sampling"
-  );
-  appendText(
-    "smallgreytext",
-    mainContainer,
-    "",
-    greytextXPos,
-    screen_h - 35,
-    "Distributions"
-  );
-}
+// function textPrep() {
+//   greytextXPos = screen_w - (screen_w / 10) * 9.8;
+//   appendText(
+//     "smallpinktext",
+//     topContainer,
+//     1,
+//     screenScale({ ...p, x: mu1 }),
+//     (topscreen_h / 10) * 2.5,
+//     "Alternative Population"
+//   );
+//   appendText(
+//     "smallbluetext",
+//     mainContainer,
+//     "",
+//     screenScale({ ...p, x: mu0 }),
+//     (topscreen_h / 10) * 2.5,
+//     "Null Population"
+//   );
+//   appendText(
+//     "smallgreytext",
+//     mainContainer,
+//     "",
+//     greytextXPos,
+//     screen_h - 50,
+//     "Sampling"
+//   );
+//   appendText(
+//     "smallgreytext",
+//     mainContainer,
+//     "",
+//     greytextXPos,
+//     screen_h - 35,
+//     "Distributions"
+//   );
+// }
 
 function alphaErrorPrep() {
   d3.selectAll("line, #alphaErrorBlue, #rect-clip").each(function () {
@@ -323,7 +322,7 @@ function prepare() {
   // Set initial values object (p)
   Object.keys(validValues).forEach((param) => {
     const valid = validValues[param];
-    p[param] = valid.initial ? valid.initial : calculateValue({}, param);
+    p[param] = valid.initial ? valid.initial : calculateValue(param);
   });
 
   setValues();
@@ -340,6 +339,11 @@ function prepare() {
     .append("svg")
     .attr("width", screen_w)
     .attr("height", topscreen_h);
+
+  containers = {
+    top: topContainer,
+    bottom: mainContainer,
+  };
 
   xValue = normalcdf(p);
   scaledXValue = screenScale({ ...p, x: p.mu0 - xValue });
@@ -370,18 +374,31 @@ function prepare() {
     .attr("x2", scaledXValue)
     .attr("y2", screen_h * 0.1);
 
-  const blue = "21, 67, 96";
-  const red = "139, 0, 0";
-
   // Blue curves (null population)
+  const nullPopulation = {
+    center: "mu0",
+    clip: "right",
+    color: "21, 67, 96",
+  };
+
+  const alternativePopulation = {
+    center: "mu1",
+    clip: "left",
+    color: "139, 0, 0",
+  };
+
   new Curve({
     position: "bottom",
     draggable: false,
     id: "mainblue",
-    center: "mu0",
-    clip: "right",
-    color: blue,
-    hasError: true,
+    ...nullPopulation,
+  });
+
+  new Curve({
+    position: "top",
+    draggable: false,
+    id: "mainblue-top",
+    ...nullPopulation,
   });
 
   // Red curves (alternative population)
@@ -389,10 +406,14 @@ function prepare() {
     position: "bottom",
     draggable: true,
     id: "mainpink",
-    center: "mu1",
-    clip: "left",
-    color: red,
-    hasError: true,
+    ...alternativePopulation,
+  });
+
+  new Curve({
+    position: "top",
+    draggable: true,
+    id: "mainpink-top",
+    ...alternativePopulation,
   });
 
   axisPrep();

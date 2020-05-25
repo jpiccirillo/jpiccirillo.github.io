@@ -31,7 +31,7 @@
             <table>
                 <tr>
                     <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0" autocomplete="off" onchange="validate({[this.id]: this.value});"></td>
+                    <td><input type="text" id="mu0" autocomplete="off" onchange="validate({[this.id]: this.value})  && setValuesNew({[this.id]: this.value});"></td>
                 </tr>
                 <tr>
                     <td id="label">μ<sub>1</sub> = </td>
@@ -40,11 +40,11 @@
 
                 <tr>
                     <td id="label">σ = </td>
-                    <td><input type="text" id="std" autocomplete="off" onchange="validate({[this.id]: this.value});"></td>
+                    <td><input type="text" id="std" autocomplete="off" onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"></td>
                 </tr>
                 <tr>
                     <td id="label">d = </td>
-                    <td><input type="text" id="delta" autocomplete="off" onchange="validate({[this.id]: this.value});"></td>
+                    <td><input type="text" id="delta" autocomplete="off" onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"></td>
                 </tr>
                 </tr>
                 <tr>
@@ -58,11 +58,11 @@
                 </tr>
                 <tr>
                     <td id="label">n = </td>
-                    <td><input type="text" id="n" autocomplete="off" onchange="validate({[this.id]: this.value})"></td>
+                    <td><input type="text" id="n" autocomplete="off" onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"></td>
                 </tr>
                 <tr>
                     <td id="label">Power = </td>
-                    <td><input type="text" id="power" autocomplete="off" onchange="validate({[this.id]: this.value});"></td>
+                    <td><input type="text" id="power" autocomplete="off" onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value})"></td>
                 </tr>
                 <tr>
                     <td></td>
