@@ -25,15 +25,8 @@ $(function () {
     },
 
     slide: function (event, ui) {
-      if (ui.value < 1) {
-        return false;
-      } // Freeze slider if out of bounds
-
-      mu1 = internalmu1;
-      n = ui.value; // Set internal sample size var to slider value
-      power = calculatePower(internalmu1);
-      setPowerSampleSize();
-      plot();
+      const changed = { n: ui.value };
+      return validate(changed) && setValuesNew(changed, "change");
     },
   });
   $(".ui-slider-range-min").css("background-color", "lightgrey");
@@ -55,8 +48,8 @@ an false as the "sample calculation" is only enabled for alternative populations
 with mean greater than null population mean.*/
 function ssInBounds(temp_power) {
   temp_n = calcSampleSize(temp_power);
-  console.log("temp_n: ", temp_n, "temp_power: ", temp_power);
-  console.log("mu1: ", mu1, "mu0: ", mu0);
+  // console.log("temp_n: ", temp_n, "temp_power: ", temp_power);
+  // console.log("mu1: ", mu1, "mu0: ", mu0);
   if (temp_n > 100 || temp_n < 1 || temp_power < alpha || internalmu1 < mu0) {
     if ((temp_n < 1 && n > 1.5) || temp_n > 100) {
       error = "To increase power, change μ1.";
@@ -71,33 +64,30 @@ function ssInBounds(temp_power) {
 }
 
 function checkPower(temp_power) {
-  temp_power = temp_power.value;
-
   // First check if within bounds and is numeric
   if (
     isNaN(temp_power) ||
     temp_power < validValues.power.min ||
     temp_power > validValues.power.max
   ) {
-    $("#power").val(power.toFixed(3));
+    // $("#power").val(power.toFixed(3));
     return false;
   }
 
   // Then check if resulting sample size is within bounds
-  if (ssInBounds(temp_power)) {
-    mu1 = internalmu1;
-    n = temp_n;
-    power = temp_power;
-    setPowerSampleSize();
-    plot();
-    return true;
-  }
-  return false;
+  // if (ssInBounds(temp_power)) {
+  //   mu1 = internalmu1;
+  //   n = temp_n;
+  //   power = temp_power;
+  //   setPowerSampleSize();
+  //   plot();
+  //   return true;
+  // }
+  return true;
 }
 
 // Main Power Slider on right (red one)
 $(function () {
-  power = $("#power").val();
   $("#slider-vertical2").slider({
     orientation: "vertical",
     range: "min",
@@ -105,9 +95,9 @@ $(function () {
     max: validValues.power.max,
     value: 0.6, // similar value until calculated in const p object
     step: 0.001,
-
     slide: function (event, ui) {
-      return checkPower(ui);
+      const changed = { power: ui.value };
+      return validate(changed) && setValuesNew(changed, "change");
     },
   });
 });
@@ -133,60 +123,75 @@ function setSliderTicks(el) {
   }
 }
 
-// Function to do common tasks all together in one call.  Whenever a parameter
-// is changed, the following all need to happen to keep the data updated
-function setPowerSampleSize() {
+function setValues() {
   $(".console").text("");
-  $("#power").val(power.toFixed(3));
-  $("#n").val(Math.round(n));
-  $("#effectsize").val((1 - power).toFixed(3));
-  $("#slider-vertical1").slider("value", n);
-  $("#slider-vertical2").slider("value", power);
+  Object.keys(p).forEach((v) => {
+    $(`#${v}`).val(p[v].toFixed(validValues[v].precision));
+  });
+  $("#slider-vertical1").slider("value", p.n);
+  $("#slider-vertical2").slider("value", p.power);
 }
 
-function validate(DOMElement) {
-  const item = DOMElement.id;
-  const { min, max, msg, precision } = validValues[item];
-  let val = $("#" + item).val();
-  let valid = true;
+// Function to do common tasks all together in one call.  Whenever a parameter
+// is changed, the following all need to happen to keep the data updated
+$(function () {
+  channel.on("change", setValues);
+  channel.on("drag", setValues);
+});
+
+function validate(component) {
+  const id = Object.keys(component)[0];
+  const val = component[id];
+
   $(".console").text("");
 
-  if (isNaN(val) || !val) {
-    val = window[item];
-    valid = false;
-  } else if (val < min) {
-    val = min;
-    valid = false;
-  } else if (val > max) {
-    val = max;
-    valid = false;
-  }
+  function withinBounds(component) {
+    const id = Object.keys(component)[0];
+    const val = component[id];
+    const { min, max, msg } = validValues[id];
 
-  // If invalid, notify via console and continue
-  if (!valid) $(".console").text(msg);
-
-  val = parseFloat(val);
-  window[item] = val; // Set internal variable to valid value
-  $("#" + item).val(val.toFixed(precision)); // Set display value with specified precision
-
-  // Some values are based on others:
-  if (["n", "mu1", "std", "alpha", "delta"].includes(item)) {
-    if (item == "delta") {
-      mu1 = delta * std + mu0;
-      internalmu1 = mu1;
-      $("#mu1").val(parseInt(mu1));
-      console.log(internalmu1);
-    } else {
-      calcDelta(mu1);
+    if (isNaN(val) || !val || val < min || val > max) {
+      setValues(); // reset UI to its preexisting state
+      $(".console").text(msg); // Inform the console
+      return false; // Inform the caller
     }
-
-    power = calculatePower(mu1);
-    setPowerSampleSize();
+    return true;
   }
 
-  // If Mu or Delta are being changed, internalmu is set to the new mu1, else no
-  if (item == "mu1" || item == "delta") {
-    internalmu1 = mu1;
-  } else mu1 = internalmu1;
-  plot();
+  // If invalid, dont check dependent values, just return false
+  if (!withinBounds(component)) return false;
+
+  // If original value was valid, make sure dependent field is valid
+  if (id === "power") {
+    return withinBounds({
+      n: calculateValue({ power: val }, "n"),
+    });
+  }
+
+  if (["mu0", "mu1", "n"].includes(id)) {
+    return withinBounds({
+      power: calculateValue({ [id]: val }, "power"),
+    });
+  }
+
+  // return valid;
+  // if (["n", "mu1", "std", "alpha", "delta"].includes(item)) {
+  //   if (item == "delta") {
+  //     mu1 = delta * std + mu0;
+  //     internalmu1 = mu1;
+  //     $("#mu1").val(parseInt(mu1));
+  //     console.log(internalmu1);
+  //   } else {
+  //     calcDelta(mu1);
+  //   }
+
+  //   power = calculatePower(mu1);
+  //   setPowerSampleSize();
+  // }
+
+  // // If Mu or Delta are being changed, internalmu is set to the new mu1, else no
+  // if (item == "mu1" || item == "delta") {
+  //   internalmu1 = mu1;
+  // } else mu1 = internalmu1;
+  // plot();
 }

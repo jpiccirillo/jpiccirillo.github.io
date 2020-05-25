@@ -42,11 +42,15 @@ const validValues = {
     domID: "#slider-vertical1",
   },
   power: {
-    min: 0.001,
+    min: 0.05,
     max: 0.999,
-    msg: "Power must be between 0.001 and 0.999.",
+    msg: "Power must be between 0.05 and 0.999.",
     precision: 3,
     domID: "#slider-vertical2",
+  },
+  effectsize: {
+    domID: "#effectsize",
+    precision: 3,
   },
 };
 
