@@ -1,3 +1,26 @@
+class Triangle {
+  constructor(position) {
+    console.log(position.y);
+    mainContainer
+      .append("path")
+      .attr("id", "triangle")
+      .attr("d", d3.symbol().type(d3.symbolTriangle))
+      .attr("transform", `translate(${position.x}, ${position.y})`);
+  }
+}
+
+class Line {
+  constructor(x, id) {
+    mainContainer
+      .append("line")
+      .attr("id", id)
+      .attr("x1", x)
+      .attr("y1", screen_h - 20)
+      .attr("x2", x)
+      .attr("y2", screen_h * 0.1);
+  }
+}
+
 class Curve {
   constructor(options) {
     Object.assign(this, options);
@@ -34,7 +57,7 @@ class Curve {
     if (this.position === "top") n = 1.25;
 
     for (let k = l_bound; k < u_bound; k += step) {
-      const x = screenScale({ ...p, x: k });
+      const x = screenScale(k);
       const y = verticalScale({
         ...p,
         y: pdf(k, p[this.center], std / Math.sqrt(n)),
@@ -98,6 +121,7 @@ class Curve {
   }
 
   removePath() {
+    $(".bar,#sampleMeanLine,#triangle").remove();
     $(`#clip-wrapper-${this.id}`).remove();
     $(`#${this.id},#${this.id}-error`).remove();
     return true;

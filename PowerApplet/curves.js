@@ -14,6 +14,10 @@ drags a curve around.
 const channel = new Channel();
 const p = {};
 
+function output(msg, color = "black") {
+  $(".console").text(msg).css("color", color);
+}
+
 function setValuesNew(changed, event) {
   event = event || "change";
   const id = Object.keys(changed)[0];
@@ -63,7 +67,7 @@ $(window).resize(function () {
 });
 
 function setClipPaths() {
-  const scaledX = screenScale({ ...p, x: p.mu0 - normalcdf(p) });
+  const scaledX = screenScale(p.mu0 - normalcdf(p));
 
   ["right", "left"].forEach((side) => {
     const x = side === "left" ? 0 : scaledX;
@@ -79,13 +83,7 @@ function setClipPaths() {
       .attr("height", screen_h) // set the height
       .attr("width", width); // set the width
 
-    mainContainer
-      .append("line")
-      .attr("id", "dashedLine")
-      .attr("x1", scaledX)
-      .attr("y1", screen_h - 20)
-      .attr("x2", scaledX)
-      .attr("y2", screen_h * 0.1);
+    new Line(scaledX, "dashedLine");
   });
 }
 
@@ -145,8 +143,8 @@ function axisPrep() {
 }
 
 //Convert user/axis scale to pixel scale for writing to screen
-function screenScale({ mu0, std, x }) {
-  // console.log(mu0, x, std)
+function screenScale(x) {
+  const { mu0, std } = p;
   return d3
     .scaleLinear()
     .domain([mu0 - 4 * std, mu0 + 4 * std])
@@ -154,7 +152,8 @@ function screenScale({ mu0, std, x }) {
 }
 
 //Convert pixel-scale for writing to screen to user/axis scale
-function displayScale({ mu0, std, x }) {
+function displayScale(x) {
+  const { mu0, std } = p;
   return d3
     .scaleLinear()
     .domain([0, screen_w])
@@ -427,111 +426,72 @@ function prepare() {
 // - Calculates mean sample, and determines whether or not to reject Ho
 // - Writes information to the tool's console
 function sample() {
-  mu1 = internalmu1;
-  plot();
+  let { mu0, mu1, std, alpha, n } = p;
 
   if (mu1 < mu0) {
-    $(".console").text(
-      "μ0 = " +
-        mu0.toFixed(2) +
-        "\nμ1 = " +
-        mu1.toFixed(2) +
-        "\nNot designed for two-tailed tests (μ1 < μ0)."
+    mu0 = mu0.toFixed(2);
+    mu1 = mu1.toFixed(2);
+    output(
+      `μ0 = ${mu0}\nμ1 = ${mu1}\n Not designed for two-tailed tests (μ1 < μ0)`,
+      "Crimson"
     );
     return;
   }
 
-  $(".bar").remove(); // Remove previous histogram bars
-  n = Math.round(n); // Round value of n, in case previous calculations left it as float
-  var randomValues = d3.range(n).map(d3.randomNormal(internalmu1, std));
-  for (i = 0; i < n; i++) {
-    randomValues[i] = screenScale(randomValues[i]);
-  }
+  // Remove previous histogram bars, triangle, and vertical sample line
+  $(".bar,#sampleMeanLine,#triangle").remove();
 
-  // Creating and scaling histogram to fit the top screen
-  var x = d3.scaleLinear().domain([0, screen_w]).rangeRound([0, screen_w]);
+  // Sample the alternative distribution n times and scale positions to screen
+  const randomValues = d3
+    .range(Math.round(n))
+    .map(d3.randomNormal(mu1, std))
+    .map((val) => screenScale(val));
 
-  var bins = d3.histogram().domain(x.domain()).thresholds(x.ticks(90))(
+  const d3mean = d3.mean(randomValues);
+
+  // Grey vertical line + triangles pointing to mean of sample values
+  new Line(d3mean, "sampleMeanLine");
+  new Triangle({ x: d3mean, y: screen_h - 10 });
+  new Triangle({ x: d3mean, y: 10 });
+
+  // Calculate x-scaling for histogram
+  const x = d3.scaleLinear().domain([0, screen_w]).rangeRound([0, screen_w]);
+
+  const bins = d3.histogram().domain(x.domain()).thresholds(x.ticks(90))(
     randomValues
   );
 
-  largestStack = d3.max(bins, function (d) {
-    return d.length;
-  });
-
-  var max = largestStack > 8 ? largestStack : 8;
-  var y = d3
+  // Calculate y-scaling for histogram
+  const largestStack = d3.max(bins, (d) => d.length);
+  const max = largestStack > 8 ? largestStack : 8;
+  const y = d3
     .scaleLinear()
     .domain([0, max * 1.5])
     .range([topscreen_h, 0]);
 
-  var bar = topContainer
+  topContainer
     .selectAll(".bar")
     .data(bins)
     .enter()
     .append("g")
     .attr("class", "bar")
-    .attr("transform", function (d) {
-      return "translate(" + x(d.x0) + "," + y(d.length) + ")";
-    });
-
-  bar
+    .attr("transform", (d) => "translate(" + x(d.x0) + "," + y(d.length) + ")")
     .append("rect")
-    .attr("x", 1)
     .attr("width", x(bins[0].x1) - x(bins[0].x0) - 1)
-    .attr("height", function (d) {
-      return topscreen_h - y(d.length);
-    });
+    .attr("height", (d) => topscreen_h - y(d.length));
 
-  sampleMean = displayScale(d3.mean(randomValues)); // Calculate mean of samples
-  zvalue = (mu0 - sampleMean) / (std / Math.sqrt(n));
-  ztest_result = ztest(zvalue, 1);
-  var message =
-    "Cohen's d = " +
-    ((mu1 - mu0) / std).toFixed(2) +
-    "\nCritical Mean Value = " +
-    displayScale(scaledXValue).toFixed(2) +
-    "\nSample Mean = " +
-    sampleMean.toFixed(2) +
-    "\np(z > " +
-    zvalue.toFixed(2) * -1 +
-    ") = " +
-    ztest_result.toFixed(4);
-
-  // Grey vertical line pointing to mean of sample values
-  mainContainer
-    .append("line")
-    .attr("id", "sampleMeanLine")
-    .attr("x1", d3.mean(randomValues))
-    .attr("y1", screen_h - 20)
-    .attr("x2", d3.mean(randomValues))
-    .attr("y2", screen_h * 0.1);
-
-  // Two grey triangles in bottom section and top section
-  var arc = d3.symbol().type(d3.symbolTriangle);
-
-  var triangle = mainContainer
-    .append("path")
-    .attr("id", "triangle")
-    .attr("d", arc)
-    .attr(
-      "transform",
-      "translate(" + d3.mean(randomValues) + "," + (screen_h - 10) + ")"
-    );
-
-  var triangle = mainContainer
-    .append("path")
-    .attr("id", "triangle")
-    .attr("d", arc)
-    .attr("transform", "translate(" + d3.mean(randomValues) + "," + 10 + ")");
+  const sampleMean = displayScale(d3mean);
+  const zvalue = (mu0 - sampleMean) / (std / Math.sqrt(n));
+  const ztest_result = ztest(zvalue, 1);
 
   // Switch to write 'fail to reject' or 'reject' based on value of ztest_result
-  if (ztest_result >= alpha) {
-    message += "\n-> Fail to Reject Ho";
-    $(".console").css("color", "Navy"); // Text == blue
-  } else {
-    message += "\n-> Reject Ho";
-    $(".console").css("color", "Crimson"); // Text == red
-  }
-  $(".console").text(message); // Finally write out message to tool's console
+  let msg = `Cohen's d = ${p.delta.toFixed(validValues.delta.precision)}\n`;
+  msg += `Critical Mean Value = ${(mu0 - normalcdf(p)).toFixed(2)}\n`;
+  msg += `Sample Mean = ${sampleMean.toFixed(2)}\n`;
+  msg += `p(z > ${zvalue.toFixed(2) * -1}) = ${ztest_result.toFixed(4)}\n`;
+
+  // Write text to tool's console depending on result
+  ztest_result >= alpha
+    ? output(`${(msg += `-> Fail to Reject Ho`)}`, "Navy")
+    : output(`${(msg += `-> Reject Ho`)}`, "Crimson");
 }
