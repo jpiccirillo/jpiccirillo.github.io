@@ -123,9 +123,13 @@ function validate(component) {
 
   // If original value was valid, make sure dependent field is valid
   if (id === "power") {
-    return withinBounds({
-      n: calculateValue("n", { power: val }),
-    });
+    // Return false if we're trying to set power lower than lowest permitted value predicted by our formulas.  Else calculate whether n is within bounds for that allowable power
+    return (
+      val > calculateValue("power", { n: validValues.n.min }) &&
+      withinBounds({
+        n: calculateValue("n", { power: val }),
+      })
+    );
   }
 
   if (["mu0", "mu1", "n", "std", "alpha"].includes(id)) {

@@ -43,7 +43,7 @@ function setValuesNew(changed, event) {
     p.power = calculateValue("power");
   }
 
-  if (id === "alpha") setClipPaths();
+  if (["alpha", "n"].includes(id)) setClipPaths();
 
   // Replot axis if a mean or standard deviation changes
   if (["mu0", "mu1", "std"].includes(id)) {
