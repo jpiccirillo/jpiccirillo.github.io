@@ -85,7 +85,7 @@ function setSliderTicks(el) {
 }
 
 function setValues(id) {
-  $(".console").text("");
+  output("");
   Object.keys(p).forEach((v) => {
     $(`#${v}`).val(p[v].toFixed(validValues[v].precision));
   });
@@ -103,7 +103,7 @@ $(function () {
 function validate(component) {
   const id = Object.keys(component)[0];
   const val = parseFloat(component[id]);
-  $(".console").text("");
+  output("");
 
   function withinBounds(component) {
     const id = Object.keys(component)[0];
@@ -112,7 +112,7 @@ function validate(component) {
 
     if (isNaN(val) || !val || val < min || val > max) {
       setValues(); // reset UI to its preexisting state
-      $(".console").text(msg); // Inform the console
+      output(msg); // Inform the console
       return false; // Inform the caller
     }
     return true;
