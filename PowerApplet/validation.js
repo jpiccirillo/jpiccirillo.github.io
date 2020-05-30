@@ -128,7 +128,7 @@ function validate(component) {
     });
   }
 
-  if (["mu0", "mu1", "n", "std"].includes(id)) {
+  if (["mu0", "mu1", "n", "std", "alpha"].includes(id)) {
     return withinBounds({
       power: calculateValue("power", { [id]: val }),
     });

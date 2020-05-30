@@ -43,6 +43,8 @@ function setValuesNew(changed, event) {
     p.power = calculateValue("power");
   }
 
+  if (id === "alpha") setClipPaths();
+
   // Replot axis if a mean or standard deviation changes
   if (["mu0", "mu1", "std"].includes(id)) {
     axisPrep();
@@ -59,6 +61,33 @@ $(window).resize(function () {
   // plot();
   // channel.emit("change");
 });
+
+function setClipPaths() {
+  const scaledX = screenScale({ ...p, x: p.mu0 - normalcdf(p) });
+
+  ["right", "left"].forEach((side) => {
+    const x = side === "left" ? 0 : scaledX;
+    const width = side === "left" ? scaledX : Math.abs(screen_w - scaledX);
+    $(`#rect-clip-${side},#dashedLine`).remove();
+
+    mainContainer
+      .append("clipPath") // define a clip path
+      .attr("id", `rect-clip-${side}`) // give the clipPath an ID
+      .append("rect") // shape it as a rectangle
+      .attr("x", x) // position the top x corner
+      .attr("y", 0) // position the y-corner, always 0
+      .attr("height", screen_h) // set the height
+      .attr("width", width); // set the width
+
+    mainContainer
+      .append("line")
+      .attr("id", "dashedLine")
+      .attr("x1", scaledX)
+      .attr("y1", screen_h - 20)
+      .attr("x2", scaledX)
+      .attr("y2", screen_h * 0.1);
+  });
+}
 
 // Spinning wheel to display while loading for slow connections
 function startSpinningWheel() {
@@ -345,34 +374,7 @@ function prepare() {
     bottom: mainContainer,
   };
 
-  xValue = normalcdf(p);
-  scaledXValue = screenScale({ ...p, x: p.mu0 - xValue });
-
-  mainContainer
-    .append("clipPath") // define a clip path
-    .attr("id", "rect-clip-right") // give the clipPath an ID
-    .append("rect") // shape it as a rectangle
-    .attr("x", scaledXValue) // position the top x corner
-    .attr("y", 0) // position the y-corner, always 0
-    .attr("height", screen_h) // set the height
-    .attr("width", Math.abs(screen_w - scaledXValue)); // set the width
-
-  mainContainer
-    .append("clipPath") // define a clip path
-    .attr("id", "rect-clip-left") // give the clipPath an ID
-    .append("rect") // shape it as a rectangle
-    .attr("x", 0) // position the top x corner
-    .attr("y", 0) // position the y-corner, always 0
-    .attr("height", screen_h) // set the height
-    .attr("width", scaledXValue); // set the width
-
-  mainContainer
-    .append("line")
-    .attr("id", "dashedLine")
-    .attr("x1", scaledXValue)
-    .attr("y1", screen_h - 20)
-    .attr("x2", scaledXValue)
-    .attr("y2", screen_h * 0.1);
+  setClipPaths();
 
   // Blue curves (null population)
   const nullPopulation = {
