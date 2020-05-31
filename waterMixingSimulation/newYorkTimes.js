@@ -30,7 +30,9 @@ Promise.all([
   }),
 ])
   .then((r) => parseJohnsHopkinsData(r[0]))
-  .then(() => fixChinaData())
+  .then(() => fixData("China", 1587099600000))
+  .then(() => fixData("France", 1589864400000))
+  .then(() => fixData("Spain", 1590382800000))
   .then(() => filterCountry("US"))
   .then((singleCountryData) => startPlot(singleCountryData))
   .then(function () {
@@ -82,20 +84,23 @@ function filterCountry(region) {
   return deaths_world.filter((country) => country.key === region);
 }
 
-function fixChinaData() {
+function fixData(country, timestamp) {
   // Get index of china in deaths_world
-  const chinaIndex = deaths_world.findIndex((r) => r.key === "China");
-  const data = deaths_world[chinaIndex].values;
-  const april17 = 1587099600000;
-  for (let day in data) {
-    if (day >= april17) data[day] = data[day] - 1290;
-  }
- 
-  // Now we have 1290 to redistibute around the curve.  Get total cumulative deaths at april 17;
-  const max = data[april17];
+  const countryIndex = deaths_world.findIndex((r) => r.key === country);
+  const data = deaths_world[countryIndex].values;
 
-  //Then, for each day, ask how much that day's death toll was of total.
-  const dates = Object.keys(data);
+  // Get total cumulative deaths at date-to-correct:
+  const max = data[timestamp];
+  const dates = _.keys(data);
+  const prevStamp = dates[dates.findIndex((d) => d == timestamp) - 1];
+  const difference = max - data[prevStamp];
+
+  for (let day in data) {
+    if (day >= timestamp) data[day] = data[day] - difference;
+  }
+
+  // Now we have the difference to redistibute around the curve
+  // For each day, ask how much that day's death toll was of total.
   const spread = dates
     .map((key, i) => {
       const deathsToday = data[key] - (data[dates[i - 1]] || 0);
@@ -103,7 +108,7 @@ function fixChinaData() {
     })
     .map(cumulativeSum);
 
-  deaths_world[chinaIndex].values = Object.entries(data).reduce(
+  deaths_world[countryIndex].values = Object.entries(data).reduce(
     (acc, [dat, count], i) => {
       acc[dat] = count + spread[i];
       return acc;

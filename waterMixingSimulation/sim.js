@@ -84,6 +84,7 @@ function startPlot(data) {
                 }
             },
             y2: {
+                max: 100,
                 show: true,
                 label: {
                     text: "Rate of Growth",
