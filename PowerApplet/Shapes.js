@@ -1,7 +1,7 @@
 class Triangle {
   constructor(position) {
     console.log(position.y);
-    mainContainer
+    bottomContainers
       .append("path")
       .attr("id", "triangle")
       .attr("d", d3.symbol().type(d3.symbolTriangle))
@@ -11,7 +11,7 @@ class Triangle {
 
 class Line {
   constructor(x, id) {
-    mainContainer
+    bottomContainers
       .append("line")
       .attr("id", id)
       .attr("x1", x)
@@ -37,7 +37,7 @@ class Curve {
 
     const replot = (id) => {
       // Only clear and readd path if this curve isnt the one being dragged
-      this.removePath() && this.addPath();
+      if (this.id !== id) this.removePath() && this.addPath();
     };
 
     this.addPath();
@@ -73,7 +73,9 @@ class Curve {
     return d3.drag().on("drag", (d) => {
       const newMu = p[_this.center] + (d3.event.dx * 8 * p.std) / screen_w;
       const changed = { [_this.center]: newMu };
-      validate(changed) && setValuesNew(changed, "drag") && (d.x = d3.event.dx);
+      validate(changed) &&
+        setValuesNew(changed, "drag", this.id) &&
+        (d.x += d3.event.dx);
 
       d3.selectAll(`#${this.id},#${this.id}-error`).attr(
         "transform",
@@ -89,6 +91,9 @@ class Curve {
    * - One curve with a darker background, representing the alpha error
    */
   addPath() {
+    const container =
+      containers[this.position][this.id.includes("pink") ? "front" : "back"];
+
     const interp = d3
       .line()
       .x((d) => d.x)
@@ -96,7 +101,7 @@ class Curve {
       .curve(d3.curveBasis);
 
     this.hasError &&
-      containers[this.position]
+      container
         .append("g")
         .attr("id", `clip-wrapper-${this.id}`)
         .attr("clip-path", `url(#rect-clip-${this.clip})`)
@@ -106,7 +111,7 @@ class Curve {
         .attr("fill", `rgba(${this.color}, .70)`)
         .attr("transform", `translate(0, ${this.offset}) scale(1,-1)`);
 
-    const path = containers[this.position]
+    const path = container
       .append("path")
       .attr("id", this.id)
       .attr("d", interp(this.generateCurve()))
@@ -128,7 +133,7 @@ class Curve {
   }
 
   addText() {
-    topContainer
+    topContainers
       .append("text")
       .attr("id", this.id + "text")
       .attr("x", -100)
