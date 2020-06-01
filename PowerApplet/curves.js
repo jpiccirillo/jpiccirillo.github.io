@@ -18,7 +18,7 @@ function output(msg, color = "black") {
   $(".console").text(msg).css("color", color);
 }
 
-function setValuesNew(changed, event) {
+function setValuesNew(changed, event, eventAuthor) {
   event = event || "change";
   const id = Object.keys(changed)[0];
   const value = changed[id];
@@ -54,7 +54,7 @@ function setValuesNew(changed, event) {
     axisPrep();
   }
   // Emit new p values to presentation layer
-  channel.emit(event);
+  channel.emit(event, eventAuthor);
   return true;
 }
 
@@ -74,7 +74,7 @@ function setClipPaths() {
     const width = side === "left" ? scaledX : Math.abs(screen_w - scaledX);
     $(`#rect-clip-${side},#dashedLine`).remove();
 
-    mainContainer
+    bottomContainers
       .append("clipPath") // define a clip path
       .attr("id", `rect-clip-${side}`) // give the clipPath an ID
       .append("rect") // shape it as a rectangle
@@ -135,7 +135,7 @@ function axisPrep() {
     .tickFormat((d, i) => ticknames[i]);
 
   //Create an SVG group Element for the Axis elements and call the xAxis function
-  var xAxisGroup = mainContainer
+  var xAxisGroup = bottomContainers
     .append("g")
     .attr("class", "axis")
     .attr("transform", "translate(0," + (screen_h - 20) + ")")
@@ -355,22 +355,27 @@ function prepare() {
 
   setValues();
 
-  mainContainer = d3
+  bottomContainers = d3
     .select(".maingraph")
     .append("svg")
-    .attr("id", "mainContainer")
     .attr("width", screen_w)
     .attr("height", screen_h);
 
-  topContainer = d3
+  topContainers = d3
     .select(".minigraph")
     .append("svg")
     .attr("width", screen_w)
     .attr("height", topscreen_h);
 
   containers = {
-    top: topContainer,
-    bottom: mainContainer,
+    top: {
+      back: topContainers.append("g"),
+      front: topContainers.append("g"),
+    },
+    bottom: {
+      back: bottomContainers.append("g"),
+      front: bottomContainers.append("g"),
+    },
   };
 
   setClipPaths();
@@ -469,7 +474,7 @@ function sample() {
     .domain([0, max * 1.5])
     .range([topscreen_h, 0]);
 
-  topContainer
+  topContainers
     .selectAll(".bar")
     .data(bins)
     .enter()
