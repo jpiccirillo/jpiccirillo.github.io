@@ -83,7 +83,7 @@ function setClipPaths() {
       .attr("height", screen_h) // set the height
       .attr("width", width); // set the width
 
-    new Line(scaledX, "dashedLine");
+    new Line(scaledX, "dashedLine", "dark");
   });
 }
 
@@ -117,12 +117,8 @@ function axisPrep() {
     ticks.push(i * (screen_w / 8) + 1);
   }
   var ticknames = [];
-  for (var i = -4; i < 5; i++) {
-    if (i == -4 || i == 4) {
-      ticknames.push(""); //4 standard deviations away from mu0 have blank X ticks
-    } else {
-      ticknames.push(i * p.std + p.mu0);
-    }
+  for (let i = -4; i < 5; i++) {
+    ticknames.push(Math.abs(i) === 4 ? "" : i * p.std + p.mu0);
   }
   //Create the Scale we will use for the Axis
   var axisScale = d3.scaleLinear().domain([0, screen_w]).range([0, screen_w]);
@@ -138,6 +134,10 @@ function axisPrep() {
   var xAxisGroup = bottomContainers
     .append("g")
     .attr("class", "axis")
+    .style("font-size", "12px")
+    .style("color", "#283747")
+    .style("stroke-width", "2px")
+    .style("shape-rendering", "crispEdges")
     .attr("transform", "translate(0," + (screen_h - 20) + ")")
     .call(xAxis);
 }
@@ -358,7 +358,7 @@ function prepare() {
   bottomContainers = d3
     .select(".maingraph")
     .append("svg")
-    .attr("width", screen_w)
+    .attr("width", screen_w +2)
     .attr("height", screen_h);
 
   topContainers = d3
@@ -483,7 +483,11 @@ function sample() {
     .attr("transform", (d) => "translate(" + x(d.x0) + "," + y(d.length) + ")")
     .append("rect")
     .attr("width", x(bins[0].x1) - x(bins[0].x0) - 1)
-    .attr("height", (d) => topscreen_h - y(d.length));
+    .attr("height", (d) => topscreen_h - y(d.length))
+    .attr("rx", 2)
+    .attr("rx", 2)
+    .style("fill", "#ffffff")
+    .style("stroke", "grey");
 
   const sampleMean = displayScale(d3mean);
   const zvalue = (mu0 - sampleMean) / (std / Math.sqrt(n));

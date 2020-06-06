@@ -29,7 +29,6 @@ $(function () {
       return validate(changed) && setValuesNew(changed, "change");
     },
   });
-  $(".ui-slider-range-min").css("background-color", "lightgrey");
 });
 
 /*When a user changes power through the UI box or the slider, sample size
@@ -68,18 +67,20 @@ function isNumeric(n) {
 }
 
 function setSliderTicks(el) {
-  var $slider = $(el);
-  $slider.find(".ui-slider-tick-mark").remove();
-  for (var i = 1; i < 20; i++) {
+  $(el).find(".ui-slider-tick-mark").remove();
+  for (let i = 1; i < 20; i++) {
     if ((i * 5) % 25 == 0) {
       //major ticks at 25,50,75 (% to find integrs divisible by 25)
       $('<span class="ui-slider-tick-mark_large"></span>')
         .css("bottom", i * 5 - 2 + "%")
-        .appendTo(".shell");
+        .appendTo(".shell")
+        .css("height", "16px");
     } else {
       $('<span class="ui-slider-tick-mark"></span>')
         .css("bottom", i * 5 - 1 + "%")
-        .appendTo(".shell");
+        .appendTo(".shell")
+        .css("height", "8px");
+
     }
   }
 }

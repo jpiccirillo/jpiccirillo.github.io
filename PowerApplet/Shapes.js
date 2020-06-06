@@ -5,19 +5,23 @@ class Triangle {
       .append("path")
       .attr("id", "triangle")
       .attr("d", d3.symbol().type(d3.symbolTriangle))
-      .attr("transform", `translate(${position.x}, ${position.y})`);
+      .attr("transform", `translate(${position.x}, ${position.y})`)
+      .style("fill", "grey");
   }
 }
 
 class Line {
-  constructor(x, id) {
+  constructor(x, id, dark) {
     bottomContainers
       .append("line")
       .attr("id", id)
       .attr("x1", x)
       .attr("y1", screen_h - 20)
       .attr("x2", x)
-      .attr("y2", screen_h * 0.1);
+      .attr("y2", screen_h * 0.1)
+      .style("stroke", dark ? "#283747" : "grey")
+      .style("stroke-width", "2")
+      .style("stroke-dasharray", "4, 4");
   }
 }
 
@@ -117,7 +121,7 @@ class Curve {
       .attr("d", interp(this.generateCurve()))
       .attr("fill", this.mainFill)
       .attr("stroke", `rgba(${this.color}, 1)`)
-      .attr("stroke-width", "1.5px")
+      .attr("stroke-width", this.position === "top" ? "2px" : "1.5px")
       .attr("transform", `translate(0, ${this.offset}) scale(1,-1)`);
 
     if (this.draggable) {
