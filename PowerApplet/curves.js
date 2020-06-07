@@ -358,7 +358,7 @@ function prepare() {
   bottomContainers = d3
     .select(".maingraph")
     .append("svg")
-    .attr("width", screen_w +2)
+    .attr("width", screen_w + 2)
     .attr("height", screen_h);
 
   topContainers = d3
@@ -393,34 +393,38 @@ function prepare() {
     color: "139, 0, 0",
   };
 
-  new Curve({
-    position: "bottom",
-    draggable: false,
-    id: "mainblue",
-    ...nullPopulation,
-  });
+  new Curve(
+    Object.assign({}, nullPopulation, {
+      position: "bottom",
+      draggable: false,
+      id: "mainblue",
+    })
+  );
 
-  new Curve({
-    position: "top",
-    draggable: false,
-    id: "mainblue-top",
-    ...nullPopulation,
-  });
+  new Curve(
+    Object.assign({}, nullPopulation, {
+      position: "top",
+      draggable: false,
+      id: "mainblue-top",
+    })
+  );
 
   // Red curves (alternative population)
-  new Curve({
-    position: "bottom",
-    draggable: true,
-    id: "mainpink",
-    ...alternativePopulation,
-  });
+  new Curve(
+    Object.assign({}, alternativePopulation, {
+      position: "bottom",
+      draggable: true,
+      id: "mainpink",
+    })
+  );
 
-  new Curve({
-    position: "top",
-    draggable: true,
-    id: "mainpink-top",
-    ...alternativePopulation,
-  });
+  new Curve(
+    Object.assign({}, alternativePopulation, {
+      position: "top",
+      draggable: true,
+      id: "mainpink-top",
+    })
+  );
 
   axisPrep();
 }

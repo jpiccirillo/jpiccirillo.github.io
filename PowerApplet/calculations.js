@@ -12,7 +12,7 @@ to avoid having to import the entire library as only a few functions are used.
 
 function calculateValue(toCalculate, test) {
   // This function is calculates a result based on a test value (changed) combined with the rest of p.  Combine p with the test value
-  let { mu0, mu1, std, alpha, n, power, delta } = { ...p, ...test };
+  let { mu0, mu1, std, alpha, n, power, delta } = Object.assign({}, p, test);
 
   if (toCalculate === "power") {
     zcritical1 = inv(1 - alpha / 2, 0, 1);
