@@ -161,7 +161,8 @@ function displayScale(x) {
 }
 
 //Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
-function verticalScale({ mu0, std, y }) {
+function verticalScale(y) {
+  const { mu0, std } = p;
   return d3
     .scaleLinear()
     .domain([0, pdf(mu0, mu0, std / Math.sqrt(100))])
@@ -358,7 +359,7 @@ function prepare() {
   bottomContainers = d3
     .select(".maingraph")
     .append("svg")
-    .attr("width", screen_w + 2)
+    .attr("width", screen_w)
     .attr("height", screen_h);
 
   topContainers = d3
@@ -385,12 +386,14 @@ function prepare() {
     center: "mu0",
     clip: "right",
     color: "21, 67, 96",
+    text: "Null Population",
   };
 
   const alternativePopulation = {
     center: "mu1",
     clip: "left",
     color: "139, 0, 0",
+    text: "Alternative Population",
   };
 
   new Curve(
@@ -405,6 +408,8 @@ function prepare() {
     Object.assign({}, nullPopulation, {
       position: "top",
       draggable: false,
+      hasText: true,
+      textPosition: "below",
       id: "mainblue-top",
     })
   );
@@ -422,6 +427,8 @@ function prepare() {
     Object.assign({}, alternativePopulation, {
       position: "top",
       draggable: true,
+      hasText: true,
+      textPosition: "above",
       id: "mainpink-top",
     })
   );

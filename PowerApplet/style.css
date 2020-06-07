@@ -26,10 +26,15 @@
 
 .graph {
   width: 70%;
+  overflow: hidden;
 }
 
 .minigraph {
   height: 18%;
+}
+
+.minigraph svg {
+  overflow: visible;
 }
 
 .maingraph {
