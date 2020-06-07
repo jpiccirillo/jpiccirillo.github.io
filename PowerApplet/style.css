@@ -211,3 +211,17 @@ td {
 .ui-slider-range {
   border-radius: 0px !important;
 }
+
+.axis {
+  stroke-width: 2px;
+  color: #283747;
+  shape-rendering: crispEdges;
+  font-size: 12px;
+}
+
+.curveContainer {
+  font-size: 12px;
+  font-family: Courier;
+  text-anchor: middle;
+  stroke-width: 2px;
+}

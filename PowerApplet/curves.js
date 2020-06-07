@@ -112,14 +112,12 @@ function appendText(id, anchor, movable, x, y, text) {
 
 function axisPrep() {
   $(".axis").remove();
-  var ticks = [];
-  for (var i = 0; i < 9; i++) {
-    ticks.push(i * (screen_w / 8) + 1);
-  }
-  var ticknames = [];
-  for (let i = -4; i < 5; i++) {
-    ticknames.push(Math.abs(i) === 4 ? "" : i * p.std + p.mu0);
-  }
+  const axisKeys = Array.from(Array(9).keys());
+  const ticks = axisKeys.map((v) => v * (screen_w / 8) + 1);
+  const ticknames = axisKeys.map((v) =>
+    Math.abs(v - 4) === 4 ? "" : (v - 4) * p.std + p.mu0
+  );
+
   //Create the Scale we will use for the Axis
   var axisScale = d3.scaleLinear().domain([0, screen_w]).range([0, screen_w]);
 
@@ -131,13 +129,9 @@ function axisPrep() {
     .tickFormat((d, i) => ticknames[i]);
 
   //Create an SVG group Element for the Axis elements and call the xAxis function
-  var xAxisGroup = bottomContainers
+  bottomContainers
     .append("g")
     .attr("class", "axis")
-    .style("font-size", "12px")
-    .style("color", "#283747")
-    .style("stroke-width", "2px")
-    .style("shape-rendering", "crispEdges")
     .attr("transform", "translate(0," + (screen_h - 20) + ")")
     .call(xAxis);
 }
