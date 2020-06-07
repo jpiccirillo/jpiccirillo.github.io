@@ -27,16 +27,7 @@ class Line {
 class Curve {
   constructor(options) {
     Object.assign(this, options);
-
-    if (this.position === "top") {
-      this.offset = $(".minigraph").innerHeight() + 1;
-      this.hasError = false;
-      this.mainFill = "transparent";
-    } else {
-      this.offset = $(".maingraph").innerHeight() - 20;
-      this.hasError = true;
-      this.mainFill = `rgba(${this.color}, .60)`;
-    }
+    this.isBottom = this.position === "bottom";
 
     const replot = (id) => {
       // Only clear and readd path if this curve isnt the one being dragged
@@ -53,26 +44,27 @@ class Curve {
    */
   generateCurve() {
     let { std, n } = p;
+    if (!this.isBottom) n = 1.25;
     const l_bound = p[this.center] - 4 * std;
     const u_bound = p[this.center] + 4 * std;
     const array = [];
-    const step = (8 * std) / 30;
-    if (this.position === "top") n = 1.25;
+    const step = (8 * std) / 20;
+    const offset = this.isBottom
+      ? $(".maingraph").innerHeight() - 20
+      : $(".minigraph").innerHeight() + 1;
 
     for (let k = l_bound; k < u_bound; k += step) {
       const x = screenScale(k);
       const y = verticalScale(-1 * pdf(k, p[this.center], std / Math.sqrt(n)));
-      array.push({ x, y: y + this.offset });
+      array.push({ x, y: y + offset });
     }
-    this.array = array;
     return array;
   }
 
   drag() {
-    let _this = this;
     return d3.drag().on("drag", (d) => {
-      const newMu = p[_this.center] + (d3.event.dx * 8 * p.std) / screen_w;
-      const changed = { [_this.center]: newMu };
+      const newMu = p[this.center] + (d3.event.dx * 8 * p.std) / screen_w;
+      const changed = { [this.center]: newMu };
       validate(changed) &&
         setValuesNew(changed, "drag", this.id) &&
         (d.x += d3.event.dx);
@@ -83,8 +75,7 @@ class Curve {
   }
 
   /**
-   * Append 3 SVGs to the screen
-   * - One in the top pane
+   * Append SVGs to the screen
    * - One in the bottom pane, the main curve
    * - One curve with a darker background, representing the alpha error
    */
@@ -102,9 +93,10 @@ class Curve {
 
     this.nonErrorCurves = this.container
       .append("g")
-      .attr("id", `${this.id}-container`);
+      .attr("id", `${this.id}-container`)
+      .attr("class", "curveContainer");
 
-    this.hasError &&
+    this.isBottom &&
       this.container
         .append("g")
         .attr("id", `clip-wrapper-${this.id}`)
@@ -116,11 +108,9 @@ class Curve {
 
     this.nonErrorCurves
       .append("path")
-      .attr("id", this.id)
       .attr("d", curveFunction(curve))
-      .attr("fill", this.mainFill)
-      .attr("stroke", `rgba(${this.color}, 1)`)
-      .attr("stroke-width", this.position === "top" ? "2px" : "1.5px");
+      .attr("fill", this.isBottom ? `rgba(${this.color}, .60)` : `transparent`)
+      .attr("stroke", `rgba(${this.color}, 1)`);
 
     this.hasText && this.addText(curve);
 
@@ -150,13 +140,9 @@ class Curve {
 
     this.nonErrorCurves
       .append("text")
-      .attr("font-family", "Courier")
-      .style("font-size", `11px`)
-      .style("fill", `rgba(${this.color}, 1)`)
-      .attr("id", `${this.id}-text`)
+      .style("fill", `rgb(${this.color})`)
       .append("textPath") //append a textPath to the text element
       .attr("xlink:href", `#${this.id}-rect`) //place the ID of the path here
-      .style("text-anchor", "middle") //place the text halfway on the arc
       .attr("startOffset", "50%")
       .text(this.text);
   }
