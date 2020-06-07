@@ -61,12 +61,8 @@ class Curve {
 
     for (let k = l_bound; k < u_bound; k += step) {
       const x = screenScale(k);
-      const y = verticalScale(
-        Object.assign({}, p, {
-          y: pdf(k, p[this.center], std / Math.sqrt(n)),
-        })
-      );
-      array.push({ x, y });
+      const y = verticalScale(-1 * pdf(k, p[this.center], std / Math.sqrt(n)));
+      array.push({ x, y: y + this.offset });
     }
     this.array = array;
     return array;
@@ -81,10 +77,8 @@ class Curve {
         setValuesNew(changed, "drag", this.id) &&
         (d.x += d3.event.dx);
 
-      d3.selectAll(`#${this.id},#${this.id}-error`).attr(
-        "transform",
-        `translate(${d.x},${this.offset}) scale(1,-1)`
-      );
+      const targets = `#${this.id}-error,#${this.id}-container`;
+      d3.selectAll(targets).attr("transform", `translate(${d.x})`);
     });
   }
 
@@ -95,53 +89,91 @@ class Curve {
    * - One curve with a darker background, representing the alpha error
    */
   addPath() {
-    const container =
+    this.container =
       containers[this.position][this.id.includes("pink") ? "front" : "back"];
 
-    const interp = d3
+    const curveFunction = d3
       .line()
       .x((d) => d.x)
       .y((d) => d.y)
       .curve(d3.curveBasis);
 
+    const curve = this.generateCurve();
+
+    this.nonErrorCurves = this.container
+      .append("g")
+      .attr("id", `${this.id}-container`);
+
     this.hasError &&
-      container
+      this.container
         .append("g")
         .attr("id", `clip-wrapper-${this.id}`)
         .attr("clip-path", `url(#rect-clip-${this.clip})`)
         .append("path")
         .attr("id", `${this.id}-error`)
-        .attr("d", interp(this.generateCurve()))
-        .attr("fill", `rgba(${this.color}, .70)`)
-        .attr("transform", `translate(0, ${this.offset}) scale(1,-1)`);
+        .attr("d", curveFunction(this.generateCurve()))
+        .attr("fill", `rgba(${this.color}, .70)`);
 
-    const path = container
+    this.nonErrorCurves
       .append("path")
       .attr("id", this.id)
-      .attr("d", interp(this.generateCurve()))
+      .attr("d", curveFunction(curve))
       .attr("fill", this.mainFill)
       .attr("stroke", `rgba(${this.color}, 1)`)
-      .attr("stroke-width", this.position === "top" ? "2px" : "1.5px")
-      .attr("transform", `translate(0, ${this.offset}) scale(1,-1)`);
+      .attr("stroke-width", this.position === "top" ? "2px" : "1.5px");
+
+    this.hasText && this.addText(curve);
 
     if (this.draggable) {
-      path.data([{ x: 0 }]).call(this.drag());
+      this.nonErrorCurves.data([{ x: 0 }]).call(this.drag());
     }
   }
 
   removePath() {
     $(".bar,#sampleMeanLine,#triangle").remove();
-    $(`#clip-wrapper-${this.id}`).remove();
-    $(`#${this.id},#${this.id}-error`).remove();
+    $(`#clip-wrapper-${this.id},#${this.id}-container`).remove();
     return true;
   }
 
-  addText() {
-    topContainers
+  addText(curve) {
+    const lineFunction = d3
+      .line()
+      .x((d) => d.x)
+      .y((d) => d.y)
+      .curve(d3.curveLinear);
+
+    // Append path (a line) to our non-error curve grouping
+    this.nonErrorCurves
+      .append("path")
+      .attr("id", `${this.id}-rect`)
+      .attr("d", lineFunction(getLineCoordinates(curve, this.textPosition)));
+
+    this.nonErrorCurves
       .append("text")
-      .attr("id", this.id + "text")
-      .attr("x", -100)
-      .attr("y", -200)
+      .attr("font-family", "Courier")
+      .style("font-size", `11px`)
+      .style("fill", `rgba(${this.color}, 1)`)
+      .attr("id", `${this.id}-text`)
+      .append("textPath") //append a textPath to the text element
+      .attr("xlink:href", `#${this.id}-rect`) //place the ID of the path here
+      .style("text-anchor", "middle") //place the text halfway on the arc
+      .attr("startOffset", "50%")
       .text(this.text);
   }
+}
+
+/**
+ * Get two points representing a horizontal line tangent to the top hump of the curve ("above"), or a horizontal line representing the bottom of the curve.  This is to be able to affix text to the line and add a text label to the curves
+ * @param { Array } arr Curve to analyze
+ * @param { String } position "below" or "above"
+ * @returns { Array } An array with two coord objects representing the ends of the line
+ */
+function getLineCoordinates(arr, position) {
+  const mid = Math.round(arr.length / 2) - 1;
+  const last = arr.length - 1;
+  const topLeft = { x: arr[0].x, y: arr[mid].y - 10 };
+  const bottomLeft = { x: arr[0].x, y: arr[0].y + 20 };
+  const topRight = { x: arr[last].x, y: arr[mid].y - 10 };
+  const bottomRight = { x: arr[last].x, y: arr[last].y + 20 };
+  return position === "below" ? [bottomLeft, bottomRight] : [topLeft, topRight];
 }
