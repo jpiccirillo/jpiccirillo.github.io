@@ -1,6 +1,5 @@
 class Triangle {
   constructor(position) {
-    console.log(position.y);
     bottomContainers
       .append("path")
       .attr("id", "triangle")
@@ -62,10 +61,11 @@ class Curve {
 
     for (let k = l_bound; k < u_bound; k += step) {
       const x = screenScale(k);
-      const y = verticalScale({
-        ...p,
-        y: pdf(k, p[this.center], std / Math.sqrt(n)),
-      });
+      const y = verticalScale(
+        Object.assign({}, p, {
+          y: pdf(k, p[this.center], std / Math.sqrt(n)),
+        })
+      );
       array.push({ x, y });
     }
     this.array = array;
