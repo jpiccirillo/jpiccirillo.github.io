@@ -1,0 +1,83 @@
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+input + span {
+  color: rgb(100, 100, 100);
+  margin-left: 5px;
+}
+
+.container {
+  max-width: 80%;
+}
+
+/* ACE27 style */
+.number-header,
+.system-header,
+.header {
+  font-weight: bold;
+}
+
+.header.middle {
+  text-align: right;
+}
+.header.right {
+  text-align: left;
+}
+
+.number-header {
+  padding-top: 0px;
+  vertical-align: text-top;
+}
+
+.number-header > p {
+  margin-top: 0px;
+  text-align: right;
+}
+
+.system-header {
+  background-color: #cccccc;
+  padding: 1.2pt;
+  vertical-align: text-top;
+}
+
+.overall {
+  background-color: black;
+  color: white;
+}
+
+.grade-header {
+  margin-top: 0px;
+}
+
+.severe {
+  background-color: #ff9999;
+}
+
+.moderate {
+  background-color: #ccffcc;
+}
+
+.mild {
+  background-color: #ccffff;
+}
+
+td.gutter {
+  padding: 0px;
+  /* width: 0px; */
+  width: 50px;
+}
+
+#resultBox {
+  margin-bottom: 10px;
+}
+
+.resultContainer {
+  position: sticky;
+  position: -webkit-sticky; /* Safari */
+  top: 10px;
+}
+
+.resultContainer input[type="button"] {
+  width: 100%;
+}

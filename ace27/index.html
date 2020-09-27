@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pre-Op Clinical Severity Applet</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:200,400,700"
+      rel="stylesheet"
+    />
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-96097643-1");
+    </script>
+    <style src="style.css"></style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- <div class="graph"> -->
+      <div class="logo">
+        <img src="washulogo.png" />
+      </div>
+      <h1>Comorbidity Calculator</h1>
+      <form name="aceform" id="aceform">
+        <table summary="Identify the important medical comorbidities">
+          <thead>
+            <tr>
+              <td
+                colspan="3"
+                style="background-color: black; padding: 1.2pt"
+                valign="top"
+              >
+                <p style="margin: 0in 0in 0.0001pt">
+                  <strong
+                    ><span style="color: white">Organ System </span></strong
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="gutter resultContainer">
+                <span style="color: black">
+                  <input
+                    id="resultBox"
+                    value="0 = None"
+                    onfocus="this.blur()"
+                    onclick="runcalc(this.form)"
+                    onchange="runcalc(this.form)"
+                    type="text" />
+                  <input
+                    value="Click to Clear Score"
+                    onclick="uncheckAll(this.form);runcalc(this.form);alert_clear(this.form);return(false);"
+                    type="button"
+                /></span>
+              </td>
+              <td class="header middle">
+                <p>Cogent Comorbid Ailment</p>
+              </td>
+              <td class="header right">
+                <p>Specific Comorbidities (by Grade)</p>
+              </td>
+            </tr>
+          </thead>
+          <tbody id="injected">
+            <tr>
+              <td
+                colspan="2"
+                style="background-color: black; padding: 1.2pt"
+                valign="top"
+              >
+                <p style="margin: 0in 0in 0.0001pt">
+                  <strong
+                    ><span style="color: white"
+                      >Overall <span>Comorbidity</span> Score
+                    </span></strong
+                  >
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="number-header">
+                <p style="margin: 0in 0in 0.0001pt; text-align: right">
+                  <strong
+                    ><span style="color: black"
+                      >Computer will Calculate:
+                    </span></strong
+                  >
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin: 0in 0in 0.0001pt">
+          <span lang="EN" style="color: black"><br clear="all" /> </span>
+        </p>
+      </form>
+
+      <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
+      <link rel="stylesheet" href="style.css" />
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"
+        integrity="sha512-zT3zHcFYbQwjHdKjCu6OMmETx8fJA9S7E6W7kBeFxultf75OPTYUJigEKX58qgyQMi1m1EgenfjMXlRZG8BXaw=="
+        crossorigin="anonymous"
+      ></script>
+      <script type="text/javascript" src="config.js"></script>
+      <script type="text/javascript" src="index.js"></script>
+    </div>
+  </body>
+</html>
