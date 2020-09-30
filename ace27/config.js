@@ -210,7 +210,7 @@ const config = {
       severe: {
         s_endoc__a_diabmel__g3a: "Hospitalization ≤ 6 months ago for DKA",
         s_endoc__a_diabmel__g3b: {
-          description: "Diabetes causing end-organ failure including",
+          label: "Diabetes causing end-organ failure including:",
           bullets: [
             "retinopathy",
             "neuropathy",

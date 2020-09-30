@@ -2,10 +2,10 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
-input + span {
-  color: rgb(100, 100, 100);
+/* input + span {
+
   margin-left: 5px;
-}
+} */
 
 .container {
   max-width: 80%;
@@ -52,14 +52,25 @@ input + span {
 
 .severe {
   background-color: #ff9999;
+  color: indianred;
 }
 
 .moderate {
   background-color: #ccffcc;
+  color: green;
 }
 
 .mild {
   background-color: #ccffff;
+  color: skyblue;
+}
+
+.logo {
+  width: 100%;
+}
+.logo img {
+  height: auto;
+  max-width: 100%;
 }
 
 td.gutter {
@@ -80,4 +91,35 @@ td.gutter {
 
 .resultContainer input[type="button"] {
   width: 100%;
+}
+
+.row:not(:first-child) {
+  margin-left: 10px;
+}
+.row span {
+  margin-left: 5px;
+}
+.row span,
+.row li {
+  color: rgb(100, 100, 100);
+  font-size: 13px;
+}
+.row {
+  display: inline-block;
+  width: calc((100% - 20px) / 3);
+  vertical-align: top;
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+  .row:not(:first-child) {
+    margin-left: 0px;
+  }
+  .row {
+    display: block;
+    width: initial;
+  }
 }
