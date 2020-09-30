@@ -121,9 +121,10 @@ const config = {
         s_reso__a_resp__g3a: "Marked pulmonary insufficiency",
         s_reso__a_resp__g3b:
           "Restrictive Lung Disease or COPD with dyspnea at rest despite treatment",
-        s_reso__a_resp__g3c: "Chronic supplemental O_2",
-        s_reso__a_resp__g3d: "CO_2 retention (pCO_2 > 50 torr)",
-        s_reso__a_resp__g3e: "Baseline pO2 < 50 torr",
+        s_reso__a_resp__g3c: "Chronic supplemental O<sub>2</sub>",
+        s_reso__a_resp__g3d:
+          "CO<sub>2</sub> retention (pCO<sub>2</sub> > 50 torr)",
+        s_reso__a_resp__g3e: "Baseline pO<sub>2</sub> < 50 torr",
         s_reso__a_resp__g3f: "FEV1 (< 50%)",
       },
       moderate: {
@@ -329,12 +330,13 @@ const config = {
           "Fulminant AIDS w/KS, MAI, PCP (AIDS defining illness)",
       },
       moderate: {
-        s_immun__a_aids__g2a: "HIV_+ with h/o defining illness CD4_+ < 200/μL",
+        s_immun__a_aids__g2a:
+          "HIV<sup>+</sup> with h/o defining illness CD4<sup>+</sup> < 200/μL",
       },
       mild: {
-        s_immun__a_aids__g1a: "Asymptomatic HIV_+ patient",
+        s_immun__a_aids__g1a: "Asymptomatic HIV<sup>+</sup> patient",
         s_immun__a_aids__g1b:
-          "HIV_+ w/o h/o AIDS defining illness CD4_+ > 200/μL",
+          "HIV<sup>+</sup> w/o h/o AIDS defining illness CD4<sup>+</sup> > 200/μL",
       },
     },
   },
@@ -362,7 +364,7 @@ const config = {
         s_malig__a_leukmyel__g3b: "Disease out of control",
       },
       moderate: {
-        s_malig__a_leukmyel__g2a: "1_st remission or new dx < 1 yr",
+        s_malig__a_leukmyel__g2a: "1<sup>st</sup> remission or new dx < 1 yr",
         s_malig__a_leukmyel__g2b: "Chronic suppressive therapy",
       },
       mild: {
@@ -375,7 +377,7 @@ const config = {
         s_malig__a_lymphma__g3a: "Relapse",
       },
       moderate: {
-        s_malig__a_lymphma__g2a: "1_st remission or new dx < 1 yr",
+        s_malig__a_lymphma__g2a: "1<sup>st</sup> remission or new dx < 1 yr",
         s_malig__a_lymphma__g2b: "Chronic suppressive therapy",
       },
       mild: {
