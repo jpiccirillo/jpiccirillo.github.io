@@ -2,11 +2,10 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
-/* input + span {
-
-  margin-left: 5px;
-} */
-
+input + span {
+  color: rgb(70, 70, 70);
+  font-size: 13px;
+}
 .container {
   max-width: 80%;
 }
@@ -35,6 +34,11 @@
   text-align: right;
 }
 
+p {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
 .system-header {
   background-color: #cccccc;
   padding: 1.2pt;
@@ -47,6 +51,9 @@
 }
 
 .grade-header {
+  margin-top: 0px;
+}
+.row:not(:first-child) {
   margin-top: 0px;
 }
 
@@ -101,7 +108,7 @@ td.gutter {
 }
 .row span,
 .row li {
-  color: rgb(100, 100, 100);
+  color: rgb(70, 70, 70);
   font-size: 13px;
 }
 .row {
@@ -117,6 +124,7 @@ td.gutter {
   }
   .row:not(:first-child) {
     margin-left: 0px;
+    margin-top: 15px;
   }
   .row {
     display: block;

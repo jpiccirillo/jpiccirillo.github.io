@@ -181,8 +181,8 @@ function runcalc(f) {
   // work on determining a score, then set it at the very end
   var working_score;
   let resultBox = document.getElementById("resultBox");
-  // set working score to grade 9
-  working_score = score_9;
+  // set working score to grade 0 as this is the score if no boxes are checked / none of the following if blocks are invoked 
+  working_score = score_0;
 
   // Start off by checking Grade 1s and assigning a Score of 1.  Then check for more severe comorbidities that would override this
   if (getGrade(1).filter((box) => f[box].checked).length) {
@@ -220,13 +220,16 @@ function runcalc(f) {
   resultBox.value = working_score;
   return;
 }
+
 function alert_score(f) {
   alert("Overall Comorbidity Score is " + f.ace_score.value);
   return false;
 }
+
 function uncheckAll(f) {
   for (i = 0; i < f.length; i++) f[i].checked = false;
 }
+
 /*
   access_num
   coders_inits
