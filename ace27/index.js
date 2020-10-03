@@ -75,12 +75,15 @@ function markupForSystem(sysHeader) {
  * @param {Obj} numObj Object w all decompensation levels for given # category
  */
 function markupForNumericLevel(numObj) {
-  let unwrapped = Object.keys(numObj).reduce(function (acc, level) {
-    // Generate colored header dynamically
-    acc += decompensationTag(level);
-    acc += markupForDecompLevel(numObj[level]);
-    return acc;
-  }, "");
+  let unwrapped = Object.keys(numObj)
+    .sort()
+    .reduce(function (acc, levelName) {
+      // Generate colored header dynamically
+      let colorGroup = decompensationTag(levelName);
+      colorGroup += markupForDecompLevel(numObj[levelName]);
+      colorGroup = div(colorGroup, { class: "row" });
+      return acc + colorGroup;
+    }, "");
   return td(unwrapped);
 }
 
@@ -122,9 +125,9 @@ function makeList(arr) {
 
 function decompensationTag(level) {
   const info = {
-    severe: "Grade 3: Severe Decompensation",
-    moderate: "Grade 2: Moderate Decompensation",
-    mild: "Grade 1: Mild Decompensation",
+    severe: "Grade 3",
+    moderate: "Grade 2",
+    mild: "Grade 1",
   };
   return p(info[level], { class: "grade-header " + level });
 }
@@ -156,6 +159,10 @@ function span(c, attrs) {
 
 function p(c, attrs) {
   return a("<p>", attrs) + c + "</p>";
+}
+
+function div(c, attrs) {
+  return a("<div>", attrs) + c + "</div>";
 }
 
 function input(attrs) {

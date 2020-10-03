@@ -59,17 +59,14 @@ p {
 
 .severe {
   background-color: #ff9999;
-  color: indianred;
 }
 
 .moderate {
   background-color: #ccffcc;
-  color: green;
 }
 
 .mild {
   background-color: #ccffff;
-  color: skyblue;
 }
 
 .logo {
