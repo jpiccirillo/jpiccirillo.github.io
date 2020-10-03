@@ -4,7 +4,6 @@ var score_2 = "2 = Moderate";
 var score_3 = "3 = Severe";
 var score_9 = "9 = Unknown";
 let totalIDList = [];
-const gutter = td("", { class: "gutter" });
 
 // Register event listener to know when we're able to generate markup
 window.addEventListener("load", generateMarkup);
@@ -49,7 +48,6 @@ function generateMarkup() {
 function markupForSystem(sysHeader) {
   const sysObj = config[sysHeader];
   const header =
-    gutter + // blank column on far left
     td(sysHeader, { class: "system-header" }) +
     td(sysObj.description || "", { class: "system-header" });
 
@@ -65,7 +63,7 @@ function markupForSystem(sysHeader) {
       const right = markupForNumericLevel(sysObj[numHeader]);
 
       // Wrap all the markup that we created for the right side in a td tag
-      return (acc += tr(gutter + left + right));
+      return (acc += tr(left + right));
     }, "");
   return tr(header) + tr(body);
 }

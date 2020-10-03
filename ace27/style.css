@@ -7,21 +7,33 @@ input + span {
   font-size: 13px;
 }
 .container {
-  max-width: 80%;
+  max-height: calc(100vh - 8px - 41px);
+  overflow: scroll;
+  border-bottom: 2px solid rgb(100, 100, 100);
 }
 
-/* ACE27 style */
+.center {
+  width: 415px;
+  margin: auto;
+}
+
+.resultContainer {
+  margin: 10px;
+}
+
+#resultBox {
+  width: calc(200px - 8px);
+}
+
+#clear-score {
+  width: 200px;
+  margin-left: 10px;
+}
+
 .number-header,
 .system-header,
 .header {
   font-weight: bold;
-}
-
-.header.middle {
-  text-align: right;
-}
-.header.right {
-  text-align: left;
 }
 
 .number-header {
@@ -32,6 +44,13 @@ input + span {
 .number-header > p {
   margin-top: 0px;
   text-align: right;
+}
+
+.header.middle {
+  text-align: right;
+}
+.header.right {
+  text-align: left;
 }
 
 p {
@@ -79,22 +98,7 @@ p {
 
 td.gutter {
   padding: 0px;
-  /* width: 0px; */
   width: 50px;
-}
-
-#resultBox {
-  margin-bottom: 10px;
-}
-
-.resultContainer {
-  position: sticky;
-  position: -webkit-sticky; /* Safari */
-  top: 10px;
-}
-
-.resultContainer input[type="button"] {
-  width: 100%;
 }
 
 .row:not(:first-child) {
@@ -115,10 +119,6 @@ td.gutter {
 }
 
 @media (max-width: 767px) {
-  .container {
-    width: 100%;
-    max-width: 100%;
-  }
   .row:not(:first-child) {
     margin-left: 0px;
     margin-top: 15px;
@@ -126,5 +126,21 @@ td.gutter {
   .row {
     display: block;
     width: initial;
+  }
+  .gutter {
+    display: none;
+  }
+
+  .center {
+    width: unset;
+  }
+
+  /* Substract 8px from both inline inputs.  For the resultBox take an extra 8px off bc it has 2px of padding and 2px of border on either side */
+  #resultBox {
+    width: calc(50% - 8px - 8px);
+  }
+  #clear-score {
+    width: calc(50% - 8px);
+    margin-left: 10px;
   }
 }
