@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Pre-Op Clinical Severity Applet</title>
+    <title>OTO Outcomes Comorbidity Calculator</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script
@@ -94,23 +94,22 @@
       <script type="text/javascript" src="config.js"></script>
       <script type="text/javascript" src="index.js"></script>
     </div>
-    <div class="resultContainer" style="color: black">
-      <div class="center">
-        <input
-          id="resultBox"
-          value="0 = None"
-          onfocus="this.blur()"
-          onclick="runcalc(this.form)"
-          onchange="runcalc(this.form)"
-          type="text"
-        />
-        <input
-          id="clear-score"
-          value="Clear Score"
-          onclick="uncheckAll(this.form);runcalc(this.form);"
-          type="button"
-        />
-      </div>
+    <div class="resultContainer">
+      Cumulative Score:
+      <input
+        id="resultBox"
+        class="scoreOut"
+        value="0 = None"
+        type="text"
+        disabled
+      />
+
+      <input
+        id="clear-score"
+        value="Clear Score"
+        onclick="uncheckAll();runcalc()"
+        type="button"
+      />
     </div>
   </body>
 </html>

@@ -182,11 +182,23 @@ function getGrade(grade) {
   });
 }
 
+function toggleBorder() {
+  const result = document.getElementById("resultBox");
+  result.classList.toggle("scoreIn");
+  result.classList.toggle("scoreOut");
+}
+
 function runcalc(f) {
+  f = f || document.getElementById("aceform");
+
+  // First flash border and off to signal calculation running
+  toggleBorder();
+  setTimeout(toggleBorder, 600);
+
   // work on determining a score, then set it at the very end
   var working_score;
   let resultBox = document.getElementById("resultBox");
-  // set working score to grade 0 as this is the score if no boxes are checked / none of the following if blocks are invoked 
+  // set working score to grade 0 as this is the score if no boxes are checked / none of the following if blocks are invoked
   working_score = score_0;
 
   // Start off by checking Grade 1s and assigning a Score of 1.  Then check for more severe comorbidities that would override this
@@ -231,7 +243,8 @@ function alert_score(f) {
   return false;
 }
 
-function uncheckAll(f) {
+function uncheckAll() {
+  const f = document.getElementById("aceform");
   for (i = 0; i < f.length; i++) f[i].checked = false;
 }
 

@@ -12,22 +12,31 @@ input + span {
   border-bottom: 2px solid rgb(100, 100, 100);
 }
 
-.center {
-  width: 415px;
-  margin: auto;
-}
-
 .resultContainer {
   margin: 10px;
 }
 
-#resultBox {
-  width: calc(200px - 8px);
+.resutBoxContainer {
+  display: inline;
 }
 
-#clear-score {
-  width: 200px;
-  margin-left: 10px;
+/* Input box style when form has just been rescored */
+.scoreIn {
+  color: indianred;
+  border: 1px solid indianred;
+  border-radius: 2px;
+  padding: 2px 3px;
+}
+
+/* Baseline input box style.  When returning to this class after removing scoreIn, we transition */
+.scoreOut {
+  border: 1px solid grey;
+  padding: 2px 3px;
+  border-radius: 2px;
+  -webkit-transition: all 500ms ease-in;
+  -moz-transition: all 500ms ease-in;
+  -o-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
 }
 
 .number-header,
@@ -118,6 +127,16 @@ td.gutter {
   vertical-align: top;
 }
 
+#clear-score {
+  border-style: solid;
+  border-radius: 2px;
+  border: none;
+  padding: 3px 8px;
+  color: white;
+  background-color: #dc3545;
+  float: right;
+}
+
 @media (max-width: 767px) {
   .row:not(:first-child) {
     margin-left: 0px;
@@ -131,16 +150,12 @@ td.gutter {
     display: none;
   }
 
-  .center {
-    width: unset;
-  }
-
   /* Substract 8px from both inline inputs.  For the resultBox take an extra 8px off bc it has 2px of padding and 2px of border on either side */
   #resultBox {
-    width: calc(50% - 8px - 8px);
+    width: 30%;
   }
-  #clear-score {
-    width: calc(50% - 8px);
-    margin-left: 10px;
+
+  .resultContainer {
+    margin: 10px 0px;
   }
 }
