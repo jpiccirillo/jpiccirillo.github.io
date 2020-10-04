@@ -55,38 +55,8 @@
               </td>
             </tr>
           </thead>
-          <tbody id="injected">
-            <tr>
-              <td
-                colspan="2"
-                style="background-color: black; padding: 1.2pt"
-                valign="top"
-              >
-                <p style="margin: 0in 0in 0.0001pt">
-                  <strong
-                    ><span style="color: white"
-                      >Overall <span>Comorbidity</span> Score
-                    </span></strong
-                  >
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="number-header">
-                <p style="margin: 0in 0in 0.0001pt; text-align: right">
-                  <strong
-                    ><span style="color: black"
-                      >Computer will Calculate:
-                    </span></strong
-                  >
-                </p>
-              </td>
-            </tr>
-          </tbody>
+          <tbody id="injected"></tbody>
         </table>
-        <p style="margin: 0in 0in 0.0001pt">
-          <span lang="EN" style="color: black"><br clear="all" /> </span>
-        </p>
       </form>
 
       <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
@@ -96,20 +66,16 @@
     </div>
     <div class="resultContainer">
       Cumulative Score:
-      <input
-        id="resultBox"
-        class="scoreOut"
-        value="0 = None"
-        type="text"
-        disabled
-      />
+      <input id="resultBox" class="scoreOut" value="0 = None" type="text" />
 
-      <input
-        id="clear-score"
-        value="Clear Score"
-        onclick="uncheckAll();runcalc()"
-        type="button"
-      />
+      <div class="clearScoreContainer">
+        <input
+          id="clear-score"
+          value="Clear Score"
+          onclick="uncheckAll();runcalc()"
+          type="button"
+        />
+      </div>
     </div>
   </body>
 </html>

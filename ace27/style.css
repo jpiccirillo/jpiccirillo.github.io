@@ -7,13 +7,21 @@ input + span {
   font-size: 13px;
 }
 .container {
-  max-height: calc(100vh - 8px - 41px);
+  max-height: calc(100% - 8px - 41px);
   overflow: scroll;
-  border-bottom: 2px solid rgb(100, 100, 100);
+  padding-bottom: 30px;
 }
 
 .resultContainer {
-  margin: 10px;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: calc(100% - 20px - 16px);
+}
+
+.clearScoreContainer {
+  display: inline;
 }
 
 .resutBoxContainer {
@@ -123,7 +131,7 @@ td.gutter {
 }
 .row {
   display: inline-block;
-  width: calc((100% - 20px) / 3);
+  width: calc((100% - 30px) / 3);
   vertical-align: top;
 }
 
@@ -146,9 +154,6 @@ td.gutter {
     display: block;
     width: initial;
   }
-  .gutter {
-    display: none;
-  }
 
   /* Substract 8px from both inline inputs.  For the resultBox take an extra 8px off bc it has 2px of padding and 2px of border on either side */
   #resultBox {
@@ -156,6 +161,7 @@ td.gutter {
   }
 
   .resultContainer {
-    margin: 10px 0px;
+    width: calc(100% - 16px);
+    padding: 10px 0px;
   }
 }

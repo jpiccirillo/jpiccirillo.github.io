@@ -34,10 +34,6 @@ function generateMarkup() {
     id: "resultBox",
   };
 
-  // tableMarkup +=
-  //   tr(td("Overall Comorbidity Score", { class: "overall", colspan: "2" })) +
-  //   tr(td(input(resultBox)) + td(input(clearFormButton)));
-
   document.getElementById("injected").innerHTML = tableMarkup;
 }
 
@@ -65,7 +61,7 @@ function markupForSystem(sysHeader) {
       // Wrap all the markup that we created for the right side in a td tag
       return (acc += tr(left + right));
     }, "");
-  return tr(header) + tr(body);
+  return tr(header) + body;
 }
 
 /**
