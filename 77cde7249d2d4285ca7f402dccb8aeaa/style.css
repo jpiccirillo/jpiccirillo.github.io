@@ -20,8 +20,11 @@ body {
   text-shadow: 0px 0px 1px #0c0;
 }
 
-.readout {
+.padding {
   padding: 20px;
+}
+
+.readout {
   display: grid;
   grid-template-columns: repeat(3, 250px);
   grid-row-gap: 10px;
@@ -43,6 +46,13 @@ body {
 .title {
   color: grey;
   border-bottom: 2px solid darkgrey;
+}
+.shares {
+  float: right;
+}
+
+.global {
+  float: right;
 }
 
 @media (max-width: 769px) {
