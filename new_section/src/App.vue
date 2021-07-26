@@ -14,6 +14,7 @@
       :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]"
     >
       <img alt="Vue logo" src="./assets/logo.png" />
+      <div id="entry" />
       <i data-feather="camera-off"></i>
     </div>
   </div>
@@ -21,6 +22,8 @@
 
 <script>
 import feather from "feather-icons";
+import start from "./bubbles";
+import * as d3 from "d3";
 
 export default {
   name: "App",
@@ -28,6 +31,7 @@ export default {
     this.onResize();
     feather.replace();
     window.addEventListener("resize", this.onResize);
+    start(d3);
   },
   methods: {
     onToggleCollapse(collapsed) {
