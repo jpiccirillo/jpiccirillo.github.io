@@ -11,6 +11,7 @@
   --border: 1px solid var(--grey7);
   --collapsed-width: 120px;
   --expanded-width: 300px;
+  --cWidth: 40px;
 }
 
 $active: white;
@@ -61,28 +62,44 @@ ul .li:not(.drawer):not(.active):hover {
   }
 }
 
-ul .li.active:before,
-ul .li.active:after {
-  content: "";
-  position: absolute;
-  right: 0px;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border-radius: 100%;
-}
-
-ul .li.active:before {
+ul .li:before {
   top: -40px;
   box-shadow: 20px 20px 0 $active;
 }
 
-ul .li.active:after {
+ul .li:after {
   bottom: -40px;
   box-shadow: 20px -20px 0 $active;
 }
 
+// Curved elements' default state
+ul .li:before,
+ul .li:after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  width: var(--cWidth);
+  height: var(--cWidth);
+  background: transparent;
+  border-radius: 100%;
+  transition: $transition;
+  box-shadow: none;
+}
+
+// When top chamfer is active (showing), change box shadow so it is revealed
+ul .li.active:before {
+  top: calc(-1 * var(--cWidth));
+  box-shadow: calc(var(--cWidth) / 2) calc(var(--cWidth) / 2) 0 $active;
+}
+
+// When bottom chamfer is active (showing), change box shadow so it is revealed
+ul .li.active:after {
+  bottom: calc(-1 * var(--cWidth));
+  box-shadow: calc(var(--cWidth) / 2) calc(-1 * var(--cWidth) / 2) 0 $active;
+}
+
 ul .li.active {
+  $transition: transition;
   background: $active;
 }
 
@@ -95,7 +112,6 @@ ul:hover {
   padding: 0px !important;
   width: 100%;
   border-right: none;
-  transition: max-height $transition ease;
   > li {
     font-size: 0.8rem;
   }
@@ -114,6 +130,7 @@ ul:hover {
   :root {
     --collapsed-width: 35px;
     --expanded-width: 200px;
+    --cWidth: 40px;
   }
 
   ul:not(.li) {
@@ -170,21 +187,6 @@ ul:hover {
     width: var(--expanded-width);
   }
 
-  ul .li.active:before,
-  ul .li.active:after {
-    width: 20px;
-    height: 20px;
-  }
-
-  ul .li.active:before {
-    top: -20px;
-    box-shadow: 10px 10px 0 $active;
-  }
-
-  ul .li.active:after {
-    bottom: -20px;
-    box-shadow: 10px -10px 0 $active;
-  }
   ul .li {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
