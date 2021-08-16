@@ -1,20 +1,28 @@
 <template>
   <div id="app">
-    <sidebar-menu
-      :collapsed="collapsed"
-      :menu="menu"
-      :width="`250px`"
-      :show-one-child="true"
-      @toggle-collapse="onToggleCollapse"
-      @item-click="onItemClick"
-      :theme="`white-theme`"
-    />
+    <div class="sidebar">
+      <ul class="ul">
+        <li class="li item active">Home</li>
+        <li class="li title">
+          <div>Title</div>
+          <ul id="inner-wrapper">
+            <li class="li item active">Subtitle1</li>
+            <li class="li item">Subtitle2Subtitle2Subtitle2</li>
+            <li class="li item active">subtitel3</li>
+          </ul>
+        </li>
+        <li class="li item">Setting</li>
+        <li class="li item">Help</li>
+        <li class="li item">Password</li>
+        <li class="li item">Sign Out</li>
+      </ul>
+    </div>
     <div
-      id="demo"
+      id="portfolio"
       :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]"
     >
       <img alt="Vue logo" src="./assets/logo.png" />
-      <div id="entry" />
+      <!-- <div id="entry" /> -->
       <i data-feather="camera-off"></i>
     </div>
   </div>
@@ -32,8 +40,18 @@ export default {
     feather.replace();
     window.addEventListener("resize", this.onResize);
     start(d3);
+    let items = document.querySelectorAll(".item");
+
+    items.forEach((item) => {
+      item.addEventListener("click", () => {
+        console.log("item", item);
+        items.forEach((item) => item.classList.remove("active"));
+        item.classList.add("active");
+      });
+    });
   },
   methods: {
+    handleClick() {},
     onToggleCollapse(collapsed) {
       this.collapsed = collapsed;
       this.menu[0].title = this.collapsed ? "JP" : "Jeffrey Piccirillo";
@@ -182,19 +200,23 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
   /* margin-top: 60px; */
 }
-
-#demo {
-  padding-left: 250px;
+#app {
+  display: grid;
+  grid-template-columns: min-content auto;
+  height: 100vh;
+}
+#portfolio {
+  /* padding-left: 250px; */
   transition: 0.3s ease;
 }
-#demo.collapsed {
+#portfolio.collapsed {
   padding-left: 65px;
 }
-#demo.onmobile {
+#portfolio.onmobile {
   padding-left: 65px;
 }
 </style>

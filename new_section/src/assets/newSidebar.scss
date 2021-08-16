@@ -1,0 +1,107 @@
+:root {
+  --grey0: rgb(10, 10, 10);
+  --grey1: rgb(40, 40, 40);
+  --grey2: rgb(90, 90, 90);
+  --grey3: rgb(120, 120, 120);
+  --grey4: rgb(150, 150, 150);
+  --grey5: rgb(200, 200, 200);
+  --grey6: rgb(220, 220, 220);
+  --grey7: rgb(240, 240, 240);
+  --grey8: rgb(250, 250, 250);
+  --border: 1px solid var(--grey7);
+}
+
+$active: white;
+
+.sidebar {
+  height: 100%;
+  overflow: hidden;
+}
+
+ul {
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+}
+
+ul:not(.li) {
+  background: var(--grey7);
+  padding: 20px 0 5px 10px;
+  border-right: 5px solid $active;
+  width: 120px;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+ul .li {
+  list-style: none;
+  padding: 10px;
+  padding-right: 0;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+ul .li:not(.drawer):not(.active):hover {
+  transition: 0.5s;
+  background: var(--grey8);
+  color: var(--grey0);
+}
+
+ul .li.active:before,
+ul .li.active:after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border-radius: 100%;
+}
+
+ul .li.active:before {
+  top: -40px;
+  box-shadow: 20px 20px 0 $active;
+}
+
+ul .li.active:after {
+  bottom: -40px;
+  box-shadow: 20px -20px 0 $active;
+}
+
+ul .li.active {
+  background: $active;
+}
+
+ul:hover {
+  width: 300px;
+}
+
+#inner-wrapper {
+  max-height: 0;
+  padding: 0px !important;
+  width: 100%;
+  border-right: none;
+  transition: max-height 0.5s ease;
+  > li {
+    font-size: 0.8rem;
+  }
+  > li:first-child {
+    margin-top: 20px;
+  }
+  > li:last-child {
+    margin-bottom: 20px;
+  }
+}
+.title:hover {
+  background: transparent !important;
+  #inner-wrapper {
+    transition: max-height 0.5s ease;
+    max-height: 300px !important;
+  }
+}

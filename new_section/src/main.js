@@ -3,7 +3,8 @@ import App from "./App.vue";
 import VueSidebarMenu from "vue-sidebar-menu";
 import VueFeatherIcon from "vue-feather-icon";
 import "@/assets/app.scss";
-import "@/assets/sidebar.scss";
+// import "@/assets/sidebar.scss";
+import "@/assets/newSidebar.scss";
 import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 
