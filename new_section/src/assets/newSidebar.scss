@@ -9,13 +9,19 @@
   --grey7: rgb(240, 240, 240);
   --grey8: rgb(250, 250, 250);
   --border: 1px solid var(--grey7);
+  --collapsed-width: 120px;
+  --expanded-width: 300px;
 }
 
 $active: white;
+$transition: 0.25s;
+
+.feather {
+  display: none;
+}
 
 .sidebar {
-  height: 100%;
-  overflow: hidden;
+  height: 100vh;
 }
 
 ul {
@@ -29,8 +35,8 @@ ul:not(.li) {
   background: var(--grey7);
   padding: 20px 0 5px 10px;
   border-right: 5px solid $active;
-  width: 120px;
-  transition: 0.5s;
+  width: var(--collapsed-width);
+  transition: $transition;
   overflow: hidden;
 }
 
@@ -42,15 +48,17 @@ ul .li {
   font-size: 0.9rem;
   cursor: pointer;
   position: relative;
-  transition: 0.5s;
+  transition: $transition;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 }
 
 ul .li:not(.drawer):not(.active):hover {
-  transition: 0.5s;
+  transition: $transition;
   background: var(--grey8);
-  color: var(--grey0);
+  & .text {
+    color: var(--grey0);
+  }
 }
 
 ul .li.active:before,
@@ -79,15 +87,15 @@ ul .li.active {
 }
 
 ul:hover {
-  width: 300px;
+  width: var(--expanded-width);
 }
 
 #inner-wrapper {
-  max-height: 0;
+  max-height: 300px;
   padding: 0px !important;
   width: 100%;
   border-right: none;
-  transition: max-height 0.5s ease;
+  transition: max-height $transition ease;
   > li {
     font-size: 0.8rem;
   }
@@ -100,8 +108,85 @@ ul:hover {
 }
 .title:hover {
   background: transparent !important;
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --collapsed-width: 35px;
+    --expanded-width: 200px;
+  }
+
+  ul:not(.li) {
+    padding: 20px 0 5px 5px;
+  }
+  .text {
+    transition: $transition;
+    max-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: none;
+  }
+
+  ul.clicked .text {
+    transition: $transition;
+    display: block;
+  }
+  .feather {
+    display: block;
+    z-index: 10;
+    height: 15px;
+    width: 15px;
+    min-width: 15px;
+  }
+  li.item,
+  .title-header {
+    display: flex;
+    align-items: center;
+    & .text {
+      margin-left: 7px;
+    }
+    height: 20px;
+    padding: 5px;
+    padding-left: 7px;
+    padding-right: 0px;
+  }
+
+  li.title {
+    padding: 0px;
+  }
   #inner-wrapper {
-    transition: max-height 0.5s ease;
-    max-height: 300px !important;
+    padding: 5px !important;
+    padding-right: 0px;
+    width: calc(100% - 5px);
+    > li:first-child {
+      margin-top: 5px;
+    }
+    > li:last-child {
+      margin-bottom: 5px;
+    }
+  }
+
+  ul.clicked {
+    width: var(--expanded-width);
+  }
+
+  ul .li.active:before,
+  ul .li.active:after {
+    width: 20px;
+    height: 20px;
+  }
+
+  ul .li.active:before {
+    top: -20px;
+    box-shadow: 10px 10px 0 $active;
+  }
+
+  ul .li.active:after {
+    bottom: -20px;
+    box-shadow: 10px -10px 0 $active;
+  }
+  ul .li {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 }

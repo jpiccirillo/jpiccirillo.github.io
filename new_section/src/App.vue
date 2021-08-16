@@ -2,19 +2,41 @@
   <div id="app">
     <div class="sidebar">
       <ul class="ul">
-        <li class="li item active">Home</li>
+        <li class="li item active">
+          <i data-feather="home"></i><span class="text">Home</span>
+        </li>
         <li class="li title">
-          <div>Title</div>
+          <div class="title-header">
+            <i data-feather="settings"></i>
+            <span class="text">Title</span>
+          </div>
           <ul id="inner-wrapper">
-            <li class="li item active">Subtitle1</li>
-            <li class="li item">Subtitle2Subtitle2Subtitle2</li>
-            <li class="li item active">subtitel3</li>
+            <li class="li item active">
+              <i data-feather="camera-off"></i
+              ><span class="text">Subtitle1</span>
+            </li>
+            <li class="li item">
+              <i data-feather="camera-off"></i
+              ><span class="text">2Subtitle2</span>
+            </li>
+            <li class="li item active">
+              <i data-feather="camera-off"></i
+              ><span class="text">Subtitle3</span>
+            </li>
           </ul>
         </li>
-        <li class="li item">Setting</li>
-        <li class="li item">Help</li>
-        <li class="li item">Password</li>
-        <li class="li item">Sign Out</li>
+        <li class="li item">
+          <i data-feather="settings"></i><span class="text">Settings</span>
+        </li>
+        <li class="li item">
+          <i data-feather="help-circle"></i><span class="text">Help</span>
+        </li>
+        <li class="li item">
+          <i data-feather="key"></i><span class="text">Password</span>
+        </li>
+        <li class="li item">
+          <i data-feather="log-out"></i><span class="text">Sign Out</span>
+        </li>
       </ul>
     </div>
     <div
@@ -44,9 +66,34 @@ export default {
 
     items.forEach((item) => {
       item.addEventListener("click", () => {
-        console.log("item", item);
         items.forEach((item) => item.classList.remove("active"));
         item.classList.add("active");
+      });
+    });
+
+    let titles = document.querySelectorAll(".title");
+    let sidebar = document.querySelectorAll(".ul")[0];
+    sidebar.addEventListener("click", () => {
+      sidebar.classList.add("clicked");
+    });
+
+    let mainApp = document.getElementById("portfolio");
+    let entries = document.querySelectorAll(".item");
+    mainApp.addEventListener("click", () => {
+      sidebar.classList.remove("clicked");
+      titles.forEach((item) => item.classList.remove("clicked"));
+    });
+    entries.forEach((e) => {
+      e.addEventListener("click", () => {
+        sidebar.classList.remove("clicked");
+        titles.forEach((item) => item.classList.remove("clicked"));
+      });
+    });
+
+    titles.forEach((e) => {
+      e.addEventListener("click", () => {
+        titles.forEach((item) => item.classList.remove("clicked"));
+        e.classList.add("clicked");
       });
     });
   },
@@ -208,6 +255,7 @@ body {
   display: grid;
   grid-template-columns: min-content auto;
   height: 100vh;
+  overflow: hidden;
 }
 #portfolio {
   /* padding-left: 250px; */
