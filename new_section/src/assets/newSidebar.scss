@@ -17,12 +17,11 @@
 $active: white;
 $transition: 0.25s;
 
-.feather {
-  display: none;
-}
-
 .sidebar {
-  height: 100vh;
+  overflow: hidden;
+}
+.sidebar .feather {
+  display: none;
 }
 
 ul {
@@ -112,6 +111,7 @@ ul:hover {
   padding: 0px !important;
   width: 100%;
   border-right: none;
+
   > li {
     font-size: 0.8rem;
   }
@@ -148,7 +148,8 @@ ul:hover {
     transition: $transition;
     display: block;
   }
-  .feather {
+
+  .sidebar .feather {
     display: block;
     z-index: 10;
     height: 15px;

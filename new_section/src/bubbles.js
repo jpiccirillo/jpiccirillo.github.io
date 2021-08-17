@@ -1,11 +1,22 @@
 export default function(d3) {
-  var width = 960,
-    height = 500,
+  var width = document.getElementById("portfolio").clientWidth,
+    height = document.getElementById("portfolio").clientHeight,
     padding = 1.5, // separation between nodes
-    maxRadius = 12;
+    maxRadius = 80;
   let beingSelected = undefined;
 
-  var n = 30, // total number of nodes
+  // Returns index contained wn beingSelected identifier
+  function getActiveBubbleIndex() {
+    if (!beingSelected) return beingSelected;
+    return Number(beingSelected.split("_").pop());
+  }
+
+  function activeBubbleExists() {
+    console.log(beingSelected);
+    return beingSelected !== undefined;
+  }
+
+  var n = 10, // total number of nodes
     m = 1; // number of distinct clusters
 
   var color = d3.scale.category10().domain(d3.range(m));
@@ -57,32 +68,38 @@ export default function(d3) {
     .on(
       "click",
       throttle(function(d) {
-        if (beingSelected) reset();
-        changeRadius(d3.select(this), d, 40);
-        console.log(d);
+        if (getActiveBubbleIndex() !== d.index) {
+          reset();
+          changeRadius(d3.select(this), d, 150);
+          console.log(d);
+        }
       })
     );
 
   function reset() {
-    if (beingSelected) {
-      const originalRadius = nodesMasterCopy[beingSelected].radius;
+    if (activeBubbleExists()) {
+      const originalRadius = nodesMasterCopy[getActiveBubbleIndex()].radius;
       changeRadius(
-        d3.select(`#_${beingSelected}`),
-        nodes[beingSelected],
+        d3.select(`#_${getActiveBubbleIndex()}`),
+        nodes[getActiveBubbleIndex()],
         originalRadius
       );
-      nodes[beingSelected].radius = originalRadius;
+      nodes[getActiveBubbleIndex()].radius = originalRadius;
       force.nodes(nodes).start();
     }
+    beingSelected = undefined;
   }
 
   async function changeRadius(selection, d, desiredRadius) {
     const changeRequired = desiredRadius - d.radius;
-    const iterations = 40;
+    const iterations = 80;
     const changePerIteration = changeRequired / iterations;
-    const dur = 8;
+    const dur = 3;
     let radius = d.radius;
-    for (let i = 0; i < 40; i++) {
+    const index = nodes.findIndex((g) => g.index === d.index);
+    beingSelected = `index_${index}`;
+
+    for (let i = 0; i < 80; i++) {
       radius += changePerIteration;
       selection
         .attr()
@@ -92,8 +109,6 @@ export default function(d3) {
 
       await new Promise((r) => {
         setTimeout(() => {
-          const index = nodes.findIndex((g) => g.index === d.index);
-          beingSelected = index;
           nodes[index].radius = radius;
           force.start();
           r();

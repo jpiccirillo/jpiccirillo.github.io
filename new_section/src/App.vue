@@ -43,9 +43,7 @@
       id="portfolio"
       :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]"
     >
-      <img alt="Vue logo" src="./assets/logo.png" />
-      <!-- <div id="entry" /> -->
-      <i data-feather="camera-off"></i>
+      <div id="entry" />
     </div>
   </div>
 </template>
@@ -240,6 +238,13 @@ export default {
 </script>
 
 <style>
+html,
+body,
+#app,
+.sidebar,
+.ul {
+  height: 100%;
+}
 body {
   margin: 0px;
 }
@@ -254,17 +259,15 @@ body {
 #app {
   display: grid;
   grid-template-columns: min-content auto;
-  height: 100vh;
-  overflow: hidden;
 }
 #portfolio {
   /* padding-left: 250px; */
   transition: 0.3s ease;
 }
-#portfolio.collapsed {
+/* #portfolio.collapsed {
   padding-left: 65px;
-}
-#portfolio.onmobile {
-  padding-left: 65px;
-}
+} */
+/* #portfolio.onmobile { */
+  /* padding-left: 65px; */
+/* } */
 </style>
