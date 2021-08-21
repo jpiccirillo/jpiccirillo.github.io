@@ -27,10 +27,10 @@ export default function(d3) {
     .rangeBands([0, width]);
 
   var nodes = d3.range(n).map(function(_, index) {
-    var i = Math.floor(Math.random() * m),
-      v = ((i + 1) / m) * -Math.log(Math.random());
+    var i = Math.floor(Math.random() * m);
+    // v = ((i + 1) / m) * -Math.log(Math.random());
     return {
-      radius: Math.sqrt(v) * maxRadius,
+      radius: maxRadius,
       color: color(i),
       id: `_${index}`,
     };
@@ -41,8 +41,11 @@ export default function(d3) {
     .force()
     .nodes(nodes)
     .size([x.rangeBand(), height])
-    .gravity(0.2)
-    .charge(0)
+    .gravity(0.05)
+    .charge((n) => {
+      console.log(n.radius > 80);
+      return n.radius > 80 ? 1000 : 0;
+    })
     .friction(0.2)
     .on("tick", tick);
 
@@ -71,7 +74,6 @@ export default function(d3) {
         if (getActiveBubbleIndex() !== d.index) {
           reset();
           changeRadius(d3.select(this), d, 150);
-          console.log(d);
         }
       })
     );
@@ -118,7 +120,10 @@ export default function(d3) {
   }
   function tick() {
     circle
-      .each(collide(0.5))
+      .each((d) => {
+        // console.log(d);
+        collide(d.radius > 80 ? 0.2 : 0.05)(d);
+      })
       .attr("cx", function(d) {
         return d.x;
       })
@@ -138,11 +143,14 @@ export default function(d3) {
         ny2 = d.y + r;
       quadtree.visit(function(quad, x1, y1, x2, y2) {
         if (quad.point && quad.point !== d) {
-          var x = d.x - quad.point.x,
-            y = d.y - quad.point.y,
-            l = Math.sqrt(x * x + y * y),
-            r = d.radius + quad.point.radius + padding;
-          if (l < r) {
+          var x = d.x - quad.point.x;
+          var y = d.y - quad.point.y;
+          var l = Math.sqrt(x * x + y * y);
+          var r = d.radius + quad.point.radius + padding;
+          var outOfBoundsWidth = d.x + d.radius < 135 || d.x + d.radius > width;
+          var outOfBoundsHeight = d.y + d.radius < 0 || d.y + d.radius > height;
+
+          if (l < r || outOfBoundsWidth || outOfBoundsHeight) {
             l = ((l - r) / l) * alpha;
             d.x -= x *= l;
             d.y -= y *= l;

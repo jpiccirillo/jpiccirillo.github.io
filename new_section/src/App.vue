@@ -50,8 +50,6 @@
 
 <script>
 import feather from "feather-icons";
-import start from "@/assets/javascript/bubbles.js";
-import * as d3 from "d3";
 
 export default {
   name: "App",
@@ -59,7 +57,6 @@ export default {
     this.onResize();
     feather.replace();
     window.addEventListener("resize", this.onResize);
-    start(d3);
     let items = document.querySelectorAll(".item");
 
     items.forEach((item) => {
@@ -268,6 +265,6 @@ body {
   padding-left: 65px;
 } */
 /* #portfolio.onmobile { */
-  /* padding-left: 65px; */
+/* padding-left: 65px; */
 /* } */
 </style>
