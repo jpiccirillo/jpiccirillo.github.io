@@ -1,5 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600&display=swap");
 
+html,
+body,
+#app,
+.sidebar,
+.ul {
+  height: 100%;
+}
+body {
+  margin: 0px;
+}
+
 #app {
   font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: grid;
+  grid-template-columns: min-content auto;
+}
+
+#portfolio {
+  transition: 0.3s ease;
 }

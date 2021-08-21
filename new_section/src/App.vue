@@ -233,38 +233,3 @@ export default {
   },
 };
 </script>
-
-<style>
-html,
-body,
-#app,
-.sidebar,
-.ul {
-  height: 100%;
-}
-body {
-  margin: 0px;
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
-  /* margin-top: 60px; */
-}
-#app {
-  display: grid;
-  grid-template-columns: min-content auto;
-}
-#portfolio {
-  /* padding-left: 250px; */
-  transition: 0.3s ease;
-}
-/* #portfolio.collapsed {
-  padding-left: 65px;
-} */
-/* #portfolio.onmobile { */
-/* padding-left: 65px; */
-/* } */
-</style>
