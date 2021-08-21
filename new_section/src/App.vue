@@ -50,7 +50,7 @@
 
 <script>
 import feather from "feather-icons";
-import start from "./bubbles";
+import start from "@/assets/javascript/bubbles.js";
 import * as d3 from "d3";
 
 export default {
