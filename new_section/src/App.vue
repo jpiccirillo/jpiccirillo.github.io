@@ -105,13 +105,14 @@
       </ul>
     </div>
     <div id="portfolio" @click="contractSidebar">
-      <div id="entry" />
+      <router-view id="router" />
     </div>
   </div>
 </template>
 
 <script>
 import feather from "feather-icons";
+import { routeConfig } from "@/router/";
 
 export default {
   name: "App",
@@ -124,12 +125,14 @@ export default {
   },
   mounted() {
     feather.replace();
+    this.activeItem = this.$route.meta.sidebarName;
   },
   methods: {
     setSwoop(name) {
       this.activeItem = name;
       this.sidebarClass = ""; // Contract sidebar when sthing's clicked
       this.activeDropdown = ""; // Close all dropdowns
+      this.$router.push(this.getRouterNameFromSidebarName(name));
     },
     isSwoop(name) {
       return this.activeItem === name ? "active" : "";
@@ -153,6 +156,9 @@ export default {
     onToggleCollapse(collapsed) {
       this.collapsed = collapsed;
       this.menu[0].title = this.collapsed ? "JP" : "Jeffrey Piccirillo";
+    },
+    getRouterNameFromSidebarName(name) {
+      return routeConfig.find((i) => i.meta.sidebarName === name).path;
     },
   },
 };
