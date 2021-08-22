@@ -42,6 +42,14 @@ ul:not(.li):not(#inner-wrapper) {
   background: var(--grey7);
 }
 
+ul .li:not(.drawer):not(.active):hover {
+  transition: $transition;
+  background: var(--grey8);
+  & .text {
+    color: var(--grey0);
+  }
+}
+
 ul .li {
   list-style: none;
   padding: 10px;
@@ -59,14 +67,6 @@ ul .li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-}
-
-ul .li:not(.drawer):not(.active):hover {
-  transition: $transition;
-  background: var(--grey8);
-  & .text {
-    color: var(--grey0);
   }
 }
 
@@ -113,14 +113,6 @@ ul .li.active {
   background: $active;
 }
 
-ul:hover {
-  width: var(--expanded-width);
-}
-
-.title.clicked .title-header {
-  padding-bottom: 0px;
-}
-
 #inner-wrapper {
   max-height: 0;
   padding: 0px !important;
@@ -143,8 +135,6 @@ ul:hover {
   #inner-wrapper {
     transition: max-height 0.5s ease;
     max-height: 300px !important;
-    padding-bottom: 10px !important;
-    padding-top: 10px !important;
   }
 }
 
@@ -168,7 +158,6 @@ ul:hover {
     max-height: 20px;
     text-overflow: ellipsis;
     overflow: hidden;
-    // display: none;
   }
 
   ul.clicked .text {
@@ -199,15 +188,6 @@ ul:hover {
   li.title {
     padding: 0px;
   }
-  // .title.clicked #inner-wrapper {
-  //   padding: 5px !important;
-  //   padding-right: 0px;
-  //   width: calc(100% - 5px);
-
-  //   > li:last-child {
-  //     margin-bottom: 5px;
-  //   }
-  // }
 
   ul.clicked {
     width: var(--expanded-width);
