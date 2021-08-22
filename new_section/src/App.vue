@@ -5,44 +5,78 @@
         <li class="li item active">
           <i data-feather="home"></i><span class="text">Home</span>
         </li>
+        <li class="li item">
+          <i data-feather="framer"></i><span class="text">Font</span>
+        </li>
         <li class="li title">
           <div class="title-header">
-            <i data-feather="settings"></i>
-            <span class="text">Title</span>
+            <i data-feather="map"></i>
+            <span class="text">Mapping</span>
+            <i data-feather="chevron-down" class="expand-icon"></i>
           </div>
           <ul id="inner-wrapper">
-            <li class="li item active">
-              <i data-feather="camera-off"></i
-              ><span class="text">Subtitle1</span>
+            <li class="li item">
+              <span class="text">Geological</span>
             </li>
             <li class="li item">
-              <i data-feather="camera-off"></i
-              ><span class="text">2Subtitle2</span>
+              <span class="text">Medieval Spain</span>
             </li>
-            <li class="li item active">
-              <i data-feather="camera-off"></i
-              ><span class="text">Subtitle3</span>
+            <li class="li item">
+              <span class="text">Political / Choropleth</span>
+            </li>
+            <li class="li item">
+              <span class="text">Campus Walking Map</span>
+            </li>
+          </ul>
+        </li>
+        <li class="li title">
+          <div class="title-header">
+            <i data-feather="monitor"></i>
+            <span class="text">Programming</span>
+            <i data-feather="chevron-down" class="expand-icon"></i>
+          </div>
+          <ul id="inner-wrapper">
+            <li class="li item">
+              <span class="text">D3 Interactive Map</span>
+            </li>
+            <li class="li item">
+              <span class="text">Statistical Power Applet</span>
+            </li>
+            <li class="li item">
+              <span class="text">Fitbit Data Visualization</span>
+            </li>
+            <li class="li item">
+              <span class="text">Mint Financial Data</span>
+            </li>
+            <li class="li item">
+              <span class="text">Computer Productivity</span>
+            </li>
+          </ul>
+        </li>
+        <li class="li title">
+          <div class="title-header">
+            <i data-feather="camera"></i>
+            <span class="text">Photography</span>
+            <i data-feather="chevron-down" class="expand-icon"></i>
+          </div>
+          <ul id="inner-wrapper">
+            <li class="li item">
+              <span class="text">Places</span>
+            </li>
+            <li class="li item">
+              <span class="text">People</span>
+            </li>
+            <li class="li item">
+              <span class="text">Surf</span>
             </li>
           </ul>
         </li>
         <li class="li item">
-          <i data-feather="settings"></i><span class="text">Settings</span>
-        </li>
-        <li class="li item">
-          <i data-feather="help-circle"></i><span class="text">Help</span>
-        </li>
-        <li class="li item">
-          <i data-feather="key"></i><span class="text">Password</span>
-        </li>
-        <li class="li item">
-          <i data-feather="log-out"></i><span class="text">Sign Out</span>
+          <i data-feather="smile"></i><span class="text">About</span>
         </li>
       </ul>
     </div>
-    <div
-      id="portfolio"
-      :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]"
-    >
+    <div id="portfolio">
       <div id="entry" />
     </div>
   </div>
@@ -108,128 +142,6 @@ export default {
         this.collapsed = false;
       }
     },
-  },
-  data() {
-    return {
-      collapsed: false,
-      isOnMobile: false,
-      menu: [
-        {
-          header: true,
-          title: "Jeffrey Piccirillo",
-          hiddenOnCollapse: false,
-        },
-        {
-          icon: "fas fa-chart-area",
-          href: "/",
-          title: "Home",
-        },
-        {
-          icon: "fas fa-globe-americas",
-          href: "/",
-          title: "Places",
-        },
-        {
-          icon: "fas fa-users",
-          href: "/",
-          title: "People",
-        },
-        {
-          icon: "fas fa-water",
-          href: "/",
-          title: "Surf",
-        },
-        {
-          title: "Mapping",
-          icon: "fas fa-map-marked",
-          child: [
-            {
-              href: "/charts/sublink",
-              title: "Geoical",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Medieval Spain",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Politicaopleth",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Campus Walking Map",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Geological",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Medieval Spain",
-            },
-            {
-              href: "/charts/s",
-              title: "Polithoropleth",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Campus Walking Map",
-            },
-          ],
-        },
-        {
-          icon: "fas fa-font",
-          href: "/",
-          title: "Font",
-        },
-        {
-          title: "Programming",
-          icon: "fas fa-laptop",
-          child: [
-            {
-              href: "/charts/sublink",
-              title: "Politicaopleth",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Campus Walking Map",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Geological",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Medieval Spain",
-            },
-            {
-              href: "/charts/s",
-              title: "Polithoropleth",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Campus Walking Map",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Geological",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Medieval Spain",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Political / Choropleth",
-            },
-            {
-              href: "/charts/sublink",
-              title: "Campus Walking Map",
-            },
-          ],
-        },
-      ],
-    };
   },
 };
 </script>

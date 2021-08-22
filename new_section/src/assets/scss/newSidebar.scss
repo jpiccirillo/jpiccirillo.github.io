@@ -32,12 +32,14 @@ ul {
 }
 
 ul:not(.li) {
-  background: var(--grey7);
   padding: 20px 0 5px 10px;
   border-right: 5px solid $active;
   width: var(--collapsed-width);
   transition: $transition;
   overflow: hidden;
+}
+ul:not(.li):not(#inner-wrapper) {
+  background: var(--grey7);
 }
 
 ul .li {
@@ -45,12 +47,19 @@ ul .li {
   padding: 10px;
   padding-right: 0;
   margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   position: relative;
   transition: $transition;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+
+  & .text {
+    margin-left: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 ul .li:not(.drawer):not(.active):hover {
@@ -83,6 +92,8 @@ ul .li:after {
   border-radius: 100%;
   transition: $transition;
   box-shadow: none;
+  pointer-events: none;
+  z-index: 10;
 }
 
 // When top chamfer is active (showing), change box shadow so it is revealed
@@ -106,27 +117,43 @@ ul:hover {
   width: var(--expanded-width);
 }
 
+.title.clicked .title-header {
+  padding-bottom: 0px;
+}
+
 #inner-wrapper {
-  max-height: 300px;
+  max-height: 0;
   padding: 0px !important;
   width: 100%;
   border-right: none;
+  transition: max-height 0.5s ease;
 
   > li {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    margin-bottom: 5px;
   }
   > li:first-child {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   > li:last-child {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 }
-.title:hover {
-  background: transparent !important;
+.title.clicked {
+  #inner-wrapper {
+    transition: max-height 0.5s ease;
+    max-height: 300px !important;
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+  }
 }
 
-@media screen and (max-width: 600px) {
+.expand-icon {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 2000px) {
   :root {
     --collapsed-width: 35px;
     --expanded-width: 200px;
@@ -134,14 +161,14 @@ ul:hover {
   }
 
   ul:not(.li) {
-    padding: 20px 0 5px 5px;
+    padding: 20px 0 5px 7px;
   }
   .text {
     transition: $transition;
     max-height: 20px;
     text-overflow: ellipsis;
     overflow: hidden;
-    display: none;
+    // display: none;
   }
 
   ul.clicked .text {
@@ -151,7 +178,7 @@ ul:hover {
 
   .sidebar .feather {
     display: block;
-    z-index: 10;
+    z-index: 15;
     height: 15px;
     width: 15px;
     min-width: 15px;
@@ -163,7 +190,7 @@ ul:hover {
     & .text {
       margin-left: 7px;
     }
-    height: 20px;
+    max-height: 20px;
     padding: 5px;
     padding-left: 7px;
     padding-right: 0px;
@@ -172,17 +199,15 @@ ul:hover {
   li.title {
     padding: 0px;
   }
-  #inner-wrapper {
-    padding: 5px !important;
-    padding-right: 0px;
-    width: calc(100% - 5px);
-    > li:first-child {
-      margin-top: 5px;
-    }
-    > li:last-child {
-      margin-bottom: 5px;
-    }
-  }
+  // .title.clicked #inner-wrapper {
+  //   padding: 5px !important;
+  //   padding-right: 0px;
+  //   width: calc(100% - 5px);
+
+  //   > li:last-child {
+  //     margin-bottom: 5px;
+  //   }
+  // }
 
   ul.clicked {
     width: var(--expanded-width);
