@@ -143,6 +143,11 @@ ul .li.active {
   margin-right: 10px;
 }
 
+ul.ul:not(.clicked) .text,
+ul.ul:not(.clicked) .expand-icon {
+  opacity: 0 !important;
+}
+
 @media screen and (max-width: 2000px) {
   :root {
     --collapsed-width: 35px;
