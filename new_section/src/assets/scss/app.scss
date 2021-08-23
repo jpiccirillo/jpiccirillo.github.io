@@ -10,8 +10,13 @@
   --grey8: rgb(250, 250, 250);
   --border: 1px solid var(--grey7);
   --collapsed-width: 35px;
+  --sbarBorderWidth: 5px;
+  --sbarLeftPaddig: 7px;
   --expanded-width: 200px;
   --cWidth: 40px;
+  --totalSidebarWidth: calc(
+    var(--collapsed-width) + var(--sbarBorderWidth) + var(--sbarLeftPaddig)
+  );
 }
 
 html,
@@ -39,6 +44,8 @@ body {
   color: var(--grey2);
   line-height: 1.65;
   font-size: 11pt;
+  padding-left: var(--totalSidebarWidth);
+  width: calc(100vw - var(--totalSidebarWidth));
 }
 
 section {
