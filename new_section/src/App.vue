@@ -6,13 +6,15 @@
         :class="sidebarClass"
         @click.capture="expandSidebar($event)"
       >
-        <li
-          class="li item"
-          @click.stop="setSwoop('home')"
-          :class="isSwoop('home')"
+        <router-link :to="{ name: 'Home' }" tag="span">
+          <li
+            class="li item"
+            @click="setSwoop('home')"
+            :class="isSwoop('home')"
+          >
+            <i data-feather="home"></i><span class="text">Home</span>
+          </li></router-link
         >
-          <i data-feather="home"></i><span class="text">Home</span>
-        </li>
         <li
           class="li item"
           @click.stop="setSwoop('font')"
@@ -84,24 +86,40 @@
             <i data-feather="chevron-down" class="expand-icon"></i>
           </div>
           <ul id="inner-wrapper">
-            <li class="li item" @click.stop="setSwoop('photo')">
-              <span class="text">Places</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('photo')">
-              <span class="text">People</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('photo')">
-              <span class="text">Surf</span>
-            </li>
+            <router-link
+              :to="{ name: 'Home' }"
+              @click.stop.native="setSwoop('photo')"
+            >
+              <li class="li item" @click="setSwoop('photo')">
+                <span class="text">Places</span>
+              </li></router-link
+            >
+            <router-link
+              :to="{ name: 'people' }"
+              @click.stop.native="setSwoop('photo')"
+            >
+              <li class="li item">
+                <span class="text">People</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'Surf' }"
+              @click.stop.native="setSwoop('photo')"
+            >
+              <li class="li item">
+                <span class="text">Surf</span>
+              </li>
+            </router-link>
           </ul>
         </li>
-        <li
-          class="li item"
-          @click.stop="setSwoop('abt')"
-          :class="isSwoop('abt')"
+        <router-link
+          :to="{ name: 'About' }"
+          tag="span"
+          @click.stop.native="setSwoop('abt')"
+          ><li class="li item" :class="isSwoop('abt')">
+            <i data-feather="smile"></i><span class="text">About</span>
+          </li></router-link
         >
-          <i data-feather="smile"></i><span class="text">About</span>
-        </li>
       </ul>
     </div>
     <div id="portfolio" @click="contractSidebar">
@@ -132,7 +150,6 @@ export default {
       this.activeItem = name;
       this.sidebarClass = ""; // Contract sidebar when sthing's clicked
       this.activeDropdown = ""; // Close all dropdowns
-      this.$router.push(this.getRouterNameFromSidebarName(name));
     },
     isSwoop(name) {
       return this.activeItem === name ? "active" : "";
