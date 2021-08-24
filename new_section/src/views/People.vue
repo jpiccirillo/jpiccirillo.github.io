@@ -1,120 +1,30 @@
 <template>
   <div class="masonry">
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-01.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-02.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-03.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-04.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-05.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-06.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-07.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-08.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-09.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-10.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-11.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-12.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-13.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-14.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-15.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-16.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-17.jpg`)"
-      />
-    </section>
-    <section>
-      <img
-        class="surf-image panel"
-        :src="require(`../assets/images/people/People-18.jpg`)"
-      />
+    <section class="surf-image panel" v-for="(source, i) in images" :key="i">
+      <image-with-hover :source="source" />
     </section>
   </div>
 </template>
+<script>
+import ImageWithHover from "@/components/ImageWithHover";
+
+export default {
+  components: { ImageWithHover },
+  data() {
+    return {
+      images: Array.from(Array(18)).map((_, i) =>
+        require(`../assets/images/people/People-${i + 1}.jpg`)
+      ),
+    };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 section {
   width: unset;
   margin: unset;
+  overflow: hidden;
 }
 .panel {
   padding: unset;
