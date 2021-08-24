@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Surf from "../views/Surf.vue";
+import People from "../views/People.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,14 @@ const routes = [
     path: "/photos/surf",
     name: "Surf",
     component: Surf,
+    meta: {
+      sidebarName: `photo`,
+    },
+  },
+  {
+    path: "/photos/people",
+    name: "People",
+    component: People,
     meta: {
       sidebarName: `photo`,
     },

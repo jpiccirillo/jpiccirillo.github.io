@@ -95,7 +95,7 @@
               </li></router-link
             >
             <router-link
-              :to="{ name: 'people' }"
+              :to="{ name: 'People' }"
               @click.stop.native="setSwoop('photo')"
             >
               <li class="li item">
