@@ -1,11 +1,16 @@
 <template>
-  <img class="image" :src="source" />
+  <div class="stacked">
+    <img class="image stacked-item" :src="source" />
+    <div v-if="caption" class="overlay stacked-item">
+      <span class="text">Text Here</span>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
-  props: ["source"],
+  props: ["source", "caption"],
 };
 </script>
 
@@ -15,5 +20,34 @@ export default {
   overflow: hidden;
   width: 100%;
   display: block;
+}
+
+.stacked {
+  display: grid;
+}
+
+.stacked-item {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+.overlay {
+  display: grid;
+  align-content: center;
+  height: 100%;
+  text-align: center;
+  transition: opacity 0.25s;
+  background-color: rgba(230, 230, 230, 0.5);
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .text {
+    font-style: oblique;
+    text-shadow: 0px 0px 10px rgba(20, 20, 20, 0.8);
+    color: white;
+  }
 }
 </style>
