@@ -1,137 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Power Applet</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"
+    ></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments) }
-        gtag('js', new Date());
-        gtag('config', 'UA-96097643-1');
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-96097643-1");
     </script>
     <style src="style.css"></style>
-</head>
+  </head>
 
-<body onLoad="startSpinningWheel()" style="margin:0;">
+  <body onLoad="startSpinningWheel()" style="margin: 0;">
     <div id="loader"></div>
     <div class="container">
-        <div class="controls">
-            <div class="shell left">
-                <div id="slider-vertical2">
-                    <div class="inner" id "label" style="z-index:100">P<br>o<br>w<br>e<br>r</div>
-                </div>
+      <div class="controls">
+        <div style="height: 70%;">
+          <div class="leftControls">
+            <div class="inputContainer">
+              <table>
+                <tr>
+                  <td>
+                    μ<sub>0</sub> =
+                    <input
+                      type="text"
+                      id="mu0"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value})  && setValuesNew({[this.id]: this.value});"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    μ<sub>1</sub> =
+                    <input
+                      type="text"
+                      id="mu1"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"
+                    />
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    σ =
+                    <input
+                      type="text"
+                      id="std"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    d =
+                    <input
+                      type="text"
+                      id="delta"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    α =
+                    <input
+                      id="alpha"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>β = <input type="text" id="effectsize" disabled /></td>
+                </tr>
+                <tr>
+                  <td>
+                    n =
+                    <input
+                      type="text"
+                      id="n"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value});"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Power =
+                    <input
+                      type="text"
+                      id="power"
+                      autocomplete="off"
+                      onchange="validate({[this.id]: this.value}) && setValuesNew({[this.id]: this.value})"
+                    />
+                  </td>
+                </tr>
+              </table>
+              <div class="samplebutton" onmousedown="sample()">Sample</div>
             </div>
-            <div class="shell right">
-                <div id="slider-vertical1">
-                    <div class="inner" id "label" style="z-index:100">n</div>
-                </div>
+          </div>
+          <div class="rightControls">
+            <div id="slider-vertical2" class="shell">
+              <div class="inner label">P<br />o<br />w<br />e<br />r</div>
             </div>
-            <table>
-                <tr>
-                    <td id="label">μ<sub>0</sub> = </td>
-                    <td><input type="text" id="mu0" value="100" autocomplete="off" onchange="validate('mu0');"></td>
-                </tr>
-                <tr>
-                    <td id="label">μ<sub>1</sub> = </td>
-                    <td><input type="text" id="mu1" value="105"  autocomplete="off"onchange="validate('mu1');"></td>
-                </tr>
-
-                <tr>
-                    <td id="label">σ = </td>
-                    <td><input type="text" id="std" value="5" autocomplete="off" onchange="validate('std');"></td>
-                </tr>
-                <tr>
-                    <td id="label">d = </td>
-                    <td><input type="text" id="delta" autocomplete="off" onchange="validate('delta');"></td>
-                </tr>
-                </tr>
-                <tr>
-                    <td id="label">α = </td>
-                    <td><input type="text" id="alpha" value=".05" autocomplete="off" onchange="validate('alpha')"></td>
-                </tr>
-                </tr>
-                <tr>
-                    <td id="label">β = </td>
-                    <td><input type="text" id="effectsize" readonly></td>
-                </tr>
-                <tr>
-                    <td id="label">n = </td>
-                    <td><input type="text" id="n" value="4" autocomplete="off" onchange="validate('n')"></td>
-                </tr>
-                <tr>
-                    <td id="label">Power = </td>
-                    <td><input type="text" id="power" autocomplete="off" onchange="checkPower('form');"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <div class="samplebutton" onmousedown="sample()">Sample</div>
-            <div class="console"></div>
+            <div id="slider-vertical1" class="shell">
+              <div class="inner label">n</div>
+            </div>
+          </div>
         </div>
-
-        <div class="graph">
-            <div class="minigraph"></div>
-            <div class="maingraph"></div>
-            <br><br>
+        <div class="consoleContainer">
+          <div class="console">console down here</div>
         </div>
+      </div>
+      <div class="graph">
+        <div class="minigraph"></div>
+        <div class="maingraph"></div>
+        <br /><br />
+      </div>
 
-        <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
-        <link rel="stylesheet" href="style.css">
-        <script src="https://d3js.org/d3.v5.js"></script>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-        <script type="text/javascript" src="calculations.js"></script>
-        <script type="text/javascript" src="validation.js"></script>
-        <script type="text/javascript" src="curves.js"></script>
+      <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
+      <link rel="stylesheet" href="style.css" />
+      <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+      <link
+        rel="stylesheet"
+        href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+      />
+      <script src="https://d3js.org/d3.v5.js"></script>
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script
+        type="text/javascript"
+        async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"
+      ></script>
+
+      <script type="text/javascript" src="Channel.js"></script>
+      <script type="text/javascript" src="Shapes.js"></script>
+      <script type="text/javascript" src="validValues.js"></script>
+      <script type="text/javascript" src="calculations.js"></script>
+      <script type="text/javascript" src="validation.js"></script>
+      <script type="text/javascript" src="curves.js"></script>
     </div>
-<div id="description">
-    <table style="min-width:100%">
-        <tr>
-            <td>
-                <li>μ0 = Mean of the null population</li>
-            </td>
-            <td>
-                <li>α = Probability of a Type I error, one-tailed</li>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <li>μ1 = Mean of the alternative population</li>
-            </td>
-            <td>
-                <li>β = Probability of a Type II error (\( = 1\,-\,Power\))</li>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <li>σ = Pooled standard deviation</li>
-            </td>
-            <td>
-                <li>n = Sample size set by user.  Can be calculated from other parameters:
-                    <div style="margin: 1em;margin-left: 2em;">\(n = {(Z_\alpha + Z_\beta)^2 \;\cdot\; 2\sigma^2 \over d^2}\)</div>
-                </li>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <li>d = Normalized difference between the means:
-                    <div style="margin: 1em;margin-left: 2em;">\(d = {\mu_1-\mu_0\over\sigma}\)</div>
-
-                </li>
-            </td>
-            <td>
-                <li>Power = Statistical power resulting from the other parameters:<br></li>
-                <div style="margin: 1em;margin-left: 2em;">\(Z_\beta\,\rightarrow\,\beta\)<br>\(Power = 1\,-\,\beta\)</div>
-                </li>
-            </td>
-        </tr>
-    </table>
-</div>
-</body>
+  </body>
 </html>
