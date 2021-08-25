@@ -49,8 +49,8 @@
         </li>
         <li
           class="li title"
-          :class="`${isSwoop('p')} ${isActiveDropdown('p')}`"
-          @click="showDropdown('p')"
+          :class="`${isSwoop('dev')} ${isActiveDropdown('dev')}`"
+          @click="showDropdown('dev')"
         >
           <div class="title-header">
             <i data-feather="monitor"></i>
@@ -58,19 +58,25 @@
             <i data-feather="chevron-down" class="expand-icon"></i>
           </div>
           <ul id="inner-wrapper">
-            <li class="li item" @click.stop="setSwoop('p')">
+            <li class="li item" @click.stop="setSwoop('dev')">
               <span class="text">D3 Interactive Map</span>
             </li>
-            <li class="li item" @click.stop="setSwoop('p')">
-              <span class="text">Statistical Power Applet</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('p')">
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">Statistical Power Applet</span>
+              </li>
+            </router-link>
+            <li class="li item" @click.stop="setSwoop('dev')">
               <span class="text">Fitbit Data Visualization</span>
             </li>
-            <li class="li item" @click.stop="setSwoop('p')">
+            <li class="li item" @click.stop="setSwoop('dev')">
               <span class="text">Mint Financial Data</span>
             </li>
-            <li class="li item" @click.stop="setSwoop('p')">
+            <li class="li item" @click.stop="setSwoop('dev')">
               <span class="text">Computer Productivity</span>
             </li>
           </ul>
