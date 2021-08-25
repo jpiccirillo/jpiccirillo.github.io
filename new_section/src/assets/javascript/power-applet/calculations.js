@@ -1,4 +1,3 @@
-import { get_p } from "./curves";
 /*
 This script holds the functions for calculating the statistics associated with
 the tool.  These functions are ported and adapted from the javascript
@@ -11,13 +10,9 @@ to avoid having to import the entire library as only a few functions are used.
 * @Main credit: jStat.js, v1.71 (https://jstat.github.io/all.html)
 */
 
-export function calculateValue(toCalculate, test) {
+export function calculateValue(toCalculate, p, test) {
   // This function is calculates a result based on a test value (changed) combined with the rest of p.  Combine p with the test value
-  let { mu0, mu1, std, alpha, n, power, delta } = Object.assign(
-    {},
-    get_p(),
-    test
-  );
+  let { mu0, mu1, std, alpha, n, power, delta } = Object.assign({}, p, test);
   let zcritical1, zcritical2, noncentrality;
 
   if (toCalculate === "power") {

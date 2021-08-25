@@ -1,6 +1,6 @@
 import $ from "jquery";
 import { Channel } from "./Channel";
-import { calculateValue, pdf, normalcdf, ztest } from "./calculations";
+import { pdf, normalcdf, ztest } from "./calculations";
 import * as d3 from "d3";
 import { Triangle, Curve, Line } from "./Shapes";
 import { validValues } from "./validValues";
@@ -10,7 +10,6 @@ let bottomContainers;
 let topContainers;
 let containers;
 let topscreen_h;
-let p = {};
 
 export function getBottomContainers() {
   return bottomContainers;
@@ -22,10 +21,6 @@ export function getTopContainers() {
 
 export function getContainers() {
   return containers;
-}
-
-export function get_p() {
-  return p;
 }
 
 /*
@@ -49,48 +44,48 @@ export function output(msg, color = "black") {
     .css("color", color);
 }
 
-export function setValuesNew(changed, event, eventAuthor) {
-  event = event || "change";
-  const id = Object.keys(changed)[0];
-  const value = changed[id];
+// export function setValuesNew(changed, event, eventAuthor) {
+//   event = event || "change";
+//   const id = Object.keys(changed)[0];
+//   const value = changed[id];
 
-  p[id] = parseFloat(value);
+//   p[id] = parseFloat(value);
 
-  // If mu0, mu1, std, alpha, or n change, recalculate power
-  if (["mu0", "mu1", "std", "alpha", "n"].includes(id)) {
-    p.power = calculateValue("power");
-    p.effectsize = calculateValue("effectsize");
-  }
+//   // If mu0, mu1, std, alpha, or n change, recalculate power
+//   if (["mu0", "mu1", "std", "alpha", "n"].includes(id)) {
+//     p.power = calculateValue("power");
+//     p.effectsize = calculateValue("effectsize");
+//   }
 
-  // If mu0, mu1, or std change, recalculate delta
-  if (["mu0", "mu1", "std"].includes(id)) {
-    p.delta = calculateValue("delta");
-  }
+//   // If mu0, mu1, or std change, recalculate delta
+//   if (["mu0", "mu1", "std"].includes(id)) {
+//     p.delta = calculateValue("delta");
+//   }
 
-  // If power changes, recalculate required sample size to achieve that power
-  if (id === "power") {
-    p.n = calculateValue("n");
-    p.effectsize = calculateValue("effectsize");
-  }
+//   // If power changes, recalculate required sample size to achieve that power
+//   if (id === "power") {
+//     p.n = calculateValue("n");
+//     p.effectsize = calculateValue("effectsize");
+//   }
 
-  if (id === "delta") {
-    p.mu1 = calculateValue("mu1");
-    p.power = calculateValue("power");
-  }
+//   if (id === "delta") {
+//     p.mu1 = calculateValue("mu1");
+//     p.power = calculateValue("power");
+//   }
 
-  if (["alpha", "n"].includes(id)) setClipPaths();
+//   if (["alpha", "n"].includes(id)) setClipPaths();
 
-  // Replot axis if a mean or standard deviation changes
-  if (["mu0", "mu1", "std"].includes(id)) {
-    axisPrep();
-  }
-  // Emit new p values to presentation layer
-  channel.emit(event, eventAuthor);
-  return true;
-}
+//   // Replot axis if a mean or standard deviation changes
+//   if (["mu0", "mu1", "std"].includes(id)) {
+//     axisPrep();
+//   }
+//   // Emit new p values to presentation layer
+//   channel.emit(event, eventAuthor);
+//   return true;
+// }
 
-function setClipPaths() {
-  const scaledX = screenScale(p.mu0 - normalcdf(p));
+export function setClipPaths(p) {
+  const scaledX = screenScale(p.mu0 - normalcdf(p), p);
 
   ["right", "left"].forEach((side) => {
     const x = side === "left" ? 0 : scaledX;
@@ -117,7 +112,7 @@ export function initScreenSize() {
   topscreen_h = $(".minigraph").innerHeight();
 }
 
-function axisPrep() {
+export function axisPrep(p) {
   $(".axis").remove();
   const axisKeys = Array.from(Array(9).keys());
   const ticks = axisKeys.map((v) => v * (window.innerWidth / 8) + 1);
@@ -147,8 +142,8 @@ function axisPrep() {
 }
 
 //Convert user/axis scale to pixel scale for writing to screen
-export function screenScale(x) {
-  const { mu0, std } = p;
+export function screenScale(x, p) {
+  const { std, mu0 } = p;
   return d3
     .scaleLinear()
     .domain([mu0 - 4 * std, mu0 + 4 * std])
@@ -156,8 +151,8 @@ export function screenScale(x) {
 }
 
 //Convert pixel-scale for writing to screen to user/axis scale
-function displayScale(x) {
-  const { mu0, std } = p;
+function displayScale(x, p) {
+  const { std, mu0 } = p;
   return d3
     .scaleLinear()
     .domain([0, window.innerWidth])
@@ -165,8 +160,8 @@ function displayScale(x) {
 }
 
 //Scale vertically by mapping the max height a curve can have (pdf w n==100) to the screen height
-export function verticalScale(y) {
-  const { mu0, std } = p;
+export function verticalScale(y, p) {
+  const { std, mu0 } = p;
   return d3
     .scaleLinear()
     .domain([0, pdf(mu0, mu0, std / Math.sqrt(100))])
@@ -176,14 +171,14 @@ export function verticalScale(y) {
 // When tool loads for the first time, initialize screen size and prepare the
 // containers to which later shapes will be drawn.  Then call plot() to carry
 // out rest of shape creation
-export function prepare() {
+export function prepare(p) {
   // Set initial values object (p)
-  Object.keys(validValues).forEach((param) => {
-    const valid = validValues[param];
-    p[param] = valid.initial ? valid.initial : calculateValue(param);
-  });
+  // Object.keys(validValues).forEach((param) => {
+  //   const valid = validValues[param];
+  //   p[param] = valid.initial ? valid.initial : calculateValue(param);
+  // });
 
-  setValues();
+  setValues(p);
 
   bottomContainers = d3
     .select(".maingraph")
@@ -208,7 +203,7 @@ export function prepare() {
     },
   };
 
-  setClipPaths();
+  setClipPaths(p);
 
   // Blue curves (null population)
   const nullPopulation = {
@@ -216,6 +211,7 @@ export function prepare() {
     clip: "right",
     color: "21, 67, 96",
     text: "Null Population",
+    p,
   };
 
   const alternativePopulation = {
@@ -223,6 +219,7 @@ export function prepare() {
     clip: "left",
     color: "139, 0, 0",
     text: "Alternative Population",
+    p,
   };
 
   new Curve(
@@ -262,7 +259,7 @@ export function prepare() {
     })
   );
 
-  axisPrep();
+  axisPrep(p);
 }
 
 // When the "Sample" button is pushed:
@@ -270,7 +267,7 @@ export function prepare() {
 // - Draws and stacks these to the top screen in a stylized histogram.
 // - Calculates mean sample, and determines whether or not to reject Ho
 // - Writes information to the tool's console
-export function sample() {
+export function sample(p) {
   let { mu0, mu1, std, alpha, n } = p;
 
   if (mu1 < mu0) {
@@ -290,7 +287,7 @@ export function sample() {
   const randomValues = d3
     .range(Math.round(n))
     .map(d3.randomNormal(mu1, std))
-    .map((val) => screenScale(val));
+    .map((val) => screenScale(val, p));
 
   const d3mean = d3.mean(randomValues);
 
@@ -333,7 +330,7 @@ export function sample() {
     .style("fill", "#ffffff")
     .style("stroke", "grey");
 
-  const sampleMean = displayScale(d3mean);
+  const sampleMean = displayScale(d3mean, p);
   const zvalue = (mu0 - sampleMean) / (std / Math.sqrt(n));
   const ztest_result = ztest(zvalue, 1);
 

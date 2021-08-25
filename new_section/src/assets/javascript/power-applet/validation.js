@@ -1,6 +1,6 @@
 import $ from "jquery";
 import { validValues } from "./validValues";
-import { output, get_p } from "./curves";
+import { output } from "./curves";
 import { channel } from "./curves";
 import { calculateValue } from "./calculations";
 
@@ -56,9 +56,8 @@ export function setSliderTicks(el) {
   }
 }
 
-export function setValues() {
+export function setValues(p) {
   output("");
-  let p = get_p();
   Object.keys(p).forEach((v) => {
     $(`#${v}`).val(p[v].toFixed(validValues[v].precision));
   });
@@ -73,8 +72,7 @@ $(function() {
   channel.on("drag", setValues);
 });
 
-export function validate(component) {
-  console.log(component)
+export function validate(component, p) {
   const id = Object.keys(component)[0];
   const val = parseFloat(component[id]);
   output("");
@@ -85,7 +83,7 @@ export function validate(component) {
     const { min, max, msg } = validValues[id];
 
     if (isNaN(val) || !val || val < min || val > max) {
-      setValues(); // reset UI to its preexisting state
+      setValues(p); // reset UI to its preexisting state
       output(msg); // Inform the console
       return false; // Inform the caller
     }
@@ -99,23 +97,23 @@ export function validate(component) {
   if (id === "power") {
     // Return false if we're trying to set power lower than lowest permitted value predicted by our formulas.  Else calculate whether n is within bounds for that allowable power
     return (
-      val > calculateValue("power", { n: validValues.n.min }) &&
+      val > calculateValue("power", p, { n: validValues.n.min }) &&
       withinBounds({
-        n: calculateValue("n", { power: val }),
+        n: calculateValue("n", p, { power: val }),
       })
     );
   }
 
   if (["mu0", "mu1", "n", "std", "alpha"].includes(id)) {
     return withinBounds({
-      power: calculateValue("power", { [id]: val }),
+      power: calculateValue("power", p, { [id]: val }),
     });
   }
 
   // If we're changing delta, make sure that resulting mu1 is within bounds, then that resulting
   if (id === "delta") {
-    const t_mu1 = calculateValue("mu1", { delta: val });
-    const t_power = calculateValue("power", { mu1: t_mu1 });
+    const t_mu1 = calculateValue("mu1", p, { delta: val });
+    const t_power = calculateValue("power", p, { mu1: t_mu1 });
     return withinBounds({ mu1: t_mu1 }) && withinBounds({ power: t_power });
   }
 }

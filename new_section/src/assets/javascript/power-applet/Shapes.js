@@ -1,16 +1,17 @@
 import * as d3 from "d3";
 import $ from "jquery";
 import {
-  setValuesNew,
-  get_p,
   verticalScale,
   screenScale,
   getBottomContainers,
   getContainers,
 } from "./curves";
-import { channel } from "./curves";
+// import { channel } from "./curves";
 import { validate } from "./validation";
 import { pdf } from "./calculations";
+import * as app from "@/components/PowerApplet.vue";
+import Vue from "vue";
+export const bus = new Vue();
 
 export class Triangle {
   constructor(position) {
@@ -43,21 +44,20 @@ export class Curve {
     Object.assign(this, options);
     this.isBottom = this.position === "bottom";
 
-    const replot = (id) => {
+    const replot = ({ emitter: id }) => {
       // Only clear and readd path if this curve isnt the one being dragged
-      if (this.id !== id) this.removePath() && this.addPath();
+      if (this.id !== id) this.removePath() && this.addPath(options.p);
     };
 
-    this.addPath();
-    channel.on("change", replot);
-    channel.on("drag", replot);
+    this.addPath(options.p);
+    bus.$on("drag", replot);
+    // bus.$on("mu1_new", replot);
   }
 
   /**
    * Coordinate calculating an array of values to draw a normal distribution curve.  Position parameter is to specify that we're drawing a flattened curve in the top pane
    */
-  generateCurve() {
-    let p = get_p();
+  generateCurve(p) {
     let { std, n } = p;
     if (!this.isBottom) n = 1.25;
     const l_bound = p[this.center] - 4 * std;
@@ -69,21 +69,23 @@ export class Curve {
       : $(".minigraph").innerHeight() + 1;
 
     for (let k = l_bound; k < u_bound; k += step) {
-      const x = screenScale(k);
-      const y = verticalScale(-1 * pdf(k, p[this.center], std / Math.sqrt(n)));
+      const x = screenScale(k, p);
+      const y = verticalScale(
+        -1 * pdf(k, p[this.center], std / Math.sqrt(n)),
+        p
+      );
       array.push({ x, y: y + offset });
     }
     return array;
   }
 
-  drag() {
+  drag(p) {
     return d3.drag().on("drag", (d) => {
-      let p = get_p();
-      const newMu =
-        p[this.center] + (d3.event.dx * 8 * p.std) / window.innerWidth;
+      const { screen_w } = app.default.methods;
+      const newMu = p[this.center] + (d3.event.dx * 8 * p.std) / screen_w();
       const changed = { [this.center]: newMu };
-      validate(changed) &&
-        setValuesNew(changed, "drag", this.id) &&
+      validate(changed, p) &&
+        bus.$emit("drag", { emitter: this.id, changed }) &&
         (d.x += d3.event.dx);
 
       const targets = `#${this.id}-error,#${this.id}-container`;
@@ -96,7 +98,7 @@ export class Curve {
    * - One in the bottom pane, the main curve
    * - One curve with a darker background, representing the alpha error
    */
-  addPath() {
+  addPath(p) {
     this.container = getContainers()[this.position][
       this.id.includes("pink") ? "front" : "back"
     ];
@@ -107,7 +109,7 @@ export class Curve {
       .y((d) => d.y)
       .curve(d3.curveBasis);
 
-    const curve = this.generateCurve();
+    const curve = this.generateCurve(p);
 
     this.nonErrorCurves = this.container
       .append("g")
@@ -121,7 +123,7 @@ export class Curve {
         .attr("clip-path", `url(#rect-clip-${this.clip})`)
         .append("path")
         .attr("id", `${this.id}-error`)
-        .attr("d", curveFunction(this.generateCurve()))
+        .attr("d", curveFunction(this.generateCurve(p)))
         .attr("fill", `rgba(${this.color}, .70)`);
 
     this.nonErrorCurves
@@ -133,7 +135,7 @@ export class Curve {
     this.hasText && this.addText(curve);
 
     if (this.draggable) {
-      this.nonErrorCurves.data([{ x: 0 }]).call(this.drag());
+      this.nonErrorCurves.data([{ x: 0 }]).call(this.drag(p));
     }
   }
 

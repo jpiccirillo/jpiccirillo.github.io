@@ -11,6 +11,7 @@
                   <td>
                     μ<sub>0</sub> =
                     <input
+                      v-model="mu0"
                       type="text"
                       id="mu0"
                       autocomplete="off"
@@ -25,6 +26,7 @@
                   <td>
                     μ<sub>1</sub> =
                     <input
+                      v-model="mu1"
                       type="text"
                       id="mu1"
                       autocomplete="off"
@@ -35,11 +37,11 @@
                     />
                   </td>
                 </tr>
-
                 <tr>
                   <td>
                     σ =
                     <input
+                      v-model="std"
                       type="text"
                       id="std"
                       autocomplete="off"
@@ -54,6 +56,7 @@
                   <td>
                     d =
                     <input
+                      v-model="delta"
                       type="text"
                       id="delta"
                       autocomplete="off"
@@ -68,6 +71,7 @@
                   <td>
                     α =
                     <input
+                      v-model="alpha"
                       id="alpha"
                       autocomplete="off"
                       @change="
@@ -84,6 +88,7 @@
                   <td>
                     n =
                     <input
+                      v-model="n"
                       type="text"
                       id="n"
                       autocomplete="off"
@@ -98,6 +103,7 @@
                   <td>
                     Power =
                     <input
+                      v-model="power"
                       type="text"
                       id="power"
                       autocomplete="off"
@@ -138,10 +144,7 @@
 <script>
 import $ from "jquery";
 import "jquery-ui";
-// import Chanel from "@/assets/javascript/Channel.js";
-// import Shapes from "@/assets/javascript/Channel.js";
 import { validValues } from "@/assets/javascript/power-applet/validValues.js";
-// import calculations from "@/assets/javascript/calculations.js";
 import {
   validate,
   setSliderTicks,
@@ -151,10 +154,65 @@ import {
   prepare,
   setValuesNew,
   initScreenSize,
+  axisPrep,
+  setClipPaths,
 } from "@/assets/javascript/power-applet/curves.js";
+import { calculateValue } from "@/assets/javascript/power-applet/calculations.js";
+import { bus } from "@/assets/javascript/power-applet/Shapes.js";
 
 export default {
+  data() {
+    return {
+      mu0: validValues.mu0.initial,
+      mu1: validValues.mu1.initial,
+      std: 5,
+      delta: 1,
+      alpha: 0.05,
+      n: 4,
+      power: 0.8,
+    };
+  },
+  watch: {
+    mu0() {
+      this.power = calculateValue("power", this._data);
+      this.effectsize = calculateValue("effectsize", this._data);
+      this.delta = calculateValue("delta", this._data);
+      axisPrep(this._data);
+    },
+    mu1() {
+      this.power = calculateValue("power", this._data);
+      this.effectsize = calculateValue("effectsize", this._data);
+      this.delta = calculateValue("delta", this._data);
+      axisPrep(this._data);
+    },
+    std() {
+      this.power = calculateValue("power", this._data);
+      this.effectsize = calculateValue("effectsize", this._data);
+      this.delta = calculateValue("delta", this._data);
+      axisPrep(this._data);
+    },
+    alpha() {
+      this.power = calculateValue("power", this._data);
+      this.effectsize = calculateValue("effectsize", this._data);
+      setClipPaths(this._data);
+    },
+    n() {
+      this.power = calculateValue("power", this._data);
+      this.effectsize = calculateValue("effectsize", this._data);
+      setClipPaths(this._data);
+    },
+    // power() {
+    //   console.log(JSON.stringify(this._data));
+    //   this.n = calculateValue("n", this._data);
+    //   this.effectsize = calculateValue("effectsize", this._data);
+    // },
+    // delta() {
+    //   this.mu1 = calculateValue("mu1", this._data);
+    //   this.power = calculateValue("power", this._data);
+    // },
+  },
   mounted() {
+    bus.$on("drag", this.setMu1);
     //Register listener for screen resize
     $(window).resize(initScreenSize);
 
@@ -163,6 +221,9 @@ export default {
     $(".container").css("display", "block");
     $("#description").css("display", "block");
     initScreenSize();
+
+    this.power = calculateValue("power", this._data);
+    // this.delta = calculateValue("delta", this._data);
 
     // Set up sliders before calling prepare
     const sharedParameters = (f) => ({
@@ -185,11 +246,24 @@ export default {
       step: 1,
       create: (e) => setSliderTicks(e.target),
     });
-    prepare();
+    prepare(this._data);
   },
   methods: {
     validate,
     sample,
+    setMu1(event) {
+      this.mu1 = event.changed.mu1;
+      return true;
+    },
+    screen_w() {
+      return $(".maingraph").innerWidth();
+    },
+    screen_h() {
+      return $(".maingraph").innerHeight();
+    },
+    topscreen_h() {
+      return $(".minigraph").innerHeight();
+    },
   },
 };
 </script>
