@@ -4,7 +4,7 @@
       <div class="image-wrapper">
         <div class="inner-wrapper-for-curves">
           <img
-            class="banner"
+            class="banner panel"
             :src="require(`../assets/images/home/IMG_4501.jpg`)"
           />
         </div>
@@ -69,6 +69,11 @@
           :icon="require(`../assets/images/home/figma.svg`)"
         />
         <grid-item
+          title="Python"
+          desc="for editing work, graphic design, and mockups since 2013"
+          :icon="require(`../assets/images/home/python.svg`)"
+        />
+        <grid-item
           title="React.js"
           desc="For occasional personal projects since 2018"
           :icon="require(`../assets/images/home/react.svg`)"
@@ -91,21 +96,71 @@
       </div>
     </section>
     <div class="g working-on">
-      <div class="image-wrapper">
-        <div class="inner-wrapper-for-curves has-top">
+      <div class="forest-grid">
+        <div class="image-wrapper">
+          <div class="inner-wrapper-for-curves has-top">
+            <img
+              class="bike-image panel"
+              :src="require(`../assets/images/home/IMG_0828.jpg`)"
+            />
+          </div>
+        </div>
+        <div>
           <img
-            class="bike-image"
-            :src="require(`../assets/images/home/IMG_0828.jpg`)"
+            class="forest-image panel"
+            :src="require(`../assets/images/home/IMG_8149.jpg`)"
           />
         </div>
       </div>
       <section class="panel">
-        <h1>Outside of work</h1>
+        <h1 style="margin-bottom: 0px;">Current and future projects</h1>
+        <h4 style="color: var(--grey5); font-style: oblique; margin-top: 0px">
+          Completed projects availabe in sidebar
+        </h4>
         <p>
-          In my own projects, I'm always searching for the simplest and most
-          direct way to solve a problem and put something new and helpful into
-          the world.
+          I always have new ideas floating around in my head for next projects -
+          I'm most interested in visualizing data I've collected about my own
+          habits, life, and fitness, (through smartwatch, smartphone shortcuts
+          and widgets I've written to time-track). Our world is full of rich
+          data and building applications to visualize, manipulate, and
+          understand trends is fascinates me.
         </p>
+        <p>
+          The more experience and applicaitons I build, the more I think in
+          terms of the entire stack, and exciting features and possiblities that
+          lie in each part of the stack (backend, frontend, API in between, etc)
+        </p>
+        <div class="project-items">
+          <div class="project">
+            <span>
+              Dashboard for visualizing workout progress as collected from
+              <a href="https://www.strong.app" target="_blank">Strong App</a>.
+              Frontend in Vue shows various exercise types and timeseries data
+              showing stength training progress
+            </span>
+          </div>
+          <div class="project">
+            <span>
+              Web map exposing detailed biking and walking data from
+              <a href="https://www.strava.com" target="_blank">Strava</a>
+              API and Healthkit. Current solutions don't permit analyzing
+              intra-route speed based on location, terrain, and other factors.
+              Geospatially showcasing all routes in the dataset at once permits
+              analyzing global trends for where I bike and walk over time
+            </span>
+          </div>
+          <div class="project">
+            <span>
+              Python project to process and parse 4 years' computer usage data
+              from
+              <a href="www.rescuetime.com" target="_blank">RescueTime</a>, and
+              API to expose it at meaningful endpoints. Already wrote python3
+              script which runs locally to collect and colate this data,
+              eliminating need for Premium subscription, which is the only way
+              to see data older than 3mo</span
+            >
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -114,6 +169,7 @@
 <script>
 import $ from "jquery";
 import GridItem from "@/components/GridItem";
+// import ImageGrid from "@/components/ImageGrid";
 
 function cb() {
   return new Promise((r) => {
@@ -150,12 +206,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$tablet: 769px;
+$desktop: 969px;
+$tablet: 770px;
 $mobile: 580px;
 $cell: 400px;
 $active: whitesmoke;
 $newWidth: 50px;
 
+.banner,
+.bike-image,
+.forest-image {
+  padding: 0px;
+  width: 100%;
+  border: 3px solid $active;
+}
+.project-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.forest-image.panel {
+  border-radius: 10px;
+}
+
+.forest-grid {
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-gap: 30px;
+  align-items: center;
+}
+
+.project {
+  font-family: monospace;
+  background-color: var(--grey7);
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 1.25rem;
+  height: min-content;
+  border: 2px solid var(--grey6);
+}
 .g {
   display: grid;
   grid-gap: 30px;
@@ -166,21 +256,18 @@ $newWidth: 50px;
 
 .all-stack-items {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
 }
 
 .banner {
   width: 100%;
-  border: 3px solid $active;
   border-top: none;
   border-left: none;
   border-radius: 0px;
   border-bottom-right-radius: calc(#{$newWidth}/ 2);
 }
 .bike-image {
-  width: 100%;
-  border: 3px solid $active;
   border-left: none;
   border-radius: 0px;
   border-bottom-right-radius: calc(#{$newWidth}/ 2);
@@ -201,7 +288,9 @@ $newWidth: 50px;
 }
 
 .working-on {
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px auto;
+  margin-right: 1.25rem;
+  align-items: center;
 }
 
 h1,
@@ -267,8 +356,16 @@ p {
     width: 95%;
   }
 }
+@media screen and (max-width: $desktop - 1) {
+  .working-on {
+    grid-template-columns: 1fr;
+  }
+}
 
 .all-stack-items {
+  @media screen and (max-width: $desktop - 1) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
   @media screen and (max-width: $tablet - 1) {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -279,6 +376,20 @@ p {
 
   @media screen and (max-width: $cell - 1) {
     grid-template-columns: 1fr;
+  }
+}
+.project-items {
+  @media screen and (max-width: $desktop - 1) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.forest-image {
+  @media screen and (max-width: $mobile - 1) {
+    display: none;
+  }
+  @media screen and (min-width: $desktop - 1) {
+    display: none;
   }
 }
 </style>
