@@ -115,7 +115,7 @@
       <section class="panel">
         <h1 style="margin-bottom: 0px;">Current and future projects</h1>
         <h4 style="color: var(--grey5); font-style: oblique; margin-top: 0px">
-          Completed projects availabe in sidebar
+          Completed projects availabe from sidebar
         </h4>
         <p>
           I always have new ideas floating around in my head for next projects -
@@ -213,6 +213,9 @@ $cell: 400px;
 $active: whitesmoke;
 $newWidth: 50px;
 
+.total-left-border {
+  overflow-x: hidden;
+}
 .banner,
 .bike-image,
 .forest-image {
@@ -278,9 +281,9 @@ $newWidth: 50px;
 }
 
 .typewriter-wrapper {
-  width: 100%;
-  max-width: 500px;
+  width: calc(100% - 60px);
   align-self: center;
+  margin: auto;
 }
 
 .bike-image {
@@ -304,9 +307,10 @@ p {
 }
 
 .banner-container {
-  grid-template-columns: minmax(60%, 800px) 1fr;
-  max-width: calc(100vw - 20px);
-  margin-right: 20px;
+  grid-template-columns: minmax(60%, 800px) auto;
+  max-width: 100%;
+  // margin-right: 20px;
+  // grid-gap: 0px;
 }
 
 .inner-wrapper-for-curves {
