@@ -31,52 +31,31 @@
       <div class="panel section">
         <h3>Tech Stack</h3>
         <div class="grid all-stack-items">
-          <div class="grid tech-stack">
-            <img
-              class="stack-icon"
-              width="40"
-              height="40"
-              :src="require(`../assets/images/power_applet/d3.svg`)"
-            />
-            <small class="small">
-              <b>d3.js</b> to place and manipulate blue and red SVG curves in
-              the DOM, handle drag events, and other tasks
-            </small>
-          </div>
-          <div class="grid tech-stack">
-            <span>
-              <pre><b>jStat</b></pre>
-            </span>
-            <small class="small">
-              <b>jStat</b> to perform advanced statistical operations without
-              the need of a dedicated statistical language
-            </small>
-          </div>
-          <div class="grid tech-stack">
-            <img
-              class="stack-icon"
-              width="40"
-              height="40"
-              :src="require(`../assets/images/power_applet/w3c.svg`)"
-            />
-            <small class="small">
-              <b>SVG API</b> to create custom curves, rectangles, lines and
+          <grid-item
+            title="D3.js"
+            desc="to place and manipulate blue and red SVG curves in
+              the DOM, handle drag events, and other tasks"
+            :icon="require(`../assets/images/power_applet/d3.svg`)"
+          />
+          <grid-item
+            title="jStat"
+            desc="to perform advanced statistical operations without
+              the need of a dedicated statistical language"
+            :icon="require(`../assets/images/power_applet/d3.svg`)"
+          />
+          <grid-item
+            title="SVG API"
+            desc="to create custom curves, rectangles, lines and
               other on-the-fly geometry that change shape and characteristics
-              when parameters shift
-            </small>
-          </div>
-          <div class="grid tech-stack">
-            <img
-              class="stack-icon"
-              width="40"
-              height="40"
-              :src="require(`../assets/images/power_applet/html5.svg`)"
-            />
-            <small class="small">
-              <b>HTML and CSS</b> for setting up a template for the project and
-              applying styling
-            </small>
-          </div>
+              when parameters shift"
+            :icon="require(`../assets/images/power_applet/w3c.svg`)"
+          />
+          <grid-item
+            title="HTML and CSS"
+            desc="for setting up a template for the project and
+              applying styling"
+            :icon="require(`../assets/images/power_applet/html5.svg`)"
+          />
         </div>
       </div>
     </div>
@@ -155,9 +134,10 @@
 
 <script>
 import ImageWithHover from "@/components/ImageWithHover";
+import GridItem from "@/components/GridItem";
 
 export default {
-  components: { ImageWithHover },
+  components: { ImageWithHover, GridItem },
 };
 </script>
 
@@ -200,18 +180,9 @@ h3 {
   grid-template-columns: 1fr 2fr;
 }
 
-.tech-stack {
-  grid-template-columns: 40px 1fr;
-  grid-gap: 10px;
-  align-items: center;
-}
 .all-stack-items {
   grid-template-columns: 1fr;
   grid-gap: 10px;
-}
-
-.stack-icon {
-  margin: auto;
 }
 
 h2 ~ h3 {
@@ -263,9 +234,6 @@ section {
   .grid-image-right,
   .grid-image-left {
     grid-template-columns: 1fr;
-  }
-  .tech-stack {
-    grid-template-columns: 40px auto;
   }
   section,
   .section {
