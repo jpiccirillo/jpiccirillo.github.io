@@ -123,8 +123,18 @@
           tag="span"
           @click.stop.native="setSwoop('abt')"
           ><li class="li item" :class="isSwoop('abt')">
-            <i data-feather="smile"></i><span class="text">About</span>
+            <i data-feather="info"></i><span class="text">About</span>
           </li></router-link
+        >
+        <a href="https://www.linkedin.com/in/jfpiccirillo/" target="_blank"
+          ><li class="li item">
+            <i data-feather="linkedin"></i><span class="text">LinkedIn</span>
+          </li></a
+        >
+        <a href="https://github.com/jpiccirillo" target="_blank"
+          ><li class="li item">
+            <i data-feather="github"></i><span class="text">Github</span>
+          </li></a
         >
       </ul>
     </div>
