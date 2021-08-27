@@ -1,5 +1,5 @@
 <template>
-  <div class="grid tech-stack">
+  <div class="tech-stack">
     <span v-if="title === `jStat`">
       <pre><b>jStat</b></pre>
     </span>

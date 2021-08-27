@@ -152,8 +152,6 @@ $tablet: 769px;
 
 h2 {
   display: inline;
-  margin-top: 0px;
-  margin-bottom: 5px;
   color: var(--grey1);
 }
 
