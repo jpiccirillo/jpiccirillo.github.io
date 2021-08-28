@@ -1,6 +1,10 @@
 <template>
   <div class="total-left-border">
     <div class="g banner-container">
+      <div class="typewriter-wrapper">
+        <h1 class="typewriter_h1"></h1>
+        <h2 class="typewriter_h2"></h2>
+      </div>
       <div class="image-wrapper">
         <div class="inner-wrapper-for-curves">
           <img
@@ -8,10 +12,6 @@
             :src="require(`../assets/images/home/IMG_4501.jpg`)"
           />
         </div>
-      </div>
-      <div class="typewriter-wrapper">
-        <h1 class="typewriter_h1"></h1>
-        <h2 class="typewriter_h2"></h2>
       </div>
     </div>
     <section class="g grid panel" style="border-top-left-radius">
@@ -96,22 +96,6 @@
       </div>
     </section>
     <div class="g working-on">
-      <div class="forest-grid">
-        <div class="image-wrapper">
-          <div class="inner-wrapper-for-curves has-top">
-            <img
-              class="bike-image panel"
-              :src="require(`../assets/images/home/IMG_0828.jpg`)"
-            />
-          </div>
-        </div>
-        <div>
-          <img
-            class="forest-image panel"
-            :src="require(`../assets/images/home/IMG_8149.jpg`)"
-          />
-        </div>
-      </div>
       <section class="panel">
         <h1 style="margin-bottom: 0px;">Current and future projects</h1>
         <h4 style="color: var(--grey5); font-style: oblique; margin-top: 0px">
@@ -162,6 +146,22 @@
           </div>
         </div>
       </section>
+      <div class="forest-grid">
+        <div>
+          <img
+            class="forest-image panel"
+            :src="require(`../assets/images/home/IMG_8149.jpg`)"
+          />
+        </div>
+        <div class="image-wrapper">
+          <div class="inner-wrapper-for-curves has-top">
+            <img
+              class="bike-image panel"
+              :src="require(`../assets/images/home/IMG_0828.jpg`)"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -213,29 +213,52 @@ $cell: 400px;
 $active: whitesmoke;
 $newWidth: 50px;
 
-.total-left-border {
-  overflow-x: hidden;
-}
 .banner,
 .bike-image,
 .forest-image {
   padding: 0px;
   width: 100%;
   border: 3px solid $active;
+  border-radius: 0px;
 }
+
+.banner {
+  border-top: none;
+  margin-left: 30px;
+}
+
+.banner,
+.bike-image {
+  border-bottom-left-radius: calc(#{$newWidth}/ 2);
+}
+
+.bike-image {
+  border-top-left-radius: calc(#{$newWidth}/ 2);
+}
+
+.forest-image {
+  border-radius: 10px;
+}
+
+.image-wrapper {
+  padding: 30px;
+  padding-right: 0px;
+  overflow: hidden;
+}
+
+.banner-container > .image-wrapper {
+  padding-top: 0px;
+}
+
 .project-items {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
 }
 
-.forest-image.panel {
-  border-radius: 10px;
-}
-
 .forest-grid {
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: auto 300px;
   grid-gap: 30px;
   align-items: center;
 }
@@ -263,27 +286,15 @@ $newWidth: 50px;
   grid-gap: 20px;
 }
 
-.banner {
-  width: 100%;
-  border-top: none;
-  border-left: none;
-  border-radius: 0px;
-  border-bottom-right-radius: calc(#{$newWidth}/ 2);
-}
-.bike-image {
-  border-left: none;
-  border-radius: 0px;
-  border-bottom-right-radius: calc(#{$newWidth}/ 2);
-  border-top-right-radius: calc(#{$newWidth}/ 2);
-}
 .total-left-border {
-  border-left: 3px solid $active;
+  border-right: 3px solid $active;
+  margin-right: 0.75rem;
 }
 
 .typewriter-wrapper {
-  width: calc(100% - 60px);
+  width: 100%;
+  margin: auto auto auto 30px;
   align-self: center;
-  margin: auto;
 }
 
 .bike-image {
@@ -291,8 +302,8 @@ $newWidth: 50px;
 }
 
 .working-on {
-  grid-template-columns: 300px auto;
-  margin-right: 1.25rem;
+  grid-template-columns: auto 300px;
+  margin-left: 1.25rem;
   align-items: center;
 }
 
@@ -307,8 +318,9 @@ p {
 }
 
 .banner-container {
-  grid-template-columns: minmax(60%, 800px) auto;
+  grid-template-columns: auto minmax(60%, 800px);
   max-width: 100%;
+  grid-row-gap: 0px;
   // margin-right: 20px;
   // grid-gap: 0px;
 }
@@ -329,7 +341,7 @@ p {
 .inner-wrapper-for-curves:after {
   content: "";
   position: absolute;
-  left: 0px;
+  right: 0px;
   width: #{$newWidth};
   height: #{$newWidth};
   background: transparent;
@@ -341,59 +353,64 @@ p {
 // When top chamfer is active (showing), change box shadow so it is revealed
 .inner-wrapper-for-curves.has-top::before {
   top: calc(-1 * #{$newWidth});
-  box-shadow: calc(#{$newWidth} / -2) calc(#{$newWidth} / 2) 0 $active;
+  box-shadow: calc(#{$newWidth} / 2) calc(#{$newWidth} / 2) 0 $active;
 }
 
 // When bottom chamfer is active (showing), change box shadow so it is revealed
 .inner-wrapper-for-curves::after {
   bottom: calc(-1 * #{$newWidth} + 7px);
-  box-shadow: calc(#{$newWidth} / -2) calc(-1 * #{$newWidth} / 2) 0 $active;
+  box-shadow: calc(#{$newWidth} / 2) calc(-1 * #{$newWidth} / 2) 0 $active;
 }
 
-@media screen and (max-width: $tablet - 1) {
-  .banner-container,
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .banner {
-    width: 95%;
-  }
-}
 @media screen and (max-width: $desktop - 1) {
   .working-on {
     grid-template-columns: 1fr;
   }
-}
-
-.all-stack-items {
-  @media screen and (max-width: $desktop - 1) {
+  .all-stack-items {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-  @media screen and (max-width: $tablet - 1) {
+  .project-items {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (min-width: $desktop - 1) {
+  .forest-image {
+    display: none;
+  }
+  .forest-grid {
+    grid-gap: 0px;
+  }
+}
+@media screen and (max-width: $tablet - 1) {
+  .all-stack-items {
     grid-template-columns: 1fr 1fr 1fr;
   }
-
-  @media screen and (max-width: $mobile - 1) {
+}
+@media screen and (max-width: $mobile - 1) {
+  .all-stack-items {
     grid-template-columns: 1fr 1fr;
   }
-
-  @media screen and (max-width: $cell - 1) {
-    grid-template-columns: 1fr;
-  }
-}
-.project-items {
-  @media screen and (max-width: $desktop - 1) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.forest-image {
-  @media screen and (max-width: $mobile - 1) {
+  .forest-image {
     display: none;
   }
-  @media screen and (min-width: $desktop - 1) {
-    display: none;
+  .forest-grid {
+    grid-gap: 0px;
+  }
+  .banner-container,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .typewriter-wrapper {
+    order: 2;
+    margin-top: 0px;
+  }
+}
+@media screen and (max-width: $cell - 1) {
+  .all-stack-items {
+    grid-template-columns: 1fr;
+  }
+  .total-left-border {
+    overflow-x: hidden;
   }
 }
 </style>
