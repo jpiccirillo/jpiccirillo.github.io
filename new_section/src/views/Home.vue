@@ -1,20 +1,20 @@
 <template>
   <div class="total-left-border">
-    <div class="g banner-container">
+    <div class="grid banner-container">
       <div class="typewriter-wrapper">
-        <h1 class="typewriter_h1"></h1>
-        <h2 class="typewriter_h2"></h2>
+        <h1 class="typewriter_h1 monospace"></h1>
+        <h2 class="typewriter_h2 monospace"></h2>
       </div>
       <div class="image-wrapper">
         <div class="inner-wrapper-for-curves">
           <img
-            class="banner panel"
+            class="banner panel image"
             :src="require(`../assets/images/home/IMG_4501.jpg`)"
           />
         </div>
       </div>
     </div>
-    <section class="g grid panel" style="border-top-left-radius">
+    <section class="grid half-half panel" style="border-top-left-radius">
       <p>
         I'm a 27 year-old software engineer in Austin, TX, currently at
         <a href="holos.io">Holos</a>, designing and implementing a full stack
@@ -46,7 +46,7 @@
     </section>
     <section class="panel">
       <h1>My Skills</h1>
-      <div class="all-stack-items">
+      <div class="all-stack-items grid">
         <grid-item
           title="Vue.js"
           desc="for consistent personal and professional work since 2019"
@@ -95,7 +95,7 @@
         />
       </div>
     </section>
-    <div class="g working-on">
+    <div class="grid working-on">
       <section class="panel">
         <h1 style="margin-bottom: 0px;">Current and future projects</h1>
         <h4 style="color: var(--grey5); font-style: oblique; margin-top: 0px">
@@ -114,7 +114,7 @@
           terms of the entire stack, and exciting features and possiblities that
           lie in each part of the stack (backend, frontend, API in between, etc)
         </p>
-        <div class="project-items">
+        <div class="project-items monospace grid">
           <div class="project">
             <span>
               Dashboard for visualizing workout progress as collected from
@@ -146,17 +146,17 @@
           </div>
         </div>
       </section>
-      <div class="forest-grid">
+      <div class="forest-grid grid">
         <div>
           <img
-            class="forest-image panel"
+            class="forest-image panel image"
             :src="require(`../assets/images/home/IMG_8149.jpg`)"
           />
         </div>
         <div class="image-wrapper">
           <div class="inner-wrapper-for-curves has-top">
             <img
-              class="bike-image panel"
+              class="bike-image panel image"
               :src="require(`../assets/images/home/IMG_0828.jpg`)"
             />
           </div>
@@ -206,12 +206,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$desktop: 969px;
-$tablet: 770px;
-$mobile: 580px;
-$cell: 400px;
+@import "@/assets/scss/sizes.scss";
+@import "@/assets/scss/gridLayouts.scss";
+
 $active: whitesmoke;
 $newWidth: 50px;
+
+h1 {
+  margin-bottom: 0px;
+}
+h2 {
+  color: var(--grey2);
+}
+
+.grid {
+  grid-gap: 30px;
+}
 
 .banner,
 .bike-image,
@@ -251,20 +261,16 @@ $newWidth: 50px;
 }
 
 .project-items {
-  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
 }
 
 .forest-grid {
-  display: grid;
   grid-template-columns: auto 300px;
-  grid-gap: 30px;
   align-items: center;
 }
 
 .project {
-  font-family: monospace;
   background-color: var(--grey7);
   border-radius: 5px;
   overflow: hidden;
@@ -272,16 +278,8 @@ $newWidth: 50px;
   height: min-content;
   border: 2px solid var(--grey6);
 }
-.g {
-  display: grid;
-  grid-gap: 30px;
-}
-.grid {
-  grid-template-columns: 1fr 1fr;
-}
 
 .all-stack-items {
-  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
 }
@@ -295,6 +293,7 @@ $newWidth: 50px;
   width: 100%;
   margin: auto auto auto 30px;
   align-self: center;
+  padding-bottom: 10px;
 }
 
 .bike-image {
@@ -303,18 +302,7 @@ $newWidth: 50px;
 
 .working-on {
   grid-template-columns: auto 300px;
-  margin-left: 1.25rem;
   align-items: center;
-}
-
-h1,
-h2,
-p {
-  margin-top: 0px;
-}
-
-[class*="typewriter"] {
-  font-family: monospace;
 }
 
 .banner-container {

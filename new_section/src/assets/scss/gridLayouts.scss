@@ -1,0 +1,42 @@
+@import "@/assets/scss/sizes.scss";
+
+.grid {
+  display: grid;
+}
+
+.grid-image-right,
+.grid-image-left,
+.half-half {
+  align-items: center;
+  > * {
+    height: max-content;
+  }
+}
+
+.grid-image-left {
+  grid-template-columns: 2fr 1fr;
+}
+
+.grid-image-right {
+  grid-template-columns: 1fr 2fr;
+}
+
+.half-half {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (max-width: $desktop - 1) {
+  .grid-image-right,
+  .grid-image-left {
+    grid-template-columns: 1fr;
+  }
+  section,
+  .section {
+    margin: 0.75rem;
+  }
+}
+@media screen and (max-width: $cell - 1) {
+  .half-half {
+    grid-template-columns: 1fr;
+  }
+}

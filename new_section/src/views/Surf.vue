@@ -18,37 +18,37 @@
     </section>
     <section>
       <img
-        class="surf-image panel"
+        class="surf-image panel image"
         :src="require(`../assets/images/surf/surf-1.jpg`)"
       />
     </section>
     <section>
       <img
-        class="surf-image panel"
+        class="surf-image panel image"
         :src="require(`../assets/images/surf/surf-2.jpg`)"
       />
     </section>
     <section>
       <img
-        class="surf-image panel"
+        class="surf-image panel image"
         :src="require(`../assets/images/surf/surf-3.jpg`)"
       />
     </section>
     <section>
       <img
-        class="surf-image panel"
+        class="surf-image panel image"
         :src="require(`../assets/images/surf/surf-4.jpg`)"
       />
     </section>
     <section>
       <img
-        class="surf-image panel"
+        class="surf-image panel image"
         :src="require(`../assets/images/surf/surf-5.jpg`)"
       />
     </section>
     <section>
       <img
-        class="surf-image panel"
+        class="surf-image panel image"
         :src="require(`../assets/images/surf/surf-6.jpg`)"
       />
     </section>

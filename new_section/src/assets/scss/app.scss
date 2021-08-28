@@ -1,3 +1,5 @@
+@import "@/assets/scss/sizes.scss";
+
 :root {
   --grey0: rgb(10, 10, 10);
   --grey1: rgb(40, 40, 40);
@@ -41,12 +43,12 @@ body {
 
 #portfolio {
   transition: 0.3s ease;
-  color: var(--grey2);
   line-height: 1.65;
   padding-left: var(--totalSidebarWidth);
   width: calc(100vw - var(--totalSidebarWidth));
 }
 
+.section,
 section {
   margin: 1.25rem 1.5rem;
   // max-width: 1500px;
@@ -63,12 +65,55 @@ a {
 .panel {
   border-radius: 5px;
   box-shadow: 0px 3px 6px 3px rgba(10, 10, 10, 0.1);
-  padding: 1.25rem 1.5rem;
+  overflow: hidden;
+  &:not(.image) {
+    padding: 1.25rem 1.5rem;
+  }
 }
 
-p:first-child {
+h2 {
+  display: inline;
+  color: var(--grey1);
+}
+
+h3 {
   margin-top: 0px;
 }
-p:last-child {
-  margin-bottom: 0px;
+.title-and-pill ~ h3 {
+  color: var(--grey2);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0px;
+}
+
+p {
+  color: var(--grey2);
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.monospace {
+  font-family: monospace;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+.centered-statement {
+  max-width: 80%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media screen and (max-width: $desktop - 1) {
+  section,
+  .section {
+    margin: 0.75rem;
+  }
 }

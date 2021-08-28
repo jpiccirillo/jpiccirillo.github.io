@@ -142,100 +142,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$desktop: 900px;
-$tablet: 769px;
-
-.image {
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-h2 {
-  display: inline;
-  color: var(--grey1);
-}
-
-h3 {
-  margin-top: 0px;
-}
-
-.grid {
-  display: grid;
-}
-
-.grid-image-right,
-.grid-image-left {
-  align-items: center;
-  > * {
-    height: max-content;
-  }
-}
-
-.grid-image-left {
-  grid-template-columns: 2fr 1fr;
-}
-.grid-image-right {
-  grid-template-columns: 1fr 2fr;
-}
-
-.all-stack-items {
-  grid-template-columns: 1fr;
-  grid-gap: 10px;
-}
-
-h2 ~ h3 {
-  margin-top: 0px;
-}
-
-.section,
-section {
-  margin: 1.25rem 1.5rem;
-}
-
-.title-and-pill {
-  padding-bottom: 5px;
-}
-.title {
-  margin-right: 10px;
-}
-.pill {
-  padding: 3px 5px;
-  border: 1px solid var(--grey5);
-  border-radius: 4px;
-  color: var(--grey5);
-  position: relative;
-  top: -3px; // move it up 3px for more pleasing vertical centering
-  font-size: 0.8rem;
-  line-height: 2rem;
-  font-family: monospace;
-  cursor: pointer;
-}
+@import "@/assets/scss/pill.scss";
+@import "@/assets/scss/gridLayouts.scss";
 
 .image.panel {
-  padding: unset;
-}
-
-.masonry {
-  /* Masonry container */
-  column-count: 4;
-  column-gap: 1em;
-  margin: 1.5rem;
-}
-
-.centered-statement {
-  max-width: 80%;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-@media screen and (max-width: $desktop - 1) {
-  .grid-image-right,
-  .grid-image-left {
-    grid-template-columns: 1fr;
-  }
-  section,
-  .section {
-    margin: 0.75rem;
-  }
+  height: min-content;
 }
 </style>

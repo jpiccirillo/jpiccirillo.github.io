@@ -1,6 +1,6 @@
 <template>
   <div class="masonry">
-    <section class="surf-image panel" v-for="(source, i) in images" :key="i">
+    <section class="surf-image panel image" v-for="(source, i) in images" :key="i">
       <image-with-hover :source="source" />
     </section>
   </div>
@@ -24,10 +24,6 @@ export default {
 section {
   width: unset;
   margin: unset;
-  overflow: hidden;
-}
-.panel {
-  padding: unset;
 }
 
 .masonry {
