@@ -88,15 +88,6 @@
               @click.stop.native="setSwoop('dev')"
             >
               <li class="li item">
-                <span class="text">D3 Interactive Map</span>
-              </li>
-            </router-link>
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('dev')"
-            >
-              <li class="li item">
                 <span class="text">Statistical Power Applet</span>
               </li>
             </router-link>
@@ -110,30 +101,12 @@
               </li>
             </router-link>
             <router-link
-              :to="{ name: 'PowerApplet' }"
+              :to="{ name: 'Moment' }"
               tag="span"
               @click.stop.native="setSwoop('dev')"
             >
               <li class="li item">
-                <span class="text">Fitbit Data Visualization</span>
-              </li>
-            </router-link>
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('dev')"
-            >
-              <li class="li item">
-                <span class="text">Mint Financial Data</span>
-              </li>
-            </router-link>
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('dev')"
-            >
-              <li class="li item">
-                <span class="text">Computer Productivity</span>
+                <span class="text">App Usage</span>
               </li>
             </router-link>
           </ul>

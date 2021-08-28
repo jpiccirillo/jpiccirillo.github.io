@@ -6,6 +6,7 @@ import Surf from "../views/Surf.vue";
 import People from "../views/People.vue";
 import PowerApplet from "../views/PowerApplet.vue";
 import VOLT from "../views/VOLT.vue";
+import Moment from "../views/Moment.vue";
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,14 @@ const routes = [
     path: "/development/VOLT",
     name: "VOLT",
     component: VOLT,
+    meta: {
+      sidebarName: `dev`,
+    },
+  },
+  {
+    path: "/development/App-usage",
+    name: "Moment",
+    component: Moment,
     meta: {
       sidebarName: `dev`,
     },
