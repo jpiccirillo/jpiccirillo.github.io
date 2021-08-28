@@ -110,14 +110,14 @@ ul .li.active {
   border-right: none;
   transition: max-height 0.5s ease;
 
-  > li {
+  span li {
     font-size: 0.75rem;
     margin-bottom: 5px;
   }
-  > li:first-child {
+  span:first-child li {
     margin-top: 10px;
   }
-  > li:last-child {
+  span:last-child li {
     margin-bottom: 10px;
   }
 }

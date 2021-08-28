@@ -33,18 +33,42 @@
             <i data-feather="chevron-down" class="expand-icon"></i>
           </div>
           <ul id="inner-wrapper">
-            <li class="li item" @click.stop="setSwoop('map')">
-              <span class="text">Geological</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('map')">
-              <span class="text">Medieval Spain</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('map')">
-              <span class="text">Political / Choropleth</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('map')">
-              <span class="text">Campus Walking Map</span>
-            </li>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('map')"
+            >
+              <li class="li item">
+                <span class="text">Geological</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('map')"
+            >
+              <li class="li item">
+                <span class="text">Medieval Spain</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('map')"
+            >
+              <li class="li item">
+                <span class="text">Political / Choropleth</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('map')"
+            >
+              <li class="li item">
+                <span class="text">Campus Walking Map</span>
+              </li>
+            </router-link>
           </ul>
         </li>
         <li
@@ -58,9 +82,15 @@
             <i data-feather="chevron-down" class="expand-icon"></i>
           </div>
           <ul id="inner-wrapper">
-            <li class="li item" @click.stop="setSwoop('dev')">
-              <span class="text">D3 Interactive Map</span>
-            </li>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">D3 Interactive Map</span>
+              </li>
+            </router-link>
             <router-link
               :to="{ name: 'PowerApplet' }"
               tag="span"
@@ -70,15 +100,42 @@
                 <span class="text">Statistical Power Applet</span>
               </li>
             </router-link>
-            <li class="li item" @click.stop="setSwoop('dev')">
-              <span class="text">Fitbit Data Visualization</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('dev')">
-              <span class="text">Mint Financial Data</span>
-            </li>
-            <li class="li item" @click.stop="setSwoop('dev')">
-              <span class="text">Computer Productivity</span>
-            </li>
+            <router-link
+              :to="{ name: 'VOLT' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">VOLT Application</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">Fitbit Data Visualization</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">Mint Financial Data</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">Computer Productivity</span>
+              </li>
+            </router-link>
           </ul>
         </li>
         <li
@@ -94,14 +151,16 @@
           <ul id="inner-wrapper">
             <router-link
               :to="{ name: 'Home' }"
+              tag="span"
               @click.stop.native="setSwoop('photo')"
             >
-              <li class="li item" @click="setSwoop('photo')">
+              <li class="li item">
                 <span class="text">Places</span>
               </li></router-link
             >
             <router-link
               :to="{ name: 'People' }"
+              tag="span"
               @click.stop.native="setSwoop('photo')"
             >
               <li class="li item">
@@ -110,6 +169,7 @@
             </router-link>
             <router-link
               :to="{ name: 'Surf' }"
+              tag="span"
               @click.stop.native="setSwoop('photo')"
             >
               <li class="li item">
