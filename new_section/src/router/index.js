@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
 import Surf from "../views/Surf.vue";
 import People from "../views/People.vue";
 import PowerApplet from "../views/PowerApplet.vue";
@@ -17,14 +16,6 @@ const routes = [
     component: Home,
     meta: {
       sidebarName: `home`,
-    },
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: About,
-    meta: {
-      sidebarName: `abt`,
     },
   },
   {
@@ -66,6 +57,10 @@ const routes = [
     meta: {
       sidebarName: `dev`,
     },
+  },
+  {
+    path: "*",
+    redirect: "/",
   },
 ];
 

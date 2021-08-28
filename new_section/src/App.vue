@@ -16,62 +16,6 @@
           </li></router-link
         >
         <li
-          class="li item"
-          @click.stop="setSwoop('font')"
-          :class="isSwoop('font')"
-        >
-          <i data-feather="framer"></i><span class="text">Font</span>
-        </li>
-        <li
-          class="li title"
-          :class="`${isSwoop('map')} ${isActiveDropdown('map')}`"
-          @click="showDropdown('map')"
-        >
-          <div class="title-header">
-            <i data-feather="map"></i>
-            <span class="text">Mapping</span>
-            <i data-feather="chevron-down" class="expand-icon"></i>
-          </div>
-          <ul id="inner-wrapper">
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('map')"
-            >
-              <li class="li item">
-                <span class="text">Geological</span>
-              </li>
-            </router-link>
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('map')"
-            >
-              <li class="li item">
-                <span class="text">Medieval Spain</span>
-              </li>
-            </router-link>
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('map')"
-            >
-              <li class="li item">
-                <span class="text">Political / Choropleth</span>
-              </li>
-            </router-link>
-            <router-link
-              :to="{ name: 'PowerApplet' }"
-              tag="span"
-              @click.stop.native="setSwoop('map')"
-            >
-              <li class="li item">
-                <span class="text">Campus Walking Map</span>
-              </li>
-            </router-link>
-          </ul>
-        </li>
-        <li
           class="li title"
           :class="`${isSwoop('dev')} ${isActiveDropdown('dev')}`"
           @click="showDropdown('dev')"
@@ -107,6 +51,37 @@
             >
               <li class="li item">
                 <span class="text">App Usage</span>
+              </li>
+            </router-link>
+          </ul>
+        </li>
+        <li
+          class="li title"
+          :class="`${isSwoop('map')} ${isActiveDropdown('map')}`"
+          @click="showDropdown('map')"
+        >
+          <div class="title-header">
+            <i data-feather="map"></i>
+            <span class="text">Mapping</span>
+            <i data-feather="chevron-down" class="expand-icon"></i>
+          </div>
+          <ul id="inner-wrapper">
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('map')"
+            >
+              <li class="li item">
+                <span class="text">Geological</span>
+              </li>
+            </router-link>
+            <router-link
+              :to="{ name: 'PowerApplet' }"
+              tag="span"
+              @click.stop.native="setSwoop('map')"
+            >
+              <li class="li item">
+                <span class="text">Medieval Spain</span>
               </li>
             </router-link>
           </ul>
@@ -151,14 +126,6 @@
             </router-link>
           </ul>
         </li>
-        <router-link
-          :to="{ name: 'About' }"
-          tag="span"
-          @click.stop.native="setSwoop('abt')"
-          ><li class="li item" :class="isSwoop('abt')">
-            <i data-feather="info"></i><span class="text">About</span>
-          </li></router-link
-        >
         <a href="https://www.linkedin.com/in/jfpiccirillo/" target="_blank"
           ><li class="li item">
             <i data-feather="linkedin"></i><span class="text">LinkedIn</span>
