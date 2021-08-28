@@ -1,0 +1,21 @@
+$colors: (
+  "green": #0c0,
+  "orange": #ffa500,
+  "red": #ff0033,
+);
+
+.red,
+.orange,
+.green {
+  color: white;
+  user-select: none;
+  -webkit-transform: translateZ(0);
+}
+
+@each $name, $hex in $colors {
+  .#{$name} {
+    color: #{$hex};
+    text-shadow: 0px 0px 7px #{$hex};
+    -webkit-text-shadow: 0px 0px 7px #{$hex};
+  }
+}

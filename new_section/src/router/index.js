@@ -5,6 +5,7 @@ import About from "../views/About.vue";
 import Surf from "../views/Surf.vue";
 import People from "../views/People.vue";
 import PowerApplet from "../views/PowerApplet.vue";
+import VOLT from "../views/VOLT.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,14 @@ const routes = [
     path: "/development/statistical-power-applet",
     name: "PowerApplet",
     component: PowerApplet,
+    meta: {
+      sidebarName: `dev`,
+    },
+  },
+  {
+    path: "/development/VOLT",
+    name: "VOLT",
+    component: VOLT,
     meta: {
       sidebarName: `dev`,
     },
