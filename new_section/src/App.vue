@@ -67,7 +67,7 @@
           </div>
           <ul id="inner-wrapper">
             <router-link
-              :to="{ name: 'PowerApplet' }"
+              :to="{ name: 'Geological' }"
               tag="span"
               @click.stop.native="setSwoop('map')"
             >

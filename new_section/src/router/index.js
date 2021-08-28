@@ -6,6 +6,7 @@ import People from "../views/People.vue";
 import PowerApplet from "../views/PowerApplet.vue";
 import VOLT from "../views/VOLT.vue";
 import Moment from "../views/Moment.vue";
+import Geological from "../views/Geological.vue";
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,14 @@ const routes = [
     component: Moment,
     meta: {
       sidebarName: `dev`,
+    },
+  },
+  {
+    path: "/mapping/geological",
+    name: "Geological",
+    component: Geological,
+    meta: {
+      sidebarName: `map`,
     },
   },
   {
