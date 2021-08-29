@@ -28,6 +28,10 @@ export default {
   grid-column-start: 1;
 }
 
+.zoomed img {
+  transform: scale(1.01);
+}
+
 .overlay {
   display: grid;
   align-content: center;

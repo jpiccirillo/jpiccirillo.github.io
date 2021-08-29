@@ -144,8 +144,4 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/pill.scss";
 @import "@/assets/scss/gridLayouts.scss";
-
-.image.panel {
-  height: min-content;
-}
 </style>

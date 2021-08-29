@@ -250,6 +250,9 @@ h2 {
   border-radius: 10px;
 }
 
+.panel.image {
+  height: auto;
+}
 .image-wrapper {
   padding: 30px;
   padding-right: 0px;

@@ -76,7 +76,7 @@
               </li>
             </router-link>
             <router-link
-              :to="{ name: 'PowerApplet' }"
+              :to="{ name: 'MapsSpain' }"
               tag="span"
               @click.stop.native="setSwoop('map')"
             >
