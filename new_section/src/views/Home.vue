@@ -96,7 +96,7 @@
       </div>
     </section>
     <div class="grid working-on">
-      <section class="panel" style="margin-bottom: -30px">
+      <section class="panel working-on-box">
         <h1 style="margin-bottom: 0px;">Current and future projects</h1>
         <h4 style="color: var(--grey5); font-style: oblique; margin-top: 0px">
           Completed projects availabe from sidebar
@@ -354,11 +354,17 @@ h2 {
   .working-on {
     grid-template-columns: 1fr;
   }
+  .working-on-box {
+    margin-bottom: -30px;
+  }
   .all-stack-items {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .project-items {
     grid-template-columns: 1fr;
+  }
+  .forest-grid {
+    margin-left: 30px;
   }
 }
 @media screen and (min-width: $desktop - 1) {
