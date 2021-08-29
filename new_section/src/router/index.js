@@ -19,6 +19,7 @@ const routes = [
     component: Home,
     meta: {
       sidebarName: `home`,
+      title: () => "Home",
     },
   },
   {
@@ -27,6 +28,7 @@ const routes = [
     component: Surf,
     meta: {
       sidebarName: `photo`,
+      title: () => "Waves",
     },
   },
   {
@@ -35,6 +37,7 @@ const routes = [
     component: People,
     meta: {
       sidebarName: `photo`,
+      title: () => "People",
     },
   },
   {
@@ -43,6 +46,7 @@ const routes = [
     component: Places,
     meta: {
       sidebarName: `photo`,
+      title: () => "Places",
     },
   },
   {
@@ -51,6 +55,7 @@ const routes = [
     component: PowerApplet,
     meta: {
       sidebarName: `dev`,
+      title: () => "Statistical Power Applet",
     },
   },
   {
@@ -59,6 +64,7 @@ const routes = [
     component: VOLT,
     meta: {
       sidebarName: `dev`,
+      title: () => "Clinical Study Web Application",
     },
   },
   {
@@ -67,6 +73,7 @@ const routes = [
     component: Moment,
     meta: {
       sidebarName: `dev`,
+      title: () => "Phone Usage Visualization",
     },
   },
   {
@@ -75,6 +82,7 @@ const routes = [
     component: Geological,
     meta: {
       sidebarName: `map`,
+      title: () => "Geological Mapping",
     },
   },
   {
@@ -83,6 +91,7 @@ const routes = [
     component: MapsSpain,
     meta: {
       sidebarName: `map`,
+      title: () => "Maps of Medieval Spain",
     },
   },
   {
@@ -96,6 +105,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   scrollBehavior: () => ({ x: 0, y: 0 }),
+});
+
+router.beforeEach(async (to, from, next) => {
+  document.title = `J Piccirillo :: ${to.meta.title(to)}` || "Jeffrey Piccirillo";
+  next();
 });
 
 export default router;
