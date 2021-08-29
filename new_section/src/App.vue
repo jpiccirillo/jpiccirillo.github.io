@@ -98,7 +98,7 @@
           </div>
           <ul id="inner-wrapper">
             <router-link
-              :to="{ name: 'Home' }"
+              :to="{ name: 'Places' }"
               tag="span"
               @click.stop.native="setSwoop('photo')"
             >

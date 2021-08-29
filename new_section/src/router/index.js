@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Surf from "../views/Surf.vue";
 import People from "../views/People.vue";
+import Places from "../views/Places.vue";
 import PowerApplet from "../views/PowerApplet.vue";
 import VOLT from "../views/VOLT.vue";
 import Moment from "../views/Moment.vue";
@@ -32,6 +33,14 @@ const routes = [
     path: "/photos/people",
     name: "People",
     component: People,
+    meta: {
+      sidebarName: `photo`,
+    },
+  },
+  {
+    path: "/photos/places",
+    name: "Places",
+    component: Places,
     meta: {
       sidebarName: `photo`,
     },
