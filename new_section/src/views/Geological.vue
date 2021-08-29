@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       images: imageNumbers.map((i) =>
-        require(`../assets/images/geological/NM-${i}.jpg`)
+        require(`../assets/images/geological/NM-${i}_small.jpg`)
       ),
     };
   },

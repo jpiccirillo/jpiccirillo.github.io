@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       images: Array.from(Array(18)).map((_, i) =>
-        require(`../assets/images/people/People-${i + 1}.jpg`)
+        require(`../assets/images/people/People-${i + 1}_small.jpg`)
       ),
     };
   },

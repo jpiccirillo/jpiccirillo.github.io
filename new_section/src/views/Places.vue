@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       images: links.map((name) =>
-        require(`../assets/images/places/${name}.jpg`)
+        require(`../assets/images/places/${name}_small.jpg`)
       ),
     };
   },
