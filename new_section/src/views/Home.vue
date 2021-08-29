@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <section class="grid half-half panel" style="border-top-left-radius">
+    <section class="grid half-half panel bio" style="border-top-left-radius">
       <p>
         I'm a 27 year-old software engineer in Austin, TX, currently at
         <a href="holos.io">Holos</a>, designing and implementing a full stack
@@ -96,7 +96,7 @@
       </div>
     </section>
     <div class="grid working-on">
-      <section class="panel">
+      <section class="panel" style="margin-bottom: -30px">
         <h1 style="margin-bottom: 0px;">Current and future projects</h1>
         <h4 style="color: var(--grey5); font-style: oblique; margin-top: 0px">
           Completed projects availabe from sidebar
@@ -212,9 +212,6 @@ export default {
 $active: whitesmoke;
 $newWidth: 50px;
 
-h1 {
-  margin-bottom: 0px;
-}
 h2 {
   color: var(--grey2);
 }
@@ -376,6 +373,16 @@ h2 {
   .all-stack-items {
     grid-template-columns: 1fr 1fr 1fr;
   }
+  .bio {
+    grid-template-columns: 1fr;
+  }
+  .total-left-border {
+    border-right: 3px solid $active;
+    margin-right: 0px;
+  }
+  .typewriter-wrapper {
+    margin-top: 30px;
+  }
 }
 @media screen and (max-width: $mobile - 1) {
   .all-stack-items {
@@ -387,13 +394,15 @@ h2 {
   .forest-grid {
     grid-gap: 0px;
   }
-  .banner-container,
-  .grid {
+  .banner-container {
     grid-template-columns: 1fr;
   }
   .typewriter-wrapper {
     order: 2;
     margin-top: 0px;
+    margin-left: 0.75rem;
+    width: calc(100% - 30px);
+    margin-right: 30px;
   }
 }
 @media screen and (max-width: $cell - 1) {
@@ -402,6 +411,8 @@ h2 {
   }
   .total-left-border {
     overflow-x: hidden;
+  }
+  .typewriter-wrapper {
   }
 }
 </style>

@@ -199,4 +199,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/newSidebar.scss";
+@import "@/assets/scss/feather-colors.scss";
 </style>

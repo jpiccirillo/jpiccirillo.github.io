@@ -1,3 +1,5 @@
+@import "@/assets/scss/sizes.scss";
+
 $active: white;
 $transition: 0.25s;
 
@@ -7,9 +9,7 @@ $transition: 0.25s;
   position: fixed;
   z-index: 10;
 }
-.sidebar .feather {
-  display: none;
-}
+
 .sidebar a {
   text-decoration: none;
 }
@@ -21,13 +21,6 @@ ul {
   text-transform: uppercase;
 }
 
-ul:not(.li) {
-  padding: 20px 0 5px 10px;
-  border-right: var(--sbarBorderWidth) solid $active;
-  width: var(--collapsed-width);
-  transition: $transition;
-  overflow: hidden;
-}
 ul:not(.li):not(#inner-wrapper) {
   background: var(--grey7);
 }
@@ -49,8 +42,8 @@ ul .li {
   cursor: pointer;
   position: relative;
   transition: $transition;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 
   & .text {
     margin-left: 7px;
@@ -140,6 +133,10 @@ ul.ul:not(.clicked) .expand-icon {
 
 @media screen and (max-width: 2000px) {
   ul:not(.li) {
+    border-right: var(--sbarBorderWidth) solid $active;
+    width: var(--collapsed-width);
+    transition: $transition;
+    overflow: hidden;
     padding: 20px 0 5px var(--sbarLeftPaddig);
   }
   .text {
@@ -154,13 +151,6 @@ ul.ul:not(.clicked) .expand-icon {
     display: block;
   }
 
-  .sidebar .feather {
-    display: block;
-    z-index: 15;
-    height: 15px;
-    width: 15px;
-    min-width: 15px;
-  }
   li.item,
   .title-header {
     display: flex;
@@ -180,10 +170,5 @@ ul.ul:not(.clicked) .expand-icon {
 
   ul.clicked {
     width: var(--expanded-width);
-  }
-
-  ul .li {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
   }
 }
