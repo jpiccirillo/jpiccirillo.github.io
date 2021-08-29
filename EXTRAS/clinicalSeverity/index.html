@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pre-Op Clinical Severity Applet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96097643-1"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,400,700" rel="stylesheet">
+    <link href="c3.css" rel="stylesheet">
+    <script async src="c3.min.js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-96097643-1');
+    </script>
+    <style src="style.css"></style>
+</head>
+
+<body onLoad="startSpinningWheel()" style="margin:0;">
+
+    <div class="container">
+        <!-- <div class="graph"> -->
+        <div class="logo">
+        <img src="washulogo.png">
+    </div>
+        <div class="controls">
+            <table>
+                <tr>
+                    <td class="label">Functional Status:</td>
+                    <td><select class="input">
+                            <option value="incomplete" selected disabled>Choose...</option>
+                            <option value=">=4METs">Yes</option>
+                            <option value="<4METs">No</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="description">Can the patient climb 1 to 2 flights of stairs without stopping, or walk brisky on level ground without feeling short of breath?
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Comorbidity:</td>
+                    <td><select class="input">
+                                        <option value="incomplete" selected disabled>Choose...</option>
+                                        <option value="none/mild">0 = None</option>
+                                        <option value="none/mild">1 = Mild</option>
+                                        <option value="mod/severe">2 = Moderate</option>
+                                        <option value="mod/severe">3 = Severe</option>
+                                    </select></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="description">Identify the important medical comorbidities and grade severity using the <a href="http://otooutcomes.wustl.edu/Research/Research-Focus/Cancer/Comorbidity-Calculator" target=_blank>Comorbidity Calculator</a>.</td>
+                </tr>
+            </tr>
+            <tr>
+                    <td class="label">Pre-Op Weight Loss:</td>
+                    <td><select class="input">
+                                        <option value="incomplete" selected disabled>Choose...</option>
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                    </select></td>
+                </tr>
+                </tr>
+                <tr>
+                    <td colspan="2" class="description">Over the past 3 months, did the patient experience unintentional weight loss?</td>
+                </tr>
+
+                <tr>
+                    <td class="label">TNM Stage:</td>
+                    <td><select class="input">
+                                        <option value="incomplete" selected disabled>Choose...</option>
+                                        <option value="1or2">1 or 2</option>
+                                        <option value="3or4">3 or 4</option>
+                                    </select></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="description">Please use the AJCC version 7 Pathology Staging System.</td>
+                </tr>
+            </table>
+        </div>
+        <div class="results">
+            <div>
+                <div class="severity">Clinical Severity Staging: <span></span></div>
+            </div>
+            <div class="panes">
+                <div class="pane">
+                    <div class="label">30-Day Unplanned Readmission Rate:</div>
+                    <div id="day30"><span id="main">N/A</span><span id="ci"></span></div>
+                    <div class="description">
+                    Numbers in parentheses represent 95% confidence interval.
+                                    </div>
+                </div>
+                <div class="pane">
+                    <div class="label">90-Day Complication Rate:</div>
+                    <div id="day90"><span id="main">N/A</span>    <span id="ci"></span></div>
+                    <div class="description">
+                                        Numbers in parentheses represent 95% confidence interval.
+                </div>
+                </div>
+            </div>
+            <div class="chart">
+                <div class="label">Overall Survival:</div>
+                <div id="chart" style="height: 130px">
+                                <div id="loader"></div>
+                            </div>
+                <!-- <div class="description">
+                 Brief description here.  Note that it's possible for this text to change or update when a user hovers over a different month post-treatment, if there are blurbs that are relevant to different stages as time passes.
+             </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Moving all loading of page resources to after animated ring (in body) has begun -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="motion.js"></script>
+    </div>
+</body>
+
+</html>

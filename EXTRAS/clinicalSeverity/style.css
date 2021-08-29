@@ -1,0 +1,162 @@
+html, body {
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
+    overflow: hidden;
+}
+
+* {
+    /*border: 1px solid grey;*/
+    font-family: "Open Sans"
+}
+
+body {
+    /*width: 100vw;*/
+    /*min-width: 780px;*/
+    /*max-width: 1000px;*/
+    height: 800px;
+}
+
+.input {
+    width: 100%;
+}
+
+.container {
+    margin: 5px;
+    border: 1px solid grey;
+    min-width: 600px;
+    max-width: 900px;
+    font-size: 14px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.description {
+    color: grey;
+    font-style: oblique;
+    font-size: 90%;
+}
+
+.graph {
+    /*width: 70%;*/
+    height: 100%;
+    /*display: block;*/
+    background-color: #f1f1f1;
+}
+
+.controls {
+    display: inline-block;
+    width: calc(30% - 5px);
+    height: 100%;
+    padding-right: 5px;
+    border-right: 1px solid grey;
+    /*border: none;*/
+}
+
+.results {
+    display: inline-block;
+    width: 69%;
+    /*border-left: 1px solid grey;*/
+    vertical-align: top;
+}
+
+.logo {
+    padding: 5px;
+    padding-bottom:0px;
+}
+
+table {
+    width: 100%;
+}
+
+.c3-tooltip th,.c3-tooltip td {
+    font-size: 10px;
+}
+
+/*alternative coloring for title of toolitp*/
+.c3-tooltip th {
+    /*background-color: gainsboro;
+    color: black;*/
+}
+
+.c3-line-difference,
+.c3-circles-difference,
+.c3-circles-lowerbound,
+.c3-line-lowerbound {
+    display: none;
+}
+
+.panes {
+    /*width: 50%;*/
+    display: inline-flex;
+    border-bottom: 1px solid grey;
+}
+.pane {
+    padding: 5px;
+    padding-top: 0px;
+}
+.pane:last-child {
+    border-left: 1px solid grey;
+}
+.severity, .label {
+    font-weight: 700;
+}
+.severity {
+    padding: 5px;
+    font-size: 18px;
+    background-color: gainsboro;
+    border: none ! important;
+}
+.severity span {
+    font-style: oblique;
+    color: #a51417;
+}
+.chart {
+    padding: 5px;
+
+}
+#day30, #day90 {
+    display: table;
+    margin: auto;
+}
+
+/*#day30 span, #day90 span {
+
+}*/
+#main {
+    font-weight: 400;
+    font-size: 28px;
+    color: gainsboro;
+}
+#ci {
+    font-style: oblique;
+    color: grey;
+    font-size: 20px;
+}
+
+#loader {
+    /*position: relative;*/
+    /*left: 50%;*/
+    /*top: calc(350px/2 + 25px);*/
+    z-index: 1;
+    margin: auto;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #a51417;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}

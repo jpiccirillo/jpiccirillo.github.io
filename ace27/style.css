@@ -1,0 +1,167 @@
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+input + span {
+  color: rgb(70, 70, 70);
+  font-size: 13px;
+}
+.container {
+  max-height: calc(100% - 8px - 41px);
+  overflow: scroll;
+  padding-bottom: 30px;
+}
+
+.resultContainer {
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: calc(100% - 20px - 16px);
+}
+
+.clearScoreContainer {
+  display: inline;
+}
+
+.resutBoxContainer {
+  display: inline;
+}
+
+/* Input box style when form has just been rescored */
+.scoreIn {
+  color: indianred;
+  border: 1px solid indianred;
+  border-radius: 2px;
+  padding: 2px 3px;
+}
+
+/* Baseline input box style.  When returning to this class after removing scoreIn, we transition */
+.scoreOut {
+  border: 1px solid grey;
+  padding: 2px 3px;
+  border-radius: 2px;
+  -webkit-transition: all 500ms ease-in;
+  -moz-transition: all 500ms ease-in;
+  -o-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
+}
+
+.number-header,
+.system-header,
+.header {
+  font-weight: bold;
+}
+
+.number-header {
+  padding-top: 0px;
+  vertical-align: text-top;
+}
+
+.number-header > p {
+  margin-top: 0px;
+  text-align: right;
+}
+
+.header.middle {
+  text-align: right;
+}
+.header.right {
+  text-align: left;
+}
+
+p {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.system-header {
+  background-color: #cccccc;
+  padding: 1.2pt;
+  vertical-align: text-top;
+}
+
+.overall {
+  background-color: black;
+  color: white;
+}
+
+.grade-header {
+  margin-top: 0px;
+}
+.row:not(:first-child) {
+  margin-top: 0px;
+}
+
+.severe {
+  background-color: #ff9999;
+}
+
+.moderate {
+  background-color: #ccffcc;
+}
+
+.mild {
+  background-color: #ccffff;
+}
+
+.logo {
+  width: 100%;
+}
+.logo img {
+  height: auto;
+  max-width: 100%;
+}
+
+td.gutter {
+  padding: 0px;
+  width: 50px;
+}
+
+.row:not(:first-child) {
+  margin-left: 10px;
+}
+.row span {
+  margin-left: 5px;
+}
+.row span,
+.row li {
+  color: rgb(70, 70, 70);
+  font-size: 13px;
+}
+.row {
+  display: inline-block;
+  width: calc((100% - 30px) / 3);
+  vertical-align: top;
+}
+
+#clear-score {
+  border-style: solid;
+  border-radius: 2px;
+  border: none;
+  padding: 3px 8px;
+  color: white;
+  background-color: #dc3545;
+  float: right;
+}
+
+@media (max-width: 767px) {
+  .row:not(:first-child) {
+    margin-left: 0px;
+    margin-top: 15px;
+  }
+  .row {
+    display: block;
+    width: initial;
+  }
+
+  /* Substract 8px from both inline inputs.  For the resultBox take an extra 8px off bc it has 2px of padding and 2px of border on either side */
+  #resultBox {
+    width: 30%;
+  }
+
+  .resultContainer {
+    width: calc(100% - 16px);
+    padding: 10px 0px;
+  }
+}
