@@ -11,7 +11,7 @@
           ease of expression.
         </p>
         <p>
-          I learned that good portrait photograph depends less on having the
+          I learned that good portrait photography depends less on having the
           best camera, lenses, or technical prowess. Being an effective portrait
           photographer is about fostering a comfortable, relaxing environment -
           photos taken in this way are those that people most love and cherish.

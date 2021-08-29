@@ -40,7 +40,7 @@
       </p>
       <p>
         In my own projects, I'm always searching for the simplest and most
-        direct way to solve a problem and put something new and helpful into the
+        direct way to solve a problem to put something new and helpful into the
         world.
       </p>
     </section>
