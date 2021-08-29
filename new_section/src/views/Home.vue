@@ -107,10 +107,10 @@
           habits, life, and fitness, (through smartwatch, smartphone shortcuts
           and widgets I've written to time-track). Our world is full of rich
           data and building applications to visualize, manipulate, and
-          understand trends is fascinates me.
+          understand trends fascinates me.
         </p>
         <p>
-          The more experience and applicaitons I build, the more I think in
+          The more experience and applications I build, the more I think in
           terms of the entire stack, and exciting features and possiblities that
           lie in each part of the stack (backend, frontend, API in between, etc)
         </p>

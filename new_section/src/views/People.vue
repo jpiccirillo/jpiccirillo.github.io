@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.panel.image {
+  height: auto;
+}
+
 .masonry {
   /* Masonry container */
   column-count: 4;

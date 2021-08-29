@@ -56,6 +56,10 @@
 </template>
 
 <style lang="scss" scoped>
+.panel.image {
+  height: auto;
+}
+
 .surf-image {
   max-width: 100%;
   border-radius: 5px;
