@@ -157,8 +157,6 @@ export default {
   }
   .clamped {
     max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
   }
   .grid-image-left {
     grid-template-columns: 2fr 1fr;
