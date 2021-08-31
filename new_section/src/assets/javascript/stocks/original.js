@@ -31,6 +31,10 @@ const first = {
     shares: 54,
     basis: 91.88,
   },
+  mrna: {
+    shares: 0,
+    basis: 0,
+  },
 };
 
 const second = {
@@ -56,4 +60,18 @@ const second = {
   },
 };
 
-const allPurchases = { first, second };
+const third = {
+  rcl: {
+    shares: 42,
+    basis: 72.5,
+  },
+};
+
+const fourth = {
+  mrna: {
+    shares: 15,
+    basis: 389.81,
+  },
+};
+
+export const allPurchases = { first, second, third, fourth };

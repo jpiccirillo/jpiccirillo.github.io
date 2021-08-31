@@ -4,7 +4,7 @@ body {
 
 .loss,
 .gain {
-  font-size: 50px;
+  font-size: 35px;
   font-weight: 800;
   width: min-content;
   margin-left: auto;
@@ -20,20 +20,13 @@ body {
   text-shadow: 0px 0px 1px #0c0;
 }
 
-.padding {
-  padding: 20px;
-}
-
 .readout {
   display: grid;
-  grid-template-columns: repeat(3, 250px);
-  grid-row-gap: 10px;
-  grid-column-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
 }
 
 .card {
-  border-radius: 15px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 10px 0px;
   display: flex;
   flex-direction: column;
 }
@@ -52,11 +45,7 @@ body {
 }
 
 .global {
-  float: right;
-}
-
-@media (max-width: 769px) {
-  .readout {
-    grid-template-columns: repeat(2, 250px);
-  }
+  max-width: max-content;
+  margin-bottom: 30px;
+  margin-left: auto;
 }

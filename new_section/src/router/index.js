@@ -9,6 +9,7 @@ import VOLT from "../views/VOLT.vue";
 import Moment from "../views/Moment.vue";
 import Geological from "../views/Geological.vue";
 import MapsSpain from "../views/MapsSpain.vue";
+import Stocks from "../views/Stocks.vue";
 
 Vue.use(VueRouter);
 
@@ -92,6 +93,14 @@ const routes = [
     meta: {
       sidebarName: `map`,
       title: () => "Maps of Medieval Spain",
+    },
+  },
+  {
+    path: "/personal/77cde7249d2d4285ca7f402dccb8aeaa",
+    name: "StockPortfolio",
+    component: Stocks,
+    meta: {
+      title: () => "Stock Performance",
     },
   },
   {
