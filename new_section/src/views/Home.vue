@@ -70,12 +70,12 @@
         />
         <grid-item
           title="Python"
-          desc="for editing work, graphic design, and mockups since 2013"
+          desc="for scripting, dataset manipulation, and toolbox creation for personal projects and work since 2017"
           :icon="require(`../assets/images/home/python.svg`)"
         />
         <grid-item
           title="React.js"
-          desc="For occasional personal projects since 2018"
+          desc="for occasional personal projects since 2018"
           :icon="require(`../assets/images/home/react.svg`)"
         />
         <grid-item
@@ -85,7 +85,7 @@
         />
         <grid-item
           title="HTML / CSS"
-          desc="part of daily life, and to reason about JSX, VMMV, MVC and other frontend frameworks"
+          desc="as part of daily life, and to reason about JSX, VMMV, MVC and other frontend frameworks"
           :icon="require(`../assets/images/power_applet/html5.svg`)"
         />
         <grid-item
