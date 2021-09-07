@@ -58,15 +58,14 @@
           :icon="require(`../assets/images/home/node.svg`)"
         />
         <grid-item
-          title="d3.js"
+          title="D3.js"
           desc="for all web-based data visualization needs since 2015"
           :icon="require(`../assets/images/power_applet/d3.svg`)"
         />
         <grid-item
-          title="Figma"
-          desc="for mocking up component based user interfaces for
-            work since 2020"
-          :icon="require(`../assets/images/home/figma.svg`)"
+          title="Storybook.js"
+          desc="for showcasing and testing user interface components for work since 2019"
+          :icon="require(`../assets/images/home/storybook.svg`)"
         />
         <grid-item
           title="Python"
@@ -82,6 +81,12 @@
           title="Git"
           desc="to version-manage and review others' code for all development since 2015"
           :icon="require(`../assets/images/home/git.svg`)"
+        />
+        <grid-item
+          title="Figma"
+          desc="for mocking up component based user interfaces for
+            work since 2020"
+          :icon="require(`../assets/images/home/figma.svg`)"
         />
         <grid-item
           title="HTML / CSS"
