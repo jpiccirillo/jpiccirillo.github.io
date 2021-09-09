@@ -116,8 +116,8 @@
         </p>
         <p>
           The more experience and applications I build, the more I think in
-          terms of the entire stack, and exciting features and possiblities that
-          lie in each part of the stack (backend, frontend, API in between, etc)
+          terms of the entire stack, and the exciting features and possiblities that
+          lie in each part of the stack (backend, frontend, API in between, etc).
         </p>
         <div class="project-items monospace grid">
           <div class="project">

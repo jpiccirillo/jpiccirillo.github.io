@@ -15,7 +15,7 @@
       <p>
         I built this web application for a clinical study conducted at
         Washington University in St Louis during January - June 2021. More than
-        300 participants used the application on daily basis to complete their
+        300 participants used the application on a daily basis to complete their
         smell retraining exercises, log notes about their ongoing progress, get
         feedback on whether they're on-track for their current stage of the
         study.
