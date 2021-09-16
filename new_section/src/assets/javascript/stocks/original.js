@@ -74,4 +74,11 @@ const fourth = {
   },
 };
 
-export const allPurchases = { first, second, third, fourth };
+const fifth = {
+  appl: {
+    shares: 7,
+    basis: 149.15,
+  },
+};
+
+export const allPurchases = { first, second, third, fourth, fifth };
