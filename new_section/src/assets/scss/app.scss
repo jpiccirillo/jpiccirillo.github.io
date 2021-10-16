@@ -46,7 +46,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   display: grid;
   grid-template-columns: min-content auto;
-  overflow: scroll;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 #portfolio {

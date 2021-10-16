@@ -116,8 +116,9 @@
         </p>
         <p>
           The more experience and applications I build, the more I think in
-          terms of the entire stack, and the exciting features and possiblities that
-          lie in each part of the stack (backend, frontend, API in between, etc).
+          terms of the entire stack, and the exciting features and possiblities
+          that lie in each part of the stack (backend, frontend, API in between,
+          etc).
         </p>
         <div class="project-items monospace grid">
           <div class="project">
@@ -264,6 +265,9 @@ h2 {
 .banner-container > .image-wrapper {
   padding-top: 0px;
 }
+.forest-grid > .image-wrapper {
+  margin-left: auto;
+}
 
 .project-items {
   grid-template-columns: 1fr 1fr 1fr;
@@ -403,7 +407,7 @@ h2 {
     display: none;
   }
   .forest-grid {
-    grid-gap: 0px;
+    grid-template-columns: auto;
   }
   .banner-container {
     grid-template-columns: 1fr;
@@ -422,8 +426,6 @@ h2 {
   }
   .total-left-border {
     overflow-x: hidden;
-  }
-  .typewriter-wrapper {
   }
 }
 </style>
