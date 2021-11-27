@@ -81,4 +81,23 @@ const fifth = {
   },
 };
 
-export const allPurchases = { first, second, third, fourth, fifth };
+const sixth = {
+  nclh: {
+    shares: 254,
+    basis: 19.64,
+  },
+  rcl: {
+    shares: 73,
+    basis: 68.39,
+  },
+  ual: {
+    shares: 119,
+    basis: 41.76,
+  },
+  dal: {
+    shares: 139,
+    basis: 35.98,
+  },
+};
+
+export const allPurchases = { first, second, third, fourth, fifth, sixth };
