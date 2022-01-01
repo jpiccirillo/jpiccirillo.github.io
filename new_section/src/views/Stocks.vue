@@ -39,6 +39,8 @@ export default {
     },
   },
   mounted() {
+    fetch("https://www.bing.com/search?q=UAL").then(console.log);
+
     Promise.all(
       Object.keys(allPurchases.first)
         .map((k) => k.toUpperCase())
