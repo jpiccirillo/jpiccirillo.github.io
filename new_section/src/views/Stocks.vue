@@ -39,7 +39,11 @@ export default {
     },
   },
   mounted() {
-    fetch("https://www.bing.com/search?q=UAL").then(console.log);
+    fetch("https://www.bing.com/search?q=UAL", {
+      headers: new Headers({
+        "Access-Control-Allow-Origin": "*",
+      }),
+    }).then(console.log);
 
     Promise.all(
       Object.keys(allPurchases.first)
