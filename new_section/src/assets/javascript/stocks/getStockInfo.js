@@ -1,5 +1,4 @@
 const base = "https://api.polygon.io/v2/aggs/ticker";
-const start = "2020-04-07";
 const keys = [
   "FmqUDRp9RlOhOhe1mm1_pppFCgHAOtyr",
   "kQtHhouMI31SX5_MSclpodQXbN_LDGxi",
@@ -27,7 +26,12 @@ export function processSymbol(name, closingPrice) {
   };
 }
 
+const format = (d) => new Date(d).toLocaleDateString("en-CA");
+
 export function getURL(t, index) {
   const key = index > 4 ? 1 : 0;
-  return `${base}/${t}/range/1/day/${start}/${Date.now()}?apiKey=${keys[key]}`;
+  let d = new Date();
+  const today = format(d);
+  const y = format(new Date(d.setDate(d.getDate() - 1)));
+  return `${base}/${t}/range/1/hour/${y}/${today}?apiKey=${keys[key]}&sort=desc`;
 }

@@ -14,6 +14,17 @@
         <div :class="`result ${s.status}`" :id="s.name">
           {{ s.difference.toFixed(1) }}$
         </div>
+        <div class="small-print">
+          <span>${{ s.closingPrice }}</span
+          ><span>{{
+            s.closingTime.toLocaleString([], {
+              month: "numeric",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          }}</span>
+        </div>
       </div>
     </div>
     <div id="chartContainer"></div>
@@ -39,12 +50,6 @@ export default {
     },
   },
   mounted() {
-    fetch("https://www.bing.com/search?q=UAL", {
-      headers: new Headers({
-        "Access-Control-Allow-Origin": "*",
-      }),
-    }).then(console.log);
-
     Promise.all(
       Object.keys(allPurchases.first)
         .map((k) => k.toUpperCase())
@@ -60,10 +65,13 @@ export default {
     ).then((d) => {
       d.forEach((investment) => {
         const { name, data } = investment;
-        const closingPrice = data.results
-          ? data.results[data.results.length - 1].c
-          : 0;
-        this.stocks.push(processSymbol(name.toLowerCase(), closingPrice));
+        const closingPrice = data.results ? data.results[0].c : 0;
+        const closingTime = data.results ? data.results[0].t : 0;
+        this.stocks.push({
+          closingPrice,
+          closingTime: new Date(closingTime),
+          ...processSymbol(name.toLowerCase(), closingPrice),
+        });
       });
     });
   },

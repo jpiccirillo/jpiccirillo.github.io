@@ -49,3 +49,14 @@ body {
   margin-bottom: 30px;
   margin-left: auto;
 }
+
+.small-print {
+  color: grey;
+  font-size: 13px;
+  display: flex;
+  margin: 0px 10px 10px 10px;
+
+  > span:last-child {
+    margin-left: auto;
+  }
+}
