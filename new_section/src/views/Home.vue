@@ -16,8 +16,8 @@
     </div>
     <section class="grid half-half panel bio" style="border-top-left-radius">
       <p>
-        I'm a 27 year-old software engineer in Austin, TX, currently at
-        <a href="holos.io">Holos</a>, designing and implementing a full stack
+        I'm a {{ 27 | age }} year-old software engineer in Austin, TX, currently
+        at <a href="holos.io">Holos</a>, designing and implementing a full stack
         web solution to create, manage, share, and interact with VR assets.
       </p>
       <p>

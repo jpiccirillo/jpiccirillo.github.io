@@ -19,6 +19,8 @@ Vue.use(VueAnalytics, {
   router,
 });
 
+Vue.filter("age", () => Math.floor((new Date() - new Date("03/23/1994")) / 1000 / 60 / 60 / 24 / 365))
+
 Vue.config.productionTip = false;
 
 new Vue({
