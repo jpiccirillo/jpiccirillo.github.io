@@ -1,9 +1,7 @@
 name: Build and Deploy
 on:
   push:
-    branches: [ master, new_section ]
-  pull_request:
-    branches: [ master ]
+    branches: [ new_section ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
