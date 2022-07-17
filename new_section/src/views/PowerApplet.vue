@@ -3,13 +3,6 @@
     <div class="panel section">
       <div class="title-and-pill">
         <h2 class="title">Statistical Power Applet</h2>
-        <a
-          href="http://www.jpiccirillo.com/PowerApplet/"
-          target="_blank"
-          class="pill"
-          :tag="`a`"
-          >Live Site</a
-        >
       </div>
       <h3>Tool to visualize what variables contribute to statistical power</h3>
       <p>
