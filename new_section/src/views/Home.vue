@@ -143,7 +143,7 @@
             <span>
               Python project to process and parse 4 years' computer usage data
               from
-              <a href="www.rescuetime.com" target="_blank">RescueTime</a>, and
+              <a href="https://www.rescuetime.com" target="_blank">RescueTime</a>, and
               API to expose it at meaningful endpoints. Already wrote python3
               script which runs locally to collect and colate this data,
               eliminating need for Premium subscription, which is the only way
