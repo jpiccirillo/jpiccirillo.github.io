@@ -100,4 +100,11 @@ const sixth = {
   },
 };
 
-export const allPurchases = { first, second, third, fourth, fifth, sixth };
+const seventh = {
+  mtch: {
+    shares: 223,
+    basis: 47.09,
+  },
+};
+
+export const allPurchases = { first, second, third, fourth, fifth, sixth, seventh };
