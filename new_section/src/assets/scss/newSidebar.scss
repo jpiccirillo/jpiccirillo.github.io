@@ -1,0 +1,174 @@
+@import "@/assets/scss/sizes.scss";
+
+$active: white;
+$transition: 0.25s;
+
+.sidebar {
+  overflow: hidden;
+  // height: 100vh;
+  position: fixed;
+  z-index: 10;
+}
+
+.sidebar a {
+  text-decoration: none;
+}
+
+ul {
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+}
+
+ul:not(.li):not(#inner-wrapper) {
+  background: var(--grey7);
+}
+
+ul .li:not(.drawer):not(.active):hover {
+  transition: $transition;
+  background: var(--grey8);
+  & .text {
+    color: var(--grey0);
+  }
+}
+
+ul .li {
+  list-style: none;
+  padding: 10px;
+  padding-right: 0;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+  transition: $transition;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+  & .text {
+    margin-left: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+ul .li:before {
+  top: -40px;
+  box-shadow: 20px 20px 0 $active;
+}
+
+ul .li:after {
+  bottom: -40px;
+  box-shadow: 20px -20px 0 $active;
+}
+
+// Curved elements' default state
+ul .li:before,
+ul .li:after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  width: var(--cWidth);
+  height: var(--cWidth);
+  background: transparent;
+  border-radius: 100%;
+  transition: $transition;
+  box-shadow: none;
+  pointer-events: none;
+  z-index: 10;
+}
+
+// When top chamfer is active (showing), change box shadow so it is revealed
+ul .li.active:before {
+  top: calc(-1 * var(--cWidth));
+  box-shadow: calc(var(--cWidth) / 2) calc(var(--cWidth) / 2) 0 $active;
+}
+
+// When bottom chamfer is active (showing), change box shadow so it is revealed
+ul .li.active:after {
+  bottom: calc(-1 * var(--cWidth));
+  box-shadow: calc(var(--cWidth) / 2) calc(-1 * var(--cWidth) / 2) 0 $active;
+}
+
+ul .li.active {
+  $transition: transition;
+  background: $active;
+}
+
+#inner-wrapper {
+  max-height: 0;
+  padding: 0px !important;
+  width: 100%;
+  border-right: none;
+  transition: max-height 0.5s ease;
+
+  span li {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+  }
+  span:first-child li {
+    margin-top: 10px;
+  }
+  span:last-child li {
+    margin-bottom: 10px;
+  }
+}
+.title.clicked {
+  #inner-wrapper {
+    transition: max-height 0.5s ease;
+    max-height: 300px !important;
+  }
+}
+
+.expand-icon {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+ul.ul:not(.clicked) .text,
+ul.ul:not(.clicked) .expand-icon {
+  opacity: 0 !important;
+}
+
+@media screen and (max-width: 2000px) {
+  ul:not(.li) {
+    border-right: var(--sbarBorderWidth) solid $active;
+    width: var(--collapsed-width);
+    transition: $transition;
+    overflow: hidden;
+    padding: 20px 0 5px var(--sbarLeftPaddig);
+  }
+  .text {
+    transition: $transition;
+    max-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  ul.clicked .text {
+    transition: $transition;
+    display: block;
+  }
+
+  li.item,
+  .title-header {
+    display: flex;
+    align-items: center;
+    & .text {
+      margin-left: 7px;
+    }
+    max-height: 20px;
+    padding: 5px;
+    padding-left: 7px;
+    padding-right: 0px;
+  }
+
+  li.title {
+    padding: 0px;
+  }
+
+  ul.clicked {
+    width: var(--expanded-width);
+  }
+}

@@ -1,0 +1,40 @@
+$sans: "~@/assets/fonts/OpenSans/open-sans-v23-latin-";
+
+/* open-sans-300 - latin */
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: url($sans+"300.eot"); /* IE9 Compat Modes */
+  src: local(""), url($sans+"300.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url($sans+"300.woff2") format("woff2"),
+    /* Super Modern Browsers */ url($sans+"300.woff") format("woff"),
+    /* Modern Browsers */ url($sans+"300.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url($sans+"300.svg#OpenSans") format("svg"); /* Legacy iOS */
+}
+
+/* open-sans-regular - latin */
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url($sans+"regular.eot"); /* IE9 Compat Modes */
+  src: local(""), url($sans+"regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url($sans+"regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url($sans+"regular.woff") format("woff"),
+    /* Modern Browsers */ url($sans+"regular.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url($sans+"regular.svg#OpenSans") format("svg"); /* Legacy iOS */
+}
+
+/* open-sans-600 - latin */
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: url($sans+"600.eot"); /* IE9 Compat Modes */
+  src: local(""), url($sans+"600.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url($sans+"600.woff2") format("woff2"),
+    /* Super Modern Browsers */ url($sans+"600.woff") format("woff"),
+    /* Modern Browsers */ url($sans+"600.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url($sans+"600.svg#OpenSans") format("svg"); /* Legacy iOS */
+}
