@@ -1,4 +1,9 @@
-# new_section
+# Portfolio of recent projects 
+- Built in vue.js in 2020
+- The site's pages are in the `views/` directory
+- Reusable components in `components/` directory 
+- Various archived / deprecated pages' directories in public/*, containing redirects to their current sites
+- Build script in .github/workflows
 
 ## Project setup
 ```
@@ -19,6 +24,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
