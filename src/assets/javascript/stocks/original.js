@@ -15,7 +15,7 @@ const first = {
     shares: 171,
     basis: 29.11,
   },
-  appl: {
+  aapl: {
     shares: 40,
     basis: 127.24,
   },
@@ -79,7 +79,7 @@ const fourth = {
 };
 
 const fifth = {
-  appl: {
+  aapl: {
     shares: 7,
     basis: 149.15,
   },
