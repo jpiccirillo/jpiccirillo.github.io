@@ -15,8 +15,9 @@
           {{ s.difference.toFixed(1) }}$
         </div>
         <div class="small-print">
-          <span>${{ s.closingPrice }}</span
-          ><span>{{
+          <span>${{ s.closingPrice }}</span>
+          <span class="breakEvenPrice">(${{ s.breakEvenPrice }})</span>
+          <span>{{
             s.closingTime.toLocaleString([], {
               month: "numeric",
               day: "numeric",
@@ -49,6 +50,28 @@ export default {
       }, 0);
     },
   },
+  methods: {
+    breakEvenPrice(purchaseHistory) {
+      // Calculate the total cost of the shares currently held
+      const totalCost = purchaseHistory.reduce((total, { shares, basis }) => {
+        return total + shares * basis;
+      }, 0);
+
+      // Calculate the number of shares currently held
+      const numShares = purchaseHistory.reduce((total, { shares }) => {
+        return total + shares;
+      }, 0);
+
+      // Calculate the average cost per share for the currently held shares
+      const avgCostPerShare = totalCost / numShares;
+
+      // Calculate the break-even price
+      const breakEvenPrice = (numShares * avgCostPerShare) / numShares;
+
+      // Return the break-even price
+      return breakEvenPrice.toFixed(2);
+    },
+  },
   mounted() {
     Promise.all(
       Object.keys(allPurchases.first)
@@ -67,8 +90,13 @@ export default {
         const { name, data } = investment;
         const closingPrice = data.results ? data.results[0].c : 0;
         const closingTime = data.results ? data.results[0].t : 0;
+        const purchaseHistory = Object.entries(allPurchases)
+          .map(([, purchases]) => purchases[name.toLowerCase()])
+          .filter((a) => a);
+
         this.stocks.push({
           closingPrice,
+          breakEvenPrice: this.breakEvenPrice(purchaseHistory),
           closingTime: new Date(closingTime),
           ...processSymbol(name.toLowerCase(), closingPrice),
         });
