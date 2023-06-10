@@ -34,8 +34,13 @@
 
 <script>
 import { allPurchases } from "@/assets/javascript/stocks/original";
-import { getURL, processSymbol } from "@/assets/javascript/stocks/getStockInfo";
+import {
+  getURL,
+  fetchLocalTickerPrice,
+  processSymbol,
+} from "@/assets/javascript/stocks/getStockInfo";
 
+console.log(process.env.NODE_ENV);
 export default {
   data() {
     return {
@@ -76,15 +81,19 @@ export default {
     Promise.all(
       Object.keys(allPurchases.first)
         .map((k) => k.toUpperCase())
-        .map(function(ticker, i) {
-          return new Promise((res) => {
-            return fetch(getURL(ticker, i))
-              .then((r) => r.json())
-              .then((data) => {
-                res({ name: ticker, data });
-              });
-          });
-        })
+        .map(
+          process.env.NODE_ENV === "development"
+            ? fetchLocalTickerPrice
+            : function(ticker, i) {
+                return new Promise((res) => {
+                  return fetch(getURL(ticker, i))
+                    .then((r) => r.json())
+                    .then((data) => {
+                      res({ name: ticker, data });
+                    });
+                });
+              }
+        )
     ).then((d) => {
       d.forEach((investment) => {
         const { name, data } = investment;

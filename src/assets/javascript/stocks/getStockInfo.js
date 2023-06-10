@@ -1,9 +1,11 @@
+import { allPurchases } from "./original";
+import currentManualPrices from "./currentManualPrices.json";
+
 const base = "https://api.polygon.io/v2/aggs/ticker";
 const keys = [
   "FmqUDRp9RlOhOhe1mm1_pppFCgHAOtyr",
   "kQtHhouMI31SX5_MSclpodQXbN_LDGxi",
 ];
-import { allPurchases } from "./original";
 
 export function processSymbol(name, closingPrice) {
   let difference = 0;
@@ -34,4 +36,11 @@ export function getURL(t, index) {
   const today = format(d);
   const y = format(new Date(d.setDate(d.getDate() - 1)));
   return `${base}/${t}/range/1/hour/${y}/${today}?apiKey=${keys[key]}&sort=desc`;
+}
+
+// Returns data in shape { name: ticker, data }
+export function fetchLocalTickerPrice(t) {
+  const currentManualPrice = currentManualPrices[t] || 0;
+  const data = { results: [{ t: currentManualPrice, c: currentManualPrice }] };
+  return { name: t, data };
 }
