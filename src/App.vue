@@ -27,6 +27,15 @@
           </div>
           <ul id="inner-wrapper">
             <router-link
+              :to="{ name: 'GanttChart' }"
+              tag="span"
+              @click.stop.native="setSwoop('dev')"
+            >
+              <li class="li item">
+                <span class="text">Interactive Gantt Chart</span>
+              </li>
+            </router-link>
+            <router-link
               :to="{ name: 'PowerApplet' }"
               tag="span"
               @click.stop.native="setSwoop('dev')"

@@ -16,8 +16,11 @@
     </div>
     <section class="grid half-half panel bio" style="border-top-left-radius">
       <p>
-        I'm a {{ 27 | age }} year-old software engineer in Austin, TX, currently
-        working at <a href="https://www.babylonhealth.com/en-gb">Babylon Health</a> to maintain and improve web-based and mobile products which enable patients to access remote telehealth care.  Prior to this, I worked at <a href="holos.io">Holos</a>, designing and implementing a full stack
+        I'm a software engineer in Austin, TX, currently working at
+        <a href="https://www.babylonhealth.com/en-gb">Babylon Health</a> to
+        maintain and improve web-based and mobile products which enable patients
+        to access remote telehealth care. Prior to this, I worked at
+        <a href="holos.io">Holos</a>, designing and implementing a full stack
         web solution to create, manage, share, and interact with VR assets.
       </p>
       <p>
@@ -63,6 +66,11 @@
           :icon="require(`../assets/images/power_applet/d3.svg`)"
         />
         <grid-item
+          title="Github Actions"
+          desc="to design and implement CI pipelines at work, and personal projects since 2019"
+          :icon="require(`../assets/images/home/github.svg`)"
+        />
+        <grid-item
           title="Storybook.js"
           desc="for showcasing and testing user interface components for work since 2019"
           :icon="require(`../assets/images/home/storybook.svg`)"
@@ -87,11 +95,6 @@
           desc="for mocking up component based user interfaces for
             work since 2020"
           :icon="require(`../assets/images/home/figma.svg`)"
-        />
-        <grid-item
-          title="HTML / CSS"
-          desc="as part of daily life, and to reason about JSX, VMMV, MVC and other frontend frameworks"
-          :icon="require(`../assets/images/power_applet/html5.svg`)"
         />
         <grid-item
           title="Photoshop"
@@ -143,9 +146,9 @@
             <span>
               Python project to process and parse 4 years' computer usage data
               from
-              <a href="https://www.rescuetime.com" target="_blank">RescueTime</a>, and
-              API to expose it at meaningful endpoints. Already wrote python3
-              script which runs locally to collect and colate this data,
+              <a href="https://www.rescuetime.com" target="_blank">RescueTime</a
+              >, and API to expose it at meaningful endpoints. Already wrote
+              python3 script which runs locally to collect and colate this data,
               eliminating need for Premium subscription, which is the only way
               to see data older than 3mo</span
             >

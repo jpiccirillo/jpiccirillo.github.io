@@ -5,6 +5,7 @@ import Surf from "../views/Surf.vue";
 import People from "../views/People.vue";
 import Places from "../views/Places.vue";
 import PowerApplet from "../views/PowerApplet.vue";
+import GanttChart from "../views/GanttChart.vue";
 import VOLT from "../views/VOLT.vue";
 import Moment from "../views/Moment.vue";
 import Geological from "../views/Geological.vue";
@@ -57,6 +58,15 @@ const routes = [
     meta: {
       sidebarName: `dev`,
       title: () => "Statistical Power Applet",
+    },
+  },
+  {
+    path: "/development/gantt-plant-timelines",
+    name: "GanttChart",
+    component: GanttChart,
+    meta: {
+      sidebarName: `dev`,
+      title: () => "Interactive Plant Timelines",
     },
   },
   {
@@ -117,7 +127,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  document.title = `J Piccirillo :: ${to.meta.title(to)}` || "Jeffrey Piccirillo";
+  document.title =
+    `J Piccirillo :: ${to.meta.title(to)}` || "Jeffrey Piccirillo";
   next();
 });
 
