@@ -15,7 +15,7 @@ Vue.use(VueSidebarMenu);
 
 // Configuration VueAnalytics
 Vue.use(VueAnalytics, {
-  id: "UA-96097643-1",
+  id: "G-DW6S8PC93X",
   router,
 });
 
