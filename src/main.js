@@ -8,16 +8,9 @@ import "@/assets/scss/fonts.scss";
 import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import router from "./router";
-import VueAnalytics from "vue-analytics";
 
 Vue.use(VueFeatherIcon);
 Vue.use(VueSidebarMenu);
-
-// Configuration VueAnalytics
-Vue.use(VueAnalytics, {
-  id: "G-DW6S8PC93X",
-  router,
-});
 
 Vue.filter("age", () => Math.floor((new Date() - new Date("03/23/1994")) / 1000 / 60 / 60 / 24 / 365))
 
