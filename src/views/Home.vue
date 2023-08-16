@@ -82,7 +82,7 @@
         />
         <grid-item
           title="React.js"
-          desc="for occasional personal projects since 2018"
+          desc="for professional product development since 2021, and personal projects since 2018"
           :icon="require(`../assets/images/home/react.svg`)"
         />
         <grid-item
