@@ -118,6 +118,14 @@ const eight = {
   },
 };
 
+
+const nine = {
+  ccl: {
+    shares: 726,
+    basis: 13.68,
+  },
+}
+
 export const allPurchases = {
   first,
   second,
@@ -127,4 +135,5 @@ export const allPurchases = {
   sixth,
   seventh,
   eight,
+  nine
 };
