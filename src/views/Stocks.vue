@@ -15,16 +15,18 @@
           {{ s.difference.toFixed(1) }}$
         </div>
         <div class="small-print">
-          <span>${{ s.closingPrice }}</span>
-          <span class="breakEvenPrice">(${{ s.breakEvenPrice }})</span>
-          <span>{{
-            s.closingTime.toLocaleString([], {
-              month: "numeric",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          }}</span>
+          <div>Closing price: ${{ s.closingPrice }}</div>
+          <div class="">Break even / avg: ${{ s.breakEvenPrice }}</div>
+          <div class="">25% return: ${{ s._25 }}</div>
+          <div class="">Current return: {{ s.currentReturn }}%</div>
+          <div>
+            {{
+              s.closingTime.toLocaleString([], {
+                month: "numeric",
+                day: "numeric",
+              })
+            }}
+          </div>
         </div>
       </div>
     </div>
@@ -56,25 +58,25 @@ export default {
     },
   },
   methods: {
-    breakEvenPrice(purchaseHistory) {
+    numShares(purchaseHistory) {
+      return purchaseHistory.reduce((total, { shares }) => total + shares, 0);
+    },
+    averagePrice(purchaseHistory) {
       // Calculate the total cost of the shares currently held
       const totalCost = purchaseHistory.reduce((total, { shares, basis }) => {
         return total + shares * basis;
       }, 0);
 
-      // Calculate the number of shares currently held
-      const numShares = purchaseHistory.reduce((total, { shares }) => {
-        return total + shares;
-      }, 0);
-
       // Calculate the average cost per share for the currently held shares
-      const avgCostPerShare = totalCost / numShares;
-
-      // Calculate the break-even price
-      const breakEvenPrice = (numShares * avgCostPerShare) / numShares;
-
-      // Return the break-even price
-      return breakEvenPrice.toFixed(2);
+      return (totalCost / this.numShares(purchaseHistory)).toFixed(2);
+    },
+    _25PercentReturn(purchaseHistory) {
+      return (this.averagePrice(purchaseHistory) * 1.25).toFixed(2);
+    },
+    currentReturn(closingPrice, purchaseHistory) {
+      const amountRemaining = closingPrice / this.averagePrice(purchaseHistory);
+      const returnAsPercent = 100 * (amountRemaining - 1);
+      return returnAsPercent.toFixed(2);
     },
   },
   mounted() {
@@ -105,8 +107,10 @@ export default {
 
         this.stocks.push({
           closingPrice,
-          breakEvenPrice: this.breakEvenPrice(purchaseHistory),
+          breakEvenPrice: this.averagePrice(purchaseHistory),
+          _25: this._25PercentReturn(purchaseHistory),
           closingTime: new Date(closingTime),
+          currentReturn: this.currentReturn(closingPrice, purchaseHistory),
           ...processSymbol(name.toLowerCase(), closingPrice),
         });
       });
