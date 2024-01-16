@@ -126,6 +126,21 @@ const nine = {
   },
 }
 
+const ten = {
+  aal: {
+    shares: 774,
+    basis: 12.93
+  }, 
+  dal: {
+    shares: 271,
+    basis: 36.88
+  }, 
+  ual: {
+    shares: 259,
+    basis: 38.41
+  }
+}
+
 export const allPurchases = {
   first,
   second,
@@ -135,5 +150,6 @@ export const allPurchases = {
   sixth,
   seventh,
   eight,
-  nine
+  nine, 
+  ten
 };
