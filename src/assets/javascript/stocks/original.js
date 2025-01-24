@@ -141,6 +141,13 @@ const ten = {
   }
 }
 
+const eleven = {
+  mrna: {
+    shares: 267,
+    basis: 44.21
+  }
+}
+
 export const allPurchases = {
   first,
   second,
@@ -151,5 +158,6 @@ export const allPurchases = {
   seventh,
   eight,
   nine, 
-  ten
+  ten, 
+  eleven
 };
