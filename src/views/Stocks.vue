@@ -84,7 +84,7 @@ export default {
       Object.keys(allPurchases.first)
         .map((k) => k.toUpperCase())
         .map(
-          process.env.NODE_ENV === "development"
+          true
             ? fetchLocalTickerPrice
             : function(ticker, i) {
                 return new Promise((res) => {
