@@ -37,7 +37,6 @@
 <script>
 import { allPurchases } from "@/assets/javascript/stocks/original";
 import {
-  getURL,
   fetchLocalTickerPrice,
   processSymbol,
 } from "@/assets/javascript/stocks/getStockInfo";
