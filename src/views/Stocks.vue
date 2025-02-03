@@ -83,19 +83,7 @@ export default {
     Promise.all(
       Object.keys(allPurchases.first)
         .map((k) => k.toUpperCase())
-        .map(
-          true
-            ? fetchLocalTickerPrice
-            : function(ticker, i) {
-                return new Promise((res) => {
-                  return fetch(getURL(ticker, i))
-                    .then((r) => r.json())
-                    .then((data) => {
-                      res({ name: ticker, data });
-                    });
-                });
-              }
-        )
+        .map(fetchLocalTickerPrice)
     ).then((d) => {
       d.forEach((investment) => {
         const { name, data } = investment;
